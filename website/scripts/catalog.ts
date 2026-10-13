@@ -1,0 +1,235 @@
+export const locales = ["en", "es"] as const;
+export type Locale = (typeof locales)[number];
+export const text = {
+  en: {
+    docs: "Documentation",
+    search: "Search documentation",
+    empty: "No results found.",
+    menu: "Open navigation",
+    source: "Source files",
+    language: "Language",
+    appearance: "Appearance",
+    systemTheme: "System",
+    lightTheme: "Light",
+    darkTheme: "Dark",
+    contents: "On this page",
+    start: "Get started",
+    copy: "Copy",
+    copied: "Copied",
+    copyError: "Press Ctrl+C to copy",
+    groups: ["Start building", "Reference", "Inside koru", "Project evidence"],
+    footer: "Made for the web. Built for Android.",
+    note: "Experimental · 0.2.0-dev",
+  },
+  es: {
+    docs: "Documentación",
+    search: "Buscar documentación",
+    empty: "No se encontraron resultados.",
+    menu: "Abrir navegación",
+    source: "Archivos fuente",
+    language: "Idioma",
+    appearance: "Apariencia",
+    systemTheme: "Sistema",
+    lightTheme: "Claro",
+    darkTheme: "Oscuro",
+    contents: "En esta página",
+    start: "Primeros pasos",
+    copy: "Copiar",
+    copied: "Copiado",
+    copyError: "Pulsa Ctrl+C para copiar",
+    groups: [
+      "Empieza a construir",
+      "Referencia",
+      "Por dentro de koru",
+      "Evidencia del proyecto",
+    ],
+    footer: "Hecho para la web. Construido para Android.",
+    note: "Experimental · 0.2.0-dev",
+  },
+};
+export const pages = [
+  {
+    slug: "overview",
+    group: 0,
+    icon: "house",
+    titles: ["Meet koru", "Conoce koru"],
+    descriptions: [
+      "Turn static HTML, CSS and JavaScript into a signed Android APK with koru, an independent Go toolchain.",
+      "Convierte HTML, CSS y JavaScript estáticos en un APK Android firmado con koru, una toolchain independiente en Go.",
+    ],
+  },
+  {
+    slug: "getting-started",
+    group: 0,
+    icon: "rocket-launch",
+    titles: ["Getting started", "Primeros pasos"],
+    descriptions: [
+      "Build koru, initialize a web project and produce your first signed Android APK.",
+      "Compila koru, inicia un proyecto web y genera tu primer APK Android firmado.",
+    ],
+  },
+  {
+    slug: "configuration",
+    group: 0,
+    icon: "sliders-horizontal",
+    titles: ["Configuration", "Configuración"],
+    descriptions: [
+      "Every koru.json option, SDK constraint, permission, asset path and signing identity.",
+      "Opciones de koru.json, límites SDK, permisos, rutas de assets e identidad de firma.",
+    ],
+  },
+  {
+    slug: "cli",
+    group: 1,
+    icon: "terminal-window",
+    titles: ["CLI commands", "Comandos CLI"],
+    descriptions: [
+      "Reference for koru init, build, verify, doctor, keygen and standalone DEX commands.",
+      "Referencia de koru init, build, verify, doctor, keygen y comandos DEX independientes.",
+    ],
+  },
+  {
+    slug: "plugins",
+    group: 1,
+    icon: "puzzle-piece",
+    source: "docs/plugins.md",
+    titles: ["JavaScript & plugins", "JavaScript y plugins"],
+    descriptions: [
+      "Use the six built-in JavaScript plugins, MessagePort bridge and custom DEX plugin ABI.",
+      "Usa los seis plugins JavaScript, el puente MessagePort y la ABI de plugins DEX personalizados.",
+    ],
+  },
+  {
+    slug: "dex-api",
+    group: 1,
+    icon: "code",
+    source: "docs/dex-api.md",
+    titles: ["DEX API", "API DEX"],
+    descriptions: [
+      "Go DEX 035 API: registers, bytecode, identifiers, sections, exceptions and parser limits.",
+      "API Go DEX 035: registros, bytecode, identificadores, secciones, excepciones y límites del parser.",
+    ],
+  },
+  {
+    slug: "security",
+    group: 1,
+    icon: "shield-check",
+    titles: ["Security & signing", "Seguridad y firmas"],
+    descriptions: [
+      "Persistent signing keys, APK v2, intercepted HTTPS assets and WebView trust boundaries.",
+      "Claves persistentes, APK v2, assets HTTPS interceptados y límites de confianza del WebView.",
+    ],
+  },
+  {
+    slug: "architecture-dex",
+    group: 2,
+    icon: "stack",
+    source: "docs/adr/0001-dex-core.md",
+    titles: ["DEX architecture", "Arquitectura DEX"],
+    descriptions: [
+      "ADR 0001: independent DEX core, deterministic assembly and strict parser separation.",
+      "ADR 0001: núcleo DEX independiente, ensamblado determinista y separación del parser.",
+    ],
+  },
+  {
+    slug: "architecture-apk",
+    group: 2,
+    icon: "package",
+    source: "docs/adr/0002-apk-runtime.md",
+    titles: ["APK & runtime", "APK y runtime"],
+    descriptions: [
+      "ADR 0002: Go APK packaging, WebView HTTPS origin, MessagePort, plugins and runtime cache.",
+      "ADR 0002: empaquetado APK en Go, origen HTTPS, MessagePort, plugins y caché del runtime.",
+    ],
+  },
+  {
+    slug: "native",
+    group: 2,
+    icon: "cpu",
+    source: "runtime/native/README.md",
+    titles: ["Optional JNI adapter", "Adaptador JNI opcional"],
+    descriptions: [
+      "Compile and test the optional freestanding JNI plugin and understand ABI requirements.",
+      "Compila y prueba el plugin JNI opcional y conoce los requisitos de cada ABI.",
+    ],
+  },
+  {
+    slug: "testing",
+    group: 3,
+    icon: "flask",
+    source: "tests/README.md",
+    titles: ["Reproduce the tests", "Reproduce las pruebas"],
+    descriptions: [
+      "Go, JavaScript, JNI, opt-in Android validation and real WebView execution test instructions.",
+      "Pruebas Go, JavaScript, JNI, validación Android externa y ejecución real del WebView.",
+    ],
+  },
+  {
+    slug: "android-results",
+    group: 3,
+    icon: "android-logo",
+    source: "docs/results/full/README.md",
+    titles: ["Android evidence", "Evidencia Android"],
+    descriptions: [
+      "Recorded APK installation and execution on Android 11 API 30 x86_64, with explicit matrix limits.",
+      "Instalación y ejecución registradas en Android 11 API 30 x86_64, con límites explícitos de la matriz.",
+    ],
+  },
+  {
+    slug: "dex-results",
+    group: 3,
+    icon: "file-text",
+    source: "docs/results/README.md",
+    titles: ["Early DEX results", "Resultados DEX iniciales"],
+    descriptions: [
+      "Historical DEX-only test results, fuzz campaigns and benchmarks before the APK runtime milestone.",
+      "Resultados históricos de DEX, fuzz y benchmarks anteriores al hito del runtime APK.",
+    ],
+  },
+  {
+    slug: "milestones",
+    group: 3,
+    icon: "flag",
+    source: "docs/milestones.md",
+    titles: ["Milestones & scope", "Hitos y alcance"],
+    descriptions: [
+      "Implemented koru milestones and the remaining Android, signing and DEX compatibility work.",
+      "Hitos implementados de koru y trabajo pendiente de compatibilidad Android, firmas y DEX.",
+    ],
+  },
+  {
+    slug: "demo",
+    group: 3,
+    icon: "film-strip",
+    source: "docs/demo/README.md",
+    titles: ["CLI recording", "Grabación de la CLI"],
+    descriptions: [
+      "Reproduce the actual koru CLI demonstration with Charm VHS and review its validation records.",
+      "Reproduce la demostración real de koru con Charm VHS y consulta sus registros de validación.",
+    ],
+  },
+  {
+    slug: "web-example",
+    group: 3,
+    icon: "browser",
+    source: "examples/web/README.md",
+    titles: ["Web example", "Ejemplo web"],
+    descriptions: [
+      "The web fixture used to validate HTML, CSS, SVG, navigation, JavaScript and offline behavior.",
+      "Fixture web para validar HTML, CSS, SVG, navegación, JavaScript y comportamiento offline.",
+    ],
+  },
+  {
+    slug: "sources",
+    group: 3,
+    icon: "books",
+    titles: ["Documentation archive", "Archivo de documentación"],
+    descriptions: [
+      "All original koru documentation, official specification sources and raw validation artifacts.",
+      "Toda la documentación original, fuentes oficiales y artefactos de validación de koru.",
+    ],
+  },
+];
+export function route(base: string, lang: string, slug: string) {
+  return `${base}${lang}/${slug === "overview" ? "" : slug + "/"}`;
+}

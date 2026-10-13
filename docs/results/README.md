@@ -20,12 +20,17 @@ existen todavía. `summary.json` recoge casos, cobertura y hashes de artefactos.
 | Build sin proxy de módulos ni CGO | Pasa con `GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off CGO_ENABLED=0` |
 | CLI sin herramientas en PATH | Generación/inspección pasan con `PATH=/nonexistent`; `offline-cli.txt` |
 | Entrega ZIP | CRC correcto; reconstrucción desde extracción limpia sin proxy de módulos; binario y Answer DEX idénticos byte a byte (`cmp`, exit 0) |
-| Dependencias | Solo módulo koru y biblioteca estándar; `build-dependencies.txt` |
+| Dependencias | Cobra solo en `cmd/koru`; DEX, AXML, ARSC, APK y firmas siguen usando Go y la biblioteca estándar |
 | Windows amd64/macOS arm64 | Compilación cruzada solamente; `cross-builds.txt`; no se ejecutaron en esos sistemas |
 
 La cobertura conjunta usa `go test -coverpkg=./... -coverprofile=... ./...`:
 instrumenta también llamadas entre paquetes. Es evidencia de alcance de las
 pruebas, no una garantía de ausencia de errores.
+
+Los registros de comandos y hashes de este informe corresponden al estado previo
+a la incorporación de Cobra. La suite vigente también cubre la ayuda generada,
+los comandos en inglés y la validación de argumentos. El CLI usa Cobra; el núcleo
+de empaquetado y formatos Android sigue escrito en Go y la biblioteca estándar.
 
 ## Medidas DEX
 

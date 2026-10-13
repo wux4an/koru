@@ -1,45 +1,36 @@
 # koru
 
-Toolchain Android independiente que transforma una salida web estática en un APK
-firmado. El build normal está implementado en Go con biblioteca estándar: DEX,
-AXML, ARSC, ZIP alineado y firma APK v2. No genera Java/Kotlin ni usa JVM/JDK,
-Gradle, Android Studio, d8/dx, aapt, apksigner, zipalign o frameworks de wrappers.
+Koru is a self-contained Android toolchain that turns a static web project into a signed APK. The normal build is written in Go and the standard library: DEX, AXML, ARSC, aligned ZIP packaging, and APK v2 signing. It does not generate Java or Kotlin and does not use a JVM/JDK, Gradle, Android Studio, d8/dx, aapt, apksigner, zipalign, or wrapper frameworks.
 
-**Se ha instalado y ejecutado en Android 11/ART**: WebView muestra HTML, CSS e
-imágenes locales y ejecuta JavaScript con Wi‑Fi y datos desactivados. El puente,
-los plugins estándar y el ejemplo JNI opcional tienen pruebas reales. Evidencia:
-[docs/results/full](docs/results/full), además de los resultados históricos DEX.
+**Koru has been installed and run on Android 11/ART.** WebView displayed local HTML, CSS, and images and ran JavaScript with Wi-Fi and mobile data disabled. The bridge, standard plugins, and optional JNI example have been tested on a real Android emulator. Evidence is available in [docs/results/full](docs/results/full), alongside the historical DEX results.
 
-## Uso
+## Quick start
 
 ```sh
 CGO_ENABLED=0 go build -trimpath -buildvcs=false -o bin/koru ./cmd/koru
-./bin/koru init ./mi-app
-./bin/koru build ./mi-app --output app.apk
+./bin/koru init ./my-app
+./bin/koru build ./my-app --output app.apk
 ./bin/koru verify app.apk
-./bin/koru build ./mi-app --release --output app-release.apk
-./bin/koru doctor ./mi-app
+./bin/koru build ./my-app --release --output app-release.apk
+./bin/koru doctor ./my-app
 ```
 
-El binario no requiere Go ni red para compilar aplicaciones. Para compilar **koru**
-en este workspace, el Go real está en `/workspace/tooling/go/bin`:
+The `koru` binary does not need Go or a network connection to build apps. Check that your shell has a real Go compiler before rebuilding Koru: `/usr/bin/go` is a game in this workspace. Use `command -v go` and `go version` to verify the selected compiler. Here, the real Go compiler is exposed by the Nix user profile at `/etc/profiles/per-user/wux4an/bin/go`. Some other managed workspaces provide it at `/workspace/tooling/go/bin`; check that path exists before using it.
 
 ```sh
-export PATH=/workspace/tooling/go/bin:$PATH
+command -v go
+go version
+# If needed, prepend the directory containing your verified Go compiler:
+export PATH=/path/to/go/bin:$PATH
 ```
 
-`init` crea configuración, ejemplo HTML e identidad persistente en `.koru/signing.pem`
-con permisos 0600. Guardar esa identidad de forma segura para futuras actualizaciones.
-`build` nunca crea ni cambia una clave si falta o es inválida. `--release` reutiliza
-la clave configurada y deshabilita debug/DevTools; se puede seleccionar otra identidad
-existente con `--keystore`. `keygen --output firma.pem` crea una identidad nueva
-explícitamente y nunca sobrescribe un archivo existente.
+Rebuilding Koru itself also needs the Cobra module listed in `go.mod`. Go can fetch it during the first build, or use the local module cache for an offline rebuild. Cobra handles only command dispatch and help; the Android format and signing cores do not depend on it. The compiled `koru` binary can build apps offline.
 
-## Proyectos existentes y configuración
+`init` creates a project configuration, sample HTML, and a persistent signing identity at `.koru/signing.pem` with mode 0600. Keep that identity safe for future app updates. `build` never creates or changes a key when it is missing or invalid. `--release` reuses the configured key and disables debug mode and DevTools. Set `--keystore` to select another existing identity. `keygen --output signing.pem` explicitly creates a new identity and never overwrites an existing file.
 
-Koru acepta HTML/CSS/JS y carpetas de salida de React, Vue, Svelte u otros frameworks.
-Los compiladores de esos frameworks se ejecutan antes; koru no los implementa.
-Después de init, cambiar `webDir` por la carpeta estática deseada:
+## Existing projects and configuration
+
+Koru accepts HTML, CSS, and JavaScript, including static output folders from React, Vue, Svelte, and other frameworks. Run those frameworks' compilers separately; Koru does not implement them. After `init`, set `webDir` to the static output directory:
 
 ```json
 {
@@ -57,24 +48,13 @@ Después de init, cambiar `webDir` por la carpeta estática deseada:
 }
 ```
 
-Se validan SDKs (26 ≤ minSdk ≤ targetSdk ≤ 36), nombres, versiones, permisos,
-plugins y rutas. `icon` puede apuntar a un PNG. Los plugins agregan solamente sus
-permisos declarados: VIBRATE y POST_NOTIFICATIONS para los casos correspondientes.
-Para servicios externos HTTPS, declarar INTERNET explícitamente y configurar el
-servidor para el origen de la app. Los scripts e iframes externos están bloqueados;
-los scripts de la aplicación se empaquetan localmente.
+Koru validates SDK levels (`26 ≤ minSdk ≤ targetSdk ≤ 36`), identifiers, versions, permissions, plugins, and paths. `icon` can point to a PNG. Plugins add only their declared permissions, including VIBRATE and POST_NOTIFICATIONS when needed. To use external HTTPS services, declare INTERNET and configure the server for the app origin. External scripts and iframes are blocked; application scripts are packaged locally.
 
-El origen es `https://app.koru.invalid`, servido por clases DEX que interceptan
-assets. No se usa file:// en el runtime normal ni AndroidX. Service workers usan
-la misma allowlist desde Application context. Existe una opción SPA; desconocidos
-con extensión devuelven 404. Se rechazan symlinks, claves privadas dentro de assets,
-entradas inseguras y límites de tamaño. El APK debe escribirse fuera de webDir.
+The runtime uses the `https://app.koru.invalid` origin and DEX classes that intercept app assets. The normal runtime does not use `file://` or AndroidX. Service workers use the same allowlist from the Application context. SPA support is optional; unknown paths with file extensions return 404. Koru rejects symlinks, private keys inside assets, unsafe archive entries, and inputs over configured limits. The APK output must be outside `webDir`.
 
-La caché de runtime evita regenerar DEX si solo cambia contenido web. Incluye
-fingerprint del toolchain/configuración/rutas/plugins y SHA-256 del DEX. Corrupción
-produce un error explícito; `--no-cache` desactiva la caché.
+The runtime cache avoids regenerating DEX when only web content changes. Its fingerprint includes the toolchain, configuration, paths, plugins, and DEX SHA-256. Corruption returns an explicit error; `--no-cache` disables the cache.
 
-## API y plugins
+## JavaScript API and plugins
 
 ```js
 import { device, storage } from '/__koru/core.mjs';
@@ -82,21 +62,13 @@ console.log(await device.getInfo());
 await storage.set('theme', 'dark');
 ```
 
-El paquete `packages/javascript` se llama `@koru/core`. También está disponible
-`Koru.invoke("device.info", {})`. El puente usa MessagePort, targetOrigin explícito y frame principal; no usa
-addJavascriptInterface. Tiene IDs, errores estructurados, promesas, timeouts,
-validación y cancelación antes del dispatch.
+The `packages/javascript` package is named `@koru/core`. You can also call `Koru.invoke("device.info", {})`. The bridge uses MessagePort, an explicit target origin, and the main frame; it does not use `addJavascriptInterface`. It provides request IDs, structured errors, promises, timeouts, validation, and cancellation before dispatch.
 
-Los seis plugins iniciales y la ABI extensible se documentan en
-[docs/plugins.md](docs/plugins.md). Plugins personalizados se suministran como IR
-DEX y manifests, sin Java. Las bibliotecas JNI son opcionales, precompiladas por
-ABI y alineadas a 16 KiB; el ejemplo x86_64 y su código C están incluidos. Los
-plugins estándar no requieren C ni bibliotecas propias.
+The six initial plugins and extensible ABI are described in [docs/plugins.md](docs/plugins.md). Custom plugins are supplied as DEX IR and manifests, without Java. JNI libraries are optional, prebuilt per ABI, and aligned to 16 KiB; an x86_64 example and its C source are included. Standard plugins do not require C or custom libraries.
 
 ## CLI
 
-`init`, `build`, `build --release`, `verify`, `doctor`, `version` y `keygen`.
-El compilador DEX también puede utilizarse de forma independiente:
+The Cobra-based CLI provides `init`, `build`, `verify`, `doctor`, `version`, and `keygen`. The DEX compiler can also be used independently:
 
 ```sh
 ./bin/koru dex build examples/dex/answer.json --output answer.dex
@@ -104,49 +76,45 @@ El compilador DEX también puede utilizarse de forma independiente:
 ./bin/koru dex build --activity-experiment --output experiment.dex
 ```
 
-`--activity-experiment` conserva el primer experimento file:// para comparación;
-**no se utiliza en build**. La API Go está en [pkg/dex](pkg/dex), con un
-[ejemplo](examples/dex/main.go) y [documentación](docs/dex-api.md).
+`--activity-experiment` preserves the initial `file://` experiment for comparison; it is not used by APK builds. The Go API is in [pkg/dex](pkg/dex), with an [example](examples/dex/main.go) and [documentation](docs/dex-api.md).
 
-## Pruebas
+## Documentation site
+
+The bilingual Docsify site is developed separately from the Go toolchain. Install its documentation-only dependencies and start the local server with Bun:
+
+```sh
+cd website
+bun install --frozen-lockfile
+bun run dev
+```
+
+Open [http://localhost:4173/en/](http://localhost:4173/en/) for English or [http://localhost:4173/es/](http://localhost:4173/es/) for Spanish. To build for production, set `SITE_URL` to the real canonical site URL, including any optional subpath, then deploy `website/dist/` to static hosting:
+
+```sh
+SITE_URL=https://docs.example.com/koru/ bun run build
+```
+
+Replace the example URL with the actual domain and path. Bun and the website dependencies are for documentation development only; they are not needed to build the Go CLI or Android APKs.
+
+## Tests
 
 ```sh
 go test ./...
 go vet ./...
 go test -race ./...
-node --test packages/javascript/core.test.cjs  # solo pruebas del cliente JS
+node --test packages/javascript/core.test.cjs  # JavaScript client tests only
 ```
 
-El build no requiere Node. Los fuzz targets están en encoding, parser DEX, AXML,
-ARSC y signing. Las pruebas externas Android quedan en tests y nunca en el build:
-`dexdump`, `aapt`, `apksigner`, ADB, emulador y un JRE de pruebas se usaron únicamente
-para contraste/ejecución. La entrega no contiene esas herramientas ni un JDK.
+The build does not require Node. Fuzz targets cover encoding, DEX parsing, AXML, ARSC, and signing. External Android tests live under `tests` and are never part of the build: `dexdump`, `aapt`, `apksigner`, ADB, an emulator, and a test JRE were used only for comparison or execution. The delivered toolchain does not include those tools or a JDK.
 
-Las pruebas reales WebView usan `tests/android-smoke.py`, `android-navigation.py`,
-`android-worker.py` y `android-keyboard.py`, con un APK debug instalado y un puerto
-DevTools reenviado por ADB. Python/websockets son herramientas de QA opcionales.
+Real WebView tests use `tests/android-smoke.py`, `android-navigation.py`, `android-worker.py`, and `android-keyboard.py`, with a debug APK installed and a DevTools port forwarded through ADB. Python and websockets are optional QA tools.
 
-## Arquitectura y alcance
+## Architecture and scope
 
-DEX format/encoding/model/assembler/builder/parser son módulos separados. AXML,
-ARSC, APK y signing no dependen de herramientas Android. Config/app integran esos
-módulos; runtime/dex genera clases Android; runtime/native es opcional. Decisiones:
-[ADR DEX](docs/adr/0001-dex-core.md) y [ADR APK/runtime](docs/adr/0002-apk-runtime.md).
+DEX format, encoding, model, assembler, builder, and parser are separate modules. AXML, ARSC, APK packaging, and signing do not depend on Android tools. Config and app packages connect these modules; `runtime/dex` generates Android classes from Go; `runtime/native` is optional. See [ADR 0001: DEX core](docs/adr/0001-dex-core.md) and [ADR 0002: APK and runtime](docs/adr/0002-apk-runtime.md).
 
-Es una primera versión funcional, con una matriz Android limitada al emulador
-Android 11 x86_64. No implica certificación de todos los fabricantes/API ni
-aceptación en Play. La distribución actual es APK para instalación directa; no
-se generan AAB. Las notificaciones son inmediatas, no alarmas futuras. Firma v3/v4,
-multidex, anotaciones generales y verificación completa de tipos ART permanecen
-fuera del subconjunto inicial. La ejecución en ART complementa la validación
-estructural del parser propio. Windows/macOS tienen pruebas de compilación,
-pero Linux es el host operativo validado. No hay comparativas con Capacitor.
+This is an initial functional release, with Android validation limited to an Android 11 x86_64 emulator. It does not establish compatibility with every device or API level, or acceptance in Google Play. Distribution is currently an APK for direct installation; Koru does not generate AABs. Notifications are immediate rather than scheduled. APK v3/v4 signing, multidex, general annotations, and full ART type verification are outside the initial subset. Running on ART complements structural validation by Koru's own parser. Windows and macOS have compile checks, while Linux is the validated operational host. There are no comparisons with Capacitor.
 
-Los [agent-skills de Addy Osmani](https://github.com/addyosmani/agent-skills) están
-instalados como plugin Codex `agent-skills@agent-skills` y se aplicaron al desarrollo.
-Son herramientas del agente, no dependencias de koru. Código propio: MIT; header
-JNI AOSP: Apache-2.0 con licencia incluida.
+The [Addy Osmani agent skills](https://github.com/addyosmani/agent-skills) are installed as the Codex plugin `agent-skills@agent-skills` and were used during development. They are agent tools, not Koru dependencies. Original code is MIT licensed; the AOSP JNI header is Apache-2.0 and includes its license.
 
-Entrega reproducible: `python3 scripts/package.py --output koru-delivery.zip` después
-de compilar bin/koru y generar los APKs de ejemplo. Solo incluye archivos
-versionados, el ejecutable y dos APKs; rechaza claves y directorios privados.
+To create a reproducible delivery archive, run `python3 scripts/package.py --output koru-delivery.zip` after building `bin/koru` and generating the example APKs. The archive includes only versioned files, the executable, and two example APKs; it rejects keys and private directories.

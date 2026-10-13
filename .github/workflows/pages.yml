@@ -1,0 +1,71 @@
+name: Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "website/**"
+      - "docs/**"
+      - "README.md"
+      - "AGENTS.md"
+      - "LICENSE"
+      - "tests/README.md"
+      - "runtime/native/README.md"
+      - "examples/**"
+      - "packages/javascript/core.*"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: "1.2.13"
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - name: Install website dependencies
+        working-directory: website
+        run: bun install --frozen-lockfile
+      - name: Test content and formatting
+        working-directory: website
+        run: |
+          bun test
+          bun run format:check
+      - name: Build static documentation
+        working-directory: website
+        env:
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+        run: bun run build
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: website/dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy documentation
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

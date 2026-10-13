@@ -1,0 +1,28 @@
+{
+  "name": "koru-documentation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun scripts/build.ts && bun scripts/serve.ts",
+    "build": "bun scripts/build.ts",
+    "preview": "bun scripts/serve.ts",
+    "test": "bun test",
+    "test:browser": "bun scripts/browser-test.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@fontsource-variable/nunito": "5.3.0",
+    "@fontsource/jetbrains-mono": "5.3.0",
+    "@phosphor-icons/web": "2.1.2",
+    "docsify": "4.13.1",
+    "docsify-copy-code": "3.0.2",
+    "docsify-themeable": "0.9.0",
+    "marked": "15.0.12"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.10.2",
+    "playwright": "1.51.1",
+    "prettier": "3.6.2"
+  }
+}

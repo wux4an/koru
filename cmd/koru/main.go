@@ -4,7 +4,6 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"flag"
 	"fmt"
 	"io"
 	"koru.dev/koru/internal/app"
@@ -14,211 +13,316 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/spf13/cobra"
 )
 
 const version = "0.2.0-dev"
 const maxInputSize = 64 << 20
 
 func main() {
-	if e := run(os.Args[1:], os.Stdout); e != nil {
-		fmt.Fprintln(os.Stderr, "koru:", e)
+	if err := run(os.Args[1:], os.Stdout); err != nil {
+		fmt.Fprintln(os.Stderr, "koru:", err)
 		os.Exit(1)
 	}
 }
+
 func run(args []string, out io.Writer) error {
-	if len(args) == 0 {
-		return errors.New("usage: koru dex build <ir.json> --output classes.dex | dex inspect <file> | doctor | version")
+	root := newRootCommand(out, io.Discard)
+	root.SetArgs(args)
+	return root.Execute()
+}
+
+func newRootCommand(out, errOut io.Writer) *cobra.Command {
+	root := &cobra.Command{
+		Use:           "koru",
+		Short:         "Build native Android packages from web projects",
+		Long:          "Koru turns static web projects into signed Android APKs with a self-contained Go toolchain.",
+		SilenceErrors: true,
+		SilenceUsage:  true,
+		CompletionOptions: cobra.CompletionOptions{
+			DisableDefaultCmd: true,
+		},
 	}
-	switch args[0] {
-	case "version":
-		if len(args) != 1 {
-			return errors.New("version accepts no arguments")
-		}
-		_, e := fmt.Fprintf(out, "koru %s (%s/%s)\n", version, runtime.GOOS, runtime.GOARCH)
-		return e
-	case "doctor":
-		return doctor(args[1:], out)
-	case "build":
-		return apkBuild(args[1:], out)
-	case "init":
-		return initProject(args[1:], out)
-	case "keygen":
-		return keygen(args[1:], out)
-	case "verify":
-		if len(args) != 2 {
-			return errors.New("usage: koru verify app.apk")
-		}
-		b, e := readLimit(args[1], 320<<20)
-		if e != nil {
-			return e
-		}
-		report, e := app.Verify(b)
-		if e != nil {
-			return e
-		}
-		return json.NewEncoder(out).Encode(report)
-	case "dex":
-		if len(args) < 2 {
-			return errors.New("expected dex build or dex inspect")
-		}
-		switch args[1] {
-		case "build":
-			return build(args[2:], out)
-		case "inspect":
-			if len(args) != 3 {
-				return errors.New("usage: koru dex inspect <file.dex>")
-			}
-			b, e := readBounded(args[2])
-			if e != nil {
-				return e
-			}
-			f, e := dex.Inspect(b)
-			if e != nil {
-				return e
-			}
-			encoder := json.NewEncoder(out)
-			encoder.SetIndent("", "  ")
-			return encoder.Encode(f)
-		default:
-			return fmt.Errorf("unknown dex command %q", args[1])
-		}
-	default:
-		return fmt.Errorf("unknown command %q", args[0])
+	root.SetOut(out)
+	root.SetErr(errOut)
+	root.SetHelpFunc(func(command *cobra.Command, args []string) {
+		command.Print(command.UsageString())
+	})
+	root.SetUsageTemplate(helpTemplate(colorEnabled(out)))
+	root.AddCommand(newVersionCommand(), newDoctorCommand(), newAPKBuildCommand(), newInitCommand(), newKeygenCommand(), newVerifyCommand(), newDexCommand())
+	return root
+}
+
+func newVersionCommand() *cobra.Command {
+	return &cobra.Command{
+		Use:   "version",
+		Short: "Print the koru version",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, _ []string) error {
+			_, err := fmt.Fprintf(cmd.OutOrStdout(), "koru %s (%s/%s)\n", version, runtime.GOOS, runtime.GOARCH)
+			return err
+		},
 	}
 }
+
+func newDoctorCommand() *cobra.Command {
+	return &cobra.Command{
+		Use:   "doctor [project]",
+		Short: "Check a project's configuration and signing setup",
+		Args:  cobra.MaximumNArgs(1),
+		RunE:  func(cmd *cobra.Command, args []string) error { return doctor(args, cmd.OutOrStdout()) },
+	}
+}
+
+func newAPKBuildCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "build [project]",
+		Short: "Build and sign an Android APK",
+		Args:  cobra.MaximumNArgs(1),
+	}
+	cmd.Flags().String("output", "app.apk", "APK output path")
+	cmd.Flags().String("keystore", "", "existing PEM signing identity")
+	cmd.Flags().Bool("no-cache", false, "disable runtime DEX cache")
+	cmd.Flags().Bool("release", false, "disable debug mode and reuse the persistent identity")
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		output, _ := cmd.Flags().GetString("output")
+		key, _ := cmd.Flags().GetString("keystore")
+		noCache, _ := cmd.Flags().GetBool("no-cache")
+		release, _ := cmd.Flags().GetBool("release")
+		project := "."
+		if len(args) == 1 {
+			project = args[0]
+		}
+		return apkBuild(project, output, key, noCache, release, cmd.OutOrStdout())
+	}
+	return cmd
+}
+
+func newInitCommand() *cobra.Command {
+	return &cobra.Command{
+		Use:   "init [directory]",
+		Short: "Create a web project with a persistent signing identity",
+		Args:  cobra.MaximumNArgs(1),
+		RunE:  func(cmd *cobra.Command, args []string) error { return initProject(args, cmd.OutOrStdout()) },
+	}
+}
+
+func newKeygenCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "keygen",
+		Short: "Create a new PEM signing identity",
+		Args:  cobra.NoArgs,
+	}
+	cmd.Flags().StringP("output", "o", "", "new identity path (required)")
+	_ = cmd.MarkFlagRequired("output")
+	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
+		path, _ := cmd.Flags().GetString("output")
+		return keygen(path, cmd.OutOrStdout())
+	}
+	return cmd
+}
+
+func newVerifyCommand() *cobra.Command {
+	return &cobra.Command{
+		Use:   "verify <app.apk>",
+		Short: "Verify an APK signature and package structure",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			b, err := readLimit(args[0], 320<<20)
+			if err != nil {
+				return err
+			}
+			report, err := app.Verify(b)
+			if err != nil {
+				return err
+			}
+			return json.NewEncoder(cmd.OutOrStdout()).Encode(report)
+		},
+	}
+}
+
+func newDexCommand() *cobra.Command {
+	cmd := &cobra.Command{Use: "dex", Short: "Build and inspect Dalvik Executable files"}
+	buildCmd := &cobra.Command{
+		Use:   "build [ir.json]",
+		Short: "Compile DEX from a JSON intermediate representation",
+		Args: func(cmd *cobra.Command, args []string) error {
+			experiment, _ := cmd.Flags().GetBool("activity-experiment")
+			if experiment && len(args) != 0 {
+				return errors.New("the Activity experiment takes no IR input")
+			}
+			if !experiment && len(args) != 1 {
+				return errors.New("provide one IR JSON file, or use --activity-experiment")
+			}
+			return nil
+		},
+	}
+	buildCmd.Flags().String("output", "classes.dex", "DEX output path")
+	buildCmd.Flags().Bool("activity-experiment", false, "emit the experimental WebView Activity")
+	buildCmd.RunE = func(cmd *cobra.Command, args []string) error {
+		output, _ := cmd.Flags().GetString("output")
+		experiment, _ := cmd.Flags().GetBool("activity-experiment")
+		source := ""
+		if len(args) == 1 {
+			source = args[0]
+		}
+		return build(source, output, experiment, cmd.OutOrStdout())
+	}
+	inspectCmd := &cobra.Command{
+		Use:   "inspect <file.dex>",
+		Short: "Inspect a DEX file and print its structure as JSON",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			b, err := readBounded(args[0])
+			if err != nil {
+				return err
+			}
+			file, err := dex.Inspect(b)
+			if err != nil {
+				return err
+			}
+			encoder := json.NewEncoder(cmd.OutOrStdout())
+			encoder.SetIndent("", "  ")
+			return encoder.Encode(file)
+		},
+	}
+	cmd.AddCommand(buildCmd, inspectCmd)
+	return cmd
+}
+
+func helpTemplate(color bool) string {
+	cyan, mint, lavender, green, reset := "", "", "", "", ""
+	if color {
+		cyan, mint, lavender, green, reset = "\x1b[36m", "\x1b[92m", "\x1b[95m", "\x1b[32m", "\x1b[0m"
+	}
+	template := `{{printf "%sUsage%s:\n" "{{cyan}}" "{{reset}}"}}
+  {{.UseLine}}
+{{if .Long}}
+{{.Long}}
+{{end}}{{if .HasAvailableSubCommands}}
+{{printf "\n%sCommands%s:\n" "{{mint}}" "{{reset}}"}}{{range .Commands}}{{if .IsAvailableCommand}}{{printf "%s%s%s" "{{green}}" (rpad .Name .NamePadding) "{{reset}}"}} {{.Short}}
+{{end}}{{end}}{{end}}{{if .HasAvailableFlags}}
+{{printf "\n%sFlags%s:\n" "{{lavender}}" "{{reset}}"}}{{.LocalFlags.FlagUsages | trimTrailingWhitespaces}}
+{{end}}{{if .HasParent}}
+{{printf "\nRun '%s --help' for command details.\n" .CommandPath}}{{end}}`
+	template = strings.ReplaceAll(template, "{{cyan}}", cyan)
+	template = strings.ReplaceAll(template, "{{mint}}", mint)
+	template = strings.ReplaceAll(template, "{{lavender}}", lavender)
+	template = strings.ReplaceAll(template, "{{green}}", green)
+	return strings.ReplaceAll(template, "{{reset}}", reset)
+}
+
+func colorEnabled(w io.Writer) bool {
+	f, ok := w.(*os.File)
+	if !ok || os.Getenv("NO_COLOR") != "" || os.Getenv("TERM") == "dumb" {
+		return false
+	}
+	info, err := f.Stat()
+	return err == nil && info.Mode()&os.ModeCharDevice != 0
+}
+
 func readBounded(path string) ([]byte, error) { return readLimit(path, maxInputSize) }
 func readLimit(path string, limit int64) ([]byte, error) {
-	f, e := os.Open(path)
-	if e != nil {
-		return nil, e
+	f, err := os.Open(path)
+	if err != nil {
+		return nil, err
 	}
 	defer f.Close()
-	s, e := f.Stat()
-	if e != nil {
-		return nil, e
+	s, err := f.Stat()
+	if err != nil {
+		return nil, err
 	}
 	if !s.Mode().IsRegular() {
 		return nil, errors.New("input must be a regular file")
 	}
-	b, e := io.ReadAll(io.LimitReader(f, limit+1))
-	if e != nil {
-		return nil, e
+	b, err := io.ReadAll(io.LimitReader(f, limit+1))
+	if err != nil {
+		return nil, err
 	}
 	if int64(len(b)) > limit {
 		return nil, fmt.Errorf("input exceeds CLI %d byte limit", limit)
 	}
 	return b, nil
 }
-func build(args []string, out io.Writer) error {
-	// Go flag stops at the first positional argument; support the advertised
-	// `koru dex build input.json --output result.dex` syntax explicitly.
-	var source string
-	flags := []string{}
-	for i := 0; i < len(args); i++ {
-		a := args[i]
-		if a == "--output" || a == "-output" {
-			if i+1 == len(args) {
-				return errors.New("--output requires a path")
-			}
-			flags = append(flags, a, args[i+1])
-			i++
-			continue
-		}
-		if strings.HasPrefix(a, "-") {
-			flags = append(flags, a)
-		} else {
-			if source != "" {
-				return errors.New("only one IR file is allowed")
-			}
-			source = a
-		}
-	}
-	fs := flag.NewFlagSet("dex build", flag.ContinueOnError)
-	fs.SetOutput(io.Discard)
-	output := fs.String("output", "classes.dex", "output path")
-	experiment := fs.Bool("activity-experiment", false, "emit experimental WebView Activity")
-	if e := fs.Parse(flags); e != nil {
-		return e
-	}
-	if fs.NArg() != 0 {
-		return errors.New("unexpected argument")
-	}
+
+func build(source, output string, experiment bool, out io.Writer) error {
 	var p dex.Program
-	if *experiment {
+	if experiment {
 		if source != "" {
-			return errors.New("activity experiment takes no IR input")
+			return errors.New("the Activity experiment takes no IR input")
 		}
 		p = runtimedex.ActivityExperiment()
 	} else {
 		if source == "" {
-			return errors.New("usage: koru dex build <ir.json> --output classes.dex")
+			return errors.New("provide one IR JSON file, or use --activity-experiment")
 		}
-		b, e := readBounded(source)
-		if e != nil {
-			return e
+		b, err := readBounded(source)
+		if err != nil {
+			return err
 		}
 		dec := json.NewDecoder(strings.NewReader(string(b)))
 		dec.DisallowUnknownFields()
-		if e = dec.Decode(&p); e != nil {
-			return e
+		if err = dec.Decode(&p); err != nil {
+			return err
 		}
 		var extra any
-		if e = dec.Decode(&extra); e != io.EOF {
+		if err = dec.Decode(&extra); err != io.EOF {
 			return errors.New("trailing JSON input")
 		}
 	}
 	if source != "" {
-		a, e := filepath.Abs(source)
-		if e != nil {
-			return e
+		a, err := filepath.Abs(source)
+		if err != nil {
+			return err
 		}
-		b, e := filepath.Abs(*output)
-		if e != nil {
-			return e
+		b, err := filepath.Abs(output)
+		if err != nil {
+			return err
 		}
 		if a == b {
 			return errors.New("output must differ from input")
 		}
-		sourceInfo, e := os.Stat(source)
-		if e != nil {
-			return e
+		sourceInfo, err := os.Stat(source)
+		if err != nil {
+			return err
 		}
-		if target, e := os.Stat(*output); e == nil && os.SameFile(sourceInfo, target) {
+		if target, err := os.Stat(output); err == nil && os.SameFile(sourceInfo, target) {
 			return errors.New("output aliases input")
 		}
 	}
-	b, e := dex.Build(p)
-	if e != nil {
-		return e
+	b, err := dex.Build(p)
+	if err != nil {
+		return err
 	}
-	if e = atomicWrite(*output, b); e != nil {
-		return e
+	if err = atomicWrite(output, b); err != nil {
+		return err
 	}
-	_, e = fmt.Fprintf(out, "wrote %s (%d bytes), DEX 035 structurally verified\n", *output, len(b))
-	return e
+	_, err = fmt.Fprintf(out, "Wrote %s (%d bytes); DEX 035 verified successfully.\n", output, len(b))
+	return err
 }
 
 // Write the complete validated file before replacing an existing output.
 func atomicWrite(path string, b []byte) error {
-	tmp, e := os.CreateTemp(filepath.Dir(path), ".koru-dex-*")
-	if e != nil {
-		return e
+	tmp, err := os.CreateTemp(filepath.Dir(path), ".koru-dex-*")
+	if err != nil {
+		return err
 	}
 	defer os.Remove(tmp.Name())
-	if _, e = tmp.Write(b); e != nil {
-		tmp.Close()
-		return e
+	if _, err = tmp.Write(b); err != nil {
+		_ = tmp.Close()
+		return err
 	}
-	if e = tmp.Chmod(0644); e != nil {
-		tmp.Close()
-		return e
+	if err = tmp.Chmod(0644); err != nil {
+		_ = tmp.Close()
+		return err
 	}
-	if e = tmp.Sync(); e != nil {
-		tmp.Close()
-		return e
+	if err = tmp.Sync(); err != nil {
+		_ = tmp.Close()
+		return err
 	}
-	if e = tmp.Close(); e != nil {
-		return e
+	if err = tmp.Close(); err != nil {
+		return err
 	}
 	return os.Rename(tmp.Name(), path)
 }

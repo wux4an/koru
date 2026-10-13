@@ -4,6 +4,11 @@ Resultados obtenidos el 2026-10-13. Los archivos son salidas reales; no fixtures
 simulen ejecución Android. Herramientas oficiales solo se usan en QA, fuera del
 build normal.
 
+Este informe conserva las mediciones y salidas capturadas antes del cambio a
+Cobra. Después se añadió Cobra exclusivamente al CLI; la suite actual `go test
+./...`, `go vet ./...` y `go test -race -count=1 ./...` volvió a pasar. Los
+porcentajes de cobertura y snapshots CLI de abajo no incluyen ese cambio.
+
 ## Compilador y toolchain
 
 - 114 casos/subcasos Go aprobados en 16 paquetes: go-tests.jsonl.

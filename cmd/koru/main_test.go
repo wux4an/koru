@@ -50,9 +50,27 @@ func TestErrorsPreserveOutput(t *testing.T) {
 	}
 }
 func TestUnsupportedCommandsAndArguments(t *testing.T) {
-	for _, args := range [][]string{nil, {"build"}, {"verify", "x.apk"}, {"dex"}, {"dex", "inspect"}, {"dex", "build"}, {"dex", "build", "--output"}, {"dex", "build", "--activity-experiment", "input.json"}, {"unknown"}, {"version", "extra"}, {"doctor", "extra"}} {
+	for _, args := range [][]string{{"build", "one", "two"}, {"verify", "x.apk"}, {"dex", "inspect"}, {"dex", "build"}, {"dex", "build", "--output"}, {"dex", "build", "--activity-experiment", "input.json"}, {"unknown"}, {"version", "extra"}, {"doctor", "extra"}} {
 		if e := run(args, &bytes.Buffer{}); e == nil {
 			t.Fatal(args)
+		}
+	}
+}
+
+func TestCobraHelpIsEnglishAndListsCommands(t *testing.T) {
+	var out bytes.Buffer
+	if err := run([]string{"--help"}, &out); err != nil {
+		t.Fatal(err)
+	}
+	help := out.String()
+	for _, want := range []string{"Usage:", "Commands:", "Build and sign an Android APK", "Check a project's configuration", "version"} {
+		if !strings.Contains(help, want) {
+			t.Fatalf("help is missing %q:\n%s", want, help)
+		}
+	}
+	for _, unwanted := range []string{"Uso:", "Comandos:", "inicializado", "Aplicación"} {
+		if strings.Contains(help, unwanted) {
+			t.Fatalf("help contains non-English text %q:\n%s", unwanted, help)
 		}
 	}
 }

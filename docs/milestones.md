@@ -8,7 +8,13 @@
 | 4 APK | AXML, ARSC/icono, ZIP32 alineado, identidad persistente, firma v2 y verificación propia | Instalación y actualización con misma firma; aapt/apksigner externos aceptan la salida |
 | 5 WebView | Origen HTTPS controlado, assets, CSP, SPA e interceptor de service workers | HTML/JS/CSS/SVG sin Wi‑Fi ni datos; navegación, Atrás y teclado comprobados |
 | 6 Runtime | Puente MessagePort, validación/promesas/errores; seis plugins y ABI DEX; JNI opcional | Dispositivo/app/storage/vibración/notificaciones/chooser probados; JNI info ejecutado en ART |
-| 7 Toolchain | CLI init/build/release/dex/verify/doctor/version/keygen, caché, ejemplos, docs y binario | Build normal offline/Go-only; Linux validado; portabilidad de otros hosts limitada a compilación |
+| 7 Toolchain | CLI Cobra con ayuda/salida en inglés para init/build/release/dex/verify/doctor/version/keygen, caché, ejemplos, docs bilingües Docsify y binario | El núcleo del build APK sigue offline y en Go; Linux validado; otros hosts tienen pruebas de compilación |
+
+La dependencia Cobra se limita a `cmd/koru`; DEX, AXML, ARSC, empaquetado APK y
+firmas siguen implementados por koru con Go y la biblioteca estándar. La ayuda
+se genera desde el árbol de comandos y usa colores ANSI en terminales interactivos.
+La web Docsify ofrece contenido en inglés y español y se compila por separado
+con Bun; no forma parte del compilador APK.
 
 La matriz real es Android 11, API 30, x86_64, con emulación software sin KVM.
 Esto demuestra el APK completo, no solamente un ZIP/DEX bien formado. No demuestra
