@@ -32,6 +32,13 @@ a la incorporación de Cobra. La suite vigente también cubre la ayuda generada,
 los comandos en inglés y la validación de argumentos. El CLI usa Cobra; el núcleo
 de empaquetado y formatos Android sigue escrito en Go y la biblioteca estándar.
 
+El retoque posterior de presentación compacta la ayuda, alinea comandos/flags,
+agrega ejemplos y usa la paleta del sitio solo en terminales interactivos. La
+salida redirigida conserva los mensajes y la inspección DEX continúa siendo JSON.
+La comprobación PTY cubrió truecolor, 256 colores, ANSI, fondo claro, `NO_COLOR`
+vacío, `TERM=dumb` y salida redirigida; también confirmó mensajes byte a byte sin
+cambios en modo pipe, JSON válido en DEX/APK y errores sin ANSI con código 1.
+
 ## Medidas DEX
 
 Host Linux amd64, CPU reportada por Go: AMD EPYC 9V74. Los benchmarks tienen

@@ -13,8 +13,7 @@ func doctor(args []string, out io.Writer) error {
 	if len(args) > 1 {
 		return fmt.Errorf("usage: koru doctor [project]")
 	}
-	_, e := fmt.Fprintln(out, "Build and verification use the self-contained Go implementation; no Java, SDK, or external build tools are required.")
-	if e != nil {
+	if e := writeStatus(out, "Build and verification", "use the self-contained Go implementation; no Java, SDK, or external build tools are required.", "iris"); e != nil {
 		return e
 	}
 	project := "."
@@ -22,8 +21,7 @@ func doctor(args []string, out io.Writer) error {
 		project = args[0]
 	} else {
 		if _, e := os.Stat(filepath.Join(project, "koru.json")); os.IsNotExist(e) {
-			_, e = fmt.Fprintln(out, "No project selected. An Android device or emulator is optional and used only for execution tests.")
-			return e
+			return writeStatus(out, "No project selected.", "An Android device or emulator is optional and used only for execution tests.", "peach")
 		}
 	}
 	c, e := config.Load(project)
@@ -51,6 +49,5 @@ func doctor(args []string, out io.Writer) error {
 	if _, e = c.LoadPlugins(project); e != nil {
 		return e
 	}
-	_, e = fmt.Fprintf(out, "Project %s: configuration, persistent signing identity, web entry point, and plugin manifests are valid.\n", c.AppID)
-	return e
+	return writeStatus(out, "Project", fmt.Sprintf("%s: configuration, persistent signing identity, web entry point, and plugin manifests are valid.", c.AppID), "mint")
 }

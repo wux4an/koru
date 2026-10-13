@@ -61,11 +61,10 @@ func apkBuild(project, output, key string, noCache, release bool, out io.Writer)
 	if err != nil {
 		return err
 	}
-	if _, err = fmt.Fprintf(out, "Runtime cache hit: %t\n", stats.RuntimeCacheHit); err != nil {
+	if err = writeStatus(out, "Runtime cache hit:", fmt.Sprint(stats.RuntimeCacheHit), "iris"); err != nil {
 		return err
 	}
-	_, err = fmt.Fprintf(out, "Wrote %s (%d bytes), %s, certificate %s\n", output, len(b), report.SignatureScheme, report.CertificateSHA256)
-	return err
+	return writeStatus(out, "Wrote", fmt.Sprintf("%s (%d bytes), %s, certificate %s", output, len(b), report.SignatureScheme, report.CertificateSHA256), "mint")
 }
 
 func initProject(args []string, out io.Writer) error {
@@ -117,8 +116,7 @@ func initProject(args []string, out io.Writer) error {
 	if err != nil {
 		return err
 	}
-	_, err = fmt.Fprintf(out, "Initialized %s; persistent signing identity: %s\n", path, c.SigningKey)
-	return err
+	return writeStatus(out, "Initialized", fmt.Sprintf("%s; persistent signing identity: %s", path, c.SigningKey), "mint")
 }
 
 func keygen(path string, out io.Writer) error {
@@ -128,6 +126,5 @@ func keygen(path string, out io.Writer) error {
 	if _, err := signing.CreateIdentity(path); err != nil {
 		return err
 	}
-	_, err := fmt.Fprintln(out, "Created signing identity", path)
-	return err
+	return writeStatus(out, "Created signing identity", path, "mint")
 }

@@ -22,7 +22,8 @@ const maxInputSize = 64 << 20
 
 func main() {
 	if err := run(os.Args[1:], os.Stdout); err != nil {
-		fmt.Fprintln(os.Stderr, "koru:", err)
+		p := presentationFor(os.Stderr)
+		fmt.Fprintln(os.Stderr, p.paint("koru:", "peach"), err)
 		os.Exit(1)
 	}
 }
@@ -35,9 +36,12 @@ func run(args []string, out io.Writer) error {
 
 func newRootCommand(out, errOut io.Writer) *cobra.Command {
 	root := &cobra.Command{
-		Use:           "koru",
-		Short:         "Build native Android packages from web projects",
-		Long:          "Koru turns static web projects into signed Android APKs with a self-contained Go toolchain.",
+		Use:   "koru",
+		Short: "Build native Android packages from web projects",
+		Long:  "Build signed Android APKs from web projects with a self-contained Go toolchain.",
+		Example: `  koru init ./my-app
+  koru build ./my-app --release --output app-release.apk
+  koru dex inspect classes.dex`,
 		SilenceErrors: true,
 		SilenceUsage:  true,
 		CompletionOptions: cobra.CompletionOptions{
@@ -49,18 +53,21 @@ func newRootCommand(out, errOut io.Writer) *cobra.Command {
 	root.SetHelpFunc(func(command *cobra.Command, args []string) {
 		command.Print(command.UsageString())
 	})
-	root.SetUsageTemplate(helpTemplate(colorEnabled(out)))
+	root.SetUsageTemplate(helpTemplate(presentationFor(out)))
 	root.AddCommand(newVersionCommand(), newDoctorCommand(), newAPKBuildCommand(), newInitCommand(), newKeygenCommand(), newVerifyCommand(), newDexCommand())
 	return root
 }
 
 func newVersionCommand() *cobra.Command {
 	return &cobra.Command{
-		Use:   "version",
-		Short: "Print the koru version",
-		Args:  cobra.NoArgs,
+		Use:     "version",
+		Short:   "Print the koru version",
+		Example: "  koru version",
+		Args:    cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, _ []string) error {
-			_, err := fmt.Fprintf(cmd.OutOrStdout(), "koru %s (%s/%s)\n", version, runtime.GOOS, runtime.GOARCH)
+			out := cmd.OutOrStdout()
+			p := presentationFor(out)
+			_, err := fmt.Fprintf(out, "%s (%s/%s)\n", p.paint(fmt.Sprintf("koru %s", version), "iris"), runtime.GOOS, runtime.GOARCH)
 			return err
 		},
 	}
@@ -68,18 +75,20 @@ func newVersionCommand() *cobra.Command {
 
 func newDoctorCommand() *cobra.Command {
 	return &cobra.Command{
-		Use:   "doctor [project]",
-		Short: "Check a project's configuration and signing setup",
-		Args:  cobra.MaximumNArgs(1),
-		RunE:  func(cmd *cobra.Command, args []string) error { return doctor(args, cmd.OutOrStdout()) },
+		Use:     "doctor [project]",
+		Short:   "Check a project's configuration and signing setup",
+		Example: "  koru doctor ./my-app",
+		Args:    cobra.MaximumNArgs(1),
+		RunE:    func(cmd *cobra.Command, args []string) error { return doctor(args, cmd.OutOrStdout()) },
 	}
 }
 
 func newAPKBuildCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "build [project]",
-		Short: "Build and sign an Android APK",
-		Args:  cobra.MaximumNArgs(1),
+		Use:     "build [project]",
+		Short:   "Build and sign an Android APK",
+		Example: "  koru build ./my-app --output app.apk\n  koru build ./my-app --release --output app-release.apk",
+		Args:    cobra.MaximumNArgs(1),
 	}
 	cmd.Flags().String("output", "app.apk", "APK output path")
 	cmd.Flags().String("keystore", "", "existing PEM signing identity")
@@ -101,18 +110,20 @@ func newAPKBuildCommand() *cobra.Command {
 
 func newInitCommand() *cobra.Command {
 	return &cobra.Command{
-		Use:   "init [directory]",
-		Short: "Create a web project with a persistent signing identity",
-		Args:  cobra.MaximumNArgs(1),
-		RunE:  func(cmd *cobra.Command, args []string) error { return initProject(args, cmd.OutOrStdout()) },
+		Use:     "init [directory]",
+		Short:   "Create a web project with a persistent signing identity",
+		Example: "  koru init ./my-app",
+		Args:    cobra.MaximumNArgs(1),
+		RunE:    func(cmd *cobra.Command, args []string) error { return initProject(args, cmd.OutOrStdout()) },
 	}
 }
 
 func newKeygenCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "keygen",
-		Short: "Create a new PEM signing identity",
-		Args:  cobra.NoArgs,
+		Use:     "keygen",
+		Short:   "Create a new PEM signing identity",
+		Example: "  koru keygen --output signing.pem",
+		Args:    cobra.NoArgs,
 	}
 	cmd.Flags().StringP("output", "o", "", "new identity path (required)")
 	_ = cmd.MarkFlagRequired("output")
@@ -125,9 +136,10 @@ func newKeygenCommand() *cobra.Command {
 
 func newVerifyCommand() *cobra.Command {
 	return &cobra.Command{
-		Use:   "verify <app.apk>",
-		Short: "Verify an APK signature and package structure",
-		Args:  cobra.ExactArgs(1),
+		Use:     "verify <app.apk>",
+		Short:   "Verify an APK signature and package structure",
+		Example: "  koru verify app.apk",
+		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			b, err := readLimit(args[0], 320<<20)
 			if err != nil {
@@ -143,10 +155,15 @@ func newVerifyCommand() *cobra.Command {
 }
 
 func newDexCommand() *cobra.Command {
-	cmd := &cobra.Command{Use: "dex", Short: "Build and inspect Dalvik Executable files"}
+	cmd := &cobra.Command{
+		Use:     "dex",
+		Short:   "Build and inspect Dalvik Executable files",
+		Example: "  koru dex inspect classes.dex",
+	}
 	buildCmd := &cobra.Command{
-		Use:   "build [ir.json]",
-		Short: "Compile DEX from a JSON intermediate representation",
+		Use:     "build [ir.json]",
+		Short:   "Compile DEX from a JSON intermediate representation",
+		Example: "  koru dex build examples/dex/answer.json --output answer.dex\n  koru dex build --activity-experiment --output experiment.dex",
 		Args: func(cmd *cobra.Command, args []string) error {
 			experiment, _ := cmd.Flags().GetBool("activity-experiment")
 			if experiment && len(args) != 0 {
@@ -170,9 +187,10 @@ func newDexCommand() *cobra.Command {
 		return build(source, output, experiment, cmd.OutOrStdout())
 	}
 	inspectCmd := &cobra.Command{
-		Use:   "inspect <file.dex>",
-		Short: "Inspect a DEX file and print its structure as JSON",
-		Args:  cobra.ExactArgs(1),
+		Use:     "inspect <file.dex>",
+		Short:   "Inspect a DEX file and print its structure as JSON",
+		Example: "  koru dex inspect classes.dex",
+		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			b, err := readBounded(args[0])
 			if err != nil {
@@ -191,35 +209,31 @@ func newDexCommand() *cobra.Command {
 	return cmd
 }
 
-func helpTemplate(color bool) string {
-	cyan, mint, lavender, green, reset := "", "", "", "", ""
-	if color {
-		cyan, mint, lavender, green, reset = "\x1b[36m", "\x1b[92m", "\x1b[95m", "\x1b[32m", "\x1b[0m"
-	}
-	template := `{{printf "%sUsage%s:\n" "{{cyan}}" "{{reset}}"}}
-  {{.UseLine}}
-{{if .Long}}
-{{.Long}}
-{{end}}{{if .HasAvailableSubCommands}}
-{{printf "\n%sCommands%s:\n" "{{mint}}" "{{reset}}"}}{{range .Commands}}{{if .IsAvailableCommand}}{{printf "%s%s%s" "{{green}}" (rpad .Name .NamePadding) "{{reset}}"}} {{.Short}}
-{{end}}{{end}}{{end}}{{if .HasAvailableFlags}}
-{{printf "\n%sFlags%s:\n" "{{lavender}}" "{{reset}}"}}{{.LocalFlags.FlagUsages | trimTrailingWhitespaces}}
-{{end}}{{if .HasParent}}
-{{printf "\nRun '%s --help' for command details.\n" .CommandPath}}{{end}}`
-	template = strings.ReplaceAll(template, "{{cyan}}", cyan)
-	template = strings.ReplaceAll(template, "{{mint}}", mint)
-	template = strings.ReplaceAll(template, "{{lavender}}", lavender)
-	template = strings.ReplaceAll(template, "{{green}}", green)
-	return strings.ReplaceAll(template, "{{reset}}", reset)
-}
+func helpTemplate(p presentation) string {
+	template := `{{brand}}
+{{if .HasParent}}  {{.CommandPath}}
+{{end}}{{if .HasParent}}{{.Short}}{{else}}{{.Long}}{{end}}
 
-func colorEnabled(w io.Writer) bool {
-	f, ok := w.(*os.File)
-	if !ok || os.Getenv("NO_COLOR") != "" || os.Getenv("TERM") == "dumb" {
-		return false
+{{printf "%sUsage:%s\n" "{{iris}}" "{{reset}}"}}  {{if .HasAvailableSubCommands}}{{.CommandPath}} [command]{{if .HasAvailableFlags}} [flags]{{end}}{{else}}{{.UseLine}}{{end}}
+{{if .HasAvailableSubCommands}}
+{{printf "%sCommands:%s\n" "{{mint}}" "{{reset}}"}}{{range .Commands}}{{if .IsAvailableCommand}}{{printf "  %s%-*s%s  %s\n" "{{mint}}" .NamePadding .Name "{{reset}}" .Short}}{{end}}{{end}}{{end}}{{if .Example}}
+{{printf "%sExamples:%s\n" "{{peach}}" "{{reset}}"}}{{.Example}}{{end}}{{if .HasAvailableFlags}}
+
+{{printf "%sFlags:%s\n" "{{iris}}" "{{reset}}"}}{{.LocalFlags.FlagUsages | trimTrailingWhitespaces}}{{end}}{{if not .HasParent}}
+
+Run 'koru <command> --help' for command details.{{else}}
+
+Run '{{.Parent.CommandPath}} --help' to see parent commands.{{end}}
+`
+	template = strings.ReplaceAll(template, "{{brand}}", p.brandLine())
+	template = strings.ReplaceAll(template, "{{iris}}", p.code("iris"))
+	template = strings.ReplaceAll(template, "{{mint}}", p.code("mint"))
+	template = strings.ReplaceAll(template, "{{peach}}", p.code("peach"))
+	reset := ""
+	if p.mode != colorOff {
+		reset = "\x1b[0m"
 	}
-	info, err := f.Stat()
-	return err == nil && info.Mode()&os.ModeCharDevice != 0
+	return strings.ReplaceAll(template, "{{reset}}", reset)
 }
 
 func readBounded(path string) ([]byte, error) { return readLimit(path, maxInputSize) }
@@ -298,8 +312,7 @@ func build(source, output string, experiment bool, out io.Writer) error {
 	if err = atomicWrite(output, b); err != nil {
 		return err
 	}
-	_, err = fmt.Fprintf(out, "Wrote %s (%d bytes); DEX 035 verified successfully.\n", output, len(b))
-	return err
+	return writeStatus(out, "Wrote", fmt.Sprintf("%s (%d bytes); DEX 035 verified successfully.", output, len(b)), "mint")
 }
 
 // Write the complete validated file before replacing an existing output.

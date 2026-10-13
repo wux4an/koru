@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"os"
 	"path/filepath"
 	"strings"
@@ -20,6 +21,9 @@ func TestBuildInspectCLI(t *testing.T) {
 	stdout.Reset()
 	if e := run([]string{"dex", "inspect", out}, &stdout); e != nil {
 		t.Fatal(e)
+	}
+	if !json.Valid(stdout.Bytes()) || strings.Contains(stdout.String(), "\x1b[") {
+		t.Fatal("DEX inspection output must remain plain JSON")
 	}
 	if !strings.Contains(stdout.String(), "Lexample/Answer;") {
 		t.Fatal(stdout.String())

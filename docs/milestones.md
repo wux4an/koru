@@ -12,7 +12,8 @@
 
 La dependencia Cobra se limita a `cmd/koru`; DEX, AXML, ARSC, empaquetado APK y
 firmas siguen implementados por koru con Go y la biblioteca estándar. La ayuda
-se genera desde el árbol de comandos y usa colores ANSI en terminales interactivos.
+se genera desde el árbol de comandos con ejemplos, alineación y la paleta del sitio
+en terminales interactivos; los estados mantienen su texto exacto cuando se redirigen.
 La web Docsify ofrece contenido en inglés y español y se compila por separado
 con Bun; no forma parte del compilador APK.
 
