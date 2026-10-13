@@ -1,0 +1,12 @@
+{
+  "vhs": {
+    "version": "0.12.1",
+    "url": "https://github.com/charmbracelet/vhs/releases/download/v0.12.1/vhs_0.12.1_Linux_x86_64.tar.gz",
+    "archiveSha256": "eb33787a5b1cebf91fe0b18bd231e2d71d36c1ff4babd99ddac1a6ab411efd10"
+  },
+  "ttyd": {
+    "version": "1.7.7",
+    "url": "https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64",
+    "sha256": "8a217c968aba172e0dbf3f34447218dc015bc4d5e59bf51db2f2cd12b7be4f55"
+  }
+}

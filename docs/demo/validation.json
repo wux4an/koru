@@ -1,0 +1,34 @@
+{
+  "recorder": "Charm VHS 0.12.1",
+  "realCLICommands": true,
+  "recordedAPK": {
+    "appId": "com.example.koru",
+    "entries": 12,
+    "bytes": 18969,
+    "certificateSha256": "099e2d3240fe88992e129477b1071bed6e06a95a11225cf5c9ac6c3f5162f998",
+    "signatureScheme": "APK v2 RSA/SHA-256"
+  },
+  "identicalRebuild": true,
+  "apkSha256": "2dfe0977460dd9a03d3c9c9833b8d0eef6cac47d1bb39c0d262a1a8bdaf9fe3f",
+  "video": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1440,
+        "height": 900,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "25/1"
+      }
+    ],
+    "format": {
+      "duration": "49.560000",
+      "size": "414893"
+    }
+  },
+  "videoSha256": "851c609853a6f4ca6475cb2abb79653877a9a31e691898abc73d984f34c375de",
+  "fullVideoDecode": "passed",
+  "progressivePlayback": "moov before mdat",
+  "privateKeysIncluded": false
+}
