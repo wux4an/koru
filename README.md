@@ -13,7 +13,7 @@ los plugins estándar y el ejemplo JNI opcional tienen pruebas reales. Evidencia
 ## Uso
 
 ```sh
-go build -trimpath -o bin/koru ./cmd/koru
+CGO_ENABLED=0 go build -trimpath -buildvcs=false -o bin/koru ./cmd/koru
 ./bin/koru init ./mi-app
 ./bin/koru build ./mi-app --output app.apk
 ./bin/koru verify app.apk

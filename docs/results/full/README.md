@@ -18,7 +18,8 @@ build normal.
   campaña XML inicial de solo 12 ejecuciones; estas campañas cortas no representan
   exploración exhaustiva. Ver fuzz-*.txt.
 - dexdump, aapt y apksigner oficiales aceptan salida propia: official-tests.txt.
-- Binario Linux estático CGO=0. Build con PATH vacío y APK byte a byte idéntico:
+- Binario Linux estático CGO=0, trimpath y buildvcs=false para reproducirlo
+  desde una entrega sin metadata Git. Build con PATH vacío y APK byte a byte idéntico:
   offline-isolated.txt. El build no descarga herramientas ni lanza subprocesses.
 - Compilación cruzada, sin ejecución en otros hosts: host-portability.txt.
 

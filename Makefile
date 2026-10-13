@@ -2,7 +2,7 @@ GO ?= go
 PREFIX ?= $(HOME)/.local
 .PHONY: build install test js-test native-test vet race clean
 build:
-	$(GO) build -trimpath -o bin/koru ./cmd/koru
+	CGO_ENABLED=0 $(GO) build -trimpath -buildvcs=false -o bin/koru ./cmd/koru
 install: build
 	install -d $(PREFIX)/bin
 	install -m 755 bin/koru $(PREFIX)/bin/koru

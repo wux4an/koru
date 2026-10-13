@@ -43,8 +43,8 @@
     },
     {
       "path": "bin/koru",
-      "bytes": 8958998,
-      "sha256": "3c3fc03cfc0dc2ba83f32fd97a768fdec6061223e4c009dffee721dae1d435f6"
+      "bytes": 8958942,
+      "sha256": "c35d4a473e4dc59e2733db3d74c61d7dc7256b07f8b0d1e6c5264cf15c8fb84e"
     }
   ],
   "androidChecks": {
