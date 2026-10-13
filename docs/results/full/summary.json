@@ -1,0 +1,65 @@
+{
+  "version": "0.2.0-dev",
+  "date": "2026-10-13",
+  "goPassedCases": 114,
+  "goPassedPackages": 16,
+  "goCoveragePercent": 74.2,
+  "race": "passed",
+  "vet": "passed",
+  "javascriptTests": "passed",
+  "jniUnitTests": "passed",
+  "officialDEXAXMLARSCSignatureChecks": "passed",
+  "offlineIsolatedBuild": "passed",
+  "deterministicAPK": "passed",
+  "androidExecutedMatrix": [
+    {
+      "api": 30,
+      "android": "11",
+      "abi": "x86_64",
+      "hardware": "software emulator, no KVM"
+    }
+  ],
+  "knownPending": [
+    "API 26\u201336 device matrix",
+    "ARM device execution",
+    "API 33+ notification permission UI",
+    "v3/v4",
+    "AAB",
+    "scheduled notification alarms",
+    "general DEX annotations",
+    "multidex",
+    "full register type verifier"
+  ],
+  "artifacts": [
+    {
+      "path": "artifacts/koru-demo.apk",
+      "bytes": 22852,
+      "sha256": "c345e3ea990f0c46880fb06ceed2781a696951e71969aad7016d8b31e69dab64"
+    },
+    {
+      "path": "artifacts/koru-all-plugins.apk",
+      "bytes": 87566,
+      "sha256": "b19b67f922fc56c82fbabd1426fc13e0335be627cf61d9d0fd01bed69628fe2c"
+    },
+    {
+      "path": "bin/koru",
+      "bytes": 8958998,
+      "sha256": "3c3fc03cfc0dc2ba83f32fd97a768fdec6061223e4c009dffee721dae1d435f6"
+    }
+  ],
+  "androidChecks": {
+    "releaseInstallationAndLaunch": "passed",
+    "releaseHTMLCSSSVGAndJavaScriptCounter": "passed",
+    "debugBridgeAndSixPlugins": "passed",
+    "jniNativeInfoMainThread": "passed",
+    "offlineServiceWorker": "passed",
+    "navigationAndBack": "passed",
+    "keyboardShownTextInputAndHidden": "passed",
+    "shareChooserOpenedAndCancelled": "passed",
+    "externalNavigationBlocked": "passed",
+    "storageAfterForceStopRestart": "passed",
+    "wifiAndMobileDataSettings": 0,
+    "updateWithSameSignatureAndPreservedData": "passed",
+    "finalCrashBuffer": "empty"
+  }
+}

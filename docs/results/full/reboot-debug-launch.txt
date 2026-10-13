@@ -1,0 +1,1 @@
+Starting: Intent { cmp=com.example.koru/com.koru.runtime.MainActivity }

@@ -1,0 +1,18 @@
+{
+  "id": 1,
+  "result": {
+    "result": {
+      "type": "object",
+      "value": {
+        "url": "https://app.koru.invalid/index.html",
+        "title": "Koru",
+        "text": "Koru\n\nAplicaci\u00f3n local independiente\n\nContador: 0",
+        "bridge": "object",
+        "error": {
+          "code": "TIMEOUT",
+          "message": "Native request timed out"
+        }
+      }
+    }
+  }
+}

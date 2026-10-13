@@ -1,0 +1,8 @@
+fuzz: elapsed: 0s, gathering baseline coverage: 0/1 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 1/1 completed, now fuzzing with 2 workers
+fuzz: elapsed: 3s, execs: 188989 (62941/sec), new interesting: 6 (total: 7)
+fuzz: elapsed: 6s, execs: 363571 (58236/sec), new interesting: 6 (total: 7)
+fuzz: elapsed: 9s, execs: 502821 (46409/sec), new interesting: 6 (total: 7)
+fuzz: elapsed: 10s, execs: 552944 (48714/sec), new interesting: 6 (total: 7)
+PASS
+ok  	koru.dev/koru/internal/dex/encoding	10.063s

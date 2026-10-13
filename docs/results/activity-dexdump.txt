@@ -1,0 +1,172 @@
+Processing 'artifacts/activity.dex'...
+Opened 'artifacts/activity.dex', DEX version '035'
+DEX file header:
+magic               : 'dex\n035\0'
+checksum            : 6fbf21a8
+signature           : 21df...f6f0
+file_size           : 1848
+header_size         : 112
+link_size           : 0
+link_off            : 0 (0x000000)
+string_ids_size     : 36
+string_ids_off      : 112 (0x000070)
+type_ids_size       : 11
+type_ids_off        : 256 (0x000100)
+proto_ids_size      : 9
+proto_ids_off       : 300 (0x00012c)
+field_ids_size      : 1
+field_ids_off       : 408 (0x000198)
+method_ids_size     : 30
+method_ids_off      : 416 (0x0001a0)
+class_defs_size     : 1
+class_defs_off      : 656 (0x000290)
+data_size           : 1160
+data_off            : 688 (0x0002b0)
+
+Class #0            -
+  Class descriptor  : 'Lcom/koru/runtime/MainActivity;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Landroid/app/Activity;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+    #0              : (in Lcom/koru/runtime/MainActivity;)
+      name          : 'web'
+      type          : 'Landroid/webkit/WebView;'
+      access        : 0x0002 (PRIVATE)
+  Direct methods    -
+    #0              : (in Lcom/koru/runtime/MainActivity;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000544:                                        |[000544] com.koru.runtime.MainActivity.<init>:()V
+000554: 7010 0000 0000                         |0000: invoke-direct {v0}, Landroid/app/Activity;.<init>:()V // method@0000
+00055a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     :
+      locals        :
+
+  Virtual methods   -
+    #0              : (in Lcom/koru/runtime/MainActivity;)
+      name          : 'onBackPressed'
+      type          : '()V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 1
+      insns size    : 18 16-bit code units
+00055c:                                        |[00055c] com.koru.runtime.MainActivity.onBackPressed:()V
+00056c: 5420 0000                              |0000: iget-object v0, v2, Lcom/koru/runtime/MainActivity;.web:Landroid/webkit/WebView; // field@0000
+000570: 3800 0c00                              |0002: if-eqz v0, 000e // +000c
+000574: 6e10 0e00 0000                         |0004: invoke-virtual {v0}, Landroid/webkit/WebView;.canGoBack:()Z // method@000e
+00057a: 0a01                                   |0007: move-result v1
+00057c: 3801 0600                              |0008: if-eqz v1, 000e // +0006
+000580: 6e10 1100 0000                         |000a: invoke-virtual {v0}, Landroid/webkit/WebView;.goBack:()V // method@0011
+000586: 0e00                                   |000d: return-void
+000588: 6f10 0100 0200                         |000e: invoke-super {v2}, Landroid/app/Activity;.onBackPressed:()V // method@0001
+00058e: 0e00                                   |0011: return-void
+      catches       : (none)
+      positions     :
+      locals        :
+
+    #1              : (in Lcom/koru/runtime/MainActivity;)
+      name          : 'onCreate'
+      type          : '(Landroid/os/Bundle;)V'
+      access        : 0x0004 (PROTECTED)
+      code          -
+      registers     : 6
+      ins           : 2
+      outs          : 2
+      insns size    : 51 16-bit code units
+000590:                                        |[000590] com.koru.runtime.MainActivity.onCreate:(Landroid/os/Bundle;)V
+0005a0: 6f20 0200 5400                         |0000: invoke-super {v4, v5}, Landroid/app/Activity;.onCreate:(Landroid/os/Bundle;)V // method@0002
+0005a6: 2200 0500                              |0003: new-instance v0, Landroid/webkit/WebView; // type@0005
+0005aa: 7020 0d00 4000                         |0005: invoke-direct {v0, v4}, Landroid/webkit/WebView;.<init>:(Landroid/content/Context;)V // method@000d
+0005b0: 5b40 0000                              |0008: iput-object v0, v4, Lcom/koru/runtime/MainActivity;.web:Landroid/webkit/WebView; // field@0000
+0005b4: 6e10 1000 0000                         |000a: invoke-virtual {v0}, Landroid/webkit/WebView;.getSettings:()Landroid/webkit/WebSettings; // method@0010
+0005ba: 0c01                                   |000d: move-result-object v1
+0005bc: 1212                                   |000e: const/4 v2, #int 1 // #1
+0005be: 6e20 0c00 2100                         |000f: invoke-virtual {v1, v2}, Landroid/webkit/WebSettings;.setJavaScriptEnabled:(Z)V // method@000c
+0005c4: 6e20 0b00 2100                         |0012: invoke-virtual {v1, v2}, Landroid/webkit/WebSettings;.setDomStorageEnabled:(Z)V // method@000b
+0005ca: 1202                                   |0015: const/4 v2, #int 0 // #0
+0005cc: 6e20 0800 2100                         |0016: invoke-virtual {v1, v2}, Landroid/webkit/WebSettings;.setAllowFileAccess:(Z)V // method@0008
+0005d2: 6e20 0700 2100                         |0019: invoke-virtual {v1, v2}, Landroid/webkit/WebSettings;.setAllowContentAccess:(Z)V // method@0007
+0005d8: 6e20 0900 2100                         |001c: invoke-virtual {v1, v2}, Landroid/webkit/WebSettings;.setAllowFileAccessFromFileURLs:(Z)V // method@0009
+0005de: 6e20 0a00 2100                         |001f: invoke-virtual {v1, v2}, Landroid/webkit/WebSettings;.setAllowUniversalAccessFromFileURLs:(Z)V // method@000a
+0005e4: 2203 0600                              |0022: new-instance v3, Landroid/webkit/WebViewClient; // type@0006
+0005e8: 7010 1700 0300                         |0024: invoke-direct {v3}, Landroid/webkit/WebViewClient;.<init>:()V // method@0017
+0005ee: 6e20 1500 3000                         |0027: invoke-virtual {v0, v3}, Landroid/webkit/WebView;.setWebViewClient:(Landroid/webkit/WebViewClient;)V // method@0015
+0005f4: 6e20 0600 0400                         |002a: invoke-virtual {v4, v0}, Landroid/app/Activity;.setContentView:(Landroid/view/View;)V // method@0006
+0005fa: 1a01 1100                              |002d: const-string v1, "file:///android_asset/www/index.html" // string@0011
+0005fe: 6e20 1200 1000                         |002f: invoke-virtual {v0, v1}, Landroid/webkit/WebView;.loadUrl:(Ljava/lang/String;)V // method@0012
+000604: 0e00                                   |0032: return-void
+      catches       : (none)
+      positions     :
+      locals        :
+
+    #2              : (in Lcom/koru/runtime/MainActivity;)
+      name          : 'onDestroy'
+      type          : '()V'
+      access        : 0x0004 (PROTECTED)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 14 16-bit code units
+000608:                                        |[000608] com.koru.runtime.MainActivity.onDestroy:()V
+000618: 5410 0000                              |0000: iget-object v0, v1, Lcom/koru/runtime/MainActivity;.web:Landroid/webkit/WebView; // field@0000
+00061c: 3800 0800                              |0002: if-eqz v0, 000a // +0008
+000620: 6e10 1600 0000                         |0004: invoke-virtual {v0}, Landroid/webkit/WebView;.stopLoading:()V // method@0016
+000626: 6e10 0f00 0000                         |0007: invoke-virtual {v0}, Landroid/webkit/WebView;.destroy:()V // method@000f
+00062c: 6f10 0300 0100                         |000a: invoke-super {v1}, Landroid/app/Activity;.onDestroy:()V // method@0003
+000632: 0e00                                   |000d: return-void
+      catches       : (none)
+      positions     :
+      locals        :
+
+    #3              : (in Lcom/koru/runtime/MainActivity;)
+      name          : 'onPause'
+      type          : '()V'
+      access        : 0x0004 (PROTECTED)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 11 16-bit code units
+000634:                                        |[000634] com.koru.runtime.MainActivity.onPause:()V
+000644: 6f10 0400 0100                         |0000: invoke-super {v1}, Landroid/app/Activity;.onPause:()V // method@0004
+00064a: 5410 0000                              |0003: iget-object v0, v1, Lcom/koru/runtime/MainActivity;.web:Landroid/webkit/WebView; // field@0000
+00064e: 3800 0500                              |0005: if-eqz v0, 000a // +0005
+000652: 6e10 1300 0000                         |0007: invoke-virtual {v0}, Landroid/webkit/WebView;.onPause:()V // method@0013
+000658: 0e00                                   |000a: return-void
+      catches       : (none)
+      positions     :
+      locals        :
+
+    #4              : (in Lcom/koru/runtime/MainActivity;)
+      name          : 'onResume'
+      type          : '()V'
+      access        : 0x0004 (PROTECTED)
+      code          -
+      registers     : 2
+      ins           : 1
+      outs          : 1
+      insns size    : 11 16-bit code units
+00065c:                                        |[00065c] com.koru.runtime.MainActivity.onResume:()V
+00066c: 6f10 0500 0100                         |0000: invoke-super {v1}, Landroid/app/Activity;.onResume:()V // method@0005
+000672: 5410 0000                              |0003: iget-object v0, v1, Lcom/koru/runtime/MainActivity;.web:Landroid/webkit/WebView; // field@0000
+000676: 3800 0500                              |0005: if-eqz v0, 000a // +0005
+00067a: 6e10 1400 0000                         |0007: invoke-virtual {v0}, Landroid/webkit/WebView;.onResume:()V // method@0014
+000680: 0e00                                   |000a: return-void
+      catches       : (none)
+      positions     :
+      locals        :
+
+  source_file_idx   : -1 (unknown)
+

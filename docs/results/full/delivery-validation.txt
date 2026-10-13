@@ -1,0 +1,1 @@
+Delivery extraction, checksums, APK verification and offline source build: PASS

@@ -1,0 +1,1 @@
+Final parser hardening preserves exact Android-tested APK bytes: PASS

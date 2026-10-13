@@ -1,0 +1,6 @@
+initialized /tmp/koru-cli-2GsuT4; persistent signing identity: .koru/signing.pem
+runtime cache hit: false
+wrote /tmp/koru-cli-2GsuT4/release.apk (16844 bytes), APK v2 RSA/SHA-256, certificate 7fd5732c1f394f3a4641207954e6d17e37801ca66f9cbb18b0fe800f8f745870
+{"appId":"com.example.koru","entries":7,"bytes":16844,"certificateSha256":"7fd5732c1f394f3a4641207954e6d17e37801ca66f9cbb18b0fe800f8f745870","signatureScheme":"APK v2 RSA/SHA-256"}
+Build/verify: self-contained Go implementation; no Java, SDK or external build tools.
+No project selected. Android device/emulator is optional and used only for execution tests.

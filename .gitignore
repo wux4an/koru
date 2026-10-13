@@ -1,0 +1,15 @@
+/bin/
+/artifacts/
+/.agents/
+/answer.dex
+/classes.dex
+/activity.dex
+/coverage.out
+/android-demo/
+**/.koru/
+*.pem
+*.jks
+*.p12
+
+__pycache__/
+*.pyc

@@ -1,0 +1,10 @@
+fuzz: elapsed: 0s, gathering baseline coverage: 0/12 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 12/12 completed, now fuzzing with 2 workers
+fuzz: elapsed: 3s, execs: 86040 (28638/sec), new interesting: 1 (total: 13)
+fuzz: elapsed: 6s, execs: 166981 (27016/sec), new interesting: 2 (total: 14)
+fuzz: elapsed: 9s, execs: 256070 (29696/sec), new interesting: 3 (total: 15)
+fuzz: elapsed: 12s, execs: 256070 (0/sec), new interesting: 3 (total: 15)
+fuzz: elapsed: 15s, execs: 256070 (0/sec), new interesting: 3 (total: 15)
+fuzz: elapsed: 16s, execs: 256070 (0/sec), new interesting: 3 (total: 15)
+PASS
+ok  	koru.dev/koru/internal/dex/parser	16.015s

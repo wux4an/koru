@@ -1,0 +1,3 @@
+Processing '/tmp/koru-final-full.dex'...
+Checksum verified
+Full runtime instruction disassembly: PASS

@@ -1,0 +1,2 @@
+gcc -std=c11 -Wall -Wextra -Werror -I runtime/native/include runtime/native/koru_plugin.c runtime/native/scope_test.c -o /tmp/koru-scope-test
+/tmp/koru-scope-test

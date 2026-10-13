@@ -1,0 +1,7 @@
+Starting: Intent { cmp=com.example.koru/com.koru.runtime.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.koru/com.koru.runtime.MainActivity
+TotalTime: 9364
+WaitTime: 9597
+Complete

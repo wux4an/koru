@@ -1,0 +1,1139 @@
+--------- beginning of system
+10-13 11:23:02.555  1024  1024 V StorageManagerService: Package com.android.providers.blockednumber does not have legacy storage
+10-13 11:23:02.555  1024  1024 V StorageManagerService: Package com.android.providers.userdictionary does not have legacy storage
+10-13 11:23:02.556  1024  1024 V StorageManagerService: Package com.android.providers.media.module does not have legacy storage
+10-13 11:23:02.556  1024  1024 V StorageManagerService: Package com.android.emergency does not have legacy storage
+10-13 11:23:02.569  1024  1024 V StorageManagerService: Package com.android.hotspot2.osulogin does not have legacy storage
+10-13 11:23:02.569  1024  1024 V StorageManagerService: Package com.android.internal.systemui.navbar.gestural does not have legacy storage
+10-13 11:23:02.569  1024  1024 V StorageManagerService: Package com.android.location.fused does not have legacy storage
+10-13 11:23:02.570  1024  1024 V StorageManagerService: Package com.android.theme.color.orchid does not have legacy storage
+10-13 11:23:02.570  1024  1024 V StorageManagerService: Package com.android.deskclock has legacy storage
+10-13 11:23:02.571  1024  1024 V StorageManagerService: Package com.android.systemui does not have legacy storage
+10-13 11:23:02.571  1024  1024 V StorageManagerService: Package com.android.theme.color.purple does not have legacy storage
+10-13 11:23:02.572  1024  1024 V StorageManagerService: Package com.android.bluetoothmidiservice does not have legacy storage
+10-13 11:23:02.572  1024  1024 V StorageManagerService: Package com.android.permissioncontroller does not have legacy storage
+10-13 11:23:02.578  1024  1024 V StorageManagerService: Package com.android.traceur does not have legacy storage
+10-13 11:23:02.579  1024  1024 V StorageManagerService: Package android.auto_generated_rro_product__ does not have legacy storage
+10-13 11:23:02.579  1024  1024 V StorageManagerService: Package com.android.bluetooth does not have legacy storage
+10-13 11:23:02.579  1024  1024 V StorageManagerService: Package com.android.wallpaperpicker does not have legacy storage
+10-13 11:23:02.580  1024  1024 V StorageManagerService: Package com.android.providers.contacts does not have legacy storage
+10-13 11:23:02.580  1024  1024 V StorageManagerService: Package com.android.captiveportallogin does not have legacy storage
+10-13 11:23:02.581  1024  1024 V StorageManagerService: Package com.android.theme.icon.roundedrect does not have legacy storage
+10-13 11:23:02.581  1024  1024 V StorageManagerService: Package com.android.internal.systemui.navbar.gestural_narrow_back does not have legacy storage
+10-13 11:23:02.581  1024  1024 V StorageManagerService: Package com.android.theme.icon_pack.rounded.settings does not have legacy storage
+10-13 11:23:02.582  1024  1024 V StorageManagerService: Package com.android.theme.icon_pack.circular.android does not have legacy storage
+10-13 11:23:02.583  1024  1024 W SystemServiceManager: Service com.android.server.StorageManagerService$Lifecycle took 709 ms in onStartUser-0
+10-13 11:23:02.583  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.StorageManagerService$Lifecycle took to complete: 710ms
+10-13 11:23:02.584  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.usage.StorageStatsService$Lifecycle
+10-13 11:23:02.584  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.usage.StorageStatsService$Lifecycle took to complete: 0ms
+10-13 11:23:02.584  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.UiModeManagerService
+10-13 11:23:02.586  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.UiModeManagerService took to complete: 0ms
+10-13 11:23:02.586  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.locksettings.LockSettingsService$Lifecycle
+10-13 11:23:02.587  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.locksettings.LockSettingsService$Lifecycle took to complete: 1ms
+10-13 11:23:02.587  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.testharness.TestHarnessModeService
+10-13 11:23:02.588  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.testharness.TestHarnessModeService took to complete: 0ms
+10-13 11:23:02.588  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.DeviceIdleController
+10-13 11:23:02.588  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.DeviceIdleController took to complete: 0ms
+10-13 11:23:02.604  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.devicepolicy.DevicePolicyManagerService$Lifecycle
+--------- beginning of main
+10-13 11:23:02.634  1024  1049 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:02.656  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.devicepolicy.DevicePolicyManagerService$Lifecycle took to complete: 48ms
+10-13 11:23:02.657  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.textservices.TextServicesManagerService$Lifecycle
+10-13 11:23:02.657  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.textservices.TextServicesManagerService$Lifecycle took to complete: 0ms
+10-13 11:23:02.657  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.textclassifier.TextClassificationManagerService$Lifecycle
+10-13 11:23:02.659  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.textclassifier.TextClassificationManagerService$Lifecycle took to complete: 2ms
+10-13 11:23:02.660  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.NetworkScoreService$Lifecycle
+10-13 11:23:02.660  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.NetworkScoreService$Lifecycle took to complete: 0ms
+10-13 11:23:02.660  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.wifi.WifiService
+10-13 11:23:02.660  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.wifi.WifiService took to complete: 0ms
+10-13 11:23:02.669  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.wifi.scanner.WifiScanningService
+10-13 11:23:02.669  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.wifi.scanner.WifiScanningService took to complete: 0ms
+10-13 11:23:02.670  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.wifi.p2p.WifiP2pService
+10-13 11:23:02.670  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.wifi.p2p.WifiP2pService took to complete: 0ms
+10-13 11:23:02.670  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.notification.NotificationManagerService
+10-13 11:23:02.670  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.notification.NotificationManagerService took to complete: 0ms
+10-13 11:23:02.670  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.storage.DeviceStorageMonitorService
+10-13 11:23:02.670  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.storage.DeviceStorageMonitorService took to complete: 0ms
+10-13 11:23:02.671  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.location.LocationManagerService$Lifecycle
+10-13 11:23:02.733  1175  1175 V SystemUIService: Starting SystemUI services for user 0.
+10-13 11:23:02.806  1175  1175 D SystemUIBootTiming: StartServicescom.android.systemui.util.NotificationChannels took to complete: 73ms
+10-13 11:23:02.811  1024  1198 D CCodec  : allocate(c2.android.vorbis.decoder)
+10-13 11:23:02.853  1024  1198 I Codec2Client: Available Codec2 services: "software"
+10-13 11:23:02.909   422   491 V C2Store : in init
+10-13 11:23:02.909   422   491 V C2Store : loading dll
+10-13 11:23:02.924  1343  1343 I rkstack.proces: The ClassLoaderContext is a special shared library.
+10-13 11:23:02.954  1024  1198 I CCodec  : Created component [c2.android.vorbis.decoder]
+10-13 11:23:02.992  1024  1198 D CCodecConfig: read media type: audio/vorbis
+10-13 11:23:02.997   402   402 D incidentd: WorkDirectory::getReports
+10-13 11:23:03.021  1024  1198 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.max-count.values
+10-13 11:23:03.028  1024  1198 D ReflectedParamUpdater: extent() != 1 for single value type: output.subscribed-indices.values
+10-13 11:23:03.032  1024  1198 D ReflectedParamUpdater: extent() != 1 for single value type: input.buffers.allocator-ids.values
+10-13 11:23:03.033  1024  1198 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.allocator-ids.values
+10-13 11:23:03.034  1024  1198 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.allocator-ids.values
+10-13 11:23:03.036  1024  1198 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.pool-ids.values
+10-13 11:23:03.045  1024  1198 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.pool-ids.values
+10-13 11:23:03.054  1175  1175 I FalsingManager: xdpi, ydpi: 320.0, 320.0
+10-13 11:23:03.055  1175  1175 I FalsingManager: width, height: 720, 1280
+10-13 11:23:03.084  1024  1198 I CCodecConfig: query failed after returning 7 values (BAD_INDEX)
+10-13 11:23:03.091  1024  1198 D CCodecConfig: c2 config diff is Dict {
+10-13 11:23:03.091  1024  1198 D CCodecConfig:   c2::u32 coded.bitrate.value = 64000
+10-13 11:23:03.091  1024  1198 D CCodecConfig:   c2::u32 input.buffers.max-size.value = 32768
+10-13 11:23:03.091  1024  1198 D CCodecConfig:   c2::u32 input.delay.value = 0
+10-13 11:23:03.091  1024  1198 D CCodecConfig:   string input.media-type.value = "audio/vorbis"
+10-13 11:23:03.091  1024  1198 D CCodecConfig:   string output.media-type.value = "audio/raw"
+10-13 11:23:03.091  1024  1198 D CCodecConfig:   c2::u32 raw.channel-count.value = 1
+10-13 11:23:03.091  1024  1198 D CCodecConfig:   c2::u32 raw.sample-rate.value = 48000
+10-13 11:23:03.091  1024  1198 D CCodecConfig: }
+10-13 11:23:03.113  1024  1198 D CCodec  : [c2.android.vorbis.decoder] buffers are bound to CCodec for this session
+10-13 11:23:03.114  1024  1198 D CCodecConfig: no c2 equivalents for durationUs
+10-13 11:23:03.114  1024  1198 D CCodecConfig: no c2 equivalents for track-id
+10-13 11:23:03.115  1024  1198 D CCodecConfig: no c2 equivalents for csd-1
+10-13 11:23:03.115  1024  1198 D CCodecConfig: no c2 equivalents for channel-mask
+10-13 11:23:03.115  1024  1198 D CCodecConfig: no c2 equivalents for flags
+10-13 11:23:03.137  1024  1198 D CCodecConfig: c2 config diff is   c2::u32 raw.channel-count.value = 2
+10-13 11:23:03.153  1024  1198 W Codec2Client: query -- param skipped: index = 1107298332.
+10-13 11:23:03.153  1024  1198 D CCodec  : setup formats input: AMessage(what = 0x00000000) = {
+10-13 11:23:03.153  1024  1198 D CCodec  :   int32_t channel-count = 2
+10-13 11:23:03.153  1024  1198 D CCodec  :   int32_t max-input-size = 32768
+10-13 11:23:03.153  1024  1198 D CCodec  :   string mime = "audio/vorbis"
+10-13 11:23:03.153  1024  1198 D CCodec  :   int32_t sample-rate = 48000
+10-13 11:23:03.153  1024  1198 D CCodec  : } and output: AMessage(what = 0x00000000) = {
+10-13 11:23:03.153  1024  1198 D CCodec  :   int32_t channel-count = 2
+10-13 11:23:03.153  1024  1198 D CCodec  :   string mime = "audio/raw"
+10-13 11:23:03.153  1024  1198 D CCodec  :   int32_t sample-rate = 48000
+10-13 11:23:03.153  1024  1198 D CCodec  :   int32_t channel-mask = 3
+10-13 11:23:03.153  1024  1198 D CCodec  : }
+10-13 11:23:03.160  1024  1024 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.power.PowerManagerService.releaseWakeLockInternal(android.os.IBinder, int)(PowerManagerService.java:1406) waiters=0 in void com.android.server.power.PowerManagerService.acquireWakeLockInternal(android.os.IBinder, int, java.lang.String, java.lang.String, android.os.WorkSource, java.lang.String, int, int) for 451ms
+10-13 11:23:03.178  1024  1104 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.net.NetworkStatsService.performPoll(int)(NetworkStatsService.java:1463) waiters=0 in void com.android.server.net.NetworkStatsService.advisePersistThreshold(long) for 2.024s
+10-13 11:23:03.184  1024  1198 W Codec2Client: query -- param skipped: index = 1342179345.
+10-13 11:23:03.185  1024  1198 W Codec2Client: query -- param skipped: index = 2415921170.
+10-13 11:23:03.186  1024  1104 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:03.189  1024  1104 I chatty  : uid=1000(system) NetworkPolicy identical 1 line
+10-13 11:23:03.191  1024  1104 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:03.215  1024  1041 W system_server: Long monitor contention with owner main (1024) at boolean com.android.server.location.LocationManagerService$LocationProviderManager.isEnabled(int)(LocationManagerService.java:914) waiters=0 in void com.android.server.location.LocationManagerService.locationCallbackFinished(android.location.ILocationListener) for 498ms
+10-13 11:23:03.216  1024  1024 W SystemServiceManager: Service com.android.server.location.LocationManagerService$Lifecycle took 545 ms in onStartUser-0
+10-13 11:23:03.216  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.location.LocationManagerService$Lifecycle took to complete: 546ms
+10-13 11:23:03.236  1024  1198 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:03.272   422  1368 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:03.278   422  1368 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:03.318  1175  1175 D NavigationModeController: getCurrentUserContext: contextUser=0 currentUser=0
+10-13 11:23:03.318  1175  1175 D NavigationModeController: getCurrentInteractionMode: mode=0 contextUser=0
+10-13 11:23:03.324  1175  1175 E NavigationModeController: updateCurrentInteractionMode: mode=0
+10-13 11:23:03.324  1175  1175 D NavigationModeController:   contextUser=0
+10-13 11:23:03.324  1175  1175 D NavigationModeController:   assetPaths=
+10-13 11:23:03.365   422  1366 D SimpleC2Component: Using output block pool with poolID 17 => got 17 - 0
+10-13 11:23:03.376  1175  1175 D NavigationModeController:     /system/framework/framework-res.apk
+10-13 11:23:03.376  1175  1175 D NavigationModeController:     /product/overlay/framework-res__auto_generated_rro_product.apk
+10-13 11:23:03.376  1175  1175 D NavigationModeController:     /system_ext/priv-app/SystemUI/SystemUI.apk
+10-13 11:23:03.426   422  1368 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:03.474  1175  1175 D NavigationModeController: getCurrentInteractionMode: mode=0 contextUser=0
+10-13 11:23:03.506   422  1368 E ion     : ioctl c0044901 failed with code -1: Inappropriate ioctl for device
+10-13 11:23:03.588  1024  1024 W SystemServiceManager: Service com.android.server.role.RoleManagerService took 261 ms in onStartUser-0
+10-13 11:23:03.611  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.role.RoleManagerService took to complete: 284ms
+10-13 11:23:03.611  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.voiceinteraction.VoiceInteractionManagerService
+10-13 11:23:03.619  1024  1024 W VoiceInteractionManager: no available voice interaction services found for user 0
+10-13 11:23:03.620  1024  1024 W VoiceInteractionManager: no available voice recognition services found for user 0
+10-13 11:23:03.620  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.voiceinteraction.VoiceInteractionManagerService took to complete: 8ms
+10-13 11:23:03.620  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.GestureLauncherService
+10-13 11:23:03.626  1343  1343 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:03.670   422  1366 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:03.674  1024  1057 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:03.693  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.GestureLauncherService took to complete: 73ms
+10-13 11:23:03.694  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.SensorNotificationService
+10-13 11:23:03.694  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.SensorNotificationService took to complete: 0ms
+10-13 11:23:03.694  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.emergency.EmergencyAffordanceService
+10-13 11:23:03.694  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.emergency.EmergencyAffordanceService took to complete: 0ms
+10-13 11:23:03.694  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.dreams.DreamManagerService
+10-13 11:23:03.694  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.dreams.DreamManagerService took to complete: 0ms
+10-13 11:23:03.695  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.print.PrintManagerService
+10-13 11:23:03.695  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.print.PrintManagerService took to complete: 0ms
+10-13 11:23:03.695  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.companion.CompanionDeviceManagerService
+10-13 11:23:03.695  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.companion.CompanionDeviceManagerService took to complete: 0ms
+10-13 11:23:03.695  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.restrictions.RestrictionsManagerService
+10-13 11:23:03.695  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.restrictions.RestrictionsManagerService took to complete: 0ms
+10-13 11:23:03.730  1343  1343 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:03.804  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.appbinding.AppBindingService$Lifecycle took to complete: 22ms
+10-13 11:23:03.804  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.policy.PermissionPolicyService
+10-13 11:23:03.819  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.policy.PermissionPolicyService took to complete: 0ms
+10-13 11:23:03.820  1024  1024 I SystemServerTiming: ssm.onStartUser-0_com.android.server.pm.StagingManager$Lifecycle
+10-13 11:23:03.820  1024  1024 D SystemServerTiming: ssm.onStartUser-0_com.android.server.pm.StagingManager$Lifecycle took to complete: 0ms
+10-13 11:23:03.829  1024  1024 D SystemServerTiming: ssm.StartUser-0 took to complete: 2212ms
+10-13 11:23:03.830  1024  1024 I SystemServerTiming: startPersistentApps
+10-13 11:23:03.846  1024  1198 D CCodecBufferChannel: [c2.android.vorbis.decoder#946] MediaCodec discarded an unknown buffer
+10-13 11:23:03.846  1024  1198 I chatty  : uid=1000(system) Binder:1024_3 identical 1 line
+10-13 11:23:03.846  1024  1198 D CCodecBufferChannel: [c2.android.vorbis.decoder#946] MediaCodec discarded an unknown buffer
+10-13 11:23:03.860  1024  1103 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:03.863  1024  1198 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:03.877   422   490 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:03.944   422   490 V C2Store : in ~ComponentModule
+10-13 11:23:04.000   404   593 W iorapd  : Overwriting transition from kIntentStarted to kIntentStarted into kIntentFailed
+10-13 11:23:03.944   422   490 V C2Store : unloading dll
+10-13 11:23:04.092   404   593 E IPCThreadState: binder thread pool (1 threads) starved for 128 ms
+10-13 11:23:04.191   947   947 D Zygote  : Forked child process 1375
+10-13 11:23:04.246  1024  1051 W ActivityManager: Slow operation: 376ms so far, now at startProcess: returned from zygote!
+10-13 11:23:04.297  1024  1049 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:04.325  1375  1375 W com.android.se: Unexpected CPU variant for X86 using defaults: x86_64
+10-13 11:23:04.363   377   426 I adbd    : jdwp connection from 1375
+10-13 11:23:04.502  1024  1393 D CCodec  : allocate(c2.android.vorbis.decoder)
+10-13 11:23:04.503   422   490 V C2Store : in init
+10-13 11:23:04.503   422   490 V C2Store : loading dll
+10-13 11:23:04.523  1024  1049 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:04.525  1024  1393 I CCodec  : Created component [c2.android.vorbis.decoder]
+10-13 11:23:04.528  1024  1393 D CCodecConfig: read media type: audio/vorbis
+10-13 11:23:04.542   302   302 I android.hardware.power-service.example: Power isModeSupported: 5
+10-13 11:23:04.598  1024  1393 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.max-count.values
+10-13 11:23:04.600  1024  1393 D ReflectedParamUpdater: extent() != 1 for single value type: output.subscribed-indices.values
+10-13 11:23:04.603  1024  1393 D ReflectedParamUpdater: extent() != 1 for single value type: input.buffers.allocator-ids.values
+10-13 11:23:04.606  1024  1024 D SystemServerTiming: startHomeOnAllDisplays took to complete: 695ms
+10-13 11:23:04.606  1024  1024 I SystemServerTiming: showSystemReadyErrorDialogs
+10-13 11:23:04.607  1024  1044 W system_server: Long monitor contention with owner main (1024) at void com.android.server.wm.TaskChangeNotificationController.forAllLocalListeners(com.android.server.wm.TaskChangeNotificationController$TaskStackConsumer, android.os.Message)(TaskChangeNotificationController.java:351) waiters=0 in void com.android.server.wm.TaskChangeNotificationController.forAllRemoteListeners(com.android.server.wm.TaskChangeNotificationController$TaskStackConsumer, android.os.Message) for 227ms
+10-13 11:23:04.609  1024  1393 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.allocator-ids.values
+10-13 11:23:04.610  1343  1355 I rkstack.proces: Background young concurrent copying GC freed 1355(162KB) AllocSpace objects, 0(0B) LOS objects, 93% free, 1712KB/25MB, paused 970us total 843.297ms
+10-13 11:23:04.617  1024  1045 W system_server: Long monitor contention with owner main (1024) at void com.android.server.wm.TaskChangeNotificationController.forAllLocalListeners(com.android.server.wm.TaskChangeNotificationController$TaskStackConsumer, android.os.Message)(TaskChangeNotificationController.java:351) waiters=1 in void com.android.server.wm.InputMonitor$UpdateInputWindows.run() for 227ms
+10-13 11:23:04.620  1024  1393 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.allocator-ids.values
+10-13 11:23:04.632  1024  1393 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.pool-ids.values
+10-13 11:23:04.641  1024  1393 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.pool-ids.values
+10-13 11:23:04.653  1024  1393 I CCodecConfig: query failed after returning 7 values (BAD_INDEX)
+10-13 11:23:04.653  1024  1393 D CCodecConfig: c2 config diff is Dict {
+10-13 11:23:04.653  1024  1393 D CCodecConfig:   c2::u32 coded.bitrate.value = 64000
+10-13 11:23:04.653  1024  1393 D CCodecConfig:   c2::u32 input.buffers.max-size.value = 32768
+10-13 11:23:04.653  1024  1393 D CCodecConfig:   c2::u32 input.delay.value = 0
+10-13 11:23:04.653  1024  1393 D CCodecConfig:   string input.media-type.value = "audio/vorbis"
+10-13 11:23:04.653  1024  1393 D CCodecConfig:   string output.media-type.value = "audio/raw"
+10-13 11:23:04.653  1024  1393 D CCodecConfig:   c2::u32 raw.channel-count.value = 1
+10-13 11:23:04.653  1024  1393 D CCodecConfig:   c2::u32 raw.sample-rate.value = 48000
+10-13 11:23:04.653  1024  1393 D CCodecConfig: }
+10-13 11:23:04.655  1024  1393 D CCodec  : [c2.android.vorbis.decoder] buffers are bound to CCodec for this session
+10-13 11:23:04.656  1024  1393 D CCodecConfig: no c2 equivalents for durationUs
+10-13 11:23:04.656  1024  1393 D CCodecConfig: no c2 equivalents for track-id
+10-13 11:23:04.657  1024  1393 D CCodecConfig: no c2 equivalents for csd-1
+10-13 11:23:04.657  1024  1393 D CCodecConfig: no c2 equivalents for channel-mask
+10-13 11:23:04.657  1024  1393 D CCodecConfig: no c2 equivalents for flags
+10-13 11:23:04.662  1024  1049 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:04.671  1024  1393 W Codec2Client: query -- param skipped: index = 1107298332.
+10-13 11:23:04.671  1024  1393 D CCodec  : setup formats input: AMessage(what = 0x00000000) = {
+10-13 11:23:04.671  1024  1393 D CCodec  :   int32_t channel-count = 1
+10-13 11:23:04.671  1024  1393 D CCodec  :   int32_t max-input-size = 32768
+10-13 11:23:04.671  1024  1393 D CCodec  :   string mime = "audio/vorbis"
+10-13 11:23:04.671  1024  1393 D CCodec  :   int32_t sample-rate = 48000
+10-13 11:23:04.671  1024  1393 D CCodec  : } and output: AMessage(what = 0x00000000) = {
+10-13 11:23:04.671  1024  1393 D CCodec  :   int32_t channel-count = 1
+10-13 11:23:04.671  1024  1393 D CCodec  :   string mime = "audio/raw"
+10-13 11:23:04.671  1024  1393 D CCodec  :   int32_t sample-rate = 48000
+10-13 11:23:04.671  1024  1393 D CCodec  :   int32_t channel-mask = 1
+10-13 11:23:04.671  1024  1393 D CCodec  : }
+10-13 11:23:04.681  1024  1024 I system_server: getFrameworkHalManifest: Reading VINTF information.
+10-13 11:23:04.701  1024  1393 W Codec2Client: query -- param skipped: index = 1342179345.
+10-13 11:23:04.701  1024  1393 W Codec2Client: query -- param skipped: index = 2415921170.
+10-13 11:23:04.710  1024  1393 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:04.711  1024  1393 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:04.712  1024  1393 D CCodecBufferChannel: [c2.android.vorbis.decoder#368] Created input block pool with allocatorID 16 => poolID 18 - OK (0)
+10-13 11:23:04.724  1024  1024 I system_server: getFrameworkHalManifest: Successfully processed VINTF information
+10-13 11:23:04.731   422  1395 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:04.731   422  1395 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:04.738  1024  1024 I system_server: getDeviceHalManifest: Reading VINTF information.
+10-13 11:23:04.745  1024  1393 I CCodecBufferChannel: [c2.android.vorbis.decoder#368] Created output block pool with allocatorID 16 => poolID 18 - OK
+10-13 11:23:04.753  1024  1393 D CCodecBufferChannel: [c2.android.vorbis.decoder#368] Configured output block pool ids 18 => OK
+10-13 11:23:04.773   422  1394 D SimpleC2Component: Using output block pool with poolID 18 => got 18 - 0
+10-13 11:23:04.794  1024  1393 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:04.797   422  1395 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:04.852  1024  1024 I system_server: getDeviceHalManifest: Successfully processed VINTF information
+10-13 11:23:04.853  1024  1024 I system_server: getFrameworkCompatibilityMatrix: Reading VINTF information.
+10-13 11:23:04.894   422  1394 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:04.902  1024  1372 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:05.125  1024  1393 D CCodecBufferChannel: [c2.android.vorbis.decoder#368] MediaCodec discarded an unknown buffer
+10-13 11:23:05.129  1024  1393 I chatty  : uid=1000(system) Binder:1024_3 identical 1 line
+10-13 11:23:05.130  1024  1393 D CCodecBufferChannel: [c2.android.vorbis.decoder#368] MediaCodec discarded an unknown buffer
+10-13 11:23:05.149  1024  1393 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:05.153   422   491 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:05.166   422   491 V C2Store : in ~ComponentModule
+10-13 11:23:05.166   422   491 V C2Store : unloading dll
+10-13 11:23:05.213  1024  1049 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:05.485  1024  1024 I system_server: getFrameworkCompatibilityMatrix: Successfully processed VINTF information
+10-13 11:23:05.489  1024  1024 I system_server: getDeviceCompatibilityMatrix: Reading VINTF information.
+10-13 11:23:05.496  1024  1024 I system_server: getDeviceCompatibilityMatrix: Successfully processed VINTF information
+10-13 11:23:05.516  1024  1398 D CCodec  : allocate(c2.android.vorbis.decoder)
+10-13 11:23:05.519   422   490 V C2Store : in init
+10-13 11:23:05.520   422   490 V C2Store : loading dll
+10-13 11:23:05.550  1024  1398 I CCodec  : Created component [c2.android.vorbis.decoder]
+10-13 11:23:05.568  1024  1398 D CCodecConfig: read media type: audio/vorbis
+10-13 11:23:05.610  1024  1024 D SystemServerTiming: showSystemReadyErrorDialogs took to complete: 1004ms
+10-13 11:23:05.611  1024  1024 I SystemServerTiming: sendUserStartBroadcast
+10-13 11:23:05.613  1024  1044 W system_server: Long monitor contention with owner android.anim (1045) at void com.android.server.wm.WindowAnimator.lambda$new$1$WindowAnimator(long)(WindowAnimator.java:111) waiters=1 in void com.android.server.wm.TaskChangeNotificationController.forAllRemoteListeners(com.android.server.wm.TaskChangeNotificationController$TaskStackConsumer, android.os.Message) for 989ms
+10-13 11:23:05.619  1024  1024 D SystemServerTiming: sendUserStartBroadcast took to complete: 8ms
+10-13 11:23:05.619  1024  1024 I SystemServerTiming: resumeTopActivities
+10-13 11:23:05.632  1024  1024 D SystemServerTiming: resumeTopActivities took to complete: 12ms
+10-13 11:23:05.637  1024  1024 I SystemServerTiming: sendUserSwitchBroadcasts
+10-13 11:23:05.639  1024  1024 D SystemServerTiming: sendUserSwitchBroadcasts took to complete: 2ms
+10-13 11:23:05.640  1024  1024 I SystemServerTiming: setBinderProxies
+10-13 11:23:05.640  1024  1024 D SystemServerTiming: setBinderProxies took to complete: 0ms
+10-13 11:23:05.646  1024  1024 D SystemServerTiming: ActivityManagerStartApps took to complete: 4087ms
+10-13 11:23:05.646  1024  1024 D SystemServerTiming: PhaseActivityManagerReady took to complete: 14003ms
+10-13 11:23:05.647  1024  1024 D SystemServerTiming: startOtherServices took to complete: 32151ms
+10-13 11:23:05.647  1024  1024 D SystemServerTiming: StartServices took to complete: 59210ms
+10-13 11:23:05.649  1024  1074 W system_server: Long monitor contention with owner main (1024) at int com.android.server.am.UserController$Injector.broadcastIntent(android.content.Intent, java.lang.String, android.content.IIntentReceiver, int, java.lang.String, android.os.Bundle, java.lang.String[], int, android.os.Bundle, boolean, boolean, int, int, int, int, int)(UserController.java:2748) waiters=0 in void com.android.server.am.ActivityManagerService.addPackageDependency(java.lang.String) for 1.791s
+10-13 11:23:05.652  1024  1038 W system_server: Long monitor contention with owner main (1024) at int com.android.server.am.UserController$Injector.broadcastIntent(android.content.Intent, java.lang.String, android.content.IIntentReceiver, int, java.lang.String, android.os.Bundle, java.lang.String[], int, android.os.Bundle, boolean, boolean, int, int, int, int, int)(UserController.java:2748) waiters=1 in android.content.Intent com.android.server.am.ActivityManagerService.registerReceiverWithFeature(android.app.IApplicationThread, java.lang.String, java.lang.String, android.content.IIntentReceiver, android.content.IntentFilter, java.lang.String, int, int) for 1.740s
+10-13 11:23:05.667  1024  1103 W system_server: Long monitor contention with owner main (1024) at int com.android.server.am.UserController$Injector.broadcastIntent(android.content.Intent, java.lang.String, android.content.IIntentReceiver, int, java.lang.String, android.os.Bundle, java.lang.String[], int, android.os.Bundle, boolean, boolean, int, int, int, int, int)(UserController.java:2748) waiters=3 in void com.android.server.am.ActivityManagerService.finishReceiver(android.os.IBinder, int, java.lang.String, android.os.Bundle, boolean, int) for 1.642s
+10-13 11:23:05.672  1024  1398 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.max-count.values
+10-13 11:23:05.697  1024  1398 D ReflectedParamUpdater: extent() != 1 for single value type: output.subscribed-indices.values
+10-13 11:23:05.698  1024  1024 E SystemServerTiming: SystemServer init took too long. uptimeMillis=292366
+10-13 11:23:05.703  1024  1398 D ReflectedParamUpdater: extent() != 1 for single value type: input.buffers.allocator-ids.values
+10-13 11:23:05.705  1024  1398 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.allocator-ids.values
+10-13 11:23:05.709  1024  1398 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.allocator-ids.values
+10-13 11:23:05.712  1024  1398 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.pool-ids.values
+10-13 11:23:05.718  1024  1398 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.pool-ids.values
+10-13 11:23:05.733  1024  1398 I CCodecConfig: query failed after returning 7 values (BAD_INDEX)
+10-13 11:23:05.733  1024  1398 D CCodecConfig: c2 config diff is Dict {
+10-13 11:23:05.733  1024  1398 D CCodecConfig:   c2::u32 coded.bitrate.value = 64000
+10-13 11:23:05.733  1024  1398 D CCodecConfig:   c2::u32 input.buffers.max-size.value = 32768
+10-13 11:23:05.733  1024  1398 D CCodecConfig:   c2::u32 input.delay.value = 0
+10-13 11:23:05.733  1024  1398 D CCodecConfig:   string input.media-type.value = "audio/vorbis"
+10-13 11:23:05.733  1024  1398 D CCodecConfig:   string output.media-type.value = "audio/raw"
+10-13 11:23:05.733  1024  1398 D CCodecConfig:   c2::u32 raw.channel-count.value = 1
+10-13 11:23:05.733  1024  1398 D CCodecConfig:   c2::u32 raw.sample-rate.value = 48000
+10-13 11:23:05.733  1024  1398 D CCodecConfig: }
+10-13 11:23:05.737  1024  1398 D CCodec  : [c2.android.vorbis.decoder] buffers are bound to CCodec for this session
+10-13 11:23:05.737  1024  1398 D CCodecConfig: no c2 equivalents for durationUs
+10-13 11:23:05.737  1024  1398 D CCodecConfig: no c2 equivalents for track-id
+10-13 11:23:05.737  1024  1398 D CCodecConfig: no c2 equivalents for csd-1
+10-13 11:23:05.738  1024  1398 D CCodecConfig: no c2 equivalents for channel-mask
+10-13 11:23:05.738  1024  1398 D CCodecConfig: no c2 equivalents for flags
+10-13 11:23:05.753  1024  1398 W Codec2Client: query -- param skipped: index = 1107298332.
+10-13 11:23:05.754  1024  1398 D CCodec  : setup formats input: AMessage(what = 0x00000000) = {
+10-13 11:23:05.754  1024  1398 D CCodec  :   int32_t channel-count = 1
+10-13 11:23:05.754  1024  1398 D CCodec  :   int32_t max-input-size = 32768
+10-13 11:23:05.754  1024  1398 D CCodec  :   string mime = "audio/vorbis"
+10-13 11:23:05.754  1024  1398 D CCodec  :   int32_t sample-rate = 48000
+10-13 11:23:05.754  1024  1398 D CCodec  : } and output: AMessage(what = 0x00000000) = {
+10-13 11:23:05.754  1024  1398 D CCodec  :   int32_t channel-count = 1
+10-13 11:23:05.754  1024  1398 D CCodec  :   string mime = "audio/raw"
+10-13 11:23:05.754  1024  1398 D CCodec  :   int32_t sample-rate = 48000
+10-13 11:23:05.754  1024  1398 D CCodec  :   int32_t channel-mask = 1
+10-13 11:23:05.754  1024  1398 D CCodec  : }
+10-13 11:23:05.773  1024  1398 W Codec2Client: query -- param skipped: index = 1342179345.
+10-13 11:23:05.773  1024  1398 W Codec2Client: query -- param skipped: index = 2415921170.
+10-13 11:23:05.779  1024  1051 W ActivityManager: Slow operation: 1910ms so far, now at startProcess: done updating battery stats
+10-13 11:23:05.780  1024  1051 W ActivityManager: Slow operation: 1910ms so far, now at startProcess: building log message
+10-13 11:23:05.781  1024  1398 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:05.783  1024  1024 W Looper  : Slow delivery took 54393ms main h=android.app.PropertyInvalidatedCache$AutoCorker$1 c=null m=0
+10-13 11:23:05.786  1024  1051 I ActivityManager: Start proc 1375:com.android.se/1068 for added application com.android.se
+10-13 11:23:05.787  1024  1051 W ActivityManager: Slow operation: 1917ms so far, now at startProcess: starting to update pids map
+10-13 11:23:05.789  1024  1051 W ActivityManager: Slow operation: 1919ms so far, now at startProcess: done updating pids map
+10-13 11:23:05.789  1024  1051 W ActivityManager: Slow operation: 1892ms so far, now at startProcess: asking zygote to start proc
+10-13 11:23:05.781  1024  1398 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:05.833  1024  1398 D CCodecBufferChannel: [c2.android.vorbis.decoder#146] Created input block pool with allocatorID 16 => poolID 19 - OK (0)
+10-13 11:23:05.838   422  1368 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:05.839   422  1368 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:05.849  1024  1398 I CCodecBufferChannel: [c2.android.vorbis.decoder#146] Created output block pool with allocatorID 16 => poolID 19 - OK
+10-13 11:23:05.856  1024  1398 D CCodecBufferChannel: [c2.android.vorbis.decoder#146] Configured output block pool ids 19 => OK
+10-13 11:23:05.878   422  1399 D SimpleC2Component: Using output block pool with poolID 19 => got 19 - 0
+10-13 11:23:05.894  1024  1398 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:05.897   422   491 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:05.916  1024  1374 W ActivityManager: Slow operation: 122ms so far, now at attachApplicationLocked: after mServices.attachApplicationLocked
+10-13 11:23:05.938  1024  1374 W ActivityManager: Slow operation: 144ms so far, now at attachApplicationLocked: after updateOomAdjLocked
+10-13 11:23:06.038   422  1399 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:06.063  1024  1044 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 1000; state: DISABLED
+10-13 11:23:06.070  1024  1042 W Looper  : Slow dispatch took 329ms android.ui h=com.android.server.am.ActivityManagerService$UiHandler c=null m=31
+10-13 11:23:06.077  1024  1372 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:06.149  1024  1044 D EventSequenceValidator: Transition from INTENT_STARTED to ACTIVITY_LAUNCHED
+10-13 11:23:06.159   947   947 D Zygote  : Forked child process 1400
+10-13 11:23:06.167  1024  1104 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:06.208  1024  1042 W Looper  : Slow delivery took 328ms android.ui h=com.android.server.am.ActivityManagerService$UiHandler c=null m=53
+10-13 11:23:06.229  1024  1044 I InputManager: Enabling motion classifier because user switched: feature enabled, long press timeout = 400
+10-13 11:23:06.229  1024  1044 I InputClassifier: Enabling motion classifier
+10-13 11:23:06.258   404   593 W iorapd  : Rejecting transition from kIntentFailed to kActivityLaunched
+10-13 11:23:06.259   404   593 E IPCThreadState: binder thread pool (1 threads) starved for 116 ms
+10-13 11:23:06.321  1400  1400 W m.android.phon: Unexpected CPU variant for X86 using defaults: x86_64
+10-13 11:23:06.367   377   426 I adbd    : jdwp connection from 1400
+10-13 11:23:06.269  1024  1104 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:06.382  1024  1042 W Looper  : Slow dispatch took 137ms android.ui h=com.android.server.am.ActivityManagerService$UiHandler c=null m=53
+10-13 11:23:06.389  1024  1050 I DropBoxManagerService: add tag=system_server_wtf isTagEnabled=true flags=0x2
+10-13 11:23:06.466  1175  1175 V MediaRouter: Selecting route: RouteInfo{ name=Phone, description=null, status=null, category=RouteCategory{ name=System types=ROUTE_TYPE_LIVE_AUDIO ROUTE_TYPE_LIVE_VIDEO  groupable=false }, supportedTypes=ROUTE_TYPE_LIVE_AUDIO ROUTE_TYPE_LIVE_VIDEO , presentationDisplay=null }
+10-13 11:23:06.565  1024  1104 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:06.569  1024  1024 W Looper  : Slow dispatch took 645ms main h=android.app.ActivityThread$H c=null m=156
+10-13 11:23:06.572  1024  1051 W ActivityManager: Slow operation: 2613ms so far, now at startProcess: returned from zygote!
+10-13 11:23:06.573  1024  1051 W ActivityManager: Slow operation: 2677ms so far, now at startProcess: done updating battery stats
+10-13 11:23:06.574  1024  1051 I Watchdog: Interesting Java process com.android.phone started. Pid 1400
+10-13 11:23:06.574  1024  1051 W ActivityManager: Slow operation: 2678ms so far, now at startProcess: building log message
+10-13 11:23:06.574  1024  1051 I ActivityManager: Start proc 1400:com.android.phone/1001 for added application com.android.phone
+10-13 11:23:06.575  1024  1051 W ActivityManager: Slow operation: 2678ms so far, now at startProcess: starting to update pids map
+10-13 11:23:06.568  1024  1104 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:06.578  1024  1398 D CCodecBufferChannel: [c2.android.vorbis.decoder#146] MediaCodec discarded an unknown buffer
+10-13 11:23:06.584  1024  1051 W ActivityManager: Slow operation: 2687ms so far, now at startProcess: done updating pids map
+10-13 11:23:06.589  1024  1051 W ActivityManager: Slow operation: 534ms so far, now at startProcess: asking zygote to start proc
+10-13 11:23:06.579  1024  1398 I chatty  : uid=1000(system) Binder:1024_3 identical 1 line
+10-13 11:23:06.579  1024  1398 D CCodecBufferChannel: [c2.android.vorbis.decoder#146] MediaCodec discarded an unknown buffer
+10-13 11:23:06.641   422  1368 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:06.642   422  1368 V C2Store : in ~ComponentModule
+10-13 11:23:06.642   422  1368 V C2Store : unloading dll
+10-13 11:23:06.658  1024  1104 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:06.658  1024  1398 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:06.731  1024  1104 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:06.812  1024  1038 W ActivityManager: Slow operation: 71ms so far, now at attachApplicationLocked: immediately after bindApplication
+10-13 11:23:06.813  1024  1038 W ActivityManager: Slow operation: 72ms so far, now at attachApplicationLocked: after updateLruProcessLocked
+10-13 11:23:06.815  1024  1038 W ActivityManager: Slow operation: 74ms so far, now at attachApplicationLocked: after mServices.attachApplicationLocked
+10-13 11:23:06.828  1024  1024 W Looper  : Slow dispatch took 121ms main h=android.database.sqlite.SQLiteConnectionPool$IdleConnectionHandler c=null m=1
+10-13 11:23:06.909  1024  1038 W ActivityManager: Slow operation: 160ms so far, now at attachApplicationLocked: after updateOomAdjLocked
+10-13 11:23:06.913  1024  1024 D ConditionProviders.SCP: onConnected
+10-13 11:23:06.917  1024  1042 W Looper  : Drained
+10-13 11:23:06.876  1024  1104 I chatty  : uid=1000(system) NetworkPolicy identical 1 line
+10-13 11:23:06.938  1024  1104 W BestClock: java.time.DateTimeException: Missing NTP fix
+10-13 11:23:07.009  1343  1343 W rkstack.proces: Verification of void com.android.cellbroadcastservice.CellBroadcastProvider.<clinit>() took 130.318ms (851.76 bytecodes/s) (2808B approximate peak alloc)
+10-13 11:23:07.015  1175  1175 D SystemUIBootTiming: StartServicescom.android.systemui.keyguard.KeyguardViewMediator took to complete: 4209ms
+10-13 11:23:07.016  1175  1175 W SystemUIService: Initialization of com.android.systemui.keyguard.KeyguardViewMediator took 4209 ms
+10-13 11:23:07.031  1024  1024 D ConditionProviders: Subscribing to condition://android/event?userId=-10000&calendar=&reply=1 with ComponentInfo{android/com.android.server.notification.EventConditionProvider}
+--------- beginning of kernel
+10-13 11:22:57.382     0     0 I chatty  : uid=0(root) logd identical 1 line
+10-13 11:22:58.255     0     0 I init    : Control message: Processed ctl.interface_start for 'android.hardware.gnss@2.0::IGnss/default' from pid: 155 (/system/bin/hwservicemanager)
+10-13 11:23:17.367     0     0 W healthd : battery l=100 v=5000 t=25.0 h=2 st=2 c=900000 fc=300000 cc=10 chg=a
+10-13 11:23:07.058  1024  1024 D ConditionProviders: Subscribing to condition://android/schedule?days=1.2.3.4.5.6.7&start=22.0&end=7.0&exitAtAlarm=true with ComponentInfo{android/com.android.server.notification.ScheduleConditionProvider}
+10-13 11:23:07.059  1024  1024 W Looper  : Slow dispatch took 126ms main h=com.android.server.notification.ZenModeHelper$H c=null m=4
+10-13 11:23:07.091  1024  1024 V FingerprintService: starting client EnumerateClient(android) targetUserId: 0 currentUserId: 0 cookie: 0/0
+10-13 11:23:07.118  1375  1387 I com.android.se: Background young concurrent copying GC freed 1076(107KB) AllocSpace objects, 0(0B) LOS objects, 93% free, 1703KB/25MB, paused 313us total 786.850ms
+10-13 11:23:07.140   435   435 D FingerprintHal: ----------------> fingerprint_enumerate ----------------->
+10-13 11:23:07.146   435   435 D android.hardware.biometrics.fingerprint@2.1-service: onEnumerate(fid=0, gid=0, rem=0)
+10-13 11:23:07.196  1024  1423 D CCodec  : allocate(c2.android.vorbis.decoder)
+10-13 11:23:07.204   422   491 V C2Store : in init
+10-13 11:23:07.208   422   491 V C2Store : loading dll
+10-13 11:23:07.227  1024  1423 I CCodec  : Created component [c2.android.vorbis.decoder]
+10-13 11:23:07.233  1024  1423 D CCodecConfig: read media type: audio/vorbis
+10-13 11:23:07.255  1024  1423 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.max-count.values
+10-13 11:23:07.258  1024  1423 D ReflectedParamUpdater: extent() != 1 for single value type: output.subscribed-indices.values
+10-13 11:23:07.258  1024  1423 D ReflectedParamUpdater: extent() != 1 for single value type: input.buffers.allocator-ids.values
+10-13 11:23:07.259  1024  1423 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.allocator-ids.values
+10-13 11:23:07.259  1024  1423 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.allocator-ids.values
+10-13 11:23:07.260  1024  1423 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.pool-ids.values
+10-13 11:23:07.261  1024  1423 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.pool-ids.values
+10-13 11:23:07.275  1024  1423 I CCodecConfig: query failed after returning 7 values (BAD_INDEX)
+10-13 11:23:07.275  1024  1423 D CCodecConfig: c2 config diff is Dict {
+10-13 11:23:07.275  1024  1423 D CCodecConfig:   c2::u32 coded.bitrate.value = 64000
+10-13 11:23:07.275  1024  1423 D CCodecConfig:   c2::u32 input.buffers.max-size.value = 32768
+10-13 11:23:07.275  1024  1423 D CCodecConfig:   c2::u32 input.delay.value = 0
+10-13 11:23:07.275  1024  1423 D CCodecConfig:   string input.media-type.value = "audio/vorbis"
+10-13 11:23:07.275  1024  1423 D CCodecConfig:   string output.media-type.value = "audio/raw"
+10-13 11:23:07.275  1024  1423 D CCodecConfig:   c2::u32 raw.channel-count.value = 1
+10-13 11:23:07.275  1024  1423 D CCodecConfig:   c2::u32 raw.sample-rate.value = 48000
+10-13 11:23:07.275  1024  1423 D CCodecConfig: }
+10-13 11:23:07.283  1024  1423 D CCodec  : [c2.android.vorbis.decoder] buffers are bound to CCodec for this session
+10-13 11:23:07.284  1024  1423 D CCodecConfig: no c2 equivalents for durationUs
+10-13 11:23:07.284  1024  1423 D CCodecConfig: no c2 equivalents for track-id
+10-13 11:23:07.284  1024  1423 D CCodecConfig: no c2 equivalents for csd-1
+10-13 11:23:07.285  1024  1423 D CCodecConfig: no c2 equivalents for channel-mask
+10-13 11:23:07.288  1024  1423 D CCodecConfig: no c2 equivalents for flags
+10-13 11:23:07.184   947   947 D Zygote  : Forked child process 1424
+10-13 11:23:07.321  1024  1024 W ActivityManager: Slow operation: 101ms so far, now at startProcess: done creating new process record
+10-13 11:23:07.321  1024  1024 W ActivityManager: Slow operation: 131ms so far, now at startProcess: stepping in to startProcess
+10-13 11:23:07.330  1024  1423 W Codec2Client: query -- param skipped: index = 1107298332.
+10-13 11:23:07.330  1024  1423 D CCodec  : setup formats input: AMessage(what = 0x00000000) = {
+10-13 11:23:07.330  1024  1423 D CCodec  :   int32_t channel-count = 1
+10-13 11:23:07.330  1024  1423 D CCodec  :   int32_t max-input-size = 32768
+10-13 11:23:07.330  1024  1423 D CCodec  :   string mime = "audio/vorbis"
+10-13 11:23:07.330  1024  1423 D CCodec  :   int32_t sample-rate = 48000
+10-13 11:23:07.330  1024  1423 D CCodec  : } and output: AMessage(what = 0x00000000) = {
+10-13 11:23:07.330  1024  1423 D CCodec  :   int32_t channel-count = 1
+10-13 11:23:07.330  1024  1423 D CCodec  :   string mime = "audio/raw"
+10-13 11:23:07.330  1024  1423 D CCodec  :   int32_t sample-rate = 48000
+10-13 11:23:07.330  1024  1423 D CCodec  :   int32_t channel-mask = 1
+10-13 11:23:07.330  1024  1423 D CCodec  : }
+10-13 11:23:07.338  1375  1375 I com.android.se: The ClassLoaderContext is a special shared library.
+10-13 11:23:07.353  1024  1024 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10129; state: DISABLED
+10-13 11:23:07.353  1024  1024 W ActivityManager: Slow operation: 163ms so far, now at startProcess: done starting proc!
+10-13 11:23:07.355  1024  1024 W Looper  : Slow dispatch took 207ms main h=android.os.Handler c=<recycled PooledLambda@e5bf1d0> m=1
+10-13 11:23:07.358  1024  1423 W Codec2Client: query -- param skipped: index = 1342179345.
+10-13 11:23:07.358  1024  1423 W Codec2Client: query -- param skipped: index = 2415921170.
+10-13 11:23:07.390  1024  1423 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:07.391  1024  1423 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:07.391  1024  1423 D CCodecBufferChannel: [c2.android.vorbis.decoder#580] Created input block pool with allocatorID 16 => poolID 20 - OK (0)
+10-13 11:23:07.414   422  1426 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:07.415   422  1426 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:07.425  1424  1424 W ndroid.setting: Unexpected CPU variant for X86 using defaults: x86_64
+10-13 11:23:07.432  1024  1423 I CCodecBufferChannel: [c2.android.vorbis.decoder#580] Created output block pool with allocatorID 16 => poolID 20 - OK
+10-13 11:23:07.440  1024  1423 D CCodecBufferChannel: [c2.android.vorbis.decoder#580] Configured output block pool ids 20 => OK
+10-13 11:23:07.449   422  1425 D SimpleC2Component: Using output block pool with poolID 20 => got 20 - 0
+10-13 11:23:07.459  1024  1024 W Looper  : Slow dispatch took 103ms main h=android.os.Handler c=com.android.server.devicepolicy.-$$Lambda$DevicePolicyManagerService$MpKSZCaip5itOpByyM31AZdtkIk@7b385c9 m=0
+10-13 11:23:07.462  1024  1423 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:07.465   422  1426 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:07.529   377   426 I adbd    : jdwp connection from 1424
+10-13 11:23:07.556  1024  1051 W ActivityManager: Slow operation: 1500ms so far, now at startProcess: returned from zygote!
+10-13 11:23:07.564  1024  1051 W ActivityManager: Slow operation: 1508ms so far, now at startProcess: done updating battery stats
+10-13 11:23:07.565  1024  1051 W ActivityManager: Slow operation: 1510ms so far, now at startProcess: building log message
+10-13 11:23:07.566  1024  1051 I ActivityManager: Start proc 1424:com.android.settings/1000 for top-activity {com.android.settings/com.android.settings.FallbackHome}
+10-13 11:23:07.566  1024  1051 W ActivityManager: Slow operation: 1510ms so far, now at startProcess: starting to update pids map
+10-13 11:23:07.574  1024  1051 W ActivityManager: Slow operation: 1518ms so far, now at startProcess: done updating pids map
+10-13 11:23:07.574  1024  1051 W ActivityManager: Slow operation: 253ms so far, now at startProcess: asking zygote to start proc
+10-13 11:23:07.576  1024  1051 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10129; state: ENABLED
+10-13 11:23:07.585  1024  1024 W Looper  : Slow dispatch took 105ms main h=android.app.ActivityThread$H c=android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA@62adfef m=0
+10-13 11:23:07.634   422  1425 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:07.639  1175  1427 D CCodec  : allocate(c2.android.vorbis.decoder)
+10-13 11:23:07.684  1175  1427 I Codec2Client: Available Codec2 services: "software"
+10-13 11:23:07.759  1175  1427 I CCodec  : Created component [c2.android.vorbis.decoder]
+10-13 11:23:07.764  1175  1427 D CCodecConfig: read media type: audio/vorbis
+10-13 11:23:07.811  1024  1024 W Looper  : Slow dispatch took 143ms main h=com.android.server.power.Notifier$NotifierHandler c=null m=1
+10-13 11:23:07.873  1175  1427 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.max-count.values
+10-13 11:23:07.897  1175  1427 D ReflectedParamUpdater: extent() != 1 for single value type: output.subscribed-indices.values
+10-13 11:23:07.899  1375  1375 W ContextImpl: Failed to ensure /data/user/0/com.android.se/cache: mkdir failed: ENOENT (No such file or directory)
+10-13 11:23:07.905  1175  1427 D ReflectedParamUpdater: extent() != 1 for single value type: input.buffers.allocator-ids.values
+10-13 11:23:07.913  1175  1427 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.allocator-ids.values
+10-13 11:23:07.914  1375  1375 W ContextImpl: Failed to update user.inode_cache: stat failed: ENOENT (No such file or directory)
+10-13 11:23:07.922  1024  1041 D CompatibilityChangeReporter: Compat change id reported: 150939131; UID 1000; state: ENABLED
+10-13 11:23:07.924  1175  1427 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.allocator-ids.values
+10-13 11:23:07.937  1175  1427 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.pool-ids.values
+10-13 11:23:07.945  1175  1427 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.pool-ids.values
+10-13 11:23:07.957  1375  1375 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:07.958  1375  1375 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:07.984  1175  1427 I CCodecConfig: query failed after returning 7 values (BAD_INDEX)
+10-13 11:23:08.001  1175  1427 D CCodecConfig: c2 config diff is Dict {
+10-13 11:23:08.001  1175  1427 D CCodecConfig:   c2::u32 coded.bitrate.value = 64000
+10-13 11:23:08.001  1175  1427 D CCodecConfig:   c2::u32 input.buffers.max-size.value = 32768
+10-13 11:23:08.001  1175  1427 D CCodecConfig:   c2::u32 input.delay.value = 0
+10-13 11:23:08.001  1175  1427 D CCodecConfig:   string input.media-type.value = "audio/vorbis"
+10-13 11:23:08.001  1175  1427 D CCodecConfig:   string output.media-type.value = "audio/raw"
+10-13 11:23:08.001  1175  1427 D CCodecConfig:   c2::u32 raw.channel-count.value = 1
+10-13 11:23:08.001  1175  1427 D CCodecConfig:   c2::u32 raw.sample-rate.value = 48000
+10-13 11:23:08.001  1175  1427 D CCodecConfig: }
+10-13 11:23:08.013  1175  1427 D CCodec  : [c2.android.vorbis.decoder] buffers are bound to CCodec for this session
+10-13 11:23:08.013  1175  1427 D CCodecConfig: no c2 equivalents for durationUs
+10-13 11:23:08.014  1175  1427 D CCodecConfig: no c2 equivalents for track-id
+10-13 11:23:08.014  1175  1427 D CCodecConfig: no c2 equivalents for csd-1
+10-13 11:23:08.014  1175  1427 D CCodecConfig: no c2 equivalents for channel-mask
+10-13 11:23:08.014  1175  1427 D CCodecConfig: no c2 equivalents for flags
+10-13 11:23:08.037  1175  1427 D CCodecConfig: c2 config diff is   c2::u32 raw.channel-count.value = 2
+10-13 11:23:08.037  1175  1427 D CCodecConfig:   c2::u32 raw.sample-rate.value = 44100
+10-13 11:23:08.044  1175  1427 W Codec2Client: query -- param skipped: index = 1107298332.
+10-13 11:23:08.045  1175  1427 D CCodec  : setup formats input: AMessage(what = 0x00000000) = {
+10-13 11:23:08.045  1175  1427 D CCodec  :   int32_t channel-count = 2
+10-13 11:23:08.045  1175  1427 D CCodec  :   int32_t max-input-size = 32768
+10-13 11:23:08.045  1175  1427 D CCodec  :   string mime = "audio/vorbis"
+10-13 11:23:08.045  1175  1427 D CCodec  :   int32_t sample-rate = 44100
+10-13 11:23:08.045  1175  1427 D CCodec  : } and output: AMessage(what = 0x00000000) = {
+10-13 11:23:08.045  1175  1427 D CCodec  :   int32_t channel-count = 2
+10-13 11:23:08.045  1175  1427 D CCodec  :   string mime = "audio/raw"
+10-13 11:23:08.045  1175  1427 D CCodec  :   int32_t sample-rate = 44100
+10-13 11:23:08.045  1175  1427 D CCodec  :   int32_t channel-mask = 3
+10-13 11:23:08.045  1175  1427 D CCodec  : }
+10-13 11:23:08.069  1175  1427 W Codec2Client: query -- param skipped: index = 1342179345.
+10-13 11:23:08.071  1175  1427 W Codec2Client: query -- param skipped: index = 2415921170.
+10-13 11:23:08.121  1175  1427 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:08.122  1175  1427 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:08.122  1175  1427 D CCodecBufferChannel: [c2.android.vorbis.decoder#702] Created input block pool with allocatorID 16 => poolID 17 - OK (0)
+10-13 11:23:08.141   422   939 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:08.142   422   939 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:08.151  1175  1427 I CCodecBufferChannel: [c2.android.vorbis.decoder#702] Created output block pool with allocatorID 16 => poolID 21 - OK
+10-13 11:23:08.156  1175  1427 D CCodecBufferChannel: [c2.android.vorbis.decoder#702] Configured output block pool ids 21 => OK
+10-13 11:23:08.167  1400  1400 I m.android.phon: The ClassLoaderContext is a special shared library.
+10-13 11:23:08.169  1175  1427 E ion     : ioctl c0044901 failed with code -1: Inappropriate ioctl for device
+10-13 11:23:08.180   422  1447 D SimpleC2Component: Using output block pool with poolID 21 => got 21 - 0
+10-13 11:23:08.213  1175  1427 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:08.217   422   939 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:08.233  1024  1423 D CCodecBufferChannel: [c2.android.vorbis.decoder#580] MediaCodec discarded an unknown buffer
+10-13 11:23:08.234  1024  1423 I chatty  : uid=1000(system) Binder:1024_3 identical 1 line
+10-13 11:23:08.234  1024  1423 D CCodecBufferChannel: [c2.android.vorbis.decoder#580] MediaCodec discarded an unknown buffer
+10-13 11:23:08.259  1024  1365 D BufferPoolAccessor2.0: bufferpool2 0x76b8b1b3df48 : 0(0 size) total buffers - 0(0 size) used buffers - 3/9 (recycle/alloc) - 6/18 (fetch/transfer)
+10-13 11:23:08.259  1024  1365 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+10-13 11:23:08.282  1343  1369 I rkstack.proces: Waiting for a blocking GC ProfileSaver
+10-13 11:23:08.284  1024  1423 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:08.285   422  1395 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:08.305   422   855 D BufferPoolAccessor2.0: bufferpool2 0x7720089f42e8 : 0(0 size) total buffers - 0(0 size) used buffers - 2/7 (recycle/alloc) - 5/6 (fetch/transfer)
+10-13 11:23:08.305   422   855 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+10-13 11:23:08.311  1024  1041 W system_server: Long monitor contention with owner Binder:1024_1 (1038) at int com.android.server.am.ActivityManagerService.getUidState(int)(ActivityManagerService.java:6027) waiters=0 in int com.android.server.am.ActivityManagerService.broadcastIntentWithFeature(android.app.IApplicationThread, java.lang.String, android.content.Intent, java.lang.String, android.content.IIntentReceiver, int, java.lang.String, android.os.Bundle, java.lang.String[], int, android.os.Bundle, boolean, boolean, int) for 293ms
+10-13 11:23:08.329   422  1447 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:08.331  1175  1446 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:08.346  1024  1041 W Looper  : Slow dispatch took 424ms android.fg h=android.os.Handler c=android.database.-$$Lambda$ContentObserver$MgqiYb2qvgLhoXTioYXq9MvvpNk@95809f5 m=0
+10-13 11:23:08.347  1024  1041 W Looper  : Slow delivery took 412ms android.fg h=com.android.server.location.gnss.GnssLocationProvider$ProviderHandler c=android.database.-$$Lambda$ContentObserver$MgqiYb2qvgLhoXTioYXq9MvvpNk@603138a m=0
+10-13 11:23:08.404  1343  1369 I rkstack.proces: WaitForGcToComplete blocked ProfileSaver on RunEmptyCheckpoint for 121.433ms
+10-13 11:23:08.477  1024  1041 W Looper  : Drained
+10-13 11:23:08.521  1375  1375 I SecureElementService: main onCreate
+10-13 11:23:08.542  1343  1343 W rkstack.proces: Verification of void com.android.server.NetworkStackService$NetworkStackConnector.<init>(android.content.Context, com.android.server.NetworkStackService$PermissionChecker, com.android.server.NetworkStackService$Dependencies) took 141.099ms (1091.43 bytecodes/s) (6568B approximate peak alloc)
+10-13 11:23:08.634   947   947 D Zygote  : Forked child process 1455
+10-13 11:23:08.645  1343  1343 W rkstack.proces: Verification of android.net.util.SharedLog com.android.server.NetworkStackService$NetworkStackConnector.addValidationLogs(android.net.Network, java.lang.String) took 101.579ms (551.29 bytecodes/s) (2816B approximate peak alloc)
+10-13 11:23:08.670  1375  1375 I SecureElementService: Check if terminal eSE1 is available.
+10-13 11:23:08.779   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.secure_element@1.2::ISecureElement/eSE1 in either framework or device manifest.
+10-13 11:23:08.782  1375  1375 D SecureElement-Terminal-eSE1: SE Hal V1.2 is not supported
+10-13 11:23:08.799  1024  1024 I system_server: The ClassLoaderContext is a special shared library.
+10-13 11:23:08.818  1455  1455 W id.ext.service: Unexpected CPU variant for X86 using defaults: x86_64
+10-13 11:23:08.846   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.secure_element@1.1::ISecureElement/eSE1 in either framework or device manifest.
+10-13 11:23:08.847  1375  1375 D SecureElement-Terminal-eSE1: SE Hal V1.1 is not supported
+10-13 11:23:08.867   377   426 I adbd    : jdwp connection from 1455
+10-13 11:23:08.869   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.secure_element@1.0::ISecureElement/eSE1 in either framework or device manifest.
+10-13 11:23:08.871  1375  1375 I SecureElementService: No HAL implementation for eSE1
+10-13 11:23:08.871  1375  1375 I SecureElementService: Check if terminal SIM1 is available.
+10-13 11:23:08.880   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.secure_element@1.2::ISecureElement/SIM1 in either framework or device manifest.
+10-13 11:23:08.918  1343  1343 W rkstack.proces: Verification of void com.android.server.NetworkStackService$NetworkStackConnector.dump(java.io.FileDescriptor, java.io.PrintWriter, java.lang.String[]) took 270.116ms (762.64 bytecodes/s) (5568B approximate peak alloc)
+10-13 11:23:08.931  1375  1375 D SecureElement-Terminal-SIM1: SE Hal V1.2 is not supported
+10-13 11:23:08.995   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.secure_element@1.1::ISecureElement/SIM1 in either framework or device manifest.
+10-13 11:23:08.998  1375  1375 D SecureElement-Terminal-SIM1: SE Hal V1.1 is not supported
+10-13 11:23:09.009   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.secure_element@1.0::ISecureElement/SIM1 in either framework or device manifest.
+10-13 11:23:09.010  1375  1375 I SecureElementService: No HAL implementation for SIM1
+10-13 11:23:09.038  1343  1343 W rkstack.proces: Verification of void com.android.server.NetworkStackService$NetworkStackConnector.makeIpClient(java.lang.String, android.net.ip.IIpClientCallbacks) took 118.125ms (711.11 bytecodes/s) (3648B approximate peak alloc)
+10-13 11:23:09.043  1400  1400 I m.android.phon: Waiting for a blocking GC ClassLinker
+10-13 11:23:09.158  1175  1427 D CCodecBufferChannel: [c2.android.vorbis.decoder#702] MediaCodec discarded an unknown buffer
+10-13 11:23:09.158  1175  1427 I chatty  : uid=10121(com.android.systemui) identical 1 line
+10-13 11:23:09.158  1175  1427 D CCodecBufferChannel: [c2.android.vorbis.decoder#702] MediaCodec discarded an unknown buffer
+10-13 11:23:09.192  1024  1473 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.max-count.values
+10-13 11:23:09.202  1175  1427 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:09.205   422   937 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:09.206  1024  1473 D ReflectedParamUpdater: extent() != 1 for single value type: output.subscribed-indices.values
+10-13 11:23:09.207  1024  1473 D ReflectedParamUpdater: extent() != 1 for single value type: input.buffers.allocator-ids.values
+10-13 11:23:09.208  1024  1473 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.allocator-ids.values
+10-13 11:23:09.214  1024  1473 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.allocator-ids.values
+10-13 11:23:09.219  1024  1473 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.pool-ids.values
+10-13 11:23:09.224  1024  1473 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.pool-ids.values
+10-13 11:23:09.240  1024  1473 I CCodecConfig: query failed after returning 7 values (BAD_INDEX)
+10-13 11:23:09.241  1024  1473 D CCodecConfig: c2 config diff is Dict {
+10-13 11:23:09.241  1024  1473 D CCodecConfig:   c2::u32 coded.bitrate.value = 64000
+10-13 11:23:09.241  1024  1473 D CCodecConfig:   c2::u32 input.buffers.max-size.value = 32768
+10-13 11:23:09.241  1024  1473 D CCodecConfig:   c2::u32 input.delay.value = 0
+10-13 11:23:09.241  1024  1473 D CCodecConfig:   string input.media-type.value = "audio/vorbis"
+10-13 11:23:09.241  1024  1473 D CCodecConfig:   string output.media-type.value = "audio/raw"
+10-13 11:23:09.241  1024  1473 D CCodecConfig:   c2::u32 raw.channel-count.value = 1
+10-13 11:23:09.241  1024  1473 D CCodecConfig:   c2::u32 raw.sample-rate.value = 48000
+10-13 11:23:09.241  1024  1473 D CCodecConfig: }
+10-13 11:23:09.249  1024  1473 D CCodec  : [c2.android.vorbis.decoder] buffers are bound to CCodec for this session
+10-13 11:23:09.249  1024  1473 D CCodecConfig: no c2 equivalents for durationUs
+10-13 11:23:09.249  1024  1473 D CCodecConfig: no c2 equivalents for track-id
+10-13 11:23:09.249  1024  1473 D CCodecConfig: no c2 equivalents for csd-1
+10-13 11:23:09.250  1024  1473 D CCodecConfig: no c2 equivalents for channel-mask
+10-13 11:23:09.250  1024  1473 D CCodecConfig: no c2 equivalents for flags
+10-13 11:23:09.284  1024  1473 W Codec2Client: query -- param skipped: index = 1107298332.
+10-13 11:23:09.320   422  1395 D BufferPoolAccessor2.0: Destruction - bufferpool2 0x7720089f42e8 cached: 0/0M, 0/0% in use; allocs: 7, 29% recycled; transfers: 6, 17% unfetched
+10-13 11:23:09.326   422  1477 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:09.326   422  1477 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:09.361   422  1475 D SimpleC2Component: Using output block pool with poolID 22 => got 22 - 0
+10-13 11:23:09.377   422  1477 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:09.494  1343  1343 W rkstack.proces: Verification of void android.net.networkstack.util.LocalLog.dump(java.lang.String, java.io.PrintWriter) took 162.075ms (228.29 bytecodes/s) (2576B approximate peak alloc)
+10-13 11:23:09.622   422  1475 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:09.643  1343  1343 W rkstack.proces: Verification of android.net.INetd android.net.INetd$Stub.asInterface(android.os.IBinder) took 114.722ms (217.92 bytecodes/s) (1944B approximate peak alloc)
+10-13 11:23:09.749  1424  1424 I ndroid.setting: The ClassLoaderContext is a special shared library.
+10-13 11:23:09.763  1175  1482 D CCodec  : allocate(c2.android.vorbis.decoder)
+10-13 11:23:09.800  1175  1482 I CCodec  : Created component [c2.android.vorbis.decoder]
+10-13 11:23:09.802  1175  1482 D CCodecConfig: read media type: audio/vorbis
+10-13 11:23:09.839  1175  1482 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.max-count.values
+10-13 11:23:09.843  1175  1482 D ReflectedParamUpdater: extent() != 1 for single value type: output.subscribed-indices.values
+10-13 11:23:09.844  1175  1482 D ReflectedParamUpdater: extent() != 1 for single value type: input.buffers.allocator-ids.values
+10-13 11:23:09.848  1175  1482 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.allocator-ids.values
+10-13 11:23:09.856  1175  1482 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.allocator-ids.values
+10-13 11:23:09.860  1175  1482 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.pool-ids.values
+10-13 11:23:09.862  1175  1482 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.pool-ids.values
+10-13 11:23:09.880  1175  1482 I CCodecConfig: query failed after returning 7 values (BAD_INDEX)
+10-13 11:23:09.881  1175  1482 D CCodecConfig: c2 config diff is Dict {
+10-13 11:23:09.881  1175  1482 D CCodecConfig:   c2::u32 coded.bitrate.value = 64000
+10-13 11:23:09.881  1175  1482 D CCodecConfig:   c2::u32 input.buffers.max-size.value = 32768
+10-13 11:23:09.881  1175  1482 D CCodecConfig:   c2::u32 input.delay.value = 0
+10-13 11:23:09.881  1175  1482 D CCodecConfig:   string input.media-type.value = "audio/vorbis"
+10-13 11:23:09.881  1175  1482 D CCodecConfig:   string output.media-type.value = "audio/raw"
+10-13 11:23:09.881  1175  1482 D CCodecConfig:   c2::u32 raw.channel-count.value = 1
+10-13 11:23:09.881  1175  1482 D CCodecConfig:   c2::u32 raw.sample-rate.value = 48000
+10-13 11:23:09.881  1175  1482 D CCodecConfig: }
+10-13 11:23:09.886  1175  1482 D CCodec  : [c2.android.vorbis.decoder] buffers are bound to CCodec for this session
+10-13 11:23:09.886  1175  1482 D CCodecConfig: no c2 equivalents for durationUs
+10-13 11:23:09.887  1175  1482 D CCodecConfig: no c2 equivalents for track-id
+10-13 11:23:09.887  1175  1482 D CCodecConfig: no c2 equivalents for csd-1
+10-13 11:23:09.887  1175  1482 D CCodecConfig: no c2 equivalents for channel-mask
+10-13 11:23:09.887  1175  1482 D CCodecConfig: no c2 equivalents for flags
+10-13 11:23:09.890  1424  1424 I ndroid.setting: The ClassLoaderContext is a special shared library.
+10-13 11:23:09.901  1175  1482 D CCodecConfig: c2 config diff is   c2::u32 raw.channel-count.value = 2
+10-13 11:23:09.901  1175  1482 D CCodecConfig:   c2::u32 raw.sample-rate.value = 44100
+10-13 11:23:09.907  1175  1482 W Codec2Client: query -- param skipped: index = 1107298332.
+10-13 11:23:09.908  1175  1482 D CCodec  : setup formats input: AMessage(what = 0x00000000) = {
+10-13 11:23:09.908  1175  1482 D CCodec  :   int32_t channel-count = 2
+10-13 11:23:09.908  1175  1482 D CCodec  :   int32_t max-input-size = 32768
+10-13 11:23:09.908  1175  1482 D CCodec  :   string mime = "audio/vorbis"
+10-13 11:23:09.908  1175  1482 D CCodec  :   int32_t sample-rate = 44100
+10-13 11:23:09.908  1175  1482 D CCodec  : } and output: AMessage(what = 0x00000000) = {
+10-13 11:23:09.908  1175  1482 D CCodec  :   int32_t channel-count = 2
+10-13 11:23:09.908  1175  1482 D CCodec  :   string mime = "audio/raw"
+10-13 11:23:09.908  1175  1482 D CCodec  :   int32_t sample-rate = 44100
+10-13 11:23:09.908  1175  1482 D CCodec  :   int32_t channel-mask = 3
+10-13 11:23:09.908  1175  1482 D CCodec  : }
+10-13 11:23:09.925  1175  1482 W Codec2Client: query -- param skipped: index = 1342179345.
+10-13 11:23:09.925  1175  1482 W Codec2Client: query -- param skipped: index = 2415921170.
+10-13 11:23:09.935  1175  1482 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:09.936  1175  1482 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:09.945  1175  1482 D CCodecBufferChannel: [c2.android.vorbis.decoder#151] Created input block pool with allocatorID 16 => poolID 18 - OK (0)
+10-13 11:23:09.948  1424  1424 I ndroid.setting: Waiting for a blocking GC ClassLinker
+10-13 11:23:09.951   422  1426 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:09.952   422  1426 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:09.955  1343  1343 W rkstack.proces: Verification of void com.android.server.NetworkObserverRegistry.invokeForAllObservers(com.android.server.NetworkObserverRegistry$NetworkObserverEventCallback) took 127.368ms (541.74 bytecodes/s) (2936B approximate peak alloc)
+10-13 11:23:09.961  1175  1482 I CCodecBufferChannel: [c2.android.vorbis.decoder#151] Created output block pool with allocatorID 16 => poolID 23 - OK
+10-13 11:23:09.964  1175  1482 D CCodecBufferChannel: [c2.android.vorbis.decoder#151] Configured output block pool ids 23 => OK
+10-13 11:23:09.981   422  1483 D SimpleC2Component: Using output block pool with poolID 23 => got 23 - 0
+10-13 11:23:09.990  1175  1482 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:09.994   422  1426 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:10.065  1024  1074 W system_server: Long monitor contention with owner Binder:1024_1 (1038) at void com.android.server.am.ActivityManagerService.attachApplication(android.app.IApplicationThread, long)(ActivityManagerService.java:5460) waiters=1 in void com.android.server.am.ActivityManagerService.attachApplication(android.app.IApplicationThread, long) for 1.135s
+10-13 11:23:10.187   422  1483 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:10.189  1175  1446 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:10.310   422   855 D BufferPoolAccessor2.0: bufferpool2 0x7720089f2728 : 0(0 size) total buffers - 0(0 size) used buffers - 9/10 (recycle/alloc) - 1/9 (fetch/transfer)
+10-13 11:23:10.311   422   855 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+10-13 11:23:10.421   422  1395 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:10.450  1400  1410 I m.android.phon: Background young concurrent copying GC freed 1290(130KB) AllocSpace objects, 0(0B) LOS objects, 93% free, 1697KB/25MB, paused 5.638ms total 2.149s
+10-13 11:23:10.451  1400  1400 I m.android.phon: WaitForGcToComplete blocked ClassLinker on HeapTrim for 1.408s
+10-13 11:23:10.945  1424  1424 I ndroid.setting: WaitForGcToComplete blocked ClassLinker on HeapTrim for 997.250ms
+10-13 11:23:11.049  1455  1455 I id.ext.service: Waiting for a blocking GC ClassLinker
+10-13 11:23:11.158  1175  1482 D CCodecBufferChannel: [c2.android.vorbis.decoder#151] MediaCodec discarded an unknown buffer
+10-13 11:23:11.158  1175  1482 I chatty  : uid=10121(com.android.systemui) identical 1 line
+10-13 11:23:11.158  1175  1482 D CCodecBufferChannel: [c2.android.vorbis.decoder#151] MediaCodec discarded an unknown buffer
+10-13 11:23:11.177  1175  1482 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:11.179   422  1477 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:11.180   422  1477 V C2Store : in ~ComponentModule
+10-13 11:23:11.205   422  1477 V C2Store : unloading dll
+10-13 11:23:11.239  1455  1465 I id.ext.service: Background young concurrent copying GC freed 1626(148KB) AllocSpace objects, 0(0B) LOS objects, 93% free, 1696KB/25MB, paused 274us total 445.763ms
+10-13 11:23:11.239  1455  1455 I id.ext.service: WaitForGcToComplete blocked ClassLinker on HeapTrim for 190.359ms
+10-13 11:23:11.273  1024  1365 D BufferPoolAccessor2.0: bufferpool2 0x76b8b1b49158 : 0(0 size) total buffers - 0(0 size) used buffers - 3/9 (recycle/alloc) - 6/26 (fetch/transfer)
+10-13 11:23:11.274  1024  1365 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+10-13 11:23:11.312   422   855 D BufferPoolAccessor2.0: bufferpool2 0x7720089f2e18 : 0(0 size) total buffers - 0(0 size) used buffers - 6/11 (recycle/alloc) - 5/10 (fetch/transfer)
+10-13 11:23:11.312   422   855 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+10-13 11:23:11.377  1024  1397 W system_server: Long monitor contention with owner Binder:1024_7 (1374) at android.content.pm.PackageInfo com.android.server.pm.PackageManagerService.getPackageInfoInternal(java.lang.String, long, int, int, int)(PackageManagerService.java:4564) waiters=0 in java.lang.String com.android.server.pm.PackageManagerService.getInstantAppPackageName(int) for 263ms
+10-13 11:23:11.386  1024  1044 W system_server: Long monitor contention with owner Binder:1024_4 (1073) at android.app.ActivityManager$StackInfo com.android.server.wm.ActivityTaskManagerService.getStackInfo(int, int)(ActivityTaskManagerService.java:2917) waiters=0 in void com.android.server.wm.ActivityRecord$2.run() for 352ms
+10-13 11:23:11.422  1424  1424 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:11.423  1424  1424 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:11.425  1400  1400 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:11.426  1400  1400 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:11.431  1175  1175 D NavigationModeController: getCurrentInteractionMode: mode=0 contextUser=0
+10-13 11:23:11.472  1455  1455 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:11.475  1455  1455 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:11.577  1175  1491 D CCodec  : allocate(c2.android.vorbis.decoder)
+10-13 11:23:11.579   422  1477 V C2Store : in init
+10-13 11:23:11.579   422  1477 V C2Store : loading dll
+10-13 11:23:11.613  1175  1491 I CCodec  : Created component [c2.android.vorbis.decoder]
+10-13 11:23:11.620  1175  1491 D CCodecConfig: read media type: audio/vorbis
+10-13 11:23:11.712  1024  1074 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:2067) waiters=0 in com.android.server.am.ProcessRecord com.android.server.am.ActivityManagerService.findAppProcess(android.os.IBinder, java.lang.String) for 341ms
+10-13 11:23:11.719  1175  1491 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.max-count.values
+10-13 11:23:11.733  1175  1491 D ReflectedParamUpdater: extent() != 1 for single value type: output.subscribed-indices.values
+10-13 11:23:11.741  1175  1491 D ReflectedParamUpdater: extent() != 1 for single value type: input.buffers.allocator-ids.values
+10-13 11:23:11.749  1175  1491 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.allocator-ids.values
+10-13 11:23:11.756  1175  1491 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.allocator-ids.values
+10-13 11:23:11.769  1175  1491 D ReflectedParamUpdater: extent() != 1 for single value type: output.buffers.pool-ids.values
+10-13 11:23:11.777  1175  1491 D ReflectedParamUpdater: extent() != 1 for single value type: algo.buffers.pool-ids.values
+10-13 11:23:11.825  1175  1491 I CCodecConfig: query failed after returning 7 values (BAD_INDEX)
+10-13 11:23:11.825  1175  1491 D CCodecConfig: c2 config diff is Dict {
+10-13 11:23:11.825  1175  1491 D CCodecConfig:   c2::u32 coded.bitrate.value = 64000
+10-13 11:23:11.825  1175  1491 D CCodecConfig:   c2::u32 input.buffers.max-size.value = 32768
+10-13 11:23:11.825  1175  1491 D CCodecConfig:   c2::u32 input.delay.value = 0
+10-13 11:23:11.825  1175  1491 D CCodecConfig:   string input.media-type.value = "audio/vorbis"
+10-13 11:23:11.825  1175  1491 D CCodecConfig:   string output.media-type.value = "audio/raw"
+10-13 11:23:11.825  1175  1491 D CCodecConfig:   c2::u32 raw.channel-count.value = 1
+10-13 11:23:11.825  1175  1491 D CCodecConfig:   c2::u32 raw.sample-rate.value = 48000
+10-13 11:23:11.825  1175  1491 D CCodecConfig: }
+10-13 11:23:11.833  1175  1491 D CCodec  : [c2.android.vorbis.decoder] buffers are bound to CCodec for this session
+10-13 11:23:11.833  1175  1491 D CCodecConfig: no c2 equivalents for durationUs
+10-13 11:23:11.833  1175  1491 D CCodecConfig: no c2 equivalents for track-id
+10-13 11:23:11.834  1175  1491 D CCodecConfig: no c2 equivalents for csd-1
+10-13 11:23:11.834  1175  1491 D CCodecConfig: no c2 equivalents for channel-mask
+10-13 11:23:11.834  1175  1491 D CCodecConfig: no c2 equivalents for flags
+10-13 11:23:11.861  1175  1491 D CCodecConfig: c2 config diff is   c2::u32 raw.channel-count.value = 2
+10-13 11:23:11.868  1175  1491 W Codec2Client: query -- param skipped: index = 1107298332.
+10-13 11:23:11.869  1175  1491 D CCodec  : setup formats input: AMessage(what = 0x00000000) = {
+10-13 11:23:11.869  1175  1491 D CCodec  :   int32_t channel-count = 2
+10-13 11:23:11.869  1175  1491 D CCodec  :   int32_t max-input-size = 32768
+10-13 11:23:11.869  1175  1491 D CCodec  :   string mime = "audio/vorbis"
+10-13 11:23:11.869  1175  1491 D CCodec  :   int32_t sample-rate = 48000
+10-13 11:23:11.869  1175  1491 D CCodec  : } and output: AMessage(what = 0x00000000) = {
+10-13 11:23:11.869  1175  1491 D CCodec  :   int32_t channel-count = 2
+10-13 11:23:11.869  1175  1491 D CCodec  :   string mime = "audio/raw"
+10-13 11:23:11.869  1175  1491 D CCodec  :   int32_t sample-rate = 48000
+10-13 11:23:11.869  1175  1491 D CCodec  :   int32_t channel-mask = 3
+10-13 11:23:11.869  1175  1491 D CCodec  : }
+10-13 11:23:11.885  1175  1491 W Codec2Client: query -- param skipped: index = 1342179345.
+10-13 11:23:11.889  1175  1491 W Codec2Client: query -- param skipped: index = 2415921170.
+10-13 11:23:11.907  1400  1400 I m.android.phon: The ClassLoaderContext is a special shared library.
+10-13 11:23:11.909  1175  1491 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:11.910  1175  1491 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:11.910  1175  1491 D CCodecBufferChannel: [c2.android.vorbis.decoder#437] Created input block pool with allocatorID 16 => poolID 19 - OK (0)
+10-13 11:23:11.922   422  1476 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:11.929   422  1476 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:11.939  1024  1132 D BufferPoolAccessor2.0: Destruction - bufferpool2 0x76b8b1b40d88 cached: 0/0M, 0/0% in use; allocs: 9, 33% recycled; transfers: 24, 75% unfetched
+10-13 11:23:11.940  1024  1132 D BufferPoolAccessor2.0: Destruction - bufferpool2 0x76b8b1b49158 cached: 0/0M, 0/0% in use; allocs: 9, 33% recycled; transfers: 26, 77% unfetched
+10-13 11:23:11.955  1175  1491 I CCodecBufferChannel: [c2.android.vorbis.decoder#437] Created output block pool with allocatorID 16 => poolID 24 - OK
+10-13 11:23:11.961  1175  1491 D CCodecBufferChannel: [c2.android.vorbis.decoder#437] Configured output block pool ids 24 => OK
+10-13 11:23:11.978   422  1492 D SimpleC2Component: Using output block pool with poolID 24 => got 24 - 0
+10-13 11:23:11.990  1175  1491 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:11.993   422  1476 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:12.073  1024  1043 W system_server: Long monitor contention with owner Binder:1024_5 (1074) at boolean android.os.MessageQueue.enqueueMessage(android.os.Message, long)(MessageQueue.java:600) waiters=0 in android.os.Message android.os.MessageQueue.next() for 149ms
+10-13 11:23:12.074  1024  1043 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+10-13 11:23:12.149   422  1492 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:12.153  1175  1446 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:12.187  1424  1496 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+10-13 11:23:12.194  1400  1400 D CarrierProvider: onCreate
+10-13 11:23:12.198  1024  1024 D BluetoothManagerService: Creating new ProfileServiceConnections object for profile: 1
+10-13 11:23:12.198  1024  1024 D BluetoothManagerService: Unable to bindService while Bluetooth is disabled
+10-13 11:23:12.220  1424  1496 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+10-13 11:23:12.254  1024  1497 I Telecom : BluetoothRouteManager: getBluetoothAudioConnectedDevice: no service available.
+10-13 11:23:12.256  1024  1490 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:2022) waiters=0 in android.content.Intent com.android.server.am.ActivityManagerService.registerReceiverWithFeature(android.app.IApplicationThread, java.lang.String, java.lang.String, android.content.IIntentReceiver, android.content.IntentFilter, java.lang.String, int, int) for 420ms
+10-13 11:23:12.259  1024  1480 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:2022) waiters=1 in android.app.ContentProviderHolder com.android.server.am.ActivityManagerService.getContentProviderImpl(android.app.IApplicationThread, java.lang.String, android.os.IBinder, int, java.lang.String, java.lang.String, boolean, int) for 307ms
+10-13 11:23:12.266  1024  1074 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:2022) waiters=2 in void com.android.server.am.ActivityManagerService.serviceDoneExecuting(android.os.IBinder, int, int, int) for 154ms
+10-13 11:23:12.270  1024  1038 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:2022) waiters=3 in boolean com.android.server.am.ActivityManagerService.isAppBad(android.content.pm.ApplicationInfo) for 142ms
+10-13 11:23:12.356  1424  1496 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+10-13 11:23:12.411  1024  1024 I Telecom : SystemStateHelper: Registering car mode receiver: android.content.IntentFilter@f5b3523: TS.init@AAA
+10-13 11:23:12.523  1400  1400 D CarrierIdProvider: onCreate
+10-13 11:23:12.523  1400  1400 D CarrierIdDatabaseHelper: CarrierIdDatabaseHelper: 5
+10-13 11:23:12.549  1175  1491 D CCodecBufferChannel: [c2.android.vorbis.decoder#437] MediaCodec discarded an unknown buffer
+10-13 11:23:12.594  1024  1038 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10115; state: DISABLED
+10-13 11:23:12.597  1024  1051 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10115; state: ENABLED
+10-13 11:23:12.550  1175  1491 I chatty  : uid=10121(com.android.systemui) identical 1 line
+10-13 11:23:12.550  1175  1491 D CCodecBufferChannel: [c2.android.vorbis.decoder#437] MediaCodec discarded an unknown buffer
+10-13 11:23:12.609  1175  1491 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:12.613   422  1476 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-13 11:23:12.614   422  1476 V C2Store : in ~ComponentModule
+10-13 11:23:12.614   422  1476 V C2Store : unloading dll
+10-13 11:23:12.618  1175  1175 D SystemUIBootTiming: StartServicescom.android.systemui.recents.Recents took to complete: 5602ms
+10-13 11:23:12.618  1175  1175 W SystemUIService: Initialization of com.android.systemui.recents.Recents took 5602 ms
+10-13 11:23:12.707  1343  1343 I TetheringManager: registerTetheringEventCallback:com.android.networkstack
+10-13 11:23:12.763  1175  1175 I vol.Events: writeEvent collection_started
+10-13 11:23:12.789  1024  1478 D ConnectivityService: requestNetwork for uid/pid:1073/1343 NetworkRequest [ TRACK_DEFAULT id=10, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 1073 AdministratorUids: [] RequestorUid: 1073 RequestorPackageName: com.android.networkstack] ]
+10-13 11:23:12.833  1024  1113 D ConnectivityService: NetReassign [no changes]
+10-13 11:23:13.134  1024  1042 W system_server: Long monitor contention with owner android.anim (1045) at void com.android.server.wm.WindowSurfacePlacer$Traverser.run()(WindowSurfacePlacer.java:59) waiters=1 in void com.android.server.wm.DisplayPolicy.lambda$updateSystemUiVisibilityLw$14$DisplayPolicy(int, java.lang.String, android.util.Pair, int, com.android.internal.view.AppearanceRegion[], boolean, boolean, boolean) for 105ms
+10-13 11:23:13.144  1024  1044 W system_server: Long monitor contention with owner android.anim (1045) at void com.android.server.wm.WindowSurfacePlacer$Traverser.run()(WindowSurfacePlacer.java:59) waiters=2 in void com.android.server.wm.WindowManagerService$H.handleMessage(android.os.Message) for 106ms
+10-13 11:23:12.894  1024  1113 D ConnectivityService: NetReassign [no changes]
+10-13 11:23:13.177  1024  1042 W Looper  : Drained
+10-13 11:23:13.178  1024  1042 W Looper  : Slow dispatch took 127ms android.ui h=com.android.server.wm.DisplayPolicy$PolicyHandler c=com.android.server.wm.-$$Lambda$DisplayPolicy$HbdRZfPpJ53Wnk7_Ueb0ycyz_AQ@6d1ab8b m=0
+10-13 11:23:13.282  1024  1365 D BufferPoolAccessor2.0: bufferpool2 0x76b8b1b5ab78 : 0(0 size) total buffers - 0(0 size) used buffers - 2/9 (recycle/alloc) - 7/24 (fetch/transfer)
+10-13 11:23:13.283  1024  1365 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+10-13 11:23:13.310  1343  1343 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+10-13 11:23:13.320   422   855 D BufferPoolAccessor2.0: bufferpool2 0x7720089f6ed8 : 0(0 size) total buffers - 0(0 size) used buffers - 6/10 (recycle/alloc) - 4/9 (fetch/transfer)
+10-13 11:23:13.325   422   855 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+10-13 11:23:13.331  1024  1504 I Telecom : Logging.Events: Non-call EVENT: AUDIO_ROUTE, Entering state QuiescentSpeakerRoute
+10-13 11:23:13.332  1024  1504 I Telecom : BluetoothRouteManager: getBluetoothAudioConnectedDevice: no service available.
+10-13 11:23:13.208   947   947 D Zygote  : Forked child process 1505
+10-13 11:23:13.416  1505  1505 W droid.launcher: Unexpected CPU variant for X86 using defaults: x86_64
+10-13 11:23:13.493   377   426 I adbd    : jdwp connection from 1505
+10-13 11:23:13.625  1024  1051 W ActivityManager: Slow operation: 1058ms so far, now at startProcess: returned from zygote!
+10-13 11:23:13.627  1024  1051 W ActivityManager: Slow operation: 1061ms so far, now at startProcess: done updating battery stats
+10-13 11:23:13.751  1400  1400 D CarrierIdProvider: update database from pb file
+10-13 11:23:13.763   305   305 I android.hardware.vibrator-service.example: Vibrator reporting capabilities
+10-13 11:23:13.954  1024  1524 I Telecom : CallAudioModeStateMachine: Message received: null.: TS.init->CAMSM.pM_1@AAA
+10-13 11:23:14.067  1024  1074 W ActivityManager: Slow operation: 103ms so far, now at attachApplicationLocked: after mServices.attachApplicationLocked
+10-13 11:23:14.243  1024  1024 I Telecom : MissedCallNotifierImpl: reloadFromDatabase: Boot not yet complete -- call log db may not be available. Deferring loading until boot complete for user 0: TS.init@AAA
+10-13 11:23:14.272  1024  1024 I Telecom : MissedCallNotifierImpl: reloadFromDatabase: Boot not yet complete -- call log db may not be available. Deferring loading until boot complete for user 0: TS.init@AAA
+10-13 11:23:14.297  1024  1024 D BluetoothManagerService: Creating new ProfileServiceConnections object for profile: 1
+10-13 11:23:14.298  1024  1024 D BluetoothManagerService: Unable to bindService while Bluetooth is disabled
+10-13 11:23:14.309  1343  1343 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:14.310  1343  1343 W nsconfig: com.android.networkstack.process: New config does not match the previously set config.
+10-13 11:23:14.337   422   855 D BufferPoolAccessor2.0: bufferpool2 0x7720089f4788 : 0(0 size) total buffers - 0(0 size) used buffers - 15/16 (recycle/alloc) - 1/15 (fetch/transfer)
+10-13 11:23:14.338   422   855 D BufferPoolAccessor2.0: evictor expired: 2, evicted: 1
+10-13 11:23:14.339  1424  1493 D HostConnection: HostConnection::get() New Host Connection established 0x76b861afad50, tid 1493
+10-13 11:23:14.429  1024  1050 W ActivityManager: Timeout executing service: ServiceRecord{dac0373 u0 com.android.systemui/.keyguard.KeyguardService}
+10-13 11:23:14.493  1424  1493 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma ANDROID_EMU_hwc_color_transform GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-13 11:23:14.507   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.configstore@1.0::ISurfaceFlingerConfigs/default in either framework or device manifest.
+10-13 11:23:14.528  1024  1024 I Telecom : Class: TelecomSystem.INSTANCE being set
+10-13 11:23:14.533  1424  1493 D EGL_emulation: eglCreateContext: 0x76b851b53870: maj 3 min 0 rcv 3
+10-13 11:23:14.539  1424  1493 D EGL_emulation: eglMakeCurrent: 0x76b851b53870: ver 3 0 (tinfo 0x76b7f1b2dae0) (first time)
+10-13 11:23:14.614  1024  1024 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.startService:1669 android.content.ContextWrapper.startService:720 com.android.server.telecom.components.TelecomService.initializeTelecomSystem:197 com.android.server.telecom.components.TelecomService.onBind:71 android.app.ActivityThread.handleBindService:4219 
+10-13 11:23:14.647  1024  1024 W Looper  : Slow dispatch took 4379ms main h=android.app.ActivityThread$H c=null m=121
+10-13 11:23:14.661  1343  1343 W rkstack.proces: Verification of void com.android.networkstack.tethering.TetheringService$TetheringConnector.stopAllTethering(java.lang.String, android.net.IIntResultListener) took 136.887ms (124.19 bytecodes/s) (1784B approximate peak alloc)
+10-13 11:23:14.709  1024  1024 D PackageWatchdog: Getting all observed packages pending health checks
+10-13 11:23:14.709  1024  1024 I PackageWatchdog: Syncing health check requests for packages: {}
+10-13 11:23:14.710  1024  1024 I ExplicitHealthCheckController: Service not ready to get health check supported packages. Binding...
+10-13 11:23:14.787  1024  1024 I ExplicitHealthCheckController: Explicit health check service is bound
+10-13 11:23:14.957   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.allocator@4.0::IAllocator/default in either framework or device manifest.
+10-13 11:23:14.959   310   563 W Gralloc4: allocator 3.x is not supported
+10-13 11:23:14.984   287   335 D goldfish-address-space: claimShared: Ask to claim region [0x3fc384000 0x3fc708000]
+10-13 11:23:15.088  1024  1044 W WindowManager: Window freeze timeout expired.
+10-13 11:23:15.090  1024  1044 W WindowManager: Force clearing orientation change: Window{d13ad13 u0 com.android.settings/com.android.settings.FallbackHome}
+10-13 11:23:15.145  1175  1445 D BufferPoolAccessor2.0: bufferpool2 0x76b8b1b227e8 : 0(0 size) total buffers - 0(0 size) used buffers - 3/9 (recycle/alloc) - 6/36 (fetch/transfer)
+10-13 11:23:15.146  1175  1445 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+10-13 11:23:15.186  1505  1505 I droid.launcher: The ClassLoaderContext is a special shared library.
+10-13 11:23:15.197   310   563 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma ANDROID_EMU_hwc_color_transform GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-13 11:23:15.221   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device manifest.
+10-13 11:23:15.222  1424  1493 I Gralloc4: mapper 4.x is not supported
+10-13 11:23:15.232  1424  1493 D HostConnection: createUnique: call
+10-13 11:23:15.237  1424  1493 D HostConnection: HostConnection::get() New Host Connection established 0x76b861af8e90, tid 1493
+10-13 11:23:15.237  1424  1493 D goldfish-address-space: allocate: Ask for block of size 0x100
+10-13 11:23:15.238  1424  1493 D goldfish-address-space: allocate: ioctl allocate returned offset 0x3fbffe000 size 0x2000
+10-13 11:23:15.286  1024  1365 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 0
+10-13 11:23:15.343  1424  1493 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma ANDROID_EMU_hwc_color_transform GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-13 11:23:15.462  1343  1343 W rkstack.proces: Verification of void com.android.networkstack.tethering.Tethering.<init>(com.android.networkstack.tethering.TetheringDependencies) took 141.613ms (2160.81 bytecodes/s) (13416B approximate peak alloc)
+10-13 11:23:15.470  1024  1529 I ActivityManager: dumpStackTraces pids={1157=true, 1424=true, 1455=true, 1505=true} nativepids=[159, 266, 310, 398, 408, 409, 416, 422, 950, 951, 955, 997, 1157]
+10-13 11:23:15.481  1505  1505 I droid.launcher: Waiting for a blocking GC ClassLinker
+10-13 11:23:15.548  1024  1024 I system_server: The ClassLoaderContext is a special shared library.
+10-13 11:23:15.605   287   335 D goldfish-address-space: claimShared: Ask to claim region [0x3fc708000 0x3fca8c000]
+10-13 11:23:15.637   287   335 D goldfish-address-space: claimShared: Ask to claim region [0x3fca8c000 0x3fce10000]
+10-13 11:23:15.700  1343  1343 W rkstack.proces: Verification of void com.android.networkstack.tethering.Tethering.dump(java.io.FileDescriptor, java.io.PrintWriter, java.lang.String[]) took 100.721ms (3187.01 bytecodes/s) (7224B approximate peak alloc)
+10-13 11:23:15.811   310   387 D HostConnection: HostConnection::get() New Host Connection established 0x7c5e0f3125d0, tid 387
+10-13 11:23:15.910  1024  1024 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:15.911  1024  1024 I system_server: Waiting for a blocking GC ClassLinker
+10-13 11:23:15.913   310   387 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma ANDROID_EMU_hwc_color_transform GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-13 11:23:15.918   310   310 I SurfaceFlinger: Enter boot animation
+10-13 11:23:15.928  1505  1513 I droid.launcher: Background young concurrent copying GC freed 1697(152KB) AllocSpace objects, 0(0B) LOS objects, 93% free, 1693KB/25MB, paused 299us total 518.911ms
+10-13 11:23:15.930   310   310 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:15.936   288   336 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:15.959   288   288 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:15.970   310   310 E FMQ     : grantorIdx must be less than 3
+10-13 11:23:15.981   288   288 W EmuHWC2 : No layers, exit, buffer 0x0
+10-13 11:23:15.993  1424  1493 I OpenGLRenderer: Davey! duration=3136ms; Flags=1, IntendedVsync=299523626120, Vsync=299656959448, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=299661703302, AnimationStart=299661710723, PerformTraversalsStart=299661713938, DrawStart=302291396628, SyncQueued=302310982912, SyncStart=302321650356, IssueDrawCommandsStart=302323207179, SwapBuffers=302410379699, FrameCompleted=302671079378, DequeueBufferDuration=22886182, QueueBufferDuration=143283201, GpuCompleted=8746941997994749552, 
+10-13 11:23:16.018  1505  1505 I droid.launcher: WaitForGcToComplete blocked ClassLinker on HeapTrim for 537.261ms
+10-13 11:23:16.058   288   288 W EmuHWC2 : No layers, exit, buffer 0x0
+10-13 11:23:16.154  1400  1400 E CarrierIdProvider: read carrier list from ota pb failure: java.io.FileNotFoundException: /data/misc/carrierid/carrier_list.pb: open failed: ENOENT (No such file or directory)
+10-13 11:23:16.155  1400  1400 D CarrierIdProvider: latest version: 33554466 need update: false
+10-13 11:23:16.288  1024  1365 D BufferPoolAccessor2.0: bufferpool2 0x76b8b1b581d8 : 0(0 size) total buffers - 0(0 size) used buffers - 3/9 (recycle/alloc) - 11/34 (fetch/transfer)
+10-13 11:23:16.300  1024  1365 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+10-13 11:23:16.318   288   288 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma ANDROID_EMU_hwc_color_transform GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-13 11:23:16.454   422   855 D BufferPoolAccessor2.0: bufferpool2 0x7720089f39a8 : 0(0 size) total buffers - 0(0 size) used buffers - 13/15 (recycle/alloc) - 2/14 (fetch/transfer)
+10-13 11:23:16.455   422   855 D BufferPoolAccessor2.0: bufferpool2 0x7720089f7f08 : 0(0 size) total buffers - 0(0 size) used buffers - 16/17 (recycle/alloc) - 1/16 (fetch/transfer)
+10-13 11:23:16.455   422   855 D BufferPoolAccessor2.0: evictor expired: 2, evicted: 2
+10-13 11:23:16.594  1024  1044 W system_server: Long monitor contention with owner android.anim (1045) at void com.android.server.wm.WindowSurfacePlacer$Traverser.run()(WindowSurfacePlacer.java:59) waiters=0 in void com.android.server.wm.WindowManagerService$H.handleMessage(android.os.Message) for 572ms
+10-13 11:23:16.690  1343  1343 W rkstack.proces: Verification of void android.net.ip.IpServer.<init>(java.lang.String, android.os.Looper, int, android.net.util.SharedLog, android.net.INetd, com.android.networkstack.tethering.BpfCoordinator, android.net.ip.IpServer$Callback, boolean, boolean, com.android.networkstack.tethering.PrivateAddressCoordinator, android.net.ip.IpServer$Dependencies) took 244.037ms (745.79 bytecodes/s) (6608B approximate peak alloc)
+10-13 11:23:16.805  1343  1343 W rkstack.proces: Verification of void android.net.ip.IpServer.addRoutesToLocalNetwork(java.util.List) took 113.348ms (829.30 bytecodes/s) (3256B approximate peak alloc)
+10-13 11:23:16.943  1505  1505 W ContextImpl: Failed to ensure /data/user/0/com.android.launcher3/cache: mkdir failed: errno 126 (Required key not available)
+10-13 11:23:17.028  1505  1505 W ContextImpl: Failed to update user.inode_cache: stat failed: ENOENT (No such file or directory)
+10-13 11:23:17.148  1175  1445 D BufferPoolAccessor2.0: bufferpool2 0x76b8b1b15328 : 0(0 size) total buffers - 0(0 size) used buffers - 3/9 (recycle/alloc) - 6/38 (fetch/transfer)
+10-13 11:23:17.149  1175  1445 D BufferPoolAccessor2.0: bufferpool2 0x76b8b1b29498 : 0(0 size) total buffers - 0(0 size) used buffers - 3/9 (recycle/alloc) - 6/18 (fetch/transfer)
+10-13 11:23:17.149  1175  1445 D BufferPoolAccessor2.0: evictor expired: 2, evicted: 2
+10-13 11:23:17.299  1505  1505 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:17.308  1024  1365 D BufferPoolAccessor2.0: evictor expired: 2, evicted: 0
+10-13 11:23:17.314  1505  1505 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:17.429  1424  1493 I OpenGLRenderer: Davey! duration=1212ms; Flags=0, IntendedVsync=302840013443, Vsync=303240013427, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=303241901281, AnimationStart=303241906549, PerformTraversalsStart=303242586905, DrawStart=303242996952, SyncQueued=303243564422, SyncStart=303307678444, IssueDrawCommandsStart=303315105563, SwapBuffers=304100300961, FrameCompleted=304116864549, DequeueBufferDuration=6953498, QueueBufferDuration=6327642, GpuCompleted=7236828503263372079, 
+10-13 11:23:17.460   422   855 D BufferPoolAccessor2.0: bufferpool2 0x7720089f5568 : 0(0 size) total buffers - 0(0 size) used buffers - 6/7 (recycle/alloc) - 1/6 (fetch/transfer)
+10-13 11:23:17.461   422   855 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+10-13 11:23:17.465  1424  1424 I Choreographer: Skipped 49 frames!  The application may be doing too much work on its main thread.
+10-13 11:23:17.562  1024  1044 I ActivityManagerTiming: FinishBooting
+10-13 11:23:17.625  1424  1493 I OpenGLRenderer: Davey! duration=919ms; Flags=0, IntendedVsync=303323340497, Vsync=304140007131, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=304153022678, AnimationStart=304153030960, PerformTraversalsStart=304154053132, DrawStart=304154244936, SyncQueued=304154282963, SyncStart=304224529895, IssueDrawCommandsStart=304224736040, SwapBuffers=304298334706, FrameCompleted=304312748933, DequeueBufferDuration=6732441, QueueBufferDuration=5992917, GpuCompleted=4294967297, 
+10-13 11:23:17.643  1024  1044 W KeyguardServiceDelegate: onScreenTurningOn(): no keyguard service!
+10-13 11:23:17.694  1343  1343 W rkstack.proces: Verification of android.net.TetherStatsParcel android.net.INetd$Stub$Proxy.tetherOffloadGetAndClearStats(int) took 229.793ms (365.55 bytecodes/s) (2872B approximate peak alloc)
+10-13 11:23:17.707  1024  1044 I ActivityManager: PendingStartActivityUids startActivity to updateOomAdj delay:8292ms, uid:1000
+10-13 11:23:17.926  1400  1400 W m.android.phon: Verification of int com.android.internal.telephony.metrics.MetricsCollector.pullVoiceCallRatUsages(java.util.List) took 141.387ms (572.89 bytecodes/s) (3224B approximate peak alloc)
+10-13 11:23:18.259  1024  1490 D NetworkStats: registerNetworkStatsProvider from OffloadController uid/pid=1073/1343
+10-13 11:23:18.520  1343  1343 W rkstack.proces: Verification of void android.net.INetdUnsolicitedEventListener$Stub.<init>() took 135.299ms (66.52 bytecodes/s) (1568B approximate peak alloc)
+10-13 11:23:18.823   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.radio@1.5::IRadio/slot1 in either framework or device manifest.
+10-13 11:23:18.838   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.radio@1.4::IRadio/slot1 in either framework or device manifest.
+10-13 11:23:18.853   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.radio@1.3::IRadio/slot1 in either framework or device manifest.
+10-13 11:23:18.996   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.radio@1.2::IRadio/slot1 in either framework or device manifest.
+10-13 11:23:19.007  1024  1074 D NetworkStats: registerNetworkStatsProvider from BpfCoordinator uid/pid=1073/1343
+10-13 11:23:19.099  1400  1400 I android_os_HwBinder: HwBinder: Starting thread pool for getting: android.hardware.radio@1.1::IRadio/slot1
+10-13 11:23:19.200  1343  1343 D CompatibilityChangeReporter: Compat change id reported: 147600208; UID 1073; state: ENABLED
+10-13 11:23:19.290  1505  1505 W ContextImpl: Failed to ensure /data/user/0/com.android.launcher3/files: mkdir failed: errno 126 (Required key not available)
+10-13 11:23:19.292  1505  1505 D TouchInteractionService: Touch service connected
+10-13 11:23:19.380  1343  1343 V WifiManager: registerSoftApCallback: callback=com.android.networkstack.tethering.Tethering$TetheringSoftApCallback@241cd3f, executor=com.android.networkstack.tethering.Tethering$TetheringThreadExecutor@47c60c
+10-13 11:23:19.475  1024  1074 D ConnectivityService: requestNetwork for uid/pid:1073/1343 NetworkRequest [ REQUEST id=12, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN AdministratorUids: [] RequestorUid: 1073 RequestorPackageName: com.android.networkstack] ]
+10-13 11:23:19.481  1024  1113 D ConnectivityService: NetReassign [no changes]
+10-13 11:23:19.564  1024  1107 D ApConfigUtil: Update Softap capability, add client control feature support
+10-13 11:23:19.572  1024  1107 D ApConfigUtil: Update Softap capability, max client = 16
+10-13 11:23:19.970  1175  1503 I vol.Events: writeEvent level_changed STREAM_VOICE_CALL 3
+10-13 11:23:20.095   155   155 I hwservicemanager: getTransport: Cannot find entry android.hardware.radio.deprecated@1.0::IOemHook/slot1 in either framework or device manifest.
+10-13 11:23:20.143  1175  1175 D SystemUIBootTiming: StartServicescom.android.systemui.volume.VolumeUI took to complete: 7524ms
+10-13 11:23:20.143  1175  1175 W SystemUIService: Initialization of com.android.systemui.volume.VolumeUI took 7524 ms
+10-13 11:23:20.176  1175  1503 I vol.Events: writeEvent level_changed STREAM_SYSTEM 5
+10-13 11:23:20.220  1400  1400 I TetheringManager: registerTetheringEventCallback:com.android.phone
+10-13 11:23:20.267  1175  1503 I vol.Events: writeEvent level_changed STREAM_RING 5
+10-13 11:23:20.317  1175  1175 D SystemUIBootTiming: StartServicescom.android.systemui.stackdivider.Divider took to complete: 174ms
+10-13 11:23:20.347  1175  1503 I vol.Events: writeEvent level_changed STREAM_MUSIC 5
+10-13 11:23:20.465  1175  1503 I vol.Events: writeEvent level_changed STREAM_ALARM 6
+10-13 11:23:20.591  1175  1503 I vol.Events: writeEvent level_changed STREAM_BLUETOOTH_SCO 7
+10-13 11:23:20.690  1024  1043 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+10-13 11:23:20.909  1175  1175 D InterruptionStateProvider: heads up is enabled
+10-13 11:23:20.931  1024  1034 I system_server: Background young concurrent copying GC freed 81345(5294KB) AllocSpace objects, 23(1408KB) LOS objects, 37% free, 9477KB/14MB, paused 34.549ms total 6.111s
+10-13 11:23:20.932  1024  1024 I system_server: WaitForGcToComplete blocked ClassLinker on ClassLinker for 5.020s
+10-13 11:23:21.016  1024  1024 W Looper  : Slow dispatch took 6166ms main h=android.app.ActivityThread$H c=null m=114
+10-13 11:23:21.053  1175  1503 I vol.Events: writeEvent external_ringer_mode_changed unknown
+10-13 11:23:21.086  1175  1503 I vol.Events: writeEvent zen_mode_config_changed [disallowAlarms=false disallowMedia=false disallowSystem=true disallowRinger=false]
+10-13 11:23:21.279  1024  1043 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+10-13 11:23:21.307  1024  1024 W Looper  : Slow dispatch took 242ms main h=android.app.ActivityThread$H c=null m=121
+10-13 11:23:21.308  1024  1024 D BluetoothManagerService: Bluetooth Adapter name changed to Android SDK built for x86_64
+10-13 11:23:21.378  1024  1024 D BluetoothManagerService: Stored Bluetooth name: Android SDK built for x86_64
+10-13 11:23:21.481  1400  1400 D TelephonyProvider: dbh.onOpen: ok, queried table=siminfo
+10-13 11:23:21.483  1400  1400 D TelephonyProvider: dbh.onOpen: ok, queried table=carriers
+10-13 11:23:21.558  1024  1024 W Looper  : Slow dispatch took 127ms main h=com.android.server.job.JobSchedulerService$JobHandler c=null m=1
+10-13 11:23:21.558  1024  1024 D BluetoothManagerService: BluetoothServiceConnection: com.android.bluetooth.btservice.AdapterService
+10-13 11:23:21.586  1024  1043 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+10-13 11:23:21.598  1024  1024 E WiredAccessoryManager: No state change.
+10-13 11:23:21.600  1024  1024 W WiredAccessoryManager: Both input event and extcon are used for audio jack, please just choose one.
+10-13 11:23:21.704  1024  1043 D BluetoothManagerService: MESSAGE_BLUETOOTH_SERVICE_CONNECTED: 1
+10-13 11:23:21.784  1175  1175 D NavigationModeController: getCurrentInteractionMode: mode=0 contextUser=0
+10-13 11:23:21.892  1024  1043 D BluetoothManagerService: Broadcasting onBluetoothServiceUp() to 2 receivers.
+10-13 11:23:22.014  1157  1191 D BluetoothAdapter: onBluetoothServiceUp: com.android.bluetooth.btservice.AdapterService$AdapterServiceBinder@b4eca3c
+10-13 11:23:22.032  1024  1043 D BluetoothAdapter: onBluetoothServiceUp: android.bluetooth.IBluetooth$Stub$Proxy@cd73a61
+10-13 11:23:22.065  1157  1191 D BluetoothAdapterService: enable() - Enable called with quiet mode status =  false
+10-13 11:23:22.072  1157  1302 I AdapterState: BLE_TURNING_ON : entered 
+10-13 11:23:22.094  1157  1302 D AdapterProperties: Setting state to BLE_TURNING_ON
+10-13 11:23:22.145  1024  1024 W Looper  : Slow dispatch took 450ms main h=android.app.ActivityThread$H c=android.app.LoadedApk$ServiceDispatcher$RunConnection@2ec1b9d m=0
+10-13 11:23:22.168  1024  1043 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+10-13 11:23:22.198  1157  1302 D BluetoothAdapterService: updateAdapterState() - Broadcasting state BLE_TURNING_ON to 1 receivers.
+10-13 11:23:22.323  1024  1043 D BluetoothManagerService: MESSAGE_BLUETOOTH_STATE_CHANGE: OFF > BLE_TURNING_ON
+10-13 11:23:22.324  1024  1043 D BluetoothManagerService: Sending BLE State Change: OFF > BLE_TURNING_ON
+10-13 11:23:22.590  1024  1042 W Looper  : Slow dispatch took 239ms android.ui h=com.android.server.am.ActivityManagerService$UiHandler c=null m=31
+10-13 11:23:22.643  1024  1042 W WindowManager: Keyguard drawn timeout. Setting mKeyguardDrawComplete
+10-13 11:23:22.678  1024  1024 W Looper  : Slow dispatch took 334ms main h=android.os.Handler c=android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA@b84e45b m=0
+10-13 11:23:22.714  1024  1024 E TrustManagerService: EXTRA_USER_HANDLE missing or invalid, value=0
+10-13 11:23:22.811  1024  1024 W Looper  : Slow dispatch took 131ms main h=android.app.ActivityThread$H c=android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA@6527dd1 m=0
+10-13 11:23:22.832  1024  1050 I DropBoxManagerService: add tag=system_server_wtf isTagEnabled=true flags=0x2
+10-13 11:23:23.067  1024  1024 W Looper  : Slow dispatch took 222ms main h=android.app.ActivityThread$H c=android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA@ba36b37 m=0
+10-13 11:23:23.218  1157  1302 D BluetoothAdapterService: bleOnProcessStart()
+10-13 11:23:23.220  1157  1302 I AdapterProperties: init(), maxConnectedAudioDevices, default=5, propertyOverlayed=5, finalValue=5
+10-13 11:23:23.515  1024  1024 W Looper  : Slow dispatch took 447ms main h=android.app.ActivityThread$H c=android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA@4599b10 m=0
+10-13 11:23:23.634  1024  1024 V NotificationAssistants: enabling notification assistant for 0: ComponentInfo{android.ext.services/android.ext.services.notification.Assistant}
+10-13 11:23:23.722  1024  1024 V NotificationAssistants: binding: Intent { act=android.service.notification.NotificationAssistantService cmp=android.ext.services/.notification.Assistant (has extras) }
+10-13 11:23:23.861  1024  1478 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:2067) waiters=0 in android.content.Intent com.android.server.am.ActivityManagerService.registerReceiverWithFeature(android.app.IApplicationThread, java.lang.String, java.lang.String, android.content.IIntentReceiver, android.content.IntentFilter, java.lang.String, int, int) for 518ms
+10-13 11:23:23.892  1024  1024 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:2067) waiters=3 in int com.android.server.am.ActivityManagerService.bindIsolatedService(android.app.IApplicationThread, android.os.IBinder, android.content.Intent, java.lang.String, android.app.IServiceConnection, int, java.lang.String, java.lang.String, int) for 169ms
+10-13 11:23:24.083  1157  1302 D BluetoothAdapterService: bleOnProcessStart() - Make Bond State Machine
+10-13 11:23:24.091  1024  1024 W Looper  : Slow dispatch took 575ms main h=android.app.ActivityThread$H c=android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA@b5de122 m=0
+10-13 11:23:24.147  1024  1043 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+10-13 11:23:24.214  1157  1302 D BluetoothBondStateMachine: make
+10-13 11:23:24.349  1157  1546 I BluetoothBondStateMachine: StableState(): Entering Off State
+10-13 11:23:24.390  1175  1175 I TetheringManager: registerTetheringEventCallback:com.android.systemui
+10-13 11:23:25.012  1175  1545 W TelecomManager: Telecom Service not found.
+10-13 11:23:25.294  1175  1175 W ndroid.systemu: Verification of void com.android.systemui.statusbar.policy.AccessPointControllerImpl.<clinit>() took 208.170ms (67.25 bytecodes/s) (1648B approximate peak alloc)
+10-13 11:23:25.380  1157  1157 I BtGatt.JNI: classInitNative(L875): classInitNative: Success!
+10-13 11:23:25.459  1175  1175 W ndroid.systemu: Verification of void com.android.systemui.statusbar.policy.AccessPointControllerImpl.<init>(android.content.Context) took 120.810ms (372.49 bytecodes/s) (2400B approximate peak alloc)
+10-13 11:23:25.538  1157  1157 D BtGatt.DebugUtils: handleDebugAction() action=null
+10-13 11:23:25.616  1175  1175 W ndroid.systemu: Verification of void com.android.systemui.statusbar.policy.AccessPointControllerImpl.addAccessPointCallback(com.android.systemui.statusbar.policy.NetworkController$AccessPointController$AccessPointCallback) took 156.124ms (365.09 bytecodes/s) (2456B approximate peak alloc)
+10-13 11:23:25.624  1157  1157 D BluetoothAdapterService: getAdapterService() - returning com.android.bluetooth.btservice.AdapterService@977bee5
+10-13 11:23:25.766  1024  1374 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:2042) waiters=0 in android.content.Intent com.android.server.am.ActivityManagerService.registerReceiverWithFeature(android.app.IApplicationThread, java.lang.String, java.lang.String, android.content.IIntentReceiver, android.content.IntentFilter, java.lang.String, int, int) for 555ms
+10-13 11:23:25.775  1024  1041 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:2042) waiters=1 in int com.android.server.am.ActivityManagerService.broadcastIntentWithFeature(android.app.IApplicationThread, java.lang.String, android.content.Intent, java.lang.String, android.content.IIntentReceiver, int, java.lang.String, android.os.Bundle, java.lang.String[], int, android.os.Bundle, boolean, boolean, int) for 545ms
+10-13 11:23:25.919  1024  1544 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:2042) waiters=2 in com.android.server.am.ProcessRecord com.android.server.am.ActivityManagerService.findAppProcess(android.os.IBinder, java.lang.String) for 639ms
+10-13 11:23:24.450  1024  1043 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+10-13 11:23:25.947  1024  1041 W Looper  : Slow dispatch took 718ms android.fg h=com.android.server.DropBoxManagerService$DropBoxManagerBroadcastHandler c=null m=2
+10-13 11:23:25.980  1024  1074 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:2042) waiters=4 in android.content.Intent com.android.server.am.ActivityManagerService.registerReceiverWithFeature(android.app.IApplicationThread, java.lang.String, java.lang.String, android.content.IIntentReceiver, android.content.IntentFilter, java.lang.String, int, int) for 305ms
+10-13 11:23:26.038  1024  1043 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+10-13 11:23:26.158  1024  1038 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:2067) waiters=3 in void com.android.server.am.ActivityManagerService.serviceDoneExecuting(android.os.IBinder, int, int, int) for 621ms
+10-13 11:23:26.628  1157  1157 I bt_btif : get_profile_interface: id = gatt
+10-13 11:23:26.809  1157  1157 D BluetoothAdapterService: getAdapterService() - returning com.android.bluetooth.btservice.AdapterService@977bee5
+10-13 11:23:26.898  1175  1175 W ndroid.systemu: Verification of void com.android.systemui.statusbar.policy.WifiSignalController.<init>(android.content.Context, boolean, com.android.systemui.statusbar.policy.CallbackHandler, com.android.systemui.statusbar.policy.NetworkControllerImpl, android.net.wifi.WifiManager, android.net.ConnectivityManager, android.net.NetworkScoreManager) took 285.547ms (346.70 bytecodes/s) (4584B approximate peak alloc)
+10-13 11:23:27.223  1157  1302 E AdapterState: BLE_TURNING_ON : BLE_START_TIMEOUT
+10-13 11:23:27.224  1157  1302 I AdapterState: BLE_TURNING_OFF : entered 
+10-13 11:23:27.224  1157  1302 D AdapterProperties: Setting state to BLE_TURNING_OFF
+10-13 11:23:27.270  1024  1113 D ConnectivityService: NetReassign [no changes]
+10-13 11:23:27.274  1157  1302 D BluetoothAdapterService: updateAdapterState() - Broadcasting state BLE_TURNING_OFF to 1 receivers.
+10-13 11:23:27.275  1024  1043 D BluetoothManagerService: MESSAGE_BLUETOOTH_STATE_CHANGE: BLE_TURNING_ON > BLE_TURNING_OFF
+10-13 11:23:27.276  1024  1043 D BluetoothManagerService: Sending BLE State Change: BLE_TURNING_ON > BLE_TURNING_OFF
+10-13 11:23:27.285  1157  1302 D AdapterProperties: onBleDisable
+10-13 11:23:27.286  1157  1302 D BluetoothAdapterService: stopGattProfileService() - No profiles services to stop.
+10-13 11:23:27.387  1024  1397 D ConnectivityService: requestNetwork for uid/pid:10121/1175 NetworkRequest [ TRACK_DEFAULT id=14, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10121 AdministratorUids: [] RequestorUid: 10121 RequestorPackageName: com.android.systemui] ]
+10-13 11:23:27.406  1024  1113 D ConnectivityService: NetReassign [no changes]
+10-13 11:23:27.448  1175  1175 V WifiManager: registerTrafficStateCallback: callback=com.android.systemui.statusbar.policy.WifiSignalController$WifiTrafficStateCallback@abe7aaf, executor=android.os.HandlerExecutor@cd937b6
+10-13 11:23:27.502  1157  1302 I AdapterState: OFF : entered 
+10-13 11:23:27.508  1157  1302 D AdapterProperties: Setting state to OFF
+10-13 11:23:27.512  1024  1038 W system_server: Long monitor contention with owner Binder:1024_6 (1311) at android.content.ComponentName com.android.server.am.ActivityManagerService.startService(android.app.IApplicationThread, android.content.Intent, java.lang.String, boolean, java.lang.String, java.lang.String, int)(ActivityManagerService.java:15036) waiters=0 in android.content.Intent com.android.server.am.ActivityManagerService.registerReceiverWithFeature(android.app.IApplicationThread, java.lang.String, java.lang.String, android.content.IIntentReceiver, android.content.IntentFilter, java.lang.String, int, int) for 136ms
+10-13 11:23:27.612  1175  1503 W ndroid.systemu: Long monitor contention with owner SysUiBg (1298) at com.android.systemui.log.LogMessageImpl com.android.systemui.log.LogBuffer.obtain(java.lang.String, com.android.systemui.log.LogLevel, kotlin.jvm.functions.Function1)(LogBuffer.kt:159) waiters=0 in com.android.systemui.log.LogMessageImpl com.android.systemui.log.LogBuffer.obtain(java.lang.String, com.android.systemui.log.LogLevel, kotlin.jvm.functions.Function1) for 544ms
+10-13 11:23:27.815  1157  1302 D BluetoothAdapterService: updateAdapterState() - Broadcasting state OFF to 1 receivers.
+10-13 11:23:27.822  1024  1311 D ConnectivityService: requestNetwork for uid/pid:10121/1175 NetworkRequest [ TRACK_DEFAULT id=15, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10121 AdministratorUids: [] RequestorUid: 10121 RequestorPackageName: com.android.systemui] ]
+10-13 11:23:27.824  1024  1113 D ConnectivityService: NetReassign [no changes]
+10-13 11:23:27.924  1024  1043 D BluetoothManagerService: MESSAGE_BLUETOOTH_STATE_CHANGE: BLE_TURNING_OFF > OFF
+10-13 11:23:27.925  1024  1043 D BluetoothManagerService: Bluetooth is complete send Service Down
+10-13 11:23:27.926  1024  1043 D BluetoothManagerService: Broadcasting onBluetoothServiceDown() to 2 receivers.
+10-13 11:23:27.927  1157  1191 D BluetoothAdapter: onBluetoothServiceDown: com.android.bluetooth.btservice.AdapterService$AdapterServiceBinder@b4eca3c
+10-13 11:23:27.949  1024  1043 D BluetoothAdapter: onBluetoothServiceDown: android.bluetooth.IBluetooth$Stub$Proxy@cd73a61
+10-13 11:23:27.950  1024  1043 D BluetoothManagerService: unbindAndFinish(): android.bluetooth.IBluetooth$Stub$Proxy@cd73a61 mBinding = false mUnbinding = false
+10-13 11:23:27.971  1157  1157 D BluetoothAdapterService: getAdapterService() - returning com.android.bluetooth.btservice.AdapterService@977bee5
+10-13 11:23:27.990  1400  1400 D CellBroadcastServiceManager: CellBroadcastServiceManager created for phone 0
+10-13 11:23:28.049  1400  1400 D CellBroadcastServiceManager: getCellBroadcastServicePackageName: com.android.cellbroadcastservice
+10-13 11:23:28.115  1157  1157 D BtGatt.DebugUtils: handleDebugAction() action=null
+10-13 11:23:28.346  1024  1074 W system_server: Long monitor contention with owner android.io (1043) at boolean com.android.server.am.ActivityManagerService.unbindService(android.app.IServiceConnection)(ActivityManagerService.java:15196) waiters=0 in int com.android.server.am.ActivityManagerService.bindIsolatedService(android.app.IApplicationThread, android.os.IBinder, android.content.Intent, java.lang.String, android.app.IServiceConnection, int, java.lang.String, java.lang.String, int) for 263ms
+10-13 11:23:28.380  1024  1043 D BluetoothManagerService: Sending BLE State Change: BLE_TURNING_OFF > OFF
+10-13 11:23:28.538  1024  1024 W Looper  : Slow dispatch took 4447ms main h=android.app.ActivityThread$H c=android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA@8d4a5a8 m=0
+10-13 11:23:28.555  1400  1400 D CellBroadcastServiceManager: serviceWasBound=true
+10-13 11:23:28.566  1343  1343 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-13 11:23:28.567  1343  1343 W nsconfig: com.android.networkstack.process: New config does not match the previously set config.
+10-13 11:23:28.739  1024  1024 W Looper  : Slow dispatch took 200ms main h=android.os.Handler c=android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA@ca27454 m=0
+10-13 11:23:28.777  1024  1042 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:1973) waiters=1 in void com.android.server.am.ActivityManagerService.dispatchProcessesChanged() for 186ms
+10-13 11:23:28.779  1024  1042 W Looper  : Slow dispatch took 613ms android.ui h=com.android.server.am.ActivityManagerService$UiHandler c=null m=31
+10-13 11:23:28.785  1024  1478 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:1973) waiters=3 in void com.android.server.am.ActivityManagerService.unregisterUidObserver(android.app.IUidObserver) for 145ms
+10-13 11:23:28.789  1024  1043 D BluetoothManagerService: Entering STATE_OFF but mEnabled is true; restarting.
+10-13 11:23:28.793  1024  1043 E BluetoothManagerService: waitForState [10] time out
+10-13 11:23:28.826  1024  1311 W system_server: Long monitor contention with owner android.bg (1049) at void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message)(ActivityManagerService.java:1973) waiters=2 in android.content.Intent com.android.server.am.ActivityManagerService.registerReceiverWithFeature(android.app.IApplicationThread, java.lang.String, java.lang.String, android.content.IIntentReceiver, android.content.IntentFilter, java.lang.String, int, int) for 223ms
+10-13 11:23:28.851  1024  1042 W Looper  : Slow delivery took 616ms android.ui h=com.android.server.am.ActivityManagerService$UiHandler c=null m=53
+10-13 11:23:29.122  1024  1024 W Looper  : Slow dispatch took 358ms main h=android.app.ActivityThread$H c=android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA@b759a84 m=0
+10-13 11:23:29.141  1157  1321 I bt_stack_manager: event_start_up_stack is bringing up the stack
+10-13 11:23:29.147  1157  1321 I bt_core_module: module_start_up Starting module "btif_config_module"
+10-13 11:23:29.148  1157  1321 I bt_core_module: module_start_up Started module "btif_config_module"
+10-13 11:23:29.151  1157  1157 D BluetoothAdapterService: onUnbind() - calling cleanup
+10-13 11:23:29.158  1343  1343 W rkstack.proces: Verification of void com.android.cellbroadcastservice.CellBroadcastHandler.<init>(java.lang.String, android.content.Context, android.os.Looper) took 228.196ms (2094.69 bytecodes/s) (9080B approximate peak alloc)
+10-13 11:23:29.191  1157  1321 I bt_core_module: module_start_up Starting module "btsnoop_module"
+10-13 11:23:29.197  1024  1043 D BluetoothManagerService: MESSAGE_RESTART_BLUETOOTH_SERVICE: retry count=1
+10-13 11:23:29.202  1024  1043 D BluetoothManagerService: binding Bluetooth service
+10-13 11:23:29.207  1157  1157 D BluetoothAdapterService: cleanup()
+10-13 11:23:29.229  1175  1370 D KeyguardViewMediator: updateActivityLockScreenState(false, false)
+10-13 11:23:29.268  1157  1321 I droid.bluetoot: [1013/112329.193172:INFO:btsnoop.cc(207)] start_up: Snoop Logs disabled
+10-13 11:23:29.270  1157  1321 I droid.bluetoot: [1013/112329.269911:INFO:btsnoop.cc(338)] delete_btsnoop_files: Deleting snoop logs if they exist. filtered = 1
+10-13 11:23:29.112  1400  1400 D CellBroadcastServiceManager: CellBroadcastServiceManager created for phone 0
+10-13 11:23:29.295  1343  1343 W rkstack.proces: Verification of java.lang.String com.android.cellbroadcastservice.CellBroadcastHandler.getDefaultCBRPackageName(android.content.Context, android.content.Intent) took 132.159ms (779.36 bytecodes/s) (3504B approximate peak alloc)
+10-13 11:23:29.327  1175  1547 W ndroid.systemu: Long monitor contention with owner SysUiBg (1298) at android.os.IBinder android.os.ServiceManager.rawGetService(java.lang.String)(ServiceManager.java:354) waiters=0 in android.os.IBinder android.os.ServiceManager.rawGetService(java.lang.String) for 476ms
+10-13 11:23:29.341  1400  1400 D CellBroadcastServiceManager: getCellBroadcastServicePackageName: com.android.cellbroadcastservice
+10-13 11:23:29.360  1175  1175 D NavigationModeController: getCurrentInteractionMode: mode=0 contextUser=0
+10-13 11:23:29.423  1024  1042 W Looper  : Drained
+10-13 11:23:29.475  1400  1400 D CellBroadcastServiceManager: serviceWasBound=true
+10-13 11:23:29.546  1024  1024 W Looper  : Slow dispatch took 263ms main h=com.android.providers.settings.SettingsProvider$SettingsRegistry$MyHandler c=null m=1
+10-13 11:23:29.550  1157  1321 I droid.bluetoot: [1013/112329.456436:INFO:btsnoop.cc(338)] delete_btsnoop_files: Deleting snoop logs if they exist. filtered = 0
+10-13 11:23:29.551  1157  1321 I bt_core_module: module_start_up Started module "btsnoop_module"
+10-13 11:23:29.571  1175  1503 D CompatibilityChangeReporter: Compat change id reported: 150939131; UID 10121; state: ENABLED
+10-13 11:23:29.607  1343  1343 W rkstack.proces: Verification of void com.android.cellbroadcastservice.CellBroadcastHandler.broadcastMessage(android.telephony.SmsCbMessage, android.net.Uri, int) took 235.764ms (1247.01 bytecodes/s) (8344B approximate peak alloc)
+10-13 11:23:29.654  1157  1321 I bt_core_module: module_start_up Starting module "hci_module"
+10-13 11:23:29.655  1157  1321 I bt_hci  : hci_module_start_up
+10-13 11:23:29.671  1024  1024 D ConditionProviders.SCP: onSubscribe condition://android/schedule?days=1.2.3.4.5.6.7&start=22.0&end=7.0&exitAtAlarm=true
+10-13 11:23:29.710  1343  1343 W rkstack.proces: Verification of int com.android.cellbroadcastservice.CellBroadcastHandler.getMaxLocationWaitingTime(android.telephony.SmsCbMessage) took 101.331ms (226.98 bytecodes/s) (1744B approximate peak alloc)
+10-13 11:23:29.775  1175  1341 W TelecomManager: Telecom Service not found.
+10-13 11:23:29.863  1343  1343 W rkstack.proces: Verification of boolean com.android.cellbroadcastservice.CellBroadcastHandler.handleSmsMessage(android.os.Message) took 150.502ms (458.46 bytecodes/s) (2520B approximate peak alloc)
+10-13 11:23:29.756  1157  1157 W BluetoothSdpJni: Cleaning up Bluetooth SDP Interface...
+10-13 11:23:29.883  1024  1024 D ConditionProviders.SCP: setRegistered true
+10-13 11:23:29.884  1157  1157 W BluetoothSdpJni: Cleaning up Bluetooth SDP object
+10-13 11:23:29.931  1157  1157 D BluetoothKeystoreService: cleanup
+10-13 11:23:29.931  1157  1157 D BluetoothKeystoreService: setBluetoothKeystoreService(): set to: null
+10-13 11:23:29.932  1157  1157 D BluetoothAdapterService: cleanup() - Cleaning up adapter native
+10-13 11:23:29.958  1157  1559 I droid.bluetoot: [1013/112329.890694:INFO:message_loop_thread.cc(175)] Run: message loop starting for thread bt_hci_thread
+10-13 11:23:29.995  1157  1559 I bt_hci  : hci_initialize
+10-13 11:23:30.021  1157  1321 D bt_hci  : hci_module_start_up starting async portion
+10-13 11:23:30.034  1157  1559 I bt_hci  : hci_initialize: IBluetoothHci::getService() returned 0x76b881af4150 (remote)
+10-13 11:23:30.039  1343  1343 W rkstack.proces: Verification of android.util.Pair com.android.cellbroadcastservice.GsmCellBroadcastHandler.getLacAndCid(int) took 127.504ms (933.30 bytecodes/s) (3928B approximate peak alloc)
+10-13 11:23:30.086   273   273 I bt      : system/bt/vendor_libs/test_vendor_lib/model/devices/device_properties.cc:81 DeviceProperties: Reading controller properties from /etc/bluetooth/controller_properties.json.
+10-13 11:23:30.087   273   273 E bt      : system/bt/vendor_libs/test_vendor_lib/model/devices/device_properties.cc:83 DeviceProperties: Error reading controller properties from file.
+10-13 11:23:30.132   273   273 I bt      : system/bt/vendor_libs/test_vendor_lib/model/setup/test_model.cc:88 StopTimer: StopTimer()
+10-13 11:23:30.134   273   273 I bt      : system/bt/vendor_libs/test_vendor_lib/model/setup/test_model.cc:82 StartTimer: StartTimer()
+10-13 11:23:30.142   273   273 I bt      : system/bt/vendor_libs/test_vendor_lib/model/setup/test_command_handler.cc:118 Add: Add beacon@be:ac:10:00:00:01
+10-13 11:23:30.143   273   273 I bt      : system/bt/vendor_libs/test_vendor_lib/model/setup/test_command_handler.cc:118 Add: Add beacon@be:ac:10:00:00:02
+10-13 11:23:30.144   273   273 I bt      : system/bt/vendor_libs/test_vendor_lib/model/devices/scripted_beacon.cc:71 ScriptedBeacon: Scripted_beacon registered true
+10-13 11:23:30.149   273   273 I bt      : system/bt/vendor_libs/test_vendor_lib/model/devices/scripted_beacon.cc:113 set_state: Events file not opened yet, for event: 1
+10-13 11:23:30.149   273   273 I bt      : system/bt/vendor_libs/test_vendor_lib/model/setup/test_command_handler.cc:118 Add: Add scripted_beacon /data/vendor/bluetooth/bluetooth_sim_ble_playback_file
+10-13 11:23:30.170  1157  1559 I bt_hci  : event_finish_startup
+10-13 11:23:30.181  1024  1311 W system_server: Long monitor contention with owner ConditionProviders.ECP (1119) at java.lang.String com.android.server.am.ActivityManagerService.checkContentProviderAccess(java.lang.String, int)(ActivityManagerService.java:6828) waiters=1 in android.content.Intent com.android.server.am.ActivityManagerService.registerReceiverWithFeature(android.app.IApplicationThread, java.lang.String, java.lang.String, android.content.IIntentReceiver, android.content.IntentFilter, java.lang.String, int, int) for 282ms
+10-13 11:23:30.190  1157  1321 I bt_core_module: module_start_up Started module "hci_module"
+10-13 11:23:30.193  1157  1563 I droid.bluetoot: [1013/112330.193165:INFO:message_loop_thread.cc(175)] Run: message loop starting for thread bt_startup_thread
+10-13 11:23:30.236  1024  1374 W system_server: Long monitor contention with owner Binder:1024_2 (1039) at android.os.PowerSaveState com.android.server.power.batterysaver.BatterySaverPolicy.getBatterySaverPolicy(int)(BatterySaverPolicy.java:928) waiters=0 in void com.android.server.power.PowerManagerService.acquireWakeLockInternal(android.os.IBinder, int, java.lang.String, java.lang.String, android.os.WorkSource, java.lang.String, int, int) for 253ms
+10-13 11:23:30.298  1157  1563 I droid.bluetoot: [1013/112330.297872:INFO:btu_task.cc(112)] Bluetooth chip preload is complete
+10-13 11:23:30.349  1157  1563 I droid.bluetoot: [1013/112330.349201:INFO:gatt_api.cc(947)] GATT_Register 81818181-8181-8181-8181-818181818181
+10-13 11:23:30.350  1157  1563 I droid.bluetoot: [1013/112330.350099:INFO:gatt_api.cc(967)] allocated gatt_if=1
+10-13 11:23:30.350  1157  1563 I droid.bluetoot: [1013/112330.350611:INFO:gatt_api.cc(161)] GATTS_AddService
+10-13 11:23:30.351  1157  1563 I droid.bluetoot: [1013/112330.351371:INFO:gatt_api.cc(264)] GATTS_AddService: service parsed correctly, now starting
+10-13 11:23:30.357  1157  1563 I droid.bluetoot: [1013/112330.356952:INFO:gatt_api.cc(947)] GATT_Register 82828282-8282-8282-8282-828282828282
+10-13 11:23:30.357  1157  1563 I droid.bluetoot: [1013/112330.357463:INFO:gatt_api.cc(967)] allocated gatt_if=2
+10-13 11:23:30.357  1157  1563 I droid.bluetoot: [1013/112330.357786:INFO:gatt_api.cc(161)] GATTS_AddService
+10-13 11:23:30.358  1157  1563 I droid.bluetoot: [1013/112330.358253:INFO:gatt_api.cc(264)] GATTS_AddService: service parsed correctly, now starting
+10-13 11:23:30.360  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_HCI : Level 2
+10-13 11:23:30.360  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_L2CAP : Level 2
+10-13 11:23:30.360  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_RFCOMM : Level 2
+10-13 11:23:30.363  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_AVDT : Level 2
+10-13 11:23:30.363  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_AVRC : Level 2
+10-13 11:23:30.363  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_A2D : Level 2
+10-13 11:23:30.363  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_BNEP : Level 2
+10-13 11:23:30.364  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_BTM : Level 2
+10-13 11:23:30.364  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_HID_HOST : Level 2
+10-13 11:23:30.364  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_PAN : Level 2
+10-13 11:23:30.365  1343  1343 W rkstack.proces: Verification of boolean com.android.cellbroadcastservice.GsmCellBroadcastHandler.handleGeoFencingTriggerMessage(com.android.cellbroadcastservice.GsmSmsCbMessage$GeoFencingTriggerMessage, int) took 232.631ms (1723.76 bytecodes/s) (10944B approximate peak alloc)
+10-13 11:23:30.369  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_SDP : Level 2
+10-13 11:23:30.369  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_SMP : Level 2
+10-13 11:23:30.369  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_HID_DEV : Level 2
+10-13 11:23:30.369  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_BTAPP : Level 2
+10-13 11:23:30.369  1157  1563 I bt_bte  : BTE_InitTraceLevels -- TRC_BTIF : Level 2
+10-13 11:23:30.486  1157  1564 I bt_stack: [INFO:message_loop_thread.cc(175)] Run: message loop starting for thread bt_main_thread
+10-13 11:23:30.505  1157  1565 I bt_stack: [INFO:message_loop_thread.cc(175)] Run: message loop starting for thread bt_module_lifecycle_thread
+10-13 11:23:30.511  1157  1565 I bt_core_module: module_start_up Starting module "controller_module"
+10-13 11:23:30.535  1343  1343 W rkstack.proces: Verification of void com.android.cellbroadcastservice.GsmCellBroadcastHandler.lambda$handleGeoFencingTriggerMessage$0(java.util.List, java.util.List, int, java.util.List, android.telephony.CbGeoUtils$LatLng) took 166.887ms (605.20 bytecodes/s) (3288B approximate peak alloc)
+10-13 11:23:30.586  1175  1175 W ndroid.systemu: Verification of void com.android.systemui.statusbar.policy.HotspotControllerImpl.<init>(android.content.Context, android.os.Handler, android.os.Handler) took 132.323ms (445.88 bytecodes/s) (2592B approximate peak alloc)
+10-13 11:23:30.710  1175  1175 W ndroid.systemu: Verification of void com.android.systemui.statusbar.policy.HotspotControllerImpl.fireHotspotChangedCallback() took 121.394ms (337.74 bytecodes/s) (2520B approximate peak alloc)
+10-13 11:23:30.687  1343  1343 W rkstack.proces: Verification of java.lang.String com.android.cellbroadcastservice.GsmCellBroadcastHandler.getCellBroadcastAreaInfo(int) took 151.123ms (132.34 bytecodes/s) (1992B approximate peak alloc)
+10-13 11:23:30.930  1157  1565 I bt_core_module: module_start_up Started module "controller_module"
+10-13 11:23:30.937  1157  1565 I bt_stack: [INFO:message_loop_thread.cc(196)] Run: message loop finished for thread bt_module_lifecycle_thread
+10-13 11:23:30.942  1175  1175 W ndroid.systemu: Verification of void com.android.systemui.statusbar.policy.HotspotControllerImpl.addCallback(com.android.systemui.statusbar.policy.HotspotController$Callback) took 231.464ms (380.19 bytecodes/s) (4000B approximate peak alloc)
+10-13 11:23:30.945  1157  1563 W bt_btm  : btm_decode_ext_features_page: feature page 1 ignored
+10-13 11:23:30.948  1157  1563 I bt_stack: [INFO:message_loop_thread.cc(87)] ShutDown: thread bt_module_lifecycle_thread(-1) is already stopped
+10-13 11:23:30.977  1157  1564 I bt_btm_sec: BTM_SecRegister p_cb_info->p_le_callback == 0x0x76b7791b9cb0
+10-13 11:23:30.978  1157  1564 I bt_btm_sec: BTM_SecRegister btm_cb.api.p_le_callback = 0x0x76b7791b9cb0 
+10-13 11:23:30.985  1157  1564 I bt_stack: [INFO:gatt_api.cc(947)] GATT_Register 8fe75f20-05ed-25ad-1ca9-2ed0f7daf0be
+10-13 11:23:30.985  1157  1564 I bt_stack: [INFO:gatt_api.cc(967)] allocated gatt_if=3
+10-13 11:23:30.999  1343  1343 W rkstack.proces: Verification of void com.android.cellbroadcastservice.WakeLockStateMachine$IdleState.<init>(com.android.cellbroadcastservice.WakeLockStateMachine) took 161.280ms (37.20 bytecodes/s) (1480B approximate peak alloc)
+10-13 11:23:31.178  1175  1175 W ndroid.systemu: Verification of void com.android.systemui.statusbar.policy.HotspotControllerImpl.setHotspotEnabled(boolean) took 234.107ms (252.02 bytecodes/s) (2936B approximate peak alloc)
+10-13 11:23:31.202  1024  1024 D ConditionProviders.SCP: evaluateSubscriptionLocked cal=ScheduleCalendar[mDays={1, 2, 3, 4, 5, 6, 7}, mSchedule=ScheduleInfo{days=[1, 2, 3, 4, 5, 6, 7], startHour=22, startMinute=0, endHour=7, endMinute=0, exitAtAlarm=true, nextAlarm=Thu Jan 01 00:00:00 UTC 1970 (0)}], now=Tue Oct 13 11:23:29 UTC 2026 (1791890609882), nextUserAlarmTime=Thu Jan 01 00:00:00 UTC 1970 (0)
+10-13 11:23:31.217  1024  1024 D ConditionProviders.SCP: notifyCondition condition://android/schedule?days=1.2.3.4.5.6.7&start=22.0&end=7.0&exitAtAlarm=true STATE_FALSE reason=!meetsSchedule
+10-13 11:23:31.422  1024  1024 D ConditionProviders.SCP: Scheduling evaluate for Tue Oct 13 22:00:00 UTC 2026 (1791928800000), in +10h36m30s118ms, now=Tue Oct 13 11:23:29 UTC 2026 (1791890609882)
+10-13 11:23:31.444  1175  1175 W ndroid.systemu: Verification of void com.android.systemui.statusbar.policy.HotspotControllerImpl$1.onTetherableInterfaceRegexpsChanged(android.net.TetheringManager$TetheringInterfaceRegexps) took 254.032ms (125.97 bytecodes/s) (2056B approximate peak alloc)
+10-13 11:23:31.472  1024  1063 W system_server: Long monitor contention with owner Binder:1024_7 (1374) at void com.android.server.power.PowerManagerService.acquireWakeLockInternal(android.os.IBinder, int, java.lang.String, java.lang.String, android.os.WorkSource, java.lang.String, int, int)(PowerManagerService.java:1329) waiters=0 in void com.android.server.power.PowerManagerService.handleSandman() for 120ms
+10-13 11:23:31.514  1175  1175 I TetheringManager: registerTetheringEventCallback caller:com.android.systemui
+10-13 11:23:31.610  1024  1397 W system_server: Long monitor contention with owner ConditionProviders.ECP (1119) at java.lang.String com.android.server.am.ActivityManagerService.checkContentProviderAccess(java.lang.String, int)(ActivityManagerService.java:6828) waiters=0 in android.content.Intent com.android.server.am.ActivityManagerService.registerReceiverWithFeature(android.app.IApplicationThread, java.lang.String, java.lang.String, android.content.IIntentReceiver, android.content.IntentFilter, java.lang.String, int, int) for 1.286s
+10-13 11:23:31.612  1024  1049 W system_server: Long monitor contention with owner ConditionProviders.ECP (1119) at java.lang.String com.android.server.am.ActivityManagerService.checkContentProviderAccess(java.lang.String, int)(ActivityManagerService.java:6828) waiters=1 in void com.android.server.am.ActivityManagerService$5.handleMessage(android.os.Message) for 989ms

@@ -1,0 +1,13 @@
+{
+  "go": "go version go1.27.2 linux/amd64",
+  "agentSkills": {
+    "repository": "https://github.com/addyosmani/agent-skills",
+    "commit": "1be8e34187e34647bb83adc3a1323b26ae6f6abe",
+    "pluginVersion": "0.6.12"
+  },
+  "dexdump": {
+    "source": "https://android.googlesource.com/platform/prebuilts/sdk/+/refs/heads/main/tools/linux/bin/dexdump",
+    "sha256": "cccd6b7473b8715672879672838a8e4cf1dfa8a0f008f432c7deb5c79cdce19d",
+    "usage": "tests only; not a build dependency"
+  }
+}

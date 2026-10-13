@@ -1,0 +1,72 @@
+[
+  {
+    "name": "aosp-dalvik",
+    "url": "https://android.googlesource.com/platform/dalvik/",
+    "retrieved": "2026-10-13",
+    "bytes": 35613,
+    "sha256": "b72d08fbefa026cf364c922f958a3f01eb3788e8bb6d57aec1690bb6ec851d6d"
+  },
+  {
+    "name": "apk-v2",
+    "url": "https://source.android.com/docs/security/features/apksigning/v2",
+    "retrieved": "2026-10-13",
+    "bytes": 171242,
+    "sha256": "3da4241089c8d0dcb21da79663b84a66c180210ed788c8dfd80ffecc6b1b762b"
+  },
+  {
+    "name": "NativeActivity",
+    "url": "https://developer.android.com/reference/android/app/NativeActivity",
+    "retrieved": "2026-10-13",
+    "bytes": 2839357,
+    "sha256": "0c196182ae38d74843562b0310cf37c98867ab2b4ad4914cd2c03930e6429375"
+  },
+  {
+    "name": "WebSettings",
+    "url": "https://developer.android.com/reference/android/webkit/WebSettings",
+    "retrieved": "2026-10-13",
+    "bytes": 2448781,
+    "sha256": "fcd63916462dab458b9acb55b6e8225b29bfcad699857fabd2943efaff41eaa5"
+  },
+  {
+    "name": "dex-format",
+    "url": "https://source.android.com/docs/core/runtime/dex-format",
+    "retrieved": "2026-10-13",
+    "bytes": 282309,
+    "sha256": "e381e47f1c87f333d250733f11c862c3b93507e486461e39f586a891d82be868"
+  },
+  {
+    "name": "Activity",
+    "url": "https://developer.android.com/reference/android/app/Activity",
+    "retrieved": "2026-10-13",
+    "bytes": 3506578,
+    "sha256": "60f99a6e073e9100f1a4868a1edd147acf96bb691ee1b65ac12457e961f05483"
+  },
+  {
+    "name": "apk-v3",
+    "url": "https://source.android.com/docs/security/features/apksigning/v3",
+    "retrieved": "2026-10-13",
+    "bytes": 168074,
+    "sha256": "353ae8a7c1310a20501e1825b9428e9ea888f5e8675e399bd302b30487a08da1"
+  },
+  {
+    "name": "instruction-formats",
+    "url": "https://source.android.com/docs/core/runtime/instruction-formats",
+    "retrieved": "2026-10-13",
+    "bytes": 180094,
+    "sha256": "24511c8df7c165ab993f9e229035e4380da2e9278c1981c5085162475aaa3c93"
+  },
+  {
+    "name": "dalvik-bytecode",
+    "url": "https://source.android.com/docs/core/runtime/dalvik-bytecode",
+    "retrieved": "2026-10-13",
+    "bytes": 225024,
+    "sha256": "5513db4145cb6ed1d4318f9a1b9b82e000e594ac25b03f9a0a2799def9c50761"
+  },
+  {
+    "name": "WebView",
+    "url": "https://developer.android.com/reference/android/webkit/WebView",
+    "retrieved": "2026-10-13",
+    "bytes": 3411060,
+    "sha256": "e49bcc8d1cec9ee3948bc0252ce9348edde5a61022356899f2be9e151f9ef100"
+  }
+]

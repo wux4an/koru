@@ -1,0 +1,6 @@
+Starting: Intent { cmp=com.example.koru/com.koru.runtime.MainActivity }
+Status: ok
+LaunchState: UNKNOWN (-1)
+Activity: com.android.launcher3/.uioverrides.QuickstepLauncher
+WaitTime: 6596
+Complete

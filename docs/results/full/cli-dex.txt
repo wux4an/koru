@@ -1,0 +1,145 @@
+wrote artifacts/answer.dex (476 bytes), DEX 035 structurally verified
+{
+  "size": 476,
+  "strings": [
+    "\u003cinit\u003e",
+    "I",
+    "Lexample/Answer;",
+    "Ljava/lang/Object;",
+    "V",
+    "answer"
+  ],
+  "types": [
+    "I",
+    "Lexample/Answer;",
+    "Ljava/lang/Object;",
+    "V"
+  ],
+  "prototypes": [
+    {
+      "Shorty": 1,
+      "Return": 0,
+      "Parameters": null
+    },
+    {
+      "Shorty": 4,
+      "Return": 3,
+      "Parameters": null
+    }
+  ],
+  "fields": null,
+  "methods": [
+    {
+      "Owner": 1,
+      "Prototype": 1,
+      "Name": 0
+    },
+    {
+      "Owner": 1,
+      "Prototype": 0,
+      "Name": 5
+    },
+    {
+      "Owner": 2,
+      "Prototype": 1,
+      "Name": 0
+    }
+  ],
+  "classes": [
+    {
+      "Type": 1,
+      "Access": 1,
+      "Super": 2,
+      "Source": 4294967295,
+      "Interfaces": null,
+      "Fields": null,
+      "Methods": [
+        {
+          "Index": 0,
+          "Access": 65537,
+          "Code": {
+            "Offset": 292,
+            "Registers": 1,
+            "Incoming": 1,
+            "Outgoing": 1,
+            "Units": [
+              4208,
+              2,
+              0,
+              14
+            ],
+            "Tries": null
+          }
+        },
+        {
+          "Index": 1,
+          "Access": 9,
+          "Code": {
+            "Offset": 316,
+            "Registers": 1,
+            "Incoming": 0,
+            "Outgoing": 0,
+            "Units": [
+              19,
+              42,
+              15
+            ],
+            "Tries": null
+          }
+        }
+      ]
+    }
+  ],
+  "map": [
+    {
+      "Type": 0,
+      "Size": 1,
+      "Offset": 0
+    },
+    {
+      "Type": 1,
+      "Size": 6,
+      "Offset": 112
+    },
+    {
+      "Type": 2,
+      "Size": 4,
+      "Offset": 136
+    },
+    {
+      "Type": 3,
+      "Size": 2,
+      "Offset": 152
+    },
+    {
+      "Type": 5,
+      "Size": 3,
+      "Offset": 176
+    },
+    {
+      "Type": 6,
+      "Size": 1,
+      "Offset": 200
+    },
+    {
+      "Type": 8194,
+      "Size": 6,
+      "Offset": 232
+    },
+    {
+      "Type": 8193,
+      "Size": 2,
+      "Offset": 292
+    },
+    {
+      "Type": 8192,
+      "Size": 1,
+      "Offset": 338
+    },
+    {
+      "Type": 4096,
+      "Size": 1,
+      "Offset": 352
+    }
+  ]
+}

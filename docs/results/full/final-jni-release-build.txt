@@ -1,0 +1,2 @@
+runtime cache hit: true
+wrote artifacts/koru-release.apk (87566 bytes), APK v2 RSA/SHA-256, certificate bfee8015a6fbf4e44d5ac5f01d59470a08e33ea3534b5da1e3cbe82da6f719f5

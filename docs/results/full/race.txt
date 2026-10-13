@@ -1,0 +1,19 @@
+ok  	koru.dev/koru/cmd/koru	1.433s
+?   	koru.dev/koru/examples/dex	[no test files]
+ok  	koru.dev/koru/internal/androidbin	1.785s
+ok  	koru.dev/koru/internal/apk	(cached)
+ok  	koru.dev/koru/internal/app	1.825s
+ok  	koru.dev/koru/internal/arsc	1.009s
+ok  	koru.dev/koru/internal/axml	1.014s
+ok  	koru.dev/koru/internal/config	(cached)
+ok  	koru.dev/koru/internal/dex/assembler	(cached)
+ok  	koru.dev/koru/internal/dex/builder	(cached)
+ok  	koru.dev/koru/internal/dex/encoding	(cached)
+?   	koru.dev/koru/internal/dex/format	[no test files]
+ok  	koru.dev/koru/internal/dex/model	(cached)
+ok  	koru.dev/koru/internal/dex/parser	1.017s
+ok  	koru.dev/koru/internal/signing	(cached)
+?   	koru.dev/koru/packages/javascript	[no test files]
+ok  	koru.dev/koru/pkg/dex	(cached)
+ok  	koru.dev/koru/plugins	(cached)
+ok  	koru.dev/koru/runtime/dex	1.028s

@@ -1,0 +1,8 @@
+fuzz: elapsed: 0s, gathering baseline coverage: 0/1 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 1/1 completed, now fuzzing with 2 workers
+fuzz: elapsed: 3s, execs: 3370 (1122/sec), new interesting: 1 (total: 2)
+fuzz: elapsed: 6s, execs: 351215 (116039/sec), new interesting: 3 (total: 4)
+fuzz: elapsed: 9s, execs: 351215 (0/sec), new interesting: 3 (total: 4)
+fuzz: elapsed: 11s, execs: 521593 (84894/sec), new interesting: 4 (total: 5)
+PASS
+ok  	koru.dev/koru/internal/arsc	11.012s

@@ -1,0 +1,6 @@
+Starting: Intent { cmp=com.example.koru/com.koru.runtime.MainActivity }
+Status: timeout
+LaunchState: UNKNOWN (-1)
+Activity: com.example.koru/com.koru.runtime.MainActivity
+WaitTime: 12467
+Complete

@@ -1,0 +1,11 @@
+{
+  "name": "@koru/core",
+  "version": "0.2.0",
+  "type": "module",
+  "exports": "./core.mjs",
+  "files": [
+    "core.js",
+    "core.mjs"
+  ],
+  "license": "MIT"
+}

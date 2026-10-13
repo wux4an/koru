@@ -1,0 +1,19 @@
+ok  	koru.dev/koru/cmd/koru	0.090s	coverage: 69.0% of statements
+	koru.dev/koru/examples/dex		coverage: 0.0% of statements
+ok  	koru.dev/koru/internal/androidbin	0.240s	coverage: 87.3% of statements
+ok  	koru.dev/koru/internal/apk	(cached)	coverage: 61.9% of statements
+ok  	koru.dev/koru/internal/app	1.000s	coverage: 63.4% of statements
+ok  	koru.dev/koru/internal/arsc	0.007s	coverage: 83.8% of statements
+ok  	koru.dev/koru/internal/axml	0.002s	coverage: 86.7% of statements
+ok  	koru.dev/koru/internal/config	(cached)	coverage: 23.9% of statements
+ok  	koru.dev/koru/internal/dex/assembler	(cached)	coverage: 65.9% of statements
+ok  	koru.dev/koru/internal/dex/builder	(cached)	coverage: 66.1% of statements
+ok  	koru.dev/koru/internal/dex/encoding	(cached)	coverage: 82.2% of statements
+?   	koru.dev/koru/internal/dex/format	[no test files]
+ok  	koru.dev/koru/internal/dex/model	(cached)	coverage: 48.7% of statements
+ok  	koru.dev/koru/internal/dex/parser	0.012s	coverage: 70.2% of statements
+ok  	koru.dev/koru/internal/signing	(cached)	coverage: 75.8% of statements
+?   	koru.dev/koru/packages/javascript	[no test files]
+ok  	koru.dev/koru/pkg/dex	(cached)	coverage: 94.3% of statements
+ok  	koru.dev/koru/plugins	(cached)	coverage: 52.2% of statements
+ok  	koru.dev/koru/runtime/dex	0.006s	coverage: 96.7% of statements

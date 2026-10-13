@@ -1,0 +1,19 @@
+{'id': 1, 'result': {'result': {'type': 'string', 'value': '{"url":"https://app.koru.invalid/index.html","history":1}'}}}
+{'id': 2, 'result': {'result': {'type': 'boolean', 'value': True}}}
+{'id': 3, 'result': {'result': {'type': 'string', 'value': '{"url":"https://app.koru.invalid/second.html","history":2}'}}}
+ConnectionClosedError no close frame received or sent
+--------- beginning of kernel
+--------- beginning of main
+--------- beginning of system
+10-13 04:26:47.454  3027  3027 I Koru    : onPageFinished
+10-13 04:26:47.533  3027  3027 I Koru    : native port transferred
+10-13 04:39:49.731  3171  3171 I Koru    : onPageFinished
+10-13 04:39:49.874  3171  3171 I Koru    : native port transferred
+10-13 04:43:38.586  3171  3171 I Koru    : onPageFinished
+10-13 04:43:38.599  3171  3171 I Koru    : native port transferred
+10-13 04:50:27.522  3368  3368 I Koru    : onPageFinished
+10-13 04:50:27.647  3368  3368 I Koru    : native port transferred
+10-13 04:52:54.374  3368  3368 I Koru    : onPageFinished
+10-13 04:52:54.380  3368  3368 I Koru    : native port transferred
+10-13 04:53:02.724  3368  3368 I KoruBack: false
+

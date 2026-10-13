@@ -1,0 +1,8 @@
+{
+  "navigation": "https://app.koru.invalid/second.html",
+  "back": "https://app.koru.invalid/index.html",
+  "devtoolsTargetReplaced": true,
+  "storage": {
+    "value": "survives-restart"
+  }
+}

@@ -1,0 +1,14 @@
+goos: linux
+goarch: amd64
+pkg: koru.dev/koru/internal/dex/builder
+cpu: AMD EPYC 9V74 80-Core Processor                
+BenchmarkBuild-3   	  162423	      6176 ns/op	    3926 B/op	      70 allocs/op
+PASS
+ok  	koru.dev/koru/internal/dex/builder	1.082s
+goos: linux
+goarch: amd64
+pkg: koru.dev/koru/runtime/dex
+cpu: AMD EPYC 9V74 80-Core Processor                
+BenchmarkActivity-3   	    6524	    165560 ns/op	   98460 B/op	    1420 allocs/op
+PASS
+ok  	koru.dev/koru/runtime/dex	1.104s

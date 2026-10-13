@@ -1,0 +1,68 @@
+Processing 'artifacts/answer.dex'...
+Opened 'artifacts/answer.dex', DEX version '035'
+DEX file header:
+magic               : 'dex\n035\0'
+checksum            : 3a7d33c8
+signature           : 1bb9...454e
+file_size           : 476
+header_size         : 112
+link_size           : 0
+link_off            : 0 (0x000000)
+string_ids_size     : 6
+string_ids_off      : 112 (0x000070)
+type_ids_size       : 4
+type_ids_off        : 136 (0x000088)
+proto_ids_size      : 2
+proto_ids_off       : 152 (0x000098)
+field_ids_size      : 0
+field_ids_off       : 0 (0x000000)
+method_ids_size     : 3
+method_ids_off      : 176 (0x0000b0)
+class_defs_size     : 1
+class_defs_off      : 200 (0x0000c8)
+data_size           : 244
+data_off            : 232 (0x0000e8)
+
+Class #0            -
+  Class descriptor  : 'Lexample/Answer;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in Lexample/Answer;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000124:                                        |[000124] example.Answer.<init>:()V
+000134: 7010 0200 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@0002
+00013a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     :
+      locals        :
+
+    #1              : (in Lexample/Answer;)
+      name          : 'answer'
+      type          : '()I'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 1
+      ins           : 0
+      outs          : 0
+      insns size    : 3 16-bit code units
+00013c:                                        |[00013c] example.Answer.answer:()I
+00014c: 1300 2a00                              |0000: const/16 v0, #int 42 // #2a
+000150: 0f00                                   |0002: return v0
+      catches       : (none)
+      positions     :
+      locals        :
+
+  Virtual methods   -
+  source_file_idx   : -1 (unknown)
+

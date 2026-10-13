@@ -1,0 +1,8 @@
+{
+  "value": "KoruKeyboard",
+  "focused": "keyboard",
+  "height": 353,
+  "keyboardShown": true,
+  "afterBackURL": "https://app.koru.invalid/index.html",
+  "keyboardHiddenAfterBack": true
+}

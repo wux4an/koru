@@ -1,0 +1,10 @@
+ok  	koru.dev/koru/cmd/koru	(cached)
+?   	koru.dev/koru/examples/dex	[no test files]
+ok  	koru.dev/koru/internal/dex/assembler	(cached)
+ok  	koru.dev/koru/internal/dex/builder	(cached)
+ok  	koru.dev/koru/internal/dex/encoding	(cached)
+?   	koru.dev/koru/internal/dex/format	[no test files]
+ok  	koru.dev/koru/internal/dex/model	(cached)
+ok  	koru.dev/koru/internal/dex/parser	1.014s
+ok  	koru.dev/koru/pkg/dex	(cached)
+ok  	koru.dev/koru/runtime/dex	(cached)

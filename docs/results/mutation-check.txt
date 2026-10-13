@@ -1,0 +1,7 @@
+Intentional mutation: invert Adler-32 validation. Expected test failure.
+--- FAIL: TestParseExecutable (0.00s)
+    parser_test.go:31: Adler-32 mismatch
+FAIL
+FAIL	koru.dev/koru/internal/dex/parser	0.002s
+FAIL
+Exit code: 1

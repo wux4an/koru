@@ -1,0 +1,2 @@
+Build/verify: self-contained Go implementation; no Java, SDK or external build tools.
+Project com.example.koru.demo: valid config, persistent signing identity, web index and plugin manifests.

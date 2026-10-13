@@ -1,0 +1,5 @@
+wrote artifacts/answer.dex (476 bytes), DEX 035 structurally verified
+wrote artifacts/activity.dex (1848 bytes), DEX 035 structurally verified
+koru 0.1.0-dev (linux/amd64)
+DEX build/inspect: self-contained; no Java, SDK or external compiler required.
+APK build/signing and Android execution validation: not implemented/available in this milestone.

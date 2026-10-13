@@ -1,0 +1,5 @@
+{
+  "secure": true,
+  "scope": "https://app.koru.invalid/",
+  "probe": "koru-worker-offline"
+}

@@ -1,0 +1,3 @@
+{'id': 1, 'result': {'identifier': '1'}}
+{'id': 2, 'result': {}}
+{'id': 3, 'result': {'result': {'type': 'string', 'value': '{"text":"Koru\\n\\nAplicación local independiente\\n\\nContador: 0"}'}}}

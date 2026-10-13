@@ -1,0 +1,43 @@
+{
+  "classes": [
+    {
+      "descriptor": "Lexample/Answer;",
+      "super": "Ljava/lang/Object;",
+      "access": 1,
+      "methods": [
+        {
+          "name": "<init>",
+          "descriptor": "()V",
+          "access": 65537,
+          "code": {
+            "locals": 0,
+            "instructions": [
+              {
+                "op": "invoke-direct",
+                "regs": [-1],
+                "method": {
+                  "owner": "Ljava/lang/Object;",
+                  "name": "<init>",
+                  "descriptor": "()V"
+                }
+              },
+              { "op": "return-void" }
+            ]
+          }
+        },
+        {
+          "name": "answer",
+          "descriptor": "()I",
+          "access": 9,
+          "code": {
+            "locals": 1,
+            "instructions": [
+              { "op": "const/16", "regs": [0], "literal": 42 },
+              { "op": "return", "regs": [0] }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

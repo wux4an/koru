@@ -1,0 +1,53 @@
+{
+  "id": "native",
+  "abi": 1,
+  "permissions": [],
+  "handlers": {
+    "native.info": {
+      "owner": "Lcom/koru/plugins/Native;",
+      "name": "info",
+      "descriptor": "(Landroid/app/Activity;Lorg/json/JSONObject;)Lorg/json/JSONObject;"
+    }
+  },
+  "classes": [
+    {
+      "descriptor": "Lcom/koru/plugins/Native;",
+      "super": "Ljava/lang/Object;",
+      "access": 1,
+      "methods": [
+        {
+          "name": "<clinit>",
+          "descriptor": "()V",
+          "access": 65544,
+          "code": {
+            "locals": 1,
+            "instructions": [
+              {
+                "op": "const-string",
+                "regs": [0],
+                "string": "koru_native"
+              },
+              {
+                "op": "invoke-static",
+                "regs": [0],
+                "method": {
+                  "owner": "Ljava/lang/System;",
+                  "name": "loadLibrary",
+                  "descriptor": "(Ljava/lang/String;)V"
+                }
+              },
+              {
+                "op": "return-void"
+              }
+            ]
+          }
+        },
+        {
+          "name": "info",
+          "descriptor": "(Landroid/app/Activity;Lorg/json/JSONObject;)Lorg/json/JSONObject;",
+          "access": 265
+        }
+      ]
+    }
+  ]
+}

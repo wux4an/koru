@@ -1,0 +1,11 @@
+=== RUN   TestOfficialAPKValidation
+    apk_test.go:60: Go-built APK accepted by official resource and signature validators (20385 bytes)
+--- PASS: TestOfficialAPKValidation (0.34s)
+=== RUN   TestAOSPDEXDump
+=== RUN   TestAOSPDEXDump/answer
+=== RUN   TestAOSPDEXDump/activity
+--- PASS: TestAOSPDEXDump (0.01s)
+    --- PASS: TestAOSPDEXDump/answer (0.01s)
+    --- PASS: TestAOSPDEXDump/activity (0.00s)
+PASS
+ok  	koru.dev/koru/tests/external	0.350s

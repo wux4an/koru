@@ -1,0 +1,8 @@
+CGO_ENABLED=0 GOPROXY=off go build -trimpath ./cmd/koru
+linux/amd64: built and executed (normal build + verify + doctor)
+linux/arm64: cross-compilation passed; host execution not tested
+windows/amd64: cross-compilation passed; host execution not tested
+darwin/arm64: cross-compilation passed; host execution not tested
+/tmp/koru-windows.exe: PE32+ executable for MS Windows 10.00 (console), x86-64, 16 sections
+/tmp/koru-macos:       Mach-O 64-bit arm64 executable, flags:<|DYLDLINK|PIE>
+/tmp/koru-linux-arm64: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, Go BuildID=LN8pGuSzu8rYqn8SCMq4/8iIHJrNQ5Px55xbCyMXD/kUUcT-aUe32WjGZHqbCg/ECxU6Al3wGCjRMSovVrV, BuildID[sha1]=4a717a4fb8cea87defab860237a2978693bf5d87, with debug_info, not stripped

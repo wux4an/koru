@@ -1,0 +1,30 @@
+{
+  "id": 1,
+  "result": {
+    "result": {
+      "type": "object",
+      "value": {
+        "url": "https://app.koru.invalid/index.html",
+        "title": "Koru",
+        "text": "Koru\n\nAplicaci\u00f3n local independiente\n\nContador: 0",
+        "bridge": "object",
+        "device": {
+          "model": "Android SDK built for x86_64",
+          "manufacturer": "unknown",
+          "osVersion": "11",
+          "sdk": 30,
+          "platform": "android"
+        },
+        "app": {
+          "appId": "com.example.koru",
+          "name": "Koru",
+          "version": "1.0.0",
+          "versionCode": 1
+        },
+        "stored": {
+          "value": "persistent"
+        }
+      }
+    }
+  }
+}

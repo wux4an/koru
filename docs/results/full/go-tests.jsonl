@@ -1,0 +1,529 @@
+{"Time":"2026-10-13T11:45:38.243328625Z","Action":"start","Package":"koru.dev/koru/cmd/koru"}
+{"Time":"2026-10-13T11:45:38.247003632Z","Action":"run","Package":"koru.dev/koru/cmd/koru","Test":"TestBuildInspectCLI"}
+{"Time":"2026-10-13T11:45:38.247060116Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Test":"TestBuildInspectCLI","Output":"=== RUN   TestBuildInspectCLI\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.250301861Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Test":"TestBuildInspectCLI","Output":"--- PASS: TestBuildInspectCLI (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.2503213Z","Action":"pass","Package":"koru.dev/koru/cmd/koru","Test":"TestBuildInspectCLI","Elapsed":0}
+{"Time":"2026-10-13T11:45:38.250346898Z","Action":"run","Package":"koru.dev/koru/cmd/koru","Test":"TestActivityCLI"}
+{"Time":"2026-10-13T11:45:38.250349241Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Test":"TestActivityCLI","Output":"=== RUN   TestActivityCLI\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.250826077Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Test":"TestActivityCLI","Output":"--- PASS: TestActivityCLI (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.250833358Z","Action":"pass","Package":"koru.dev/koru/cmd/koru","Test":"TestActivityCLI","Elapsed":0}
+{"Time":"2026-10-13T11:45:38.250835911Z","Action":"run","Package":"koru.dev/koru/cmd/koru","Test":"TestErrorsPreserveOutput"}
+{"Time":"2026-10-13T11:45:38.250837794Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Test":"TestErrorsPreserveOutput","Output":"=== RUN   TestErrorsPreserveOutput\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.250981316Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Test":"TestErrorsPreserveOutput","Output":"--- PASS: TestErrorsPreserveOutput (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.250985983Z","Action":"pass","Package":"koru.dev/koru/cmd/koru","Test":"TestErrorsPreserveOutput","Elapsed":0}
+{"Time":"2026-10-13T11:45:38.250988036Z","Action":"run","Package":"koru.dev/koru/cmd/koru","Test":"TestUnsupportedCommandsAndArguments"}
+{"Time":"2026-10-13T11:45:38.250989929Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Test":"TestUnsupportedCommandsAndArguments","Output":"=== RUN   TestUnsupportedCommandsAndArguments\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.250996369Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Test":"TestUnsupportedCommandsAndArguments","Output":"--- PASS: TestUnsupportedCommandsAndArguments (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.251000825Z","Action":"pass","Package":"koru.dev/koru/cmd/koru","Test":"TestUnsupportedCommandsAndArguments","Elapsed":0}
+{"Time":"2026-10-13T11:45:38.251003499Z","Action":"run","Package":"koru.dev/koru/cmd/koru","Test":"TestDoctorVersion"}
+{"Time":"2026-10-13T11:45:38.251005302Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Test":"TestDoctorVersion","Output":"=== RUN   TestDoctorVersion\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.251008947Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Test":"TestDoctorVersion","Output":"--- PASS: TestDoctorVersion (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.25101091Z","Action":"pass","Package":"koru.dev/koru/cmd/koru","Test":"TestDoctorVersion","Elapsed":0}
+{"Time":"2026-10-13T11:45:38.251012703Z","Action":"run","Package":"koru.dev/koru/cmd/koru","Test":"TestInitBuildReleaseAndVerify"}
+{"Time":"2026-10-13T11:45:38.251014235Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Test":"TestInitBuildReleaseAndVerify","Output":"=== RUN   TestInitBuildReleaseAndVerify\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.262945866Z","Action":"start","Package":"koru.dev/koru/examples/dex"}
+{"Time":"2026-10-13T11:45:38.262987828Z","Action":"output","Package":"koru.dev/koru/examples/dex","Output":"?   \tkoru.dev/koru/examples/dex\t[no test files]\n"}
+{"Time":"2026-10-13T11:45:38.262993476Z","Action":"skip","Package":"koru.dev/koru/examples/dex","Elapsed":0}
+{"Time":"2026-10-13T11:45:38.263005284Z","Action":"start","Package":"koru.dev/koru/internal/androidbin"}
+{"Time":"2026-10-13T11:45:38.264588416Z","Action":"run","Package":"koru.dev/koru/internal/androidbin","Test":"TestStringPool"}
+{"Time":"2026-10-13T11:45:38.264641725Z","Action":"output","Package":"koru.dev/koru/internal/androidbin","Test":"TestStringPool","Output":"=== RUN   TestStringPool\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.26465221Z","Action":"output","Package":"koru.dev/koru/internal/androidbin","Test":"TestStringPool","Output":"--- PASS: TestStringPool (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.264656276Z","Action":"pass","Package":"koru.dev/koru/internal/androidbin","Test":"TestStringPool","Elapsed":0}
+{"Time":"2026-10-13T11:45:38.264660322Z","Action":"run","Package":"koru.dev/koru/internal/androidbin","Test":"TestAliasedPoolDecodedBudget"}
+{"Time":"2026-10-13T11:45:38.264662615Z","Action":"output","Package":"koru.dev/koru/internal/androidbin","Test":"TestAliasedPoolDecodedBudget","Output":"=== RUN   TestAliasedPoolDecodedBudget\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.37507993Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Test":"TestInitBuildReleaseAndVerify","Output":"--- PASS: TestInitBuildReleaseAndVerify (0.12s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.375131466Z","Action":"pass","Package":"koru.dev/koru/cmd/koru","Test":"TestInitBuildReleaseAndVerify","Elapsed":0.12}
+{"Time":"2026-10-13T11:45:38.375142042Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.376310996Z","Action":"output","Package":"koru.dev/koru/cmd/koru","Output":"ok  \tkoru.dev/koru/cmd/koru\t0.133s\n"}
+{"Time":"2026-10-13T11:45:38.40183175Z","Action":"pass","Package":"koru.dev/koru/cmd/koru","Elapsed":0.159}
+{"Time":"2026-10-13T11:45:38.455136852Z","Action":"start","Package":"koru.dev/koru/internal/apk"}
+{"Time":"2026-10-13T11:45:38.455262067Z","Action":"run","Package":"koru.dev/koru/internal/apk","Test":"TestZipAlignmentDeterminismAndPayload"}
+{"Time":"2026-10-13T11:45:38.455266974Z","Action":"output","Package":"koru.dev/koru/internal/apk","Test":"TestZipAlignmentDeterminismAndPayload","Output":"=== RUN   TestZipAlignmentDeterminismAndPayload\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.455275086Z","Action":"output","Package":"koru.dev/koru/internal/apk","Test":"TestZipAlignmentDeterminismAndPayload","Output":"--- PASS: TestZipAlignmentDeterminismAndPayload (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.45527767Z","Action":"pass","Package":"koru.dev/koru/internal/apk","Test":"TestZipAlignmentDeterminismAndPayload","Elapsed":0}
+{"Time":"2026-10-13T11:45:38.455283068Z","Action":"run","Package":"koru.dev/koru/internal/apk","Test":"TestRejectNames"}
+{"Time":"2026-10-13T11:45:38.455284911Z","Action":"output","Package":"koru.dev/koru/internal/apk","Test":"TestRejectNames","Output":"=== RUN   TestRejectNames\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.455288696Z","Action":"output","Package":"koru.dev/koru/internal/apk","Test":"TestRejectNames","Output":"--- PASS: TestRejectNames (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.45529102Z","Action":"pass","Package":"koru.dev/koru/internal/apk","Test":"TestRejectNames","Elapsed":0}
+{"Time":"2026-10-13T11:45:38.455292732Z","Action":"output","Package":"koru.dev/koru/internal/apk","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.455294775Z","Action":"output","Package":"koru.dev/koru/internal/apk","Output":"ok  \tkoru.dev/koru/internal/apk\t(cached)\n"}
+{"Time":"2026-10-13T11:45:38.455297509Z","Action":"pass","Package":"koru.dev/koru/internal/apk","Elapsed":0}
+{"Time":"2026-10-13T11:45:38.512869833Z","Action":"output","Package":"koru.dev/koru/internal/androidbin","Test":"TestAliasedPoolDecodedBudget","Output":"--- PASS: TestAliasedPoolDecodedBudget (0.25s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.513209916Z","Action":"pass","Package":"koru.dev/koru/internal/androidbin","Test":"TestAliasedPoolDecodedBudget","Elapsed":0.25}
+{"Time":"2026-10-13T11:45:38.513224818Z","Action":"output","Package":"koru.dev/koru/internal/androidbin","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:38.523827308Z","Action":"output","Package":"koru.dev/koru/internal/androidbin","Output":"ok  \tkoru.dev/koru/internal/androidbin\t0.261s\n"}
+{"Time":"2026-10-13T11:45:38.524165529Z","Action":"pass","Package":"koru.dev/koru/internal/androidbin","Elapsed":0.261}
+{"Time":"2026-10-13T11:45:39.012016576Z","Action":"start","Package":"koru.dev/koru/internal/app"}
+{"Time":"2026-10-13T11:45:39.015259894Z","Action":"run","Package":"koru.dev/koru/internal/app","Test":"TestFullAPKBuildVerifyAndKeyReuse"}
+{"Time":"2026-10-13T11:45:39.015320604Z","Action":"output","Package":"koru.dev/koru/internal/app","Test":"TestFullAPKBuildVerifyAndKeyReuse","Output":"=== RUN   TestFullAPKBuildVerifyAndKeyReuse\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.149509765Z","Action":"output","Package":"koru.dev/koru/internal/app","Test":"TestFullAPKBuildVerifyAndKeyReuse","Output":"--- PASS: TestFullAPKBuildVerifyAndKeyReuse (0.13s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.149557175Z","Action":"pass","Package":"koru.dev/koru/internal/app","Test":"TestFullAPKBuildVerifyAndKeyReuse","Elapsed":0.13}
+{"Time":"2026-10-13T11:45:39.149564086Z","Action":"run","Package":"koru.dev/koru/internal/app","Test":"TestMissingSigningKeyDoesNotRegenerate"}
+{"Time":"2026-10-13T11:45:39.149566399Z","Action":"output","Package":"koru.dev/koru/internal/app","Test":"TestMissingSigningKeyDoesNotRegenerate","Output":"=== RUN   TestMissingSigningKeyDoesNotRegenerate\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.203644052Z","Action":"output","Package":"koru.dev/koru/internal/app","Test":"TestMissingSigningKeyDoesNotRegenerate","Output":"--- PASS: TestMissingSigningKeyDoesNotRegenerate (0.06s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.203689119Z","Action":"pass","Package":"koru.dev/koru/internal/app","Test":"TestMissingSigningKeyDoesNotRegenerate","Elapsed":0.06}
+{"Time":"2026-10-13T11:45:39.203697181Z","Action":"run","Package":"koru.dev/koru/internal/app","Test":"TestAssetsRejectSymlinksAndPrivateKeys"}
+{"Time":"2026-10-13T11:45:39.203699995Z","Action":"output","Package":"koru.dev/koru/internal/app","Test":"TestAssetsRejectSymlinksAndPrivateKeys","Output":"=== RUN   TestAssetsRejectSymlinksAndPrivateKeys\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.208850955Z","Action":"start","Package":"koru.dev/koru/internal/arsc"}
+{"Time":"2026-10-13T11:45:39.210605331Z","Action":"run","Package":"koru.dev/koru/internal/arsc","Test":"TestTable"}
+{"Time":"2026-10-13T11:45:39.210643367Z","Action":"output","Package":"koru.dev/koru/internal/arsc","Test":"TestTable","Output":"=== RUN   TestTable\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.210658439Z","Action":"output","Package":"koru.dev/koru/internal/arsc","Test":"TestTable","Output":"--- PASS: TestTable (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.210661864Z","Action":"pass","Package":"koru.dev/koru/internal/arsc","Test":"TestTable","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.210667763Z","Action":"run","Package":"koru.dev/koru/internal/arsc","Test":"FuzzTable"}
+{"Time":"2026-10-13T11:45:39.210669456Z","Action":"output","Package":"koru.dev/koru/internal/arsc","Test":"FuzzTable","Output":"=== RUN   FuzzTable\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.210699009Z","Action":"run","Package":"koru.dev/koru/internal/arsc","Test":"FuzzTable/seed#0"}
+{"Time":"2026-10-13T11:45:39.210701243Z","Action":"output","Package":"koru.dev/koru/internal/arsc","Test":"FuzzTable/seed#0","Output":"=== RUN   FuzzTable/seed#0\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.210815081Z","Action":"output","Package":"koru.dev/koru/internal/arsc","Test":"FuzzTable/seed#0","Output":"--- PASS: FuzzTable/seed#0 (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21082137Z","Action":"pass","Package":"koru.dev/koru/internal/arsc","Test":"FuzzTable/seed#0","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.210826057Z","Action":"output","Package":"koru.dev/koru/internal/arsc","Test":"FuzzTable","Output":"--- PASS: FuzzTable (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.210833568Z","Action":"pass","Package":"koru.dev/koru/internal/arsc","Test":"FuzzTable","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.210835621Z","Action":"output","Package":"koru.dev/koru/internal/arsc","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.211111029Z","Action":"output","Package":"koru.dev/koru/internal/arsc","Output":"ok  \tkoru.dev/koru/internal/arsc\t0.002s\n"}
+{"Time":"2026-10-13T11:45:39.211459214Z","Action":"pass","Package":"koru.dev/koru/internal/arsc","Elapsed":0.003}
+{"Time":"2026-10-13T11:45:39.211675163Z","Action":"start","Package":"koru.dev/koru/internal/axml"}
+{"Time":"2026-10-13T11:45:39.213599851Z","Action":"run","Package":"koru.dev/koru/internal/axml","Test":"TestManifest"}
+{"Time":"2026-10-13T11:45:39.213623396Z","Action":"output","Package":"koru.dev/koru/internal/axml","Test":"TestManifest","Output":"=== RUN   TestManifest\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.215494113Z","Action":"output","Package":"koru.dev/koru/internal/axml","Test":"TestManifest","Output":"--- PASS: TestManifest (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.215504248Z","Action":"pass","Package":"koru.dev/koru/internal/axml","Test":"TestManifest","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.21551229Z","Action":"run","Package":"koru.dev/koru/internal/axml","Test":"FuzzXML"}
+{"Time":"2026-10-13T11:45:39.215516366Z","Action":"output","Package":"koru.dev/koru/internal/axml","Test":"FuzzXML","Output":"=== RUN   FuzzXML\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.215560611Z","Action":"run","Package":"koru.dev/koru/internal/axml","Test":"FuzzXML/seed#0"}
+{"Time":"2026-10-13T11:45:39.215562574Z","Action":"output","Package":"koru.dev/koru/internal/axml","Test":"FuzzXML/seed#0","Output":"=== RUN   FuzzXML/seed#0\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.215564998Z","Action":"output","Package":"koru.dev/koru/internal/axml","Test":"FuzzXML/seed#0","Output":"--- PASS: FuzzXML/seed#0 (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.215567021Z","Action":"pass","Package":"koru.dev/koru/internal/axml","Test":"FuzzXML/seed#0","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.215569174Z","Action":"output","Package":"koru.dev/koru/internal/axml","Test":"FuzzXML","Output":"--- PASS: FuzzXML (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.215571578Z","Action":"pass","Package":"koru.dev/koru/internal/axml","Test":"FuzzXML","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.215575313Z","Action":"output","Package":"koru.dev/koru/internal/axml","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.215902337Z","Action":"output","Package":"koru.dev/koru/internal/axml","Output":"ok  \tkoru.dev/koru/internal/axml\t0.004s\n"}
+{"Time":"2026-10-13T11:45:39.216153088Z","Action":"pass","Package":"koru.dev/koru/internal/axml","Elapsed":0.004}
+{"Time":"2026-10-13T11:45:39.21634413Z","Action":"start","Package":"koru.dev/koru/internal/config"}
+{"Time":"2026-10-13T11:45:39.216349208Z","Action":"run","Package":"koru.dev/koru/internal/config","Test":"TestValidate"}
+{"Time":"2026-10-13T11:45:39.216351121Z","Action":"output","Package":"koru.dev/koru/internal/config","Test":"TestValidate","Output":"=== RUN   TestValidate\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216355517Z","Action":"output","Package":"koru.dev/koru/internal/config","Test":"TestValidate","Output":"--- PASS: TestValidate (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216358021Z","Action":"pass","Package":"koru.dev/koru/internal/config","Test":"TestValidate","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216360425Z","Action":"output","Package":"koru.dev/koru/internal/config","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216362417Z","Action":"output","Package":"koru.dev/koru/internal/config","Output":"ok  \tkoru.dev/koru/internal/config\t(cached)\n"}
+{"Time":"2026-10-13T11:45:39.216365212Z","Action":"pass","Package":"koru.dev/koru/internal/config","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216387394Z","Action":"start","Package":"koru.dev/koru/internal/dex/assembler"}
+{"Time":"2026-10-13T11:45:39.216390769Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestExecutableGolden"}
+{"Time":"2026-10-13T11:45:39.216392722Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestExecutableGolden","Output":"=== RUN   TestExecutableGolden\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216455335Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestExecutableGolden","Output":"--- PASS: TestExecutableGolden (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216459381Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestExecutableGolden","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216461354Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestParameterAndInvoke"}
+{"Time":"2026-10-13T11:45:39.216463046Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestParameterAndInvoke","Output":"=== RUN   TestParameterAndInvoke\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21646544Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestParameterAndInvoke","Output":"--- PASS: TestParameterAndInvoke (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216467433Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestParameterAndInvoke","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216469276Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestBranches"}
+{"Time":"2026-10-13T11:45:39.216470728Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestBranches","Output":"=== RUN   TestBranches\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216472851Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestBranches","Output":"--- PASS: TestBranches (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216474613Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestBranches","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216476226Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestRejectInvalid"}
+{"Time":"2026-10-13T11:45:39.216477768Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestRejectInvalid","Output":"=== RUN   TestRejectInvalid\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216479791Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestRejectInvalid","Output":"--- PASS: TestRejectInvalid (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216482605Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestRejectInvalid","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216484839Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords"}
+{"Time":"2026-10-13T11:45:39.216486671Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords","Output":"=== RUN   TestOpcodeGoldenWords\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216488624Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/nop"}
+{"Time":"2026-10-13T11:45:39.216490267Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/nop","Output":"=== RUN   TestOpcodeGoldenWords/nop\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21649244Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/nop","Output":"--- PASS: TestOpcodeGoldenWords/nop (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216496286Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/nop","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216498228Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move"}
+{"Time":"2026-10-13T11:45:39.216502084Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move","Output":"=== RUN   TestOpcodeGoldenWords/move\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216504568Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move","Output":"--- PASS: TestOpcodeGoldenWords/move (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216506691Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216508574Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move-object"}
+{"Time":"2026-10-13T11:45:39.216510256Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move-object","Output":"=== RUN   TestOpcodeGoldenWords/move-object\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216513Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move-object","Output":"--- PASS: TestOpcodeGoldenWords/move-object (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216514983Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move-object","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216516596Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move-result"}
+{"Time":"2026-10-13T11:45:39.216518148Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move-result","Output":"=== RUN   TestOpcodeGoldenWords/move-result\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216520101Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move-result","Output":"--- PASS: TestOpcodeGoldenWords/move-result (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216521994Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move-result","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216523926Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move-result-object"}
+{"Time":"2026-10-13T11:45:39.216525449Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move-result-object","Output":"=== RUN   TestOpcodeGoldenWords/move-result-object\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216528343Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move-result-object","Output":"--- PASS: TestOpcodeGoldenWords/move-result-object (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216530316Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/move-result-object","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216532028Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/return-void"}
+{"Time":"2026-10-13T11:45:39.216533561Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/return-void","Output":"=== RUN   TestOpcodeGoldenWords/return-void\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216535764Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/return-void","Output":"--- PASS: TestOpcodeGoldenWords/return-void (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216537677Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/return-void","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216539409Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/return"}
+{"Time":"2026-10-13T11:45:39.216540831Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/return","Output":"=== RUN   TestOpcodeGoldenWords/return\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216544367Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/return","Output":"--- PASS: TestOpcodeGoldenWords/return (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216546209Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/return","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216547882Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/return-object"}
+{"Time":"2026-10-13T11:45:39.216549444Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/return-object","Output":"=== RUN   TestOpcodeGoldenWords/return-object\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216551637Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/return-object","Output":"--- PASS: TestOpcodeGoldenWords/return-object (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21655367Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/return-object","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216555433Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const/4"}
+{"Time":"2026-10-13T11:45:39.216557666Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const/4","Output":"=== RUN   TestOpcodeGoldenWords/const/4\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216559659Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const/4","Output":"--- PASS: TestOpcodeGoldenWords/const/4 (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216561622Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const/4","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216563345Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const/16"}
+{"Time":"2026-10-13T11:45:39.216564977Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const/16","Output":"=== RUN   TestOpcodeGoldenWords/const/16\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216567401Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const/16","Output":"--- PASS: TestOpcodeGoldenWords/const/16 (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216569324Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const/16","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216571196Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const"}
+{"Time":"2026-10-13T11:45:39.216572799Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const","Output":"=== RUN   TestOpcodeGoldenWords/const\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216574902Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const","Output":"--- PASS: TestOpcodeGoldenWords/const (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216576805Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216578487Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const-string"}
+{"Time":"2026-10-13T11:45:39.216579969Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const-string","Output":"=== RUN   TestOpcodeGoldenWords/const-string\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216582102Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const-string","Output":"--- PASS: TestOpcodeGoldenWords/const-string (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216585487Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const-string","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.21658725Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const-class"}
+{"Time":"2026-10-13T11:45:39.216588712Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const-class","Output":"=== RUN   TestOpcodeGoldenWords/const-class\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216590835Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const-class","Output":"--- PASS: TestOpcodeGoldenWords/const-class (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216592648Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/const-class","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216594301Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/new-instance"}
+{"Time":"2026-10-13T11:45:39.216595763Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/new-instance","Output":"=== RUN   TestOpcodeGoldenWords/new-instance\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216597846Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/new-instance","Output":"--- PASS: TestOpcodeGoldenWords/new-instance (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216599859Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/new-instance","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216601611Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/check-cast"}
+{"Time":"2026-10-13T11:45:39.216603775Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/check-cast","Output":"=== RUN   TestOpcodeGoldenWords/check-cast\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216605848Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/check-cast","Output":"--- PASS: TestOpcodeGoldenWords/check-cast (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21660768Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/check-cast","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216609443Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-virtual"}
+{"Time":"2026-10-13T11:45:39.216611035Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-virtual","Output":"=== RUN   TestOpcodeGoldenWords/invoke-virtual\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216613379Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-virtual","Output":"--- PASS: TestOpcodeGoldenWords/invoke-virtual (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216615372Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-virtual","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216617084Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-super"}
+{"Time":"2026-10-13T11:45:39.216618687Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-super","Output":"=== RUN   TestOpcodeGoldenWords/invoke-super\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216620619Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-super","Output":"--- PASS: TestOpcodeGoldenWords/invoke-super (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216622582Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-super","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216625977Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-direct"}
+{"Time":"2026-10-13T11:45:39.21662777Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-direct","Output":"=== RUN   TestOpcodeGoldenWords/invoke-direct\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216629923Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-direct","Output":"--- PASS: TestOpcodeGoldenWords/invoke-direct (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216631906Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-direct","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216639077Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-static"}
+{"Time":"2026-10-13T11:45:39.216640689Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-static","Output":"=== RUN   TestOpcodeGoldenWords/invoke-static\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216642762Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-static","Output":"--- PASS: TestOpcodeGoldenWords/invoke-static (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216644675Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/invoke-static","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216646578Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/iget"}
+{"Time":"2026-10-13T11:45:39.21664824Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/iget","Output":"=== RUN   TestOpcodeGoldenWords/iget\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216650343Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/iget","Output":"--- PASS: TestOpcodeGoldenWords/iget (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216652246Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/iget","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216655321Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/iput"}
+{"Time":"2026-10-13T11:45:39.216656823Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/iput","Output":"=== RUN   TestOpcodeGoldenWords/iput\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216659237Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/iput","Output":"--- PASS: TestOpcodeGoldenWords/iput (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21666124Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/iput","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216663032Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/sget"}
+{"Time":"2026-10-13T11:45:39.216664775Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/sget","Output":"=== RUN   TestOpcodeGoldenWords/sget\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216666848Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/sget","Output":"--- PASS: TestOpcodeGoldenWords/sget (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216668851Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/sget","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216670994Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/sput"}
+{"Time":"2026-10-13T11:45:39.216672506Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/sput","Output":"=== RUN   TestOpcodeGoldenWords/sput\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216676472Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/sput","Output":"--- PASS: TestOpcodeGoldenWords/sput (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216678495Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords/sput","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216680438Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords","Output":"--- PASS: TestOpcodeGoldenWords (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216682451Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestOpcodeGoldenWords","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216684264Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestExtendedRegistersAndInvokeRange"}
+{"Time":"2026-10-13T11:45:39.216686036Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestExtendedRegistersAndInvokeRange","Output":"=== RUN   TestExtendedRegistersAndInvokeRange\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.2166888Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestExtendedRegistersAndInvokeRange","Output":"--- PASS: TestExtendedRegistersAndInvokeRange (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216690773Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestExtendedRegistersAndInvokeRange","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216692476Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestFieldVariants"}
+{"Time":"2026-10-13T11:45:39.216693888Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestFieldVariants","Output":"=== RUN   TestFieldVariants\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216695961Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestFieldVariants","Output":"--- PASS: TestFieldVariants (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216697754Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestFieldVariants","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216718785Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestWideIncomingWords"}
+{"Time":"2026-10-13T11:45:39.216721769Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestWideIncomingWords","Output":"=== RUN   TestWideIncomingWords\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21679001Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestWideIncomingWords","Output":"--- PASS: TestWideIncomingWords (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216792093Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestWideIncomingWords","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216794427Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestRejectLimitsAndLabels"}
+{"Time":"2026-10-13T11:45:39.216796069Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestRejectLimitsAndLabels","Output":"=== RUN   TestRejectLimitsAndLabels\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216799264Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestRejectLimitsAndLabels","Output":"--- PASS: TestRejectLimitsAndLabels (0.04s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216801247Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestRejectLimitsAndLabels","Elapsed":0.04}
+{"Time":"2026-10-13T11:45:39.21680385Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestJumboString"}
+{"Time":"2026-10-13T11:45:39.216805323Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestJumboString","Output":"=== RUN   TestJumboString\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216807406Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestJumboString","Output":"--- PASS: TestJumboString (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216811832Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestJumboString","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216813705Z","Action":"run","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestBackwardGotoAndIfNez"}
+{"Time":"2026-10-13T11:45:39.216815167Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestBackwardGotoAndIfNez","Output":"=== RUN   TestBackwardGotoAndIfNez\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216817561Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestBackwardGotoAndIfNez","Output":"--- PASS: TestBackwardGotoAndIfNez (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216819474Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Test":"TestBackwardGotoAndIfNez","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216821186Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216823079Z","Action":"output","Package":"koru.dev/koru/internal/dex/assembler","Output":"ok  \tkoru.dev/koru/internal/dex/assembler\t(cached)\n"}
+{"Time":"2026-10-13T11:45:39.216826274Z","Action":"pass","Package":"koru.dev/koru/internal/dex/assembler","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216916948Z","Action":"start","Package":"koru.dev/koru/internal/dex/builder"}
+{"Time":"2026-10-13T11:45:39.216922676Z","Action":"run","Package":"koru.dev/koru/internal/dex/builder","Test":"TestBuildHeaderSectionsAndIntegrity"}
+{"Time":"2026-10-13T11:45:39.216924269Z","Action":"output","Package":"koru.dev/koru/internal/dex/builder","Test":"TestBuildHeaderSectionsAndIntegrity","Output":"=== RUN   TestBuildHeaderSectionsAndIntegrity\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216927493Z","Action":"output","Package":"koru.dev/koru/internal/dex/builder","Test":"TestBuildHeaderSectionsAndIntegrity","Output":"--- PASS: TestBuildHeaderSectionsAndIntegrity (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216929466Z","Action":"pass","Package":"koru.dev/koru/internal/dex/builder","Test":"TestBuildHeaderSectionsAndIntegrity","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216931569Z","Action":"run","Package":"koru.dev/koru/internal/dex/builder","Test":"TestRejectBadDefinitions"}
+{"Time":"2026-10-13T11:45:39.216933252Z","Action":"output","Package":"koru.dev/koru/internal/dex/builder","Test":"TestRejectBadDefinitions","Output":"=== RUN   TestRejectBadDefinitions\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216935565Z","Action":"output","Package":"koru.dev/koru/internal/dex/builder","Test":"TestRejectBadDefinitions","Output":"--- PASS: TestRejectBadDefinitions (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216937348Z","Action":"pass","Package":"koru.dev/koru/internal/dex/builder","Test":"TestRejectBadDefinitions","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216939091Z","Action":"output","Package":"koru.dev/koru/internal/dex/builder","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21694562Z","Action":"output","Package":"koru.dev/koru/internal/dex/builder","Output":"ok  \tkoru.dev/koru/internal/dex/builder\t(cached)\n"}
+{"Time":"2026-10-13T11:45:39.216948244Z","Action":"pass","Package":"koru.dev/koru/internal/dex/builder","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216965019Z","Action":"start","Package":"koru.dev/koru/internal/dex/encoding"}
+{"Time":"2026-10-13T11:45:39.216968093Z","Action":"run","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestULEBGolden"}
+{"Time":"2026-10-13T11:45:39.216969876Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestULEBGolden","Output":"=== RUN   TestULEBGolden\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21697269Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestULEBGolden","Output":"--- PASS: TestULEBGolden (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216978008Z","Action":"pass","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestULEBGolden","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216979871Z","Action":"run","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestSLEBGolden"}
+{"Time":"2026-10-13T11:45:39.216981563Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestSLEBGolden","Output":"=== RUN   TestSLEBGolden\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216983616Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestSLEBGolden","Output":"--- PASS: TestSLEBGolden (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21698571Z","Action":"pass","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestSLEBGolden","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.216987833Z","Action":"run","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestLEBRejectsOverflowAndTruncation"}
+{"Time":"2026-10-13T11:45:39.216989365Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestLEBRejectsOverflowAndTruncation","Output":"=== RUN   TestLEBRejectsOverflowAndTruncation\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.216996796Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestLEBRejectsOverflowAndTruncation","Output":"--- PASS: TestLEBRejectsOverflowAndTruncation (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21699962Z","Action":"pass","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestLEBRejectsOverflowAndTruncation","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217001443Z","Action":"run","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestMUTF8Golden"}
+{"Time":"2026-10-13T11:45:39.217002835Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestMUTF8Golden","Output":"=== RUN   TestMUTF8Golden\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217005268Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestMUTF8Golden","Output":"--- PASS: TestMUTF8Golden (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217007031Z","Action":"pass","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestMUTF8Golden","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217008694Z","Action":"run","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestMUTF8Malformed"}
+{"Time":"2026-10-13T11:45:39.217010386Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestMUTF8Malformed","Output":"=== RUN   TestMUTF8Malformed\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217012399Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestMUTF8Malformed","Output":"--- PASS: TestMUTF8Malformed (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217014222Z","Action":"pass","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestMUTF8Malformed","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217015774Z","Action":"run","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestUnpairedSurrogatePreserved"}
+{"Time":"2026-10-13T11:45:39.217017456Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestUnpairedSurrogatePreserved","Output":"=== RUN   TestUnpairedSurrogatePreserved\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21701973Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestUnpairedSurrogatePreserved","Output":"--- PASS: TestUnpairedSurrogatePreserved (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217021593Z","Action":"pass","Package":"koru.dev/koru/internal/dex/encoding","Test":"TestUnpairedSurrogatePreserved","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217023315Z","Action":"run","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzLEB"}
+{"Time":"2026-10-13T11:45:39.217024897Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzLEB","Output":"=== RUN   FuzzLEB\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217026981Z","Action":"run","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzLEB/seed#0"}
+{"Time":"2026-10-13T11:45:39.217030105Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzLEB/seed#0","Output":"=== RUN   FuzzLEB/seed#0\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217032459Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzLEB/seed#0","Output":"--- PASS: FuzzLEB/seed#0 (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217034241Z","Action":"pass","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzLEB/seed#0","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217036304Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzLEB","Output":"--- PASS: FuzzLEB (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217038327Z","Action":"pass","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzLEB","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.2170403Z","Action":"run","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzStringData"}
+{"Time":"2026-10-13T11:45:39.217042063Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzStringData","Output":"=== RUN   FuzzStringData\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217044006Z","Action":"run","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzStringData/seed#0"}
+{"Time":"2026-10-13T11:45:39.217045498Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzStringData/seed#0","Output":"=== RUN   FuzzStringData/seed#0\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217047441Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzStringData/seed#0","Output":"--- PASS: FuzzStringData/seed#0 (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217049354Z","Action":"pass","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzStringData/seed#0","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217051377Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzStringData","Output":"--- PASS: FuzzStringData (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217053139Z","Action":"pass","Package":"koru.dev/koru/internal/dex/encoding","Test":"FuzzStringData","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217054631Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217056434Z","Action":"output","Package":"koru.dev/koru/internal/dex/encoding","Output":"ok  \tkoru.dev/koru/internal/dex/encoding\t(cached)\n"}
+{"Time":"2026-10-13T11:45:39.217059388Z","Action":"pass","Package":"koru.dev/koru/internal/dex/encoding","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217077035Z","Action":"start","Package":"koru.dev/koru/internal/dex/format"}
+{"Time":"2026-10-13T11:45:39.217080319Z","Action":"output","Package":"koru.dev/koru/internal/dex/format","Output":"?   \tkoru.dev/koru/internal/dex/format\t[no test files]\n"}
+{"Time":"2026-10-13T11:45:39.217082513Z","Action":"skip","Package":"koru.dev/koru/internal/dex/format","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217087861Z","Action":"start","Package":"koru.dev/koru/internal/dex/model"}
+{"Time":"2026-10-13T11:45:39.217090394Z","Action":"run","Package":"koru.dev/koru/internal/dex/model","Test":"TestDescriptors"}
+{"Time":"2026-10-13T11:45:39.217091836Z","Action":"output","Package":"koru.dev/koru/internal/dex/model","Test":"TestDescriptors","Output":"=== RUN   TestDescriptors\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21709443Z","Action":"output","Package":"koru.dev/koru/internal/dex/model","Test":"TestDescriptors","Output":"--- PASS: TestDescriptors (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217096423Z","Action":"pass","Package":"koru.dev/koru/internal/dex/model","Test":"TestDescriptors","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217097986Z","Action":"output","Package":"koru.dev/koru/internal/dex/model","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217099658Z","Action":"output","Package":"koru.dev/koru/internal/dex/model","Output":"ok  \tkoru.dev/koru/internal/dex/model\t(cached)\n"}
+{"Time":"2026-10-13T11:45:39.217103243Z","Action":"pass","Package":"koru.dev/koru/internal/dex/model","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217123133Z","Action":"start","Package":"koru.dev/koru/internal/dex/parser"}
+{"Time":"2026-10-13T11:45:39.217207718Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestParseExecutable"}
+{"Time":"2026-10-13T11:45:39.217209801Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestParseExecutable","Output":"=== RUN   TestParseExecutable\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217212355Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestParseExecutable","Output":"--- PASS: TestParseExecutable (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217214268Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestParseExecutable","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217216411Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes"}
+{"Time":"2026-10-13T11:45:39.217218213Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes","Output":"=== RUN   TestRejectStructuralCorruptionWithValidHashes\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217220367Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/file_size"}
+{"Time":"2026-10-13T11:45:39.217222019Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/file_size","Output":"=== RUN   TestRejectStructuralCorruptionWithValidHashes/file_size\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217225564Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/file_size","Output":"--- PASS: TestRejectStructuralCorruptionWithValidHashes/file_size (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217228419Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/file_size","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217230442Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/header_alignment"}
+{"Time":"2026-10-13T11:45:39.217232084Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/header_alignment","Output":"=== RUN   TestRejectStructuralCorruptionWithValidHashes/header_alignment\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217234387Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/header_alignment","Output":"--- PASS: TestRejectStructuralCorruptionWithValidHashes/header_alignment (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217237382Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/header_alignment","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217239425Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/string_offset"}
+{"Time":"2026-10-13T11:45:39.217241127Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/string_offset","Output":"=== RUN   TestRejectStructuralCorruptionWithValidHashes/string_offset\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217243451Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/string_offset","Output":"--- PASS: TestRejectStructuralCorruptionWithValidHashes/string_offset (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217245724Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/string_offset","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217249209Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/type_index"}
+{"Time":"2026-10-13T11:45:39.217250902Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/type_index","Output":"=== RUN   TestRejectStructuralCorruptionWithValidHashes/type_index\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217253135Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/type_index","Output":"--- PASS: TestRejectStructuralCorruptionWithValidHashes/type_index (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217255439Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/type_index","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217257131Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/prototype_shorty"}
+{"Time":"2026-10-13T11:45:39.217258723Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/prototype_shorty","Output":"=== RUN   TestRejectStructuralCorruptionWithValidHashes/prototype_shorty\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217281998Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/prototype_shorty","Output":"--- PASS: TestRejectStructuralCorruptionWithValidHashes/prototype_shorty (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217284101Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/prototype_shorty","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217285723Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/map_overlap"}
+{"Time":"2026-10-13T11:45:39.217287416Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/map_overlap","Output":"=== RUN   TestRejectStructuralCorruptionWithValidHashes/map_overlap\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217290681Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/map_overlap","Output":"--- PASS: TestRejectStructuralCorruptionWithValidHashes/map_overlap (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217293174Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/map_overlap","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217295127Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/class_reference"}
+{"Time":"2026-10-13T11:45:39.21729682Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/class_reference","Output":"=== RUN   TestRejectStructuralCorruptionWithValidHashes/class_reference\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217299323Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/class_reference","Output":"--- PASS: TestRejectStructuralCorruptionWithValidHashes/class_reference (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217301937Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/class_reference","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.21730368Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/map_count_overflow"}
+{"Time":"2026-10-13T11:45:39.217305362Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/map_count_overflow","Output":"=== RUN   TestRejectStructuralCorruptionWithValidHashes/map_count_overflow\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217309999Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/map_count_overflow","Output":"--- PASS: TestRejectStructuralCorruptionWithValidHashes/map_count_overflow (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217312102Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/map_count_overflow","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217314456Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/bad_opcode"}
+{"Time":"2026-10-13T11:45:39.217316188Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/bad_opcode","Output":"=== RUN   TestRejectStructuralCorruptionWithValidHashes/bad_opcode\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217318492Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/bad_opcode","Output":"--- PASS: TestRejectStructuralCorruptionWithValidHashes/bad_opcode (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217320485Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/bad_opcode","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217322337Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/bad_register"}
+{"Time":"2026-10-13T11:45:39.21732394Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/bad_register","Output":"=== RUN   TestRejectStructuralCorruptionWithValidHashes/bad_register\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217326253Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/bad_register","Output":"--- PASS: TestRejectStructuralCorruptionWithValidHashes/bad_register (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217328326Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/bad_register","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217330119Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/fall_through"}
+{"Time":"2026-10-13T11:45:39.217331791Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/fall_through","Output":"=== RUN   TestRejectStructuralCorruptionWithValidHashes/fall_through\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217334315Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/fall_through","Output":"--- PASS: TestRejectStructuralCorruptionWithValidHashes/fall_through (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217336328Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes/fall_through","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217338882Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes","Output":"--- PASS: TestRejectStructuralCorruptionWithValidHashes (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217340905Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectStructuralCorruptionWithValidHashes","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217342688Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectTruncationAndBadHashes"}
+{"Time":"2026-10-13T11:45:39.21734447Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectTruncationAndBadHashes","Output":"=== RUN   TestRejectTruncationAndBadHashes\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217348005Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectTruncationAndBadHashes","Output":"--- PASS: TestRejectTruncationAndBadHashes (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217350129Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectTruncationAndBadHashes","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217351801Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectUnpairedSurrogateInTypeName"}
+{"Time":"2026-10-13T11:45:39.217353383Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectUnpairedSurrogateInTypeName","Output":"=== RUN   TestRejectUnpairedSurrogateInTypeName\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217366523Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectUnpairedSurrogateInTypeName","Output":"--- PASS: TestRejectUnpairedSurrogateInTypeName (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217368436Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestRejectUnpairedSurrogateInTypeName","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217370399Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestSHA1CheckedIndependentlyOfAdler32"}
+{"Time":"2026-10-13T11:45:39.217371941Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestSHA1CheckedIndependentlyOfAdler32","Output":"=== RUN   TestSHA1CheckedIndependentlyOfAdler32\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217373944Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestSHA1CheckedIndependentlyOfAdler32","Output":"--- PASS: TestSHA1CheckedIndependentlyOfAdler32 (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217375907Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestSHA1CheckedIndependentlyOfAdler32","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.21737808Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption"}
+{"Time":"2026-10-13T11:45:39.217379522Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption","Output":"=== RUN   TestMapAndDataCorruption\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217382236Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/unknown_section"}
+{"Time":"2026-10-13T11:45:39.217383858Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/unknown_section","Output":"=== RUN   TestMapAndDataCorruption/unknown_section\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217386903Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/unknown_section","Output":"--- PASS: TestMapAndDataCorruption/unknown_section (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217388906Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/unknown_section","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217390749Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/unsupported_tries"}
+{"Time":"2026-10-13T11:45:39.217392311Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/unsupported_tries","Output":"=== RUN   TestMapAndDataCorruption/unsupported_tries\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217394975Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/unsupported_tries","Output":"--- PASS: TestMapAndDataCorruption/unsupported_tries (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217455504Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/unsupported_tries","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217458259Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/wrong_parameter_count"}
+{"Time":"2026-10-13T11:45:39.217462525Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/wrong_parameter_count","Output":"=== RUN   TestMapAndDataCorruption/wrong_parameter_count\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217465239Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/wrong_parameter_count","Output":"--- PASS: TestMapAndDataCorruption/wrong_parameter_count (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217467302Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/wrong_parameter_count","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217469385Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/method_count"}
+{"Time":"2026-10-13T11:45:39.217470987Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/method_count","Output":"=== RUN   TestMapAndDataCorruption/method_count\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217473181Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/method_count","Output":"--- PASS: TestMapAndDataCorruption/method_count (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217475344Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/method_count","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217476956Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/wrong_method_classification"}
+{"Time":"2026-10-13T11:45:39.217478569Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/wrong_method_classification","Output":"=== RUN   TestMapAndDataCorruption/wrong_method_classification\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217480872Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/wrong_method_classification","Output":"--- PASS: TestMapAndDataCorruption/wrong_method_classification (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217482855Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/wrong_method_classification","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217484788Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/code_size"}
+{"Time":"2026-10-13T11:45:39.21748633Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/code_size","Output":"=== RUN   TestMapAndDataCorruption/code_size\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217488854Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/code_size","Output":"--- PASS: TestMapAndDataCorruption/code_size (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217490666Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/code_size","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217492319Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/string_count"}
+{"Time":"2026-10-13T11:45:39.217493751Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/string_count","Output":"=== RUN   TestMapAndDataCorruption/string_count\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217495724Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/string_count","Output":"--- PASS: TestMapAndDataCorruption/string_count (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217497627Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption/string_count","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.21749965Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption","Output":"--- PASS: TestMapAndDataCorruption (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217503265Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"TestMapAndDataCorruption","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217505038Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse"}
+{"Time":"2026-10-13T11:45:39.21750648Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse","Output":"=== RUN   FuzzParse\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217508413Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse/seed#0"}
+{"Time":"2026-10-13T11:45:39.217510005Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse/seed#0","Output":"=== RUN   FuzzParse/seed#0\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217512198Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse/seed#0","Output":"--- PASS: FuzzParse/seed#0 (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217514291Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse/seed#0","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217516164Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse/seed#1"}
+{"Time":"2026-10-13T11:45:39.217517867Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse/seed#1","Output":"=== RUN   FuzzParse/seed#1\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21751985Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse/seed#1","Output":"--- PASS: FuzzParse/seed#1 (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217521732Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse/seed#1","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217523415Z","Action":"run","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse/seed#2"}
+{"Time":"2026-10-13T11:45:39.217525808Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse/seed#2","Output":"=== RUN   FuzzParse/seed#2\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217528232Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse/seed#2","Output":"--- PASS: FuzzParse/seed#2 (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217530035Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse/seed#2","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217531998Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse","Output":"--- PASS: FuzzParse (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21753373Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Test":"FuzzParse","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217535363Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217540801Z","Action":"output","Package":"koru.dev/koru/internal/dex/parser","Output":"ok  \tkoru.dev/koru/internal/dex/parser\t(cached)\n"}
+{"Time":"2026-10-13T11:45:39.217543765Z","Action":"pass","Package":"koru.dev/koru/internal/dex/parser","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.2177566Z","Action":"start","Package":"koru.dev/koru/internal/signing"}
+{"Time":"2026-10-13T11:45:39.217760005Z","Action":"run","Package":"koru.dev/koru/internal/signing","Test":"TestSignVerifyAndTampering"}
+{"Time":"2026-10-13T11:45:39.217761627Z","Action":"output","Package":"koru.dev/koru/internal/signing","Test":"TestSignVerifyAndTampering","Output":"=== RUN   TestSignVerifyAndTampering\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217764532Z","Action":"output","Package":"koru.dev/koru/internal/signing","Test":"TestSignVerifyAndTampering","Output":"--- PASS: TestSignVerifyAndTampering (0.12s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217766304Z","Action":"pass","Package":"koru.dev/koru/internal/signing","Test":"TestSignVerifyAndTampering","Elapsed":0.12}
+{"Time":"2026-10-13T11:45:39.21777024Z","Action":"run","Package":"koru.dev/koru/internal/signing","Test":"TestTruncatedSignatureRejected"}
+{"Time":"2026-10-13T11:45:39.217771762Z","Action":"output","Package":"koru.dev/koru/internal/signing","Test":"TestTruncatedSignatureRejected","Output":"=== RUN   TestTruncatedSignatureRejected\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217778963Z","Action":"output","Package":"koru.dev/koru/internal/signing","Test":"TestTruncatedSignatureRejected","Output":"--- PASS: TestTruncatedSignatureRejected (0.16s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217781887Z","Action":"pass","Package":"koru.dev/koru/internal/signing","Test":"TestTruncatedSignatureRejected","Elapsed":0.16}
+{"Time":"2026-10-13T11:45:39.217784802Z","Action":"run","Package":"koru.dev/koru/internal/signing","Test":"TestPersistentKey"}
+{"Time":"2026-10-13T11:45:39.217787195Z","Action":"output","Package":"koru.dev/koru/internal/signing","Test":"TestPersistentKey","Output":"=== RUN   TestPersistentKey\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217791291Z","Action":"output","Package":"koru.dev/koru/internal/signing","Test":"TestPersistentKey","Output":"--- PASS: TestPersistentKey (0.14s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217794726Z","Action":"pass","Package":"koru.dev/koru/internal/signing","Test":"TestPersistentKey","Elapsed":0.14}
+{"Time":"2026-10-13T11:45:39.217876617Z","Action":"run","Package":"koru.dev/koru/internal/signing","Test":"TestMultiChunkDigest"}
+{"Time":"2026-10-13T11:45:39.21787853Z","Action":"output","Package":"koru.dev/koru/internal/signing","Test":"TestMultiChunkDigest","Output":"=== RUN   TestMultiChunkDigest\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217881405Z","Action":"output","Package":"koru.dev/koru/internal/signing","Test":"TestMultiChunkDigest","Output":"--- PASS: TestMultiChunkDigest (0.16s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217883548Z","Action":"pass","Package":"koru.dev/koru/internal/signing","Test":"TestMultiChunkDigest","Elapsed":0.16}
+{"Time":"2026-10-13T11:45:39.217885501Z","Action":"run","Package":"koru.dev/koru/internal/signing","Test":"FuzzVerify"}
+{"Time":"2026-10-13T11:45:39.217886953Z","Action":"output","Package":"koru.dev/koru/internal/signing","Test":"FuzzVerify","Output":"=== RUN   FuzzVerify\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217888926Z","Action":"run","Package":"koru.dev/koru/internal/signing","Test":"FuzzVerify/seed#0"}
+{"Time":"2026-10-13T11:45:39.217890478Z","Action":"output","Package":"koru.dev/koru/internal/signing","Test":"FuzzVerify/seed#0","Output":"=== RUN   FuzzVerify/seed#0\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217895976Z","Action":"output","Package":"koru.dev/koru/internal/signing","Test":"FuzzVerify/seed#0","Output":"--- PASS: FuzzVerify/seed#0 (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217898149Z","Action":"pass","Package":"koru.dev/koru/internal/signing","Test":"FuzzVerify/seed#0","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217900292Z","Action":"output","Package":"koru.dev/koru/internal/signing","Test":"FuzzVerify","Output":"--- PASS: FuzzVerify (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217902085Z","Action":"pass","Package":"koru.dev/koru/internal/signing","Test":"FuzzVerify","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217903698Z","Action":"output","Package":"koru.dev/koru/internal/signing","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.2179054Z","Action":"output","Package":"koru.dev/koru/internal/signing","Output":"ok  \tkoru.dev/koru/internal/signing\t(cached)\n"}
+{"Time":"2026-10-13T11:45:39.217908144Z","Action":"pass","Package":"koru.dev/koru/internal/signing","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217936837Z","Action":"start","Package":"koru.dev/koru/packages/javascript"}
+{"Time":"2026-10-13T11:45:39.217940222Z","Action":"output","Package":"koru.dev/koru/packages/javascript","Output":"?   \tkoru.dev/koru/packages/javascript\t[no test files]\n"}
+{"Time":"2026-10-13T11:45:39.217942375Z","Action":"skip","Package":"koru.dev/koru/packages/javascript","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217950066Z","Action":"start","Package":"koru.dev/koru/pkg/dex"}
+{"Time":"2026-10-13T11:45:39.217953752Z","Action":"run","Package":"koru.dev/koru/pkg/dex","Test":"TestCrossClassesFieldsPrototypesAndUnicode"}
+{"Time":"2026-10-13T11:45:39.217955825Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestCrossClassesFieldsPrototypesAndUnicode","Output":"=== RUN   TestCrossClassesFieldsPrototypesAndUnicode\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217958629Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestCrossClassesFieldsPrototypesAndUnicode","Output":"--- PASS: TestCrossClassesFieldsPrototypesAndUnicode (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217960542Z","Action":"pass","Package":"koru.dev/koru/pkg/dex","Test":"TestCrossClassesFieldsPrototypesAndUnicode","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217962615Z","Action":"run","Package":"koru.dev/koru/pkg/dex","Test":"TestBuildRejectsBytecodeSemantics"}
+{"Time":"2026-10-13T11:45:39.217964097Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestBuildRejectsBytecodeSemantics","Output":"=== RUN   TestBuildRejectsBytecodeSemantics\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.21796626Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestBuildRejectsBytecodeSemantics","Output":"--- PASS: TestBuildRejectsBytecodeSemantics (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217968243Z","Action":"pass","Package":"koru.dev/koru/pkg/dex","Test":"TestBuildRejectsBytecodeSemantics","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217969835Z","Action":"run","Package":"koru.dev/koru/pkg/dex","Test":"TestJSONRoundtrip"}
+{"Time":"2026-10-13T11:45:39.217971237Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestJSONRoundtrip","Output":"=== RUN   TestJSONRoundtrip\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217973331Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestJSONRoundtrip","Output":"--- PASS: TestJSONRoundtrip (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217975123Z","Action":"pass","Package":"koru.dev/koru/pkg/dex","Test":"TestJSONRoundtrip","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217976766Z","Action":"run","Package":"koru.dev/koru/pkg/dex","Test":"TestCodeBuilderOwnsInstructionSnapshots"}
+{"Time":"2026-10-13T11:45:39.217978398Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestCodeBuilderOwnsInstructionSnapshots","Output":"=== RUN   TestCodeBuilderOwnsInstructionSnapshots\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217980551Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestCodeBuilderOwnsInstructionSnapshots","Output":"--- PASS: TestCodeBuilderOwnsInstructionSnapshots (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217982294Z","Action":"pass","Package":"koru.dev/koru/pkg/dex","Test":"TestCodeBuilderOwnsInstructionSnapshots","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217983866Z","Action":"run","Package":"koru.dev/koru/pkg/dex","Test":"TestRejectWrongInvocationKind"}
+{"Time":"2026-10-13T11:45:39.217985408Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestRejectWrongInvocationKind","Output":"=== RUN   TestRejectWrongInvocationKind\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217987512Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestRejectWrongInvocationKind","Output":"--- PASS: TestRejectWrongInvocationKind (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217993831Z","Action":"pass","Package":"koru.dev/koru/pkg/dex","Test":"TestRejectWrongInvocationKind","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.217995423Z","Action":"run","Package":"koru.dev/koru/pkg/dex","Test":"TestFieldsAndInvokeReferences"}
+{"Time":"2026-10-13T11:45:39.217996986Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestFieldsAndInvokeReferences","Output":"=== RUN   TestFieldsAndInvokeReferences\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.217999139Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestFieldsAndInvokeReferences","Output":"--- PASS: TestFieldsAndInvokeReferences (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.218002424Z","Action":"pass","Package":"koru.dev/koru/pkg/dex","Test":"TestFieldsAndInvokeReferences","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.218004176Z","Action":"run","Package":"koru.dev/koru/pkg/dex","Test":"TestIdentifierLimit"}
+{"Time":"2026-10-13T11:45:39.218005668Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestIdentifierLimit","Output":"=== RUN   TestIdentifierLimit\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.218007631Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestIdentifierLimit","Output":"--- PASS: TestIdentifierLimit (0.70s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.218009594Z","Action":"pass","Package":"koru.dev/koru/pkg/dex","Test":"TestIdentifierLimit","Elapsed":0.7}
+{"Time":"2026-10-13T11:45:39.218011507Z","Action":"run","Package":"koru.dev/koru/pkg/dex","Test":"TestExceptionSectionsAndArrays"}
+{"Time":"2026-10-13T11:45:39.218012979Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestExceptionSectionsAndArrays","Output":"=== RUN   TestExceptionSectionsAndArrays\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.218015563Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Test":"TestExceptionSectionsAndArrays","Output":"--- PASS: TestExceptionSectionsAndArrays (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.218017366Z","Action":"pass","Package":"koru.dev/koru/pkg/dex","Test":"TestExceptionSectionsAndArrays","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.218018858Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.218020641Z","Action":"output","Package":"koru.dev/koru/pkg/dex","Output":"ok  \tkoru.dev/koru/pkg/dex\t(cached)\n"}
+{"Time":"2026-10-13T11:45:39.218024667Z","Action":"pass","Package":"koru.dev/koru/pkg/dex","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.218041712Z","Action":"start","Package":"koru.dev/koru/plugins"}
+{"Time":"2026-10-13T11:45:39.218044916Z","Action":"run","Package":"koru.dev/koru/plugins","Test":"TestPluginABI"}
+{"Time":"2026-10-13T11:45:39.218046509Z","Action":"output","Package":"koru.dev/koru/plugins","Test":"TestPluginABI","Output":"=== RUN   TestPluginABI\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.218048782Z","Action":"output","Package":"koru.dev/koru/plugins","Test":"TestPluginABI","Output":"--- PASS: TestPluginABI (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.218050555Z","Action":"pass","Package":"koru.dev/koru/plugins","Test":"TestPluginABI","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.218052488Z","Action":"output","Package":"koru.dev/koru/plugins","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.218055081Z","Action":"output","Package":"koru.dev/koru/plugins","Output":"ok  \tkoru.dev/koru/plugins\t(cached)\n"}
+{"Time":"2026-10-13T11:45:39.218057465Z","Action":"pass","Package":"koru.dev/koru/plugins","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.521332383Z","Action":"output","Package":"koru.dev/koru/internal/app","Test":"TestAssetsRejectSymlinksAndPrivateKeys","Output":"--- PASS: TestAssetsRejectSymlinksAndPrivateKeys (0.32s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.521385882Z","Action":"pass","Package":"koru.dev/koru/internal/app","Test":"TestAssetsRejectSymlinksAndPrivateKeys","Elapsed":0.32}
+{"Time":"2026-10-13T11:45:39.521440753Z","Action":"run","Package":"koru.dev/koru/internal/app","Test":"TestWebOnlyChangeUsesCachedRuntime"}
+{"Time":"2026-10-13T11:45:39.52144544Z","Action":"output","Package":"koru.dev/koru/internal/app","Test":"TestWebOnlyChangeUsesCachedRuntime","Output":"=== RUN   TestWebOnlyChangeUsesCachedRuntime\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.840584054Z","Action":"output","Package":"koru.dev/koru/internal/app","Test":"TestWebOnlyChangeUsesCachedRuntime","Output":"--- PASS: TestWebOnlyChangeUsesCachedRuntime (0.31s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.84064194Z","Action":"pass","Package":"koru.dev/koru/internal/app","Test":"TestWebOnlyChangeUsesCachedRuntime","Elapsed":0.31}
+{"Time":"2026-10-13T11:45:39.840650292Z","Action":"run","Package":"koru.dev/koru/internal/app","Test":"TestCorruptCacheFailsExplicitly"}
+{"Time":"2026-10-13T11:45:39.840652716Z","Action":"output","Package":"koru.dev/koru/internal/app","Test":"TestCorruptCacheFailsExplicitly","Output":"=== RUN   TestCorruptCacheFailsExplicitly\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.908316338Z","Action":"output","Package":"koru.dev/koru/internal/app","Test":"TestCorruptCacheFailsExplicitly","Output":"--- PASS: TestCorruptCacheFailsExplicitly (0.08s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.908391209Z","Action":"pass","Package":"koru.dev/koru/internal/app","Test":"TestCorruptCacheFailsExplicitly","Elapsed":0.08}
+{"Time":"2026-10-13T11:45:39.909479328Z","Action":"output","Package":"koru.dev/koru/internal/app","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.912854842Z","Action":"output","Package":"koru.dev/koru/internal/app","Output":"ok  \tkoru.dev/koru/internal/app\t0.901s\n"}
+{"Time":"2026-10-13T11:45:39.914047597Z","Action":"pass","Package":"koru.dev/koru/internal/app","Elapsed":0.902}
+{"Time":"2026-10-13T11:45:39.991494687Z","Action":"start","Package":"koru.dev/koru/runtime/dex"}
+{"Time":"2026-10-13T11:45:39.991595827Z","Action":"run","Package":"koru.dev/koru/runtime/dex","Test":"TestActivityStructure"}
+{"Time":"2026-10-13T11:45:39.991598821Z","Action":"output","Package":"koru.dev/koru/runtime/dex","Test":"TestActivityStructure","Output":"=== RUN   TestActivityStructure\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.991609637Z","Action":"output","Package":"koru.dev/koru/runtime/dex","Test":"TestActivityStructure","Output":"--- PASS: TestActivityStructure (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.991612511Z","Action":"pass","Package":"koru.dev/koru/runtime/dex","Test":"TestActivityStructure","Elapsed":0}
+{"Time":"2026-10-13T11:45:39.992162625Z","Action":"run","Package":"koru.dev/koru/runtime/dex","Test":"TestControlledOriginRuntimeAllPlugins"}
+{"Time":"2026-10-13T11:45:39.992171759Z","Action":"output","Package":"koru.dev/koru/runtime/dex","Test":"TestControlledOriginRuntimeAllPlugins","Output":"=== RUN   TestControlledOriginRuntimeAllPlugins\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.992182114Z","Action":"output","Package":"koru.dev/koru/runtime/dex","Test":"TestControlledOriginRuntimeAllPlugins","Output":"--- PASS: TestControlledOriginRuntimeAllPlugins (0.04s)\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.992184798Z","Action":"pass","Package":"koru.dev/koru/runtime/dex","Test":"TestControlledOriginRuntimeAllPlugins","Elapsed":0.04}
+{"Time":"2026-10-13T11:45:39.992188403Z","Action":"output","Package":"koru.dev/koru/runtime/dex","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-13T11:45:39.992191017Z","Action":"output","Package":"koru.dev/koru/runtime/dex","Output":"ok  \tkoru.dev/koru/runtime/dex\t(cached)\n"}
+{"Time":"2026-10-13T11:45:39.992194512Z","Action":"pass","Package":"koru.dev/koru/runtime/dex","Elapsed":0.001}
