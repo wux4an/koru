@@ -10,8 +10,9 @@ workflow and are unrelated to the Go APK compiler.
 
 Enable **GitHub Actions** as the Pages source in the repository settings. The
 workflow runs on pushes to main that change documentation, and can also be run
-manually. It takes the canonical URL from `actions/configure-pages`. The site was
-first published at `https://wux4an.github.io/koru/` and now uses
+manually. It takes the host and path from `actions/configure-pages` and builds
+canonical URLs with HTTPS. The site was first published at
+`https://wux4an.github.io/koru/` and now uses
 `https://koru.js.org/`. After changing a custom domain, run the workflow again:
 the artifact must be rebuilt to update its base path, canonical URLs, language
 links and sitemap. Changing the Pages setting alone does not rebuild it.

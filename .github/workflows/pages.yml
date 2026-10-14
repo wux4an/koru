@@ -51,7 +51,9 @@ jobs:
         working-directory: website
         env:
           SITE_URL: ${{ steps.pages.outputs.base_url }}
-        run: bun run build
+        run: |
+          # Pages reports http for a custom domain until HTTPS enforcement is enabled.
+          SITE_URL="https://${SITE_URL#*://}" bun run build
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
