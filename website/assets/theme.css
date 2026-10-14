@@ -387,6 +387,95 @@ input:focus-visible,
 :root:lang(es) .markdown-section pre[data-lang="text"]::before {
   content: "Salida";
 }
+.markdown-section .api-detail {
+  margin: 12px 0;
+  border: 1px solid #d9dfec;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 3px 8px #263b660c;
+  overflow: hidden;
+}
+.markdown-section .api-detail[open] {
+  border-color: #b3a8e9;
+  box-shadow: 0 5px 14px #554a9214;
+}
+.markdown-section .api-detail summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--ink);
+}
+.markdown-section .api-detail summary::-webkit-details-marker {
+  display: none;
+}
+.markdown-section .api-detail summary:focus-visible {
+  outline: 3px solid #8171d3;
+  outline-offset: -3px;
+}
+.markdown-section .api-detail summary:hover {
+  background: #f3f0fc;
+}
+.markdown-section .api-detail summary code {
+  padding: 0;
+  background: transparent;
+  color: #4e3d88;
+  font-size: 13px;
+  font-weight: 700;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.markdown-section .api-detail summary span {
+  margin-left: auto;
+  color: #61708a;
+  font-size: 13px;
+}
+.markdown-section .api-detail summary::after {
+  content: "+";
+  display: grid;
+  place-items: center;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: #e9e3fa;
+  color: #514080;
+  font:
+    800 18px/1 "Nunito",
+    sans-serif;
+}
+.markdown-section .api-detail[open] summary::after {
+  content: "−";
+}
+.markdown-section .api-detail > :not(summary) {
+  margin-left: 18px;
+  margin-right: 18px;
+}
+.markdown-section .api-detail > :last-child {
+  margin-bottom: 18px;
+}
+.markdown-section .api-detail pre {
+  margin-top: 14px;
+}
+@media (max-width: 600px) {
+  .markdown-section .api-detail summary {
+    flex-wrap: wrap;
+  }
+  .markdown-section .api-detail summary code {
+    flex: 1 1 calc(100% - 38px);
+  }
+  .markdown-section .api-detail summary span {
+    order: 3;
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+  .markdown-section .api-detail summary::after {
+    order: 2;
+  }
+}
 .markdown-section table {
   display: block;
   overflow: auto;
@@ -548,9 +637,12 @@ input:focus-visible,
   background: #edf0f8;
   box-shadow: 0 7px 19px #263b6614;
 }
-.hero-recording video {
+.hero-recording picture,
+.hero-recording img {
   display: block;
   width: 100%;
+}
+.hero-recording img {
   height: auto;
   aspect-ratio: 8 / 3;
   border-radius: 11px;
@@ -1254,6 +1346,27 @@ body[data-page="overview"] .markdown-section > h2:first-of-type {
   background: #284739;
   border-color: #406451;
   color: #c9ead2;
+}
+:root[data-theme="dark"] .markdown-section .api-detail {
+  background: #202b41;
+  border-color: #414e69;
+  box-shadow: 0 3px 8px #0b11251a;
+}
+:root[data-theme="dark"] .markdown-section .api-detail[open] {
+  border-color: #8577b9;
+}
+:root[data-theme="dark"] .markdown-section .api-detail summary:hover {
+  background: #2b3650;
+}
+:root[data-theme="dark"] .markdown-section .api-detail summary code {
+  color: #d4c3ff;
+}
+:root[data-theme="dark"] .markdown-section .api-detail summary span {
+  color: #b9c5dc;
+}
+:root[data-theme="dark"] .markdown-section .api-detail summary::after {
+  background: #433b61;
+  color: #ded1ff;
 }
 :root[data-theme="dark"] .hero-recording {
   background: #253149;

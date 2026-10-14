@@ -67,8 +67,12 @@ warm terracotta palette. No custom component framework is introduced.
   explain, with immediate commands and visible output. Koru uses that teaching
   pattern while keeping Docsify's native code blocks and copy controls.
 - [Charm VHS](https://github.com/charmbracelet/vhs): a reproducible terminal tape
-  records real CLI commands for the overview; the muted poster matches the dark
-  reading palette and no video plays without reader action.
+  records real CLI commands as a compact GIF for the overview. A static frame
+  replaces the animation under the reader's reduced-motion preference.
+- [Expo documentation](https://docs.expo.dev/versions/latest/sdk/): per-method
+  reference pages make arguments, return values and examples easy to find. Koru
+  uses native HTML details for the equivalent API reference, keeping all method
+  text in the initial HTML and available without JavaScript.
 
 SEO metadata belongs to each generated HTML document. Docsify enhances that
 document with search and navigation. A JavaScript-free reader receives the same

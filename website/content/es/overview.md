@@ -14,8 +14,8 @@
 </div>
 
 <figure class="hero-recording">
-<video controls playsinline preload="none" poster="{{base}}assets/hero-poster.png" aria-label="Demostración real de la CLI: iniciar, compilar y verificar un APK Android"><source src="{{base}}assets/hero-demo.mp4" type="video/mp4"><a href="{{base}}assets/hero-demo.mp4">Descargar la grabación de terminal</a></video>
-<figcaption>Sesión de terminal real grabada con VHS: un proyecto, un APK firmado y una verificación. Los comandos y su salida aparecen abajo.</figcaption>
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="{{base}}assets/hero-poster.png"><img src="{{base}}assets/hero-demo.gif" width="960" height="360" alt="Sesión animada de koru: iniciar un proyecto, generar un APK firmado y verificar su firma"></picture>
+<figcaption>Sesión de terminal real grabada con VHS: un proyecto, un APK firmado y una verificación. Los comandos y su salida aparecen abajo. <a href="{{base}}assets/hero-demo.gif">Abrir el GIF</a>.</figcaption>
 </figure>
 
 ## De una carpeta web a una app Android

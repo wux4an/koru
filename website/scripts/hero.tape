@@ -1,6 +1,6 @@
 # Run from the repository root with KORU_BIN pointing to the compiled CLI.
 # VHS, ttyd, FFmpeg and Chrome are documentation tools, never APK build dependencies.
-Output website/assets/hero-demo.mp4
+Output website/assets/hero-demo.gif
 
 Set Shell bash
 Set Width 1280

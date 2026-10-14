@@ -1,89 +1,281 @@
-# JavaScript and plugins
+# JavaScript API
 
-The builder integrates `/__koru/core.js` and `/__koru/core.mjs`, and includes the first in HTML pages. You can also consume the API through `@koru/core` by adding `packages/javascript` to the project that builds your static assets.
+Koru exposes six optional Android plugins to pages inside a built APK. This page documents **every public JavaScript method**: what to enable, what to pass, what resolves, and what can fail. The API uses Promises over an origin-bound MessagePort. A desktop browser preview has no native channel, so test native calls in the APK on Android.
 
-## A working page
+## Before you call an API
 
-Add this button and module script inside the `<body>` of an HTML file in `webDir`:
+The generated `koru.json` enables `device`, `storage` and `app`. To use the other plugins, add their IDs and rebuild:
+
+```json
+"plugins": ["device", "storage", "app", "vibration", "share", "notifications"]
+```
+
+This is one field to put in your existing `koru.json`, not a complete file. Enabling `vibration` adds `android.permission.VIBRATE`; `notifications` adds `android.permission.POST_NOTIFICATIONS`. In a packaged HTML page, import the generated module:
 
 ```html
-<button id="device">Show this device</button>
-<p id="result" role="status">Ready</p>
 <script type="module">
-  import { device, storage } from "/__koru/core.mjs";
-
-  document.querySelector("#device").addEventListener("click", async () => {
-    const result = document.querySelector("#result");
-    try {
-      const info = await device.getInfo();
-      await storage.set("last-model", info.model);
-      result.textContent = "Running on " + info.model;
-    } catch (error) {
-      result.textContent = error.code + ": " + error.message;
-    }
-  });
+  import { device } from "/__koru/core.mjs";
+  document.querySelector("#model").textContent = (await device.getInfo()).model;
 </script>
 ```
 
-Inside the APK, tapping the button shows the Android device model and persists that string in app-private storage. The exact model varies by device. The bridge is unavailable in an ordinary browser preview; install the APK to test this page. The `device` and `storage` plugin IDs are enabled by the generated `koru.json`.
-
-The following is a method sampler, not a sequence your app must run:
+Add an element with `id="model"` to that page. Koru also injects `/__koru/core.js`, which exposes `window.Koru`. The packaged module exports `device`, `app`, `storage`, `vibration`, `share`, `notifications` and `invoke`. If your frontend bundles the JavaScript package from `packages/javascript`, build it before calling koru; the browser-facing examples below use the generated `/__koru/core.mjs` path. All methods return a Promise. Wrap calls in `try/catch` to show a useful error:
 
 ```js
-import {
-  device,
-  app,
-  storage,
-  vibration,
-  share,
-  notifications,
-} from "/__koru/core.mjs";
-console.log(await device.getInfo());
-console.log(await app.getInfo());
-await storage.set("theme", "dark");
-console.log(await storage.get("theme"));
-await vibration.vibrate(100);
-await share.text("Hello");
-await notifications.requestPermission({ timeout: 120000 });
-await notifications.show({
-  id: 1,
-  title: "Reminder",
-  body: "Local notification",
-});
+try {
+  const info = await device.getInfo();
+  console.log(info.model);
+} catch (error) {
+  console.error(error.code, error.message);
+}
 ```
 
-## Built-in methods
+## Method index
 
-| Plugin        | Methods                                                  | Added permissions                                             |
-| ------------- | -------------------------------------------------------- | ------------------------------------------------------------- |
-| device        | `device.info`                                            | None; model, manufacturer, OS and SDK.                        |
-| app           | `app.info`                                               | None.                                                         |
-| storage       | `storage.get/set/remove/clear`                           | None; private SharedPreferences, bounded keys, string values. |
-| vibration     | `vibration.vibrate`                                      | VIBRATE; integer duration from 1 to 10,000 ms.                |
-| share         | `share.text`                                             | None; ACTION_SEND text/plain chooser.                         |
-| notifications | `notifications.show/cancel/permission/requestPermission` | POST_NOTIFICATIONS; local channel from API 26.                |
+| Plugin           | Methods                                                                                                                                                                        | Enabled by `init`?          |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------- |
+| Device           | [`getInfo()`](#api-device-info)                                                                                                                                                | Yes                         |
+| App              | [`getInfo()`](#api-app-info)                                                                                                                                                   | Yes                         |
+| Storage          | [`get()`](#api-storage-get), [`set()`](#api-storage-set), [`remove()`](#api-storage-remove), [`clear()`](#api-storage-clear)                                                   | Yes                         |
+| Vibration        | [`vibrate()`](#api-vibration)                                                                                                                                                  | No                          |
+| Share            | [`text()`](#api-share)                                                                                                                                                         | No                          |
+| Notifications    | [`permission()`](#api-notification-permission), [`requestPermission()`](#api-notification-request), [`show()`](#api-notification-show), [`cancel()`](#api-notification-cancel) | No                          |
+| Low-level bridge | [`invoke()`](#api-invoke)                                                                                                                                                      | Available to packaged pages |
 
-Methods return Promises. `storage.get(key)` resolves to a string or `null`; `storage.set(key, value)` accepts strings. `vibration.vibrate(duration)` takes an integer number of milliseconds from 1 to 10,000. `share.text(text)` opens Android's text share chooser. `notifications.show({ id, title, body })` publishes a local notification immediately; `notifications.cancel(id)` removes it. Enable optional plugin IDs in `koru.json` before calling them. A missing or disabled method rejects rather than silently succeeding.
+Each method below opens independently. The examples assume imports from `/__koru/core.mjs` and run only inside the APK.
 
-You can invoke these methods with `Koru.invoke(method, params, { timeout, signal })` or the exported `invoke` function. The module's `storage.get` returns the stored string or `null` when absent.
+## Device and app
 
-`notifications.show` publishes immediately, rather than scheduling a future alarm. `requestPermission` waits for the decision or return from settings. Android 33+ requests the runtime permission; Android 26–32 checks system notification controls. The API respects restrictions imposed by the user. The API 33+ dialog has not been tested in the recorded API 30 matrix.
+<details class="api-detail" id="api-device-info"><summary><code>device.getInfo()</code><span>Read the Android device</span></summary>
 
-## Errors and cancellation
+**Signature:** `device.getInfo(options?) → Promise<DeviceInfo>`. No native parameters or permissions.
 
-Cancellation rejects the Promise and prevents a request that has not yet been sent. It does not undo writes, vibration, notifications or UI actions already executed. Main codes: `INVALID_REQUEST`, `METHOD_NOT_FOUND`, `NATIVE_ERROR`, `PERMISSION_DENIED`, `STORAGE_ERROR`, `BUSY`, `TIMEOUT`, `CANCELLED`, `CHANNEL_ERROR` and `PAGE_CLOSED`.
+**Result:** `{ model: string, manufacturer: string, osVersion: string, sdk: number, platform: "android" }`. The values come from Android `Build` fields and differ by device; `sdk` is its API level.
 
-## Custom plugin
+```js
+import { device } from "/__koru/core.mjs";
+const info = await device.getInfo();
+console.log(
+  `${info.manufacturer} ${info.model} · Android ${info.osVersion} (API ${info.sdk})`,
+);
+```
 
-Declare `pluginManifests` in `koru.json` and enable the manifest's `id` in `plugins`. A manifest contains ABI=1, permissions, DEX IR classes and a handler map. Each handler is public static with descriptor:
+`options` may contain the common `timeout` and `signal` described under `invoke()`. A disabled plugin rejects with `METHOD_NOT_FOUND`; channel and timeout failures can also reject.
+
+</details>
+
+<details class="api-detail" id="api-app-info"><summary><code>app.getInfo()</code><span>Read the installed app identity</span></summary>
+
+**Signature:** `app.getInfo(options?) → Promise<AppInfo>`. No native parameters or permissions.
+
+**Result:** `{ appId: string, name: string, version: string, versionCode: number }`, from the `koru.json` used to build this APK.
+
+```js
+import { app } from "/__koru/core.mjs";
+const info = await app.getInfo();
+document.querySelector("#version").textContent = `${info.name} ${info.version}`;
+```
+
+The object describes the packaged app. It does not query an app store or available updates.
+
+</details>
+
+## Private storage
+
+Storage uses the app's private Android `SharedPreferences`. Keys are 1–128 characters from `A–Z`, `a–z`, `0–9`, `_`, `.`, `:` and `-`; values are strings. Data persists across app restarts and updates signed with the same identity. It is removed when the app is uninstalled. Do not put secrets in a web page or assume storage is encrypted.
+
+<details class="api-detail" id="api-storage-get"><summary><code>storage.get(key)</code><span>Read a string or null</span></summary>
+
+**Signature:** `storage.get(key: string, options?) → Promise<string | null>`.
+
+**Arguments:** `key` is a valid storage key. **Result:** the stored string, or `null` when the key has never been set or was removed.
+
+```js
+import { storage } from "/__koru/core.mjs";
+const theme = (await storage.get("theme")) ?? "system";
+console.log(theme);
+```
+
+A missing, wrong-type or invalid key rejects with `INVALID_REQUEST`. This wrapper unwraps the native `{ value }` object for you.
+
+</details>
+
+<details class="api-detail" id="api-storage-set"><summary><code>storage.set(key, value)</code><span>Persist a string</span></summary>
+
+**Signature:** `storage.set(key: string, value: string, options?) → Promise<{}>`.
+
+**Arguments:** a valid key and a string value. The operation uses a synchronous Android commit before the Promise resolves. **Result:** an empty object `{}`.
+
+```js
+import { storage } from "/__koru/core.mjs";
+await storage.set("theme", "dark");
+await storage.set("visits", String(3)); // convert numbers to strings
+```
+
+Invalid key/value types reject with `INVALID_REQUEST`; an unsuccessful commit rejects with `STORAGE_ERROR`.
+
+</details>
+
+<details class="api-detail" id="api-storage-remove"><summary><code>storage.remove(key)</code><span>Delete one key</span></summary>
+
+**Signature:** `storage.remove(key: string, options?) → Promise<{}>`. **Result:** an empty object after Android commits the removal. Removing a key that is absent is safe.
+
+```js
+import { storage } from "/__koru/core.mjs";
+await storage.remove("theme");
+console.log(await storage.get("theme")); // null
+```
+
+Invalid keys reject with `INVALID_REQUEST`; a failed commit rejects with `STORAGE_ERROR`.
+
+</details>
+
+<details class="api-detail" id="api-storage-clear"><summary><code>storage.clear()</code><span>Delete all koru storage keys</span></summary>
+
+**Signature:** `storage.clear(options?) → Promise<{}>`. It clears all keys in koru's private storage namespace for this app, then resolves with `{}`. It does not erase packaged web assets or unrelated Android app data.
+
+```js
+import { storage } from "/__koru/core.mjs";
+await storage.clear();
+```
+
+A failed commit rejects with `STORAGE_ERROR`. Use this only when the user intends to clear every key.
+
+</details>
+
+## Device actions
+
+<details class="api-detail" id="api-vibration"><summary><code>vibration.vibrate(duration?)</code><span>Vibrate for milliseconds</span></summary>
+
+**Setup:** enable `vibration` in `koru.json`; koru adds `android.permission.VIBRATE` to the APK.
+
+**Signature:** `vibration.vibrate(duration = 100, options?) → Promise<{}>`. `duration` must be an integer from 1 to 10,000 milliseconds. The Promise resolves with `{}` after starting the Android action; it does not wait for the vibration to finish.
+
+```js
+import { vibration } from "/__koru/core.mjs";
+await vibration.vibrate(150);
+```
+
+A wrong duration rejects with `INVALID_REQUEST`. Hardware or Android failures may reject with `NATIVE_ERROR`; a device without a vibrator cannot provide tactile feedback.
+
+</details>
+
+<details class="api-detail" id="api-share"><summary><code>share.text(text)</code><span>Open Android's share sheet</span></summary>
+
+**Setup:** enable `share` in `koru.json`. No added permission.
+
+**Signature:** `share.text(text: string, options?) → Promise<{}>`. `text` is the string to share. Koru opens an Android `ACTION_SEND` chooser with MIME type `text/plain` and resolves with `{}` after launching it. Resolution does not mean the user selected a destination or completed a share.
+
+```js
+import { share } from "/__koru/core.mjs";
+await share.text("Try my koru app");
+```
+
+Non-string text rejects with `INVALID_REQUEST`; failure to open the chooser may reject with `NATIVE_ERROR`.
+
+</details>
+
+## Local notifications
+
+Enable `notifications` in `koru.json` and rebuild. Koru adds `android.permission.POST_NOTIFICATIONS`. Android 13/API 33+ may require a runtime decision; older supported Android versions use the system notification setting. The API 33+ dialog has not been exercised in the recorded API 30 matrix. Notifications are immediate, local, and use koru's `koru-local` channel; this API does not schedule future alarms or remote push.
+
+<details class="api-detail" id="api-notification-permission"><summary><code>notifications.permission()</code><span>Read notification status</span></summary>
+
+**Signature:** `notifications.permission(options?) → Promise<{ status: "granted" | "denied" }>`.
+
+```js
+import { notifications } from "/__koru/core.mjs";
+const { status } = await notifications.permission();
+console.log(status); // "granted" or "denied"
+```
+
+This reads the current Android permission and notification setting. It does not show a prompt. A disabled plugin rejects with `METHOD_NOT_FOUND`.
+
+</details>
+
+<details class="api-detail" id="api-notification-request"><summary><code>notifications.requestPermission()</code><span>Ask for notification access</span></summary>
+
+**Signature:** `notifications.requestPermission(options?) → Promise<{ status: "granted" | "denied" }>`.
+
+On Android 13/API 33+, a denied status opens the runtime permission prompt. On Android 8–12/API 26–32, it opens app notification settings and resolves when the user returns. If access was already granted, it resolves immediately. The wrapper's default timeout is **120,000 ms** for this method; `options.timeout` can override it up to that limit. Only one request can be pending.
+
+```js
+import { notifications } from "/__koru/core.mjs";
+const { status } = await notifications.requestPermission();
+if (status === "granted") console.log("Notifications enabled");
+```
+
+`BUSY` means another request is pending; `TIMEOUT` means the decision did not arrive in time. A returned `denied` status is a normal result, not a thrown error.
+
+</details>
+
+<details class="api-detail" id="api-notification-show"><summary><code>notifications.show({ id, title, body })</code><span>Post a notification now</span></summary>
+
+**Signature:** `notifications.show({ id: number, title: string, body: string }, options?) → Promise<{}>`.
+
+`id` is an integer notification identifier; use the same ID to replace or cancel a notification. The native default is `1` if `id` is omitted, but passing it explicitly makes later cancellation clear. `title` and `body` are required strings. The Promise resolves with `{}` after posting the notification, not after the user opens it.
+
+```js
+import { notifications } from "/__koru/core.mjs";
+const { status } = await notifications.permission();
+if (status === "granted") {
+  await notifications.show({
+    id: 7,
+    title: "Ready",
+    body: "Your export finished.",
+  });
+}
+```
+
+If notifications are disabled or the Android 13+ permission is absent, it rejects with `PERMISSION_DENIED`. Wrong parameter types reject with `INVALID_REQUEST`.
+
+</details>
+
+<details class="api-detail" id="api-notification-cancel"><summary><code>notifications.cancel(id)</code><span>Remove one notification</span></summary>
+
+**Signature:** `notifications.cancel(id: number, options?) → Promise<{}>`. Pass the same integer ID used for `show`; it resolves with `{}` after asking Android to cancel that notification. An absent ID is safe to cancel. No permission prompt is shown.
+
+```js
+import { notifications } from "/__koru/core.mjs";
+await notifications.cancel(7);
+```
+
+A non-integer ID rejects with `INVALID_REQUEST`. A native Android failure may reject with `NATIVE_ERROR`.
+
+</details>
+
+## Low-level bridge and errors
+
+<details class="api-detail" id="api-invoke"><summary><code>invoke(method, params?, options?)</code><span>Call a native handler directly</span></summary>
+
+**Signature:** `invoke(method: string, params = {}, options = {}) → Promise<object>`. It is the exported function in `/__koru/core.mjs`; `window.Koru.invoke` is the equivalent global. The method is a string such as `"device.info"`; `params` must be a JSON-serializable plain object. Use this for a custom plugin or when you need the unwrapped native result.
+
+```js
+import { invoke } from "/__koru/core.mjs";
+const info = await invoke("device.info", {});
+const raw = await invoke("storage.get", { key: "theme" });
+console.log(info.model, raw.value); // raw.value is string or null
+```
+
+`options.timeout` is a finite number of milliseconds from 1 to 120,000; default 10,000. The timer also covers waiting for the native channel. `options.signal` accepts an `AbortSignal`; a cancelled request rejects with `CANCELLED`. Cancellation prevents an unsent request, but cannot undo a native action already dispatched. At most 256 calls can be pending. A request's serialized JSON must stay below 65,536 characters.
+
+**Result:** the native result object. Built-in action methods return `{}`; the wrapper `storage.get()` converts the raw `{ value }` result into a string or `null`. Custom handlers define their own result object.
+
+</details>
+
+Errors reject with an `Error` whose `code` and `message` can be displayed or logged. `INVALID_REQUEST` means invalid method/arguments; `METHOD_NOT_FOUND` means the method or plugin is unavailable; `STORAGE_ERROR` means a storage commit failed; `PERMISSION_DENIED` means a required notification permission or setting is off; `NATIVE_ERROR` means Android threw an error. `BUSY`, `TIMEOUT`, `CANCELLED`, `CHANNEL_ERROR`, `CHANNEL_REPLACED`, `INVALID_RESPONSE` and `PAGE_CLOSED` describe the bridge lifecycle. A timeout or cancellation does not prove an already dispatched native action was rolled back.
+
+## Custom plugins
+
+Add a manifest path to `pluginManifests` in `koru.json` and its ID to `plugins`. The manifest uses ABI 1, declares permissions, DEX IR classes and a method-to-handler map. Every handler is public static with descriptor:
 
 ```text
 (Landroid/app/Activity;Lorg/json/JSONObject;)Lorg/json/JSONObject;
 ```
 
-The dispatcher validates the protocol, calls the handler and converts exceptions into structured errors. The plugin must validate its parameters and respect the UI thread. Its classes cannot replace runtime or framework classes. It is trusted, signed code with access to the application's permissions.
+The handler receives Android's `Activity` and a JSON object of `params`, and returns a JSON result object. It must validate its own parameters and respect the UI thread. Its classes cannot replace runtime or framework classes. A custom plugin is trusted, signed code with the application's permissions. The [DEX API]({{base}}en/dex-api/) describes IR inputs; [optional JNI adapter]({{base}}en/native/) explains the native sample and ABI requirements. The [original plugin notes]({{base}}original/docs/plugins.md) retain implementation details.
 
-`examples/native/plugin.json` uses a DEX class whose `clinit` calls `System.loadLibrary` and a native method. It contains no Java. Integration:
+For the included x86_64 JNI example, add these fields to your full configuration after copying its manifest and precompiled library into the project:
 
 ```json
 {
@@ -93,10 +285,6 @@ The dispatcher validates the protocol, calls the handler and converts exceptions
 }
 ```
 
-This is a fragment to add to the complete configuration, not a complete `koru.json`. Libraries are validated as ELF shared objects for the configured ABI; koru does not compile them during build. The sample binary is x86_64 and was tested on Android 11. ARM phones need a library for their ABI. Apps using the six standard plugins require no native libraries and impose no phone architecture dependency.
+This is a fragment, not a complete `koru.json`. Koru validates the ELF library for the declared ABI but does not compile it during the APK build. That sample was run on Android 11/x86_64; ARM devices need their own matching binary. Built-in plugins do not require a native library.
 
-## JNI ownership
-
-The C code and JNI scope API live in `runtime/native`. Each scope owns the current thread's JNIEnv; detach occurs only when that scope attached. Local references do not escape their frame. Shared class references are global and released in `JNI_OnUnload`. `scope_test.c` checks attach/detach ownership using a controlled JNI table; the real plugin was additionally executed in ART.
-
-[Optional JNI adapter]({{base}}en/native/) · [Bridge security]({{base}}en/security/)
+[Configuration]({{base}}en/configuration/) · [Bridge security]({{base}}en/security/) · [Troubleshooting]({{base}}en/troubleshooting/)

@@ -56,11 +56,15 @@ Website tooling is separate from koru's Go compiler and never enters an APK buil
 
 ## Hero terminal recording
 
-`assets/hero-demo.mp4` is a real CLI run recorded from [scripts/hero.tape](scripts/hero.tape) with [Charm VHS](https://github.com/charmbracelet/vhs). It initializes a temporary project, builds a signed APK, and verifies it. The recording's private signing identity stays in the temporary directory; it is never a website asset. The poster is extracted from the video. To regenerate, compile `bin/koru`, install VHS and its `ttyd`/FFmpeg dependencies, then run from the repository root:
+`assets/hero-demo.gif` is a real CLI run recorded from [scripts/hero.tape](scripts/hero.tape) with [Charm VHS](https://github.com/charmbracelet/vhs). It initializes a temporary project, builds a signed APK, and verifies it. The recording's private signing identity stays in the temporary directory; it is never a website asset. A static frame is served when the reader prefers reduced motion. To regenerate, compile `bin/koru`, install VHS and its `ttyd`/FFmpeg dependencies, then run from the repository root:
 
 ```sh
 KORU_BIN="$PWD/bin/koru" vhs website/scripts/hero.tape
-ffmpeg -y -ss 11 -i website/assets/hero-demo.mp4 -frames:v 1 website/assets/hero-poster.png
+gifsicle --resize-width 960 -O3 --colors 128 website/assets/hero-demo.gif -o /tmp/koru-animation.gif
+gifsicle --unoptimize /tmp/koru-animation.gif '#-1' -o /tmp/koru-final.gif
+gifsicle --delay=220 /tmp/koru-final.gif --delay=8 /tmp/koru-animation.gif -o /tmp/koru-loop.gif
+gifsicle -O3 --colors 128 /tmp/koru-loop.gif -o website/assets/hero-demo.gif
+ffmpeg -y -i website/assets/hero-demo.gif -frames:v 1 website/assets/hero-poster.png
 ```
 
-The video is user-initiated, has native controls, and the same commands and representative output appear as accessible text below it. It is documentation media, never part of an APK.
+The first GIF frame holds the completed output briefly before replaying the command sequence. A `<picture>` source substitutes the still poster under `prefers-reduced-motion: reduce`. The same commands and representative output appear as accessible text below it. It is documentation media, never part of an APK.

@@ -136,7 +136,7 @@ try {
       await ready(page);
       assert.equal(
         await page.locator(".markdown-section h1").innerText(),
-        "Plugins y API JavaScript",
+        "API JavaScript",
       );
       assert.equal(
         await page.locator(".search input").getAttribute("placeholder"),
@@ -232,14 +232,21 @@ try {
     },
   );
   await check(
-    "desktop overview, Spanish reference and mobile layouts have no horizontal overflow",
+    "overview, API reference and mobile layouts have no horizontal overflow",
     async () => {
       for (const width of [1440, 1024, 768, 390, 320]) {
         await page.setViewportSize({ width, height: width < 800 ? 844 : 1050 });
-        for (const slug of ["overview", "configuration", "dex-api"]) {
+        for (const slug of [
+          "overview",
+          "configuration",
+          "dex-api",
+          "plugins",
+        ]) {
           await page.goto(origin + route("/", "en", slug));
           await ready(page);
           await page.waitForTimeout(350);
+          if (slug === "plugins" && width <= 390)
+            await page.locator("#api-notification-show summary").click();
           assert(
             await page.evaluate(
               () => document.documentElement.scrollWidth <= innerWidth + 1,
@@ -436,7 +443,7 @@ try {
         await ready(nestedPage);
         assert.equal(
           await nestedPage.locator(".markdown-section h1").innerText(),
-          "Plugins y API JavaScript",
+          "API JavaScript",
         );
         await nestedPage.waitForFunction(
           () =>
@@ -463,7 +470,7 @@ try {
     },
   );
   await check(
-    "visited hero action stays legible on dark hover and the VHS recording is available",
+    "visited hero action stays legible on dark hover and the VHS GIF is available",
     async () => {
       const themed = await browser.newContext({ colorScheme: "dark" });
       const hero = await themed.newPage();
@@ -501,14 +508,41 @@ try {
           );
         });
         assert(contrast >= 4.5, `Hero CTA contrast: ${contrast}`);
-        const recording = hero.locator(".hero-recording video");
+        const recording = hero.locator(".hero-recording picture");
         assert.equal(await recording.count(), 1);
-        const video = await recording.locator("source").getAttribute("src");
-        const poster = await recording.getAttribute("poster");
-        assert.equal((await fetch(origin + video)).status, 200);
+        const animation = await recording.locator("img").getAttribute("src");
+        const poster = await recording.locator("source").getAttribute("srcset");
+        assert(animation?.endsWith(".gif"));
+        assert.equal((await fetch(origin + animation)).status, 200);
         assert.equal((await fetch(origin + poster)).status, 200);
+        await hero.emulateMedia({ reducedMotion: "reduce" });
+        assert.equal(
+          await recording
+            .locator("source")
+            .evaluate((el) => matchMedia(el.media).matches),
+          true,
+        );
       } finally {
         await themed.close();
+      }
+    },
+  );
+  await check(
+    "all 13 API accordions explain methods and work with keyboard in both locales",
+    async () => {
+      for (const lang of locales) {
+        await page.goto(origin + `/${lang}/plugins/`);
+        await ready(page);
+        const accordions = page.locator(".api-detail");
+        assert.equal(await accordions.count(), 13);
+        const first = accordions.first();
+        await first.locator("summary").focus();
+        await page.keyboard.press("Enter");
+        assert.equal(await first.getAttribute("open"), "");
+        assert(await first.locator("pre code").count());
+        assert(await first.innerText().then((value) => value.length > 200));
+        await page.keyboard.press("Enter");
+        assert.equal(await first.getAttribute("open"), null);
       }
     },
   );
