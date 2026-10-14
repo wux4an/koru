@@ -79,7 +79,7 @@ try {
     if (attempt === 59) throw new Error("Preview server did not start.");
   }
   await check(
-    "34 routes render, with one H1, correct language and valid internal links",
+    `${pages.length * locales.length} routes render, with one H1, correct language and valid internal links`,
     async () => {
       const links = new Set<string>();
       for (const lang of locales) {
@@ -459,6 +459,56 @@ try {
       } finally {
         await nestedContext.close();
         nestedServer.kill();
+      }
+    },
+  );
+  await check(
+    "visited hero action stays legible on dark hover and the VHS recording is available",
+    async () => {
+      const themed = await browser.newContext({ colorScheme: "dark" });
+      const hero = await themed.newPage();
+      try {
+        await hero.goto(origin + "/en/");
+        await ready(hero);
+        const action = hero.locator(".hero-actions .primary-link");
+        await action.click();
+        await hero.waitForURL("**/en/getting-started/");
+        await hero.goBack();
+        await ready(hero);
+        await action.hover();
+        const contrast = await action.evaluate((el) => {
+          const rgb = (value: string) =>
+            (value.match(/[\d.]+/g) || []).slice(0, 3).map(Number);
+          const luminance = (channels: number[]) =>
+            channels
+              .map((channel) => channel / 255)
+              .map((channel) =>
+                channel <= 0.04045
+                  ? channel / 12.92
+                  : ((channel + 0.055) / 1.055) ** 2.4,
+              )
+              .reduce(
+                (sum, channel, index) =>
+                  sum + channel * [0.2126, 0.7152, 0.0722][index],
+                0,
+              );
+          const style = getComputedStyle(el);
+          const foreground = luminance(rgb(style.color));
+          const background = luminance(rgb(style.backgroundColor));
+          return (
+            (Math.max(foreground, background) + 0.05) /
+            (Math.min(foreground, background) + 0.05)
+          );
+        });
+        assert(contrast >= 4.5, `Hero CTA contrast: ${contrast}`);
+        const recording = hero.locator(".hero-recording video");
+        assert.equal(await recording.count(), 1);
+        const video = await recording.locator("source").getAttribute("src");
+        const poster = await recording.getAttribute("poster");
+        assert.equal((await fetch(origin + video)).status, 200);
+        assert.equal((await fetch(origin + poster)).status, 200);
+      } finally {
+        await themed.close();
       }
     },
   );

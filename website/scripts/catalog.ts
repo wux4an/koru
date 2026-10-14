@@ -79,6 +79,16 @@ export const pages = [
     ],
   },
   {
+    slug: "troubleshooting",
+    group: 0,
+    icon: "lifebuoy",
+    titles: ["Troubleshooting", "Solución de problemas"],
+    descriptions: [
+      "Fix project, asset, signing, installation and native bridge errors with concrete checks.",
+      "Resuelve errores de proyecto, assets, firma, instalación y puente nativo con comprobaciones concretas.",
+    ],
+  },
+  {
     slug: "cli",
     group: 1,
     icon: "terminal-window",

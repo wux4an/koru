@@ -13,35 +13,89 @@
 </div>
 </div>
 
+<figure class="hero-recording">
+<video controls playsinline preload="none" poster="{{base}}assets/hero-poster.png" aria-label="Demostración real de la CLI: iniciar, compilar y verificar un APK Android"><source src="{{base}}assets/hero-demo.mp4" type="video/mp4"><a href="{{base}}assets/hero-demo.mp4">Descargar la grabación de terminal</a></video>
+<figcaption>Sesión de terminal real grabada con VHS: un proyecto, un APK firmado y una verificación. Los comandos y su salida aparecen abajo.</figcaption>
+</figure>
+
 ## De una carpeta web a una app Android
 
-Tu framework genera los archivos web. koru se encarga del siguiente paso.
+Koru toma la salida estática de tu aplicación web y la empaqueta como APK. No ejecuta el build de tu framework. Comienza con el proyecto de `koru init` o configura `webDir` para usar una carpeta ya compilada.
 
-```sh
-koru init ./mi-app
-koru build ./mi-app --release --output app.apk
-koru verify app.apk
+### 1. Inicia el proyecto y edita su página
+
+Ejecuta `./bin/koru init ./my-app` desde la raíz del repositorio. Reemplaza el archivo generado `my-app/www/index.html` por:
+
+```html
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hola Android</title>
+    <style>
+      body {
+        font: 1.1rem system-ui;
+        padding: 2rem;
+      }
+      button {
+        padding: 0.8rem 1rem;
+        font: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hola Android</h1>
+    <button id="tap">Toques: 0</button>
+    <script>
+      let taps = 0;
+      document.querySelector("#tap").addEventListener("click", (event) => {
+        event.currentTarget.textContent = "Toques: " + ++taps;
+      });
+    </script>
+  </body>
+</html>
 ```
 
-El binario compilado de koru construye apps sin conexión y sin tener Go instalado. El compilador DEX, XML binario, tabla de recursos, empaquetado APK alineado y firma APK v2 están implementados en Go con biblioteca estándar. El build normal no genera Java ni Kotlin, ni utiliza JVM, Gradle, herramientas de build del SDK Android o frameworks de wrappers.
+El botón cambia con cada toque. Koru también acepta CSS, JavaScript, imágenes y fuentes locales en archivos separados. El [ejemplo web]({{base}}es/web-example/) muestra navegación, plugins y uso sin red.
 
-## Un runtime pequeño, conexiones útiles
+### 2. Genera e inspecciona el APK
 
-El WebView sirve los assets empaquetados en `https://app.koru.invalid`. Un puente MessagePort conecta JavaScript con seis plugins: device, app, storage, vibration, share y notifications. JNI y los plugins DEX personalizados son opcionales.
+Ejecuta estos comandos desde la raíz del repositorio tras [compilar la CLI]({{base}}es/getting-started/):
+
+```sh
+./bin/koru build ./my-app --release --output app.apk
+./bin/koru verify app.apk
+```
+
+El build muestra el estado de caché, tamaño, tipo de firma y huella del certificado. `verify` devuelve JSON procesable:
+
+```text
+Runtime cache hit: false
+Wrote app.apk (16785 bytes), APK v2 RSA/SHA-256, certificate 3ecd2de5…
+{"appId":"com.example.koru","entries":7,"bytes":16785,
+ "certificateSha256":"3ecd2de5…","signatureScheme":"APK v2 RSA/SHA-256"}
+```
+
+Son valores ilustrativos: tu HTML, assets e identidad de firma cambian el tamaño y la huella. La grabación anterior enseña una ejecución real sin modificar. `verify` comprueba estructura y firma; instala el APK en Android para comprobar su ejecución.
+
+## JavaScript puede llamar a Android
+
+Las páginas empaquetadas viven en `https://app.koru.invalid` y acceden a seis plugins mediante MessagePort. Por ejemplo, dentro de un script de módulo de tu app:
 
 ```js
 import { device, storage } from "/__koru/core.mjs";
 
 const info = await device.getInfo();
-await storage.set("theme", "light");
+await storage.set("last-device", info.model);
 ```
 
-[Explora la API JavaScript]({{base}}es/plugins/)
+Esta API funciona dentro del APK de koru; un navegador común no tiene el puente nativo. En [JavaScript y plugins]({{base}}es/plugins/) están los métodos, parámetros y errores.
 
-## Consulta la evidencia y conoce los límites
+## Alcance actual
 
-Los APK generados se han instalado, arrancado y actualizado en **Android 11, API 30, x86_64**. Las comprobaciones registradas cubren renderizado local sin Wi-Fi ni datos, plugins nativos, service workers, navegación, teclado y persistencia de storage.
+La CLI compilada construye sin red y usa Go estándar para DEX, XML binario, recursos, empaquetado APK y firma v2. No genera Java ni Kotlin; el build normal no invoca JDK, Gradle ni herramientas de build del SDK Android.
 
-Es una matriz concreta, no una garantía para todos los dispositivos Android. koru está en `0.2.0-dev`; AAB, firmas APK v3/v4, alarmas programadas y una matriz más amplia quedan fuera del alcance actual.
+Los APK generados se han instalado, arrancado y actualizado en **Android 11, API 30, x86_64**. Las pruebas registradas cubren renderizado sin Wi-Fi ni datos, plugins, service workers, navegación, teclado y persistencia de datos. Es una matriz concreta: prueba tu aplicación en los dispositivos que vas a soportar. Koru está en `0.2.0-dev`; AAB, firmas APK v3/v4 y una matriz mayor quedan fuera del alcance actual.
 
-[Registros de ejecución Android]({{base}}es/android-results/) · [Hitos y alcance]({{base}}es/milestones/)
+[Guía completa del primer APK]({{base}}es/getting-started/) · [Configuración]({{base}}es/configuration/) · [Evidencia Android]({{base}}es/android-results/)

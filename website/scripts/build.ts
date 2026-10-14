@@ -407,7 +407,7 @@ export async function build(
       } else {
         const source = "source" in page ? page.source : undefined;
         const local = resolve(root, "content", lang, page.slug + ".md");
-        if (lang === "es" && source && page.slug !== "web-example")
+        if (lang === "es" && source && !(await Bun.file(local).exists()))
           markdown = await readFile(resolve(repo, source), "utf8");
         else markdown = await readFile(local, "utf8");
         if (lang === "es" && page.slug === "dex-results")
@@ -431,6 +431,10 @@ export async function build(
       markdown = archiveLinks(markdown, config.base, originalSet);
       const index = locales.indexOf(lang);
       const html = (await renderer.parse(markdown))
+        .replace(
+          /<pre><code class="language-([^"]+)">/g,
+          '<pre tabindex="0" data-lang="$1"><code class="language-$1">',
+        )
         .replaceAll("<pre>", '<pre tabindex="0">')
         .replaceAll("<table>", '<table tabindex="0">');
       const folder = resolve(

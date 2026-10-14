@@ -342,9 +342,50 @@ input:focus-visible,
   text-underline-offset: 4px;
 }
 .markdown-section pre {
-  border: 1px solid #e1e6f0;
+  border: 1px solid #d9dfec;
   box-shadow: inset 0 1px 0 #fff;
   margin: 24px 0;
+}
+.markdown-section pre[data-lang] {
+  position: relative;
+  padding-top: 0;
+  border-radius: 16px;
+}
+.markdown-section pre[data-lang]::before {
+  content: attr(data-lang);
+  display: block;
+  margin: 0 -24px 17px;
+  padding: 9px 20px;
+  border-bottom: 1px solid #d6deed;
+  border-radius: 15px 15px 0 0;
+  background: #dfe6f3;
+  color: #485c7d;
+  font-family: "Nunito", sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.markdown-section pre[data-lang="sh"]::before,
+.markdown-section pre[data-lang="bash"]::before {
+  content: "Terminal";
+}
+.markdown-section pre[data-lang="js"]::before,
+.markdown-section pre[data-lang="javascript"]::before {
+  content: "JavaScript";
+}
+.markdown-section pre[data-lang="text"] {
+  background: #edf6f1;
+  border-color: #c8e1d1;
+}
+.markdown-section pre[data-lang="text"]::before {
+  content: "Output";
+  background: #d9eddf;
+  border-color: #c8e1d1;
+  color: #345a42;
+}
+:root:lang(es) .markdown-section pre[data-lang="text"]::before {
+  content: "Salida";
 }
 .markdown-section table {
   display: block;
@@ -474,6 +515,21 @@ input:focus-visible,
     0 4px 0 #9486c6,
     0 6px 9px #e2dff0;
 }
+.markdown-section
+  .hero-actions
+  .primary-link:is(:link, :visited, :hover, :focus-visible, :active) {
+  color: #38295f !important;
+  text-decoration: none !important;
+}
+.hero-actions .primary-link:hover,
+.hero-actions .primary-link:focus-visible {
+  background: #d1c7f4;
+  box-shadow:
+    inset 1px 2px 2px #eee9ff,
+    inset -2px -3px 3px #a497d4,
+    0 4px 0 #9486c6,
+    0 7px 10px #ddd9ed;
+}
 .primary-link i {
   font-size: 18px;
 }
@@ -482,6 +538,29 @@ input:focus-visible,
   box-shadow:
     inset 1px 2px 3px #a497d4,
     0 2px 0 #9486c6;
+}
+.hero-recording {
+  max-width: 920px;
+  margin: 4px 0 38px;
+  padding: 12px;
+  border: 1px solid #dde2ee;
+  border-radius: 19px;
+  background: #edf0f8;
+  box-shadow: 0 7px 19px #263b6614;
+}
+.hero-recording video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 8 / 3;
+  border-radius: 11px;
+  background: #171f32;
+}
+.hero-recording figcaption {
+  padding: 12px 5px 3px;
+  color: #52617c;
+  font-size: 13px;
+  line-height: 1.5;
 }
 .clay-scene {
   height: 315px;
@@ -1161,6 +1240,28 @@ body[data-page="overview"] .markdown-section > h2:first-of-type {
 :root[data-theme="dark"] .markdown-section pre {
   border-color: var(--border-dark);
   box-shadow: inset 0 1px 0 #34405a;
+}
+:root[data-theme="dark"] .markdown-section pre[data-lang]::before {
+  background: #2c3a56;
+  border-color: #3c4862;
+  color: #cad5e9;
+}
+:root[data-theme="dark"] .markdown-section pre[data-lang="text"] {
+  background: #1d352f;
+  border-color: #406451;
+}
+:root[data-theme="dark"] .markdown-section pre[data-lang="text"]::before {
+  background: #284739;
+  border-color: #406451;
+  color: #c9ead2;
+}
+:root[data-theme="dark"] .hero-recording {
+  background: #253149;
+  border-color: #414e69;
+  box-shadow: 0 7px 19px #0b112533;
+}
+:root[data-theme="dark"] .hero-recording figcaption {
+  color: #b9c5dc;
 }
 :root[data-theme="dark"] .markdown-section hr,
 :root[data-theme="dark"] .doc-footer,

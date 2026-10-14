@@ -2,6 +2,33 @@
 
 The builder integrates `/__koru/core.js` and `/__koru/core.mjs`, and includes the first in HTML pages. You can also consume the API through `@koru/core` by adding `packages/javascript` to the project that builds your static assets.
 
+## A working page
+
+Add this button and module script inside the `<body>` of an HTML file in `webDir`:
+
+```html
+<button id="device">Show this device</button>
+<p id="result" role="status">Ready</p>
+<script type="module">
+  import { device, storage } from "/__koru/core.mjs";
+
+  document.querySelector("#device").addEventListener("click", async () => {
+    const result = document.querySelector("#result");
+    try {
+      const info = await device.getInfo();
+      await storage.set("last-model", info.model);
+      result.textContent = "Running on " + info.model;
+    } catch (error) {
+      result.textContent = error.code + ": " + error.message;
+    }
+  });
+</script>
+```
+
+Inside the APK, tapping the button shows the Android device model and persists that string in app-private storage. The exact model varies by device. The bridge is unavailable in an ordinary browser preview; install the APK to test this page. The `device` and `storage` plugin IDs are enabled by the generated `koru.json`.
+
+The following is a method sampler, not a sequence your app must run:
+
 ```js
 import {
   device,
@@ -35,6 +62,8 @@ await notifications.show({
 | vibration     | `vibration.vibrate`                                      | VIBRATE; integer duration from 1 to 10,000 ms.                |
 | share         | `share.text`                                             | None; ACTION_SEND text/plain chooser.                         |
 | notifications | `notifications.show/cancel/permission/requestPermission` | POST_NOTIFICATIONS; local channel from API 26.                |
+
+Methods return Promises. `storage.get(key)` resolves to a string or `null`; `storage.set(key, value)` accepts strings. `vibration.vibrate(duration)` takes an integer number of milliseconds from 1 to 10,000. `share.text(text)` opens Android's text share chooser. `notifications.show({ id, title, body })` publishes a local notification immediately; `notifications.cancel(id)` removes it. Enable optional plugin IDs in `koru.json` before calling them. A missing or disabled method rejects rather than silently succeeding.
 
 You can invoke these methods with `Koru.invoke(method, params, { timeout, signal })` or the exported `invoke` function. The module's `storage.get` returns the stored string or `null` when absent.
 

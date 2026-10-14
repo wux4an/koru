@@ -28,7 +28,8 @@ a tactile browser-to-Android illustration. The illustration is the one bold area
 │ search       │ headline                browser → Android │
 │              │ introduction           molded illustration│
 │ guide        │ get started / architecture                │
-│ reference    │ terminal example                          │
+│ reference    │ VHS CLI recording                          │
+│              │ runnable examples + expected output      │
 │ evidence     │ readable documentation                    │
 └──────────────┴───────────────────────────────────────────┘
 ```
@@ -61,6 +62,13 @@ warm terracotta palette. No custom component framework is introduced.
   subpath deployments must put crawler directives at the domain root.
 - [Phosphor Web](https://github.com/phosphor-icons/web): reusable duotone icons,
   self-hosted and licensed under MIT.
+
+- [Parcel](https://parceljs.org/): concise examples adjacent to the feature they
+  explain, with immediate commands and visible output. Koru uses that teaching
+  pattern while keeping Docsify's native code blocks and copy controls.
+- [Charm VHS](https://github.com/charmbracelet/vhs): a reproducible terminal tape
+  records real CLI commands for the overview; the muted poster matches the dark
+  reading palette and no video plays without reader action.
 
 SEO metadata belongs to each generated HTML document. Docsify enhances that
 document with search and navigation. A JavaScript-free reader receives the same
