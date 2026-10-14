@@ -10,10 +10,11 @@ workflow and are unrelated to the Go APK compiler.
 
 Enable **GitHub Actions** as the Pages source in the repository settings. The
 workflow runs on pushes to main that change documentation, and can also be run
-manually. It takes the canonical URL from `actions/configure-pages`, so the first
-publication works at `https://wux4an.github.io/koru/`. After configuring a custom
-domain, a subsequent deployment automatically switches the site's base path,
-canonical URLs, language links and sitemap to that domain.
+manually. It takes the canonical URL from `actions/configure-pages`. The site was
+first published at `https://wux4an.github.io/koru/` and now uses
+`https://koru.js.org/`. After changing a custom domain, run the workflow again:
+the artifact must be rebuilt to update its base path, canonical URLs, language
+links and sitemap. Changing the Pages setting alone does not rebuild it.
 
 [Pages settings](https://github.com/wux4an/koru/settings/pages) ·
 [Documentation workflow](https://github.com/wux4an/koru/actions/workflows/pages.yml)
@@ -28,12 +29,11 @@ build archives example HTML/SVG as plain `.txt` downloads and wraps original
 Markdown/source/log files with a noindex HTML text viewer. Original bytes remain
 available inside those viewers as downloads; source code is never executed.
 
-## Request koru.js.org
+## Custom domain: koru.js.org
 
-The intended domain is `koru.js.org`. At the time of preparation, `koru` was absent
-from the active JS.ORG CNAME list. This is a lookup, not a reservation or approval.
-The project is a JavaScript application toolchain with a JavaScript bridge/API;
-the documentation describes that purpose and includes substantive content.
+The approved domain is `koru.js.org`. The project is a JavaScript application
+toolchain with a JavaScript bridge/API; the documentation describes that purpose
+and includes substantive content.
 
 1. Check that the GitHub Pages site has deployed and contains the documentation.
 2. Set `koru.js.org` as the custom domain in the repository's Pages settings.
@@ -46,13 +46,11 @@ the documentation describes that purpose and includes substantive content.
    "koru": "wux4an.github.io",
    ```
 
-4. Follow any requested changes from the JS.ORG reviewers. DNS becomes usable
-   after their approval and propagation; neither is controlled by this repository.
-5. Rerun the documentation workflow after setting the domain, then enable
+4. Rerun the documentation workflow after setting the domain, then enable
    **Enforce HTTPS** when GitHub has provisioned the certificate.
 
-Do not claim the js.org URL is live until DNS and HTTPS have been checked. The
-external domain request is left to the repository owner.
+The expected documentation paths are `https://koru.js.org/en/` and
+`https://koru.js.org/es/`, with the icon at `https://koru.js.org/favicon.ico`.
 
 Official references:
 

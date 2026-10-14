@@ -124,6 +124,29 @@ describe("localized, crawlable documentation", () => {
 });
 
 describe("deployment configuration and broken input", () => {
+  test("custom-domain artifact uses root paths and serves a root favicon", async () => {
+    const domainOutput = "test-results/domain-build";
+    await build({ siteURL: "https://koru.js.org/", outDir: domainOutput });
+    const index = await readFile(
+      resolve(root, domainOutput, "index.html"),
+      "utf8",
+    );
+    const english = await readFile(
+      resolve(root, domainOutput, "en/index.html"),
+      "utf8",
+    );
+    const notFound = await readFile(
+      resolve(root, domainOutput, "404.html"),
+      "utf8",
+    );
+    const icon = await readFile(resolve(root, domainOutput, "favicon.ico"));
+    expect(index).toContain('content="0;url=/en/"');
+    expect(english).toContain('rel="canonical" href="https://koru.js.org/en/"');
+    expect(english).toContain('href="/assets/favicon.svg"');
+    expect(notFound).toContain('href="/en/"');
+    expect(index).not.toContain("/koru/en/");
+    expect(icon.subarray(0, 4).equals(Buffer.from([0, 0, 1, 0]))).toBe(true);
+  });
   test("normalizes the domain and subpath without guessing a production domain", () => {
     expect(siteConfig("https://docs.koru.test/manual").base).toBe("/manual/");
     expect(siteConfig("http://localhost:4173").production).toBe(false);

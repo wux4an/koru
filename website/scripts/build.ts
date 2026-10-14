@@ -286,6 +286,7 @@ export async function build(
   );
   const assets = resolve(dist, "assets");
   await cp(resolve(root, "assets"), assets, { recursive: true });
+  await cp(resolve(root, "assets/favicon.ico"), resolve(dist, "favicon.ico"));
   const vendors: Record<string, string> = {
     "docsify/lib/docsify.min.js": "docsify.min.js",
     "docsify/lib/plugins/search.min.js": "search.min.js",
