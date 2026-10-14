@@ -17,7 +17,7 @@ Visit http://localhost:4173/en/ or http://localhost:4173/es/. The site builds be
 ## Build and deploy
 
 ```sh
-SITE_URL=https://your-actual-domain.com/koru/ bun run build
+SITE_URL=https://koru.js.org/ bun run build
 bun run preview
 ```
 
@@ -29,7 +29,7 @@ The root page directs readers to English; language switching preserves the curre
 
 Text records in `original/` have noindex HTML viewers, with download links preserving their original bytes. Example HTML/SVG sources are stored as `.txt` downloads so they cannot execute as another app on the documentation origin. This works on GitHub Pages, which cannot set custom response headers. `robots.txt` excludes the raw archive; its records remain accessible to readers.
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for the Pages workflow and the separate `koru.js.org` request. No js.org DNS change is implied by a repository push.
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the Pages workflow and the live `koru.js.org` domain. Rebuild after changing the Pages custom domain so generated routes and canonical URLs use the new base path.
 
 ## Appearance
 

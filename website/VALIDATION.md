@@ -1,12 +1,12 @@
 # Website validation
 
-Recorded in this workspace on 2026-10-13 using Bun 1.2.13 and the installed
+Recorded in this workspace on 2026-10-13 and rechecked on 2026-10-14 using Bun 1.2.13 and the installed
 `google-chrome-stable`, Google Chrome 136.0.7103.113. Playwright launched that
 executable; it did not download its own Chromium.
 
 | Check                                   | Recorded result                                                                                                                                                                                                                                                                                                |
 | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bun test`                              | 8 tests passed; 2,132 assertions for locale parity, prerendered content, document coverage, source hashes, links, sitemap, deployment input and broken links.                                                                                                                                                  |
+| `bun test`                              | 9 tests passed; 2,138 assertions for locale parity, prerendered content, document coverage, source hashes, links, sitemap, custom-domain root routes, favicon and broken links.                                                                                                                                |
 | `bun run test:browser`                  | 19 checks passed, covering all 34 English/Spanish routes.                                                                                                                                                                                                                                                      |
 | axe WCAG 2.2 AA and best-practice rules | Zero violations in 17 scans: 10 light-theme scans of overview, plugins, configuration, DEX API and Android evidence in each locale, plus 6 dark-theme scans of overview, configuration and DEX API and a scan with the custom theme menu open. This is an automated check, not an accessibility certification. |
 | Responsive layout                       | No document-level horizontal overflow at 320, 390, 768, 1024 or 1440 px on overview, configuration and DEX API. The native mobile drawer opens and closes.                                                                                                                                                     |
@@ -16,11 +16,16 @@ executable; it did not download its own Chromium.
 | Static hosting under a subpath          | Direct loading, navigation, search, locales, canonical URL and HTTP 404 pass under `/handbook/`.                                                                                                                                                                                                               |
 | Network and console                     | No external asset requests, page errors or failed requests during the checked flows. Fonts, icons, theme and scripts are local.                                                                                                                                                                                |
 | Copy and keyboard                       | Code copies to the clipboard; keyboard skip link focuses content. Hidden navigation is excluded from keyboard focus.                                                                                                                                                                                           |
-| HTTP behavior                           | Missing pages return 404. Archived HTML/SVG is served as plain .txt downloads; source viewers carry noindex metadata and preserve original bytes.                                                                                                                                                              |
+| HTTP behavior                           | Missing pages return 404. Archived HTML/SVG is served as plain .txt downloads; source viewers carry noindex metadata and preserve original bytes. The published domain serves `/en/`, `/es/` and `/favicon.ico` with HTTP 200.                                                                                 |
 | Appearance                              | System/light/dark selection, OS changes, persistence across reloads and locales, tab synchronization, invalid preferences and blocked storage pass. Dark layout has no overflow at 320, 390 and 768 px.                                                                                                        |
 | Reduced motion                          | Sidebar transitions are disabled under the reduced-motion preference.                                                                                                                                                                                                                                          |
 | `bun run format:check`                  | Prettier 3.6.2 passes.                                                                                                                                                                                                                                                                                         |
 | `git diff --check`                      | Passes. No keys or private Android demo directories added.                                                                                                                                                                                                                                                     |
+
+The 2026-10-14 live Chrome check loaded both `https://koru.js.org/en/` and
+`https://koru.js.org/es/`, confirmed their canonical URLs and rendered content,
+and fetched `https://koru.js.org/favicon.ico`; all returned HTTP 200 without
+page errors. GitHub Pages deployment run 38632921430 completed successfully.
 
 Reproduce with the commands in [README.md](README.md). Ignored artifacts in
 `test-results/` contain `browser-report.json`, desktop/mobile/reference screenshots,
