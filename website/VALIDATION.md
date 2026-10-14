@@ -27,7 +27,9 @@ executable; it did not download its own Chromium.
 The 2026-10-14 live Chrome check loaded both `https://koru.js.org/en/` and
 `https://koru.js.org/es/`, confirmed their canonical URLs and rendered content,
 and fetched `https://koru.js.org/favicon.ico`; all returned HTTP 200 without
-page errors. GitHub Pages deployment run 38632921430 completed successfully.
+page errors. The new English and Spanish API pages each served 13 method accordions;
+the GIF and reduced-motion poster returned HTTP 200, while the removed MP4 returned
+HTTP 404. GitHub Pages deployment run 38638525736 completed successfully.
 
 Reproduce with the commands in [README.md](README.md). Ignored artifacts in
 `test-results/` contain `browser-report.json`, desktop/mobile/reference screenshots,
