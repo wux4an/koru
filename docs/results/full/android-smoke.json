@@ -28,11 +28,7 @@
     "status": "granted"
   },
   "notification": {},
-  "errorCodes": [
-    "METHOD_NOT_FOUND",
-    "INVALID_REQUEST",
-    "INVALID_REQUEST"
-  ],
+  "errorCodes": ["METHOD_NOT_FOUND", "INVALID_REQUEST", "INVALID_REQUEST"],
   "css": "32px",
   "imageWidth": 64,
   "module": {

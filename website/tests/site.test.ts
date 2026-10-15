@@ -111,6 +111,37 @@ describe("localized, crawlable documentation", () => {
       }
     }
   });
+  test("long guides include a localized, working section index", async () => {
+    for (const lang of locales) {
+      for (const page of pages) {
+        const folder = resolve(
+          root,
+          output,
+          lang,
+          page.slug === "overview" ? "" : page.slug,
+        );
+        const html = await readFile(resolve(folder, "index.html"), "utf8");
+        const headings = [...html.matchAll(/<h2 id="([^"]+)">/g)].map(
+          ([, id]) => id,
+        );
+        const toc = html.match(
+          /<details class="page-toc">([\s\S]*?)<\/details>/,
+        );
+        if (headings.length < 3) {
+          expect(toc).toBeNull();
+          continue;
+        }
+        expect(toc).not.toBeNull();
+        expect(toc?.[1]).toContain(
+          lang === "en" ? "On this page" : "En esta página",
+        );
+        const links = [...(toc?.[1] || "").matchAll(/href="#([^"]+)"/g)].map(
+          ([, id]) => id,
+        );
+        expect(links).toEqual(headings);
+      }
+    }
+  });
   test("early evidence is explicitly historical in both locales", async () => {
     for (const lang of locales) {
       const content = await readFile(

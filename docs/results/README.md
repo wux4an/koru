@@ -1,27 +1,30 @@
-# Resultados reales — 2026-10-13
+# Resultados DEX históricos — 2026-10-13
 
-Todas las pruebas registradas se ejecutaron sobre código real en este workspace.
-No hay pruebas de instalación/ejecución Android ni de un APK: esos resultados no
-existen todavía. `summary.json` recoge casos, cobertura y hashes de artefactos.
+Este informe corresponde al hito inicial del generador DEX, anterior al runtime
+APK. Las pruebas registradas se ejecutaron sobre código real en este workspace;
+en esa etapa aún no se habían validado la instalación ni la ejecución de un APK
+en Android. Consulta la [evidencia Android posterior](full/README.md) para esos
+resultados. `summary.json` recoge los casos, la cobertura y los hashes de esta
+etapa histórica.
 
 ## Validación
 
-| Comprobación | Resultado y evidencia |
-| --- | --- |
-| Suite Go | Pasa; `unit-tests.txt`, `tests.jsonl` |
-| Cobertura conjunta de paquetes | 84.0%; `coverage.out`, `coverage-summary.txt` |
-| `go vet ./...` | Exit 0, sin hallazgos; `vet.txt` vacío corresponde a éxito |
-| `go test -race ./...` | Pasa; `race.txt` |
-| Fuzz ULEB128/SLEB128, 10 s, dos workers | 552944 ejecuciones, sin fallo; `fuzz-leb.txt` |
-| Fuzz MUTF-8, 10 s, dos workers | 271686 ejecuciones, sin fallo; `fuzz-mutf8.txt` |
-| Fuzz parser, 15 s, dos workers, semillas Answer y Activity | 256070 ejecuciones, sin fallo; `fuzz-parser.txt` |
-| Mutación deliberada de la validación Adler-32 | La prueba detecta la mutación y falla; se restauró el código antes de la suite final; `mutation-check.txt` |
-| `dexdump` oficial AOSP | Checksum, apertura y desensamblado de Answer/Activity pasan; `external-tests.txt`, `*-dexdump.txt` |
-| Build sin proxy de módulos ni CGO | Pasa con `GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off CGO_ENABLED=0` |
-| CLI sin herramientas en PATH | Generación/inspección pasan con `PATH=/nonexistent`; `offline-cli.txt` |
-| Entrega ZIP | CRC correcto; reconstrucción desde extracción limpia sin proxy de módulos; binario y Answer DEX idénticos byte a byte (`cmp`, exit 0) |
-| Dependencias | Cobra solo en `cmd/koru`; DEX, AXML, ARSC, APK y firmas siguen usando Go y la biblioteca estándar |
-| Windows amd64/macOS arm64 | Compilación cruzada solamente; `cross-builds.txt`; no se ejecutaron en esos sistemas |
+| Comprobación                                               | Resultado y evidencia                                                                                                                 |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Suite Go                                                   | Pasa; `unit-tests.txt`, `tests.jsonl`                                                                                                 |
+| Cobertura conjunta de paquetes                             | 84.0%; `coverage.out`, `coverage-summary.txt`                                                                                         |
+| `go vet ./...`                                             | Exit 0, sin hallazgos; `vet.txt` vacío corresponde a éxito                                                                            |
+| `go test -race ./...`                                      | Pasa; `race.txt`                                                                                                                      |
+| Fuzz ULEB128/SLEB128, 10 s, dos workers                    | 552944 ejecuciones, sin fallo; `fuzz-leb.txt`                                                                                         |
+| Fuzz MUTF-8, 10 s, dos workers                             | 271686 ejecuciones, sin fallo; `fuzz-mutf8.txt`                                                                                       |
+| Fuzz parser, 15 s, dos workers, semillas Answer y Activity | 256070 ejecuciones, sin fallo; `fuzz-parser.txt`                                                                                      |
+| Mutación deliberada de la validación Adler-32              | La prueba detecta la mutación y falla; se restauró el código antes de la suite final; `mutation-check.txt`                            |
+| `dexdump` oficial AOSP                                     | Checksum, apertura y desensamblado de Answer/Activity pasan; `external-tests.txt`, `*-dexdump.txt`                                    |
+| Build sin proxy de módulos ni CGO                          | Pasa con `GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off CGO_ENABLED=0`                                                                    |
+| CLI sin herramientas en PATH                               | Generación/inspección pasan con `PATH=/nonexistent`; `offline-cli.txt`                                                                |
+| Entrega ZIP                                                | CRC correcto; reconstrucción desde extracción limpia sin proxy de módulos; binario y Answer DEX idénticos byte a byte (`cmp`, exit 0) |
+| Dependencias                                               | Cobra solo en `cmd/koru`; DEX, AXML, ARSC, APK y firmas siguen usando Go y la biblioteca estándar                                     |
+| Windows amd64/macOS arm64                                  | Compilación cruzada solamente; `cross-builds.txt`; no se ejecutaron en esos sistemas                                                  |
 
 La cobertura conjunta usa `go test -coverpkg=./... -coverprofile=... ./...`:
 instrumenta también llamadas entre paquetes. Es evidencia de alcance de las
@@ -44,10 +47,10 @@ cambios en modo pipe, JSON válido en DEX/APK y errores sin ANSI con código 1.
 Host Linux amd64, CPU reportada por Go: AMD EPYC 9V74. Los benchmarks tienen
 `-benchmem` y usan el IR preparado fuera de la región medida.
 
-| Caso | Tiempo medio | Asignaciones | Bytes asignados/op | Archivo DEX |
-| --- | --- | --- | --- | --- |
-| Constructor binario de una clase con método estático `answer()I` | 6176 ns/op | 70 | 3926 B/op | 396 bytes en este fixture de benchmark |
-| Activity, build público con parser/verificación incluida | 165560 ns/op | 1420 | 98460 B/op | 1848 bytes |
+| Caso                                                             | Tiempo medio | Asignaciones | Bytes asignados/op | Archivo DEX                            |
+| ---------------------------------------------------------------- | ------------ | ------------ | ------------------ | -------------------------------------- |
+| Constructor binario de una clase con método estático `answer()I` | 6176 ns/op   | 70           | 3926 B/op          | 396 bytes en este fixture de benchmark |
+| Activity, build público con parser/verificación incluida         | 165560 ns/op | 1420         | 98460 B/op         | 1848 bytes                             |
 
 El archivo `artifacts/answer.dex` incluye además un constructor y ocupa 476 bytes;
 no es el mismo fixture que el benchmark mínimo. El binario Linux se compila con

@@ -60,6 +60,29 @@
       JSON.stringify(structured);
     const main = document.getElementById("main");
     main.setAttribute("tabindex", "-1");
+    if (!main.querySelector(".page-toc")) {
+      const headings = [...main.querySelectorAll("h2[id]")];
+      if (headings.length >= 3) {
+        const contents = document.createElement("details");
+        contents.className = "page-toc";
+        const summary = document.createElement("summary");
+        summary.textContent = t.contents;
+        const nav = document.createElement("nav");
+        nav.setAttribute("aria-label", t.contents);
+        const list = document.createElement("ul");
+        for (const heading of headings) {
+          const item = document.createElement("li");
+          const link = document.createElement("a");
+          link.href = `#${heading.id}`;
+          link.textContent = heading.textContent;
+          item.append(link);
+          list.append(item);
+        }
+        nav.append(list);
+        contents.append(summary, nav);
+        headings[0].before(contents);
+      }
+    }
     // Docsify's existing widgets retain their behavior, with localized names.
     const toggle = document.querySelector(".sidebar-toggle");
     toggle?.setAttribute("aria-label", t.menu);

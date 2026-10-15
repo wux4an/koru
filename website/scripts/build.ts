@@ -146,19 +146,21 @@ export function normalizeLinks(
 }
 function sidebar(base: string, lang: Locale) {
   const index = locales.indexOf(lang);
-  return text[lang].groups
-    .map(
-      (group, groupIndex) =>
-        `- ${group}\n${pages
-          .filter((page) => page.group === groupIndex)
-          .map(
-            (page) =>
-              `  - [<i class="ph-duotone ph-${page.icon}" aria-hidden="true"></i> ${page.titles[index]}](${route(base, lang, page.slug)})`,
-          )
-          .join("\n")}`,
-    )
-    .join("\n\n") +
-    `\n\n<div class="sidebar-donate-section"><a class="sidebar-donate" href="https://ko-fi.com/R5R81YESSI" target="_blank" rel="noopener noreferrer"><span class="donate-icon" aria-hidden="true"><i class="ph-duotone ph-coffee"></i><i class="ph-duotone ph-heart"></i></span><span>${text[lang].donate}</span></a></div>`;
+  return (
+    text[lang].groups
+      .map(
+        (group, groupIndex) =>
+          `- ${group}\n${pages
+            .filter((page) => page.group === groupIndex)
+            .map(
+              (page) =>
+                `  - [<i class="ph-duotone ph-${page.icon}" aria-hidden="true"></i> ${page.titles[index]}](${route(base, lang, page.slug)})`,
+            )
+            .join("\n")}`,
+      )
+      .join("\n\n") +
+    `\n\n<div class="sidebar-donate-section"><a class="sidebar-donate" href="https://ko-fi.com/R5R81YESSI" target="_blank" rel="noopener noreferrer"><span class="donate-icon" aria-hidden="true"><i class="ph-duotone ph-coffee"></i><i class="ph-duotone ph-heart"></i></span><span>${text[lang].donate}</span></a></div>`
+  );
 }
 const renderer = new Marked({
   renderer: {
@@ -168,6 +170,15 @@ const renderer = new Marked({
     },
   },
 });
+function addPageContents(html: string, label: string) {
+  const headings = [...html.matchAll(/<h2 id="([^"]+)">([\s\S]*?)<\/h2>/g)];
+  if (headings.length < 3) return html;
+  const links = headings
+    .map(([, id, title]) => `<li><a href="#${id}">${title}</a></li>`)
+    .join("");
+  const contents = `<details class="page-toc"><summary>${escape(label)}</summary><nav aria-label="${escape(label)}"><ul>${links}</ul></nav></details>`;
+  return html.replace(headings[0][0], contents + headings[0][0]);
+}
 function template(
   content: string,
   sidebarHTML: string,
@@ -431,7 +442,8 @@ export async function build(
       }
       markdown = archiveLinks(markdown, config.base, originalSet);
       const index = locales.indexOf(lang);
-      const html = (await renderer.parse(markdown))
+      const parsed = await renderer.parse(markdown);
+      const html = addPageContents(parsed, text[lang].contents)
         .replace(
           /<pre><code class="language-([^"]+)">/g,
           '<pre tabindex="0" data-lang="$1"><code class="language-$1">',

@@ -61,11 +61,11 @@ histórica; la captura demo-release-screen corresponde a la entrega final.
 
 benchmarks.txt (Linux amd64, AMD EPYC 9V74; resultado puntual):
 
-| Operación | Tiempo | Bytes/op | Allocations/op |
-| --- | ---: | ---: | ---: |
-| DEX mínimo | 6.414 µs | 3,926 | 70 |
-| Activity experimental mínima | 239.823 µs | 98,662 | 1,422 |
-| Build APK con caché | 11.602 ms | 13,266,993 | 6,266 |
+| Operación                    |     Tiempo |   Bytes/op | Allocations/op |
+| ---------------------------- | ---------: | ---------: | -------------: |
+| DEX mínimo                   |   6.414 µs |      3,926 |             70 |
+| Activity experimental mínima | 239.823 µs |     98,662 |          1,422 |
+| Build APK con caché          |  11.602 ms | 13,266,993 |          6,266 |
 
 El benchmark Activity mide el experimento inicial, no todo el runtime con plugins.
 El APK release portable ocupa 22,852 bytes en esta muestra. El APK debug con JNI

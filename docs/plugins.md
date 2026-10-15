@@ -1,74 +1,93 @@
 # Plugins y API JavaScript
 
-El builder integra `/__koru/core.js` y `/__koru/core.mjs`, e incluye el primero en
-las páginas HTML. La API también se puede consumir desde `@koru/core` al añadir
-`packages/javascript` al proyecto que compila sus archivos estáticos.
+El builder incorpora `/__koru/core.js` y `/__koru/core.mjs` al APK e incluye el
+primero en las páginas HTML. También puedes usar el paquete `@koru/core` desde
+el proyecto que genera tus archivos estáticos; su código está en
+`packages/javascript`.
 
 ```js
-import { device, app, storage, vibration, share, notifications } from '/__koru/core.mjs';
+import {
+  device,
+  app,
+  storage,
+  vibration,
+  share,
+  notifications,
+} from "/__koru/core.mjs";
 console.log(await device.getInfo());
 console.log(await app.getInfo());
-await storage.set('theme', 'dark');
-console.log(await storage.get('theme'));
+await storage.set("theme", "dark");
+console.log(await storage.get("theme"));
 await vibration.vibrate(100);
-await share.text('Hola');
+await share.text("Hola");
 await notifications.requestPermission({ timeout: 120000 });
-await notifications.show({ id: 1, title: 'Recordatorio', body: 'Notificación local' });
+await notifications.show({
+  id: 1,
+  title: "Recordatorio",
+  body: "Notificación local",
+});
 ```
 
-| Plugin | Métodos | Permisos añadidos |
-| --- | --- | --- |
-| device | device.info | Ninguno: modelo, fabricante, SO, SDK |
-| app | app.info | Ninguno |
-| storage | get/set/remove/clear | Ninguno; SharedPreferences privado; keys limitadas, values string |
-| vibration | vibration.vibrate | VIBRATE; duración entera 1–10000 ms |
-| share | share.text | Ninguno; chooser ACTION_SEND text/plain |
-| notifications | show/cancel/permission/requestPermission | POST_NOTIFICATIONS; canal local desde API 26 |
+| Plugin        | Métodos JavaScript públicos                                 | Permisos que añade                                                    |
+| ------------- | ----------------------------------------------------------- | --------------------------------------------------------------------- |
+| device        | `device.getInfo()`                                          | Ninguno: modelo, fabricante, SO y SDK                                 |
+| app           | `app.getInfo()`                                             | Ninguno                                                               |
+| storage       | `storage.get()`, `set()`, `remove()`, `clear()`             | Ninguno; SharedPreferences privado; claves limitadas y valores string |
+| vibration     | `vibration.vibrate()`                                       | `VIBRATE`; duración entera de 1 a 10.000 ms                           |
+| share         | `share.text()`                                              | Ninguno; selector `ACTION_SEND` con `text/plain`                      |
+| notifications | `show()`, `cancel()`, `permission()`, `requestPermission()` | `POST_NOTIFICATIONS`; canal local desde API 26                        |
 
-Estos métodos también se invocan con `Koru.invoke(method, params, {timeout, signal})`.
-Notificaciones `show` publica inmediatamente; no es un planificador de alarmas
-futuras. `requestPermission` espera la decisión o el regreso desde ajustes. En
-Android 33+ se solicita permiso; en Android 26–32 se comprueba el control de
-notificaciones del sistema. La API no evita restricciones impuestas por el usuario.
+También puedes invocar los métodos directamente con
+`Koru.invoke(method, params, {timeout, signal})`. `notifications.show` publica
+una notificación de inmediato; no programa alarmas futuras. `requestPermission`
+espera la respuesta del usuario o su regreso desde los ajustes. En Android 13
+(API 33) y posteriores, solicita el permiso en tiempo de ejecución; en Android
+8–12 (API 26–32), comprueba el ajuste de notificaciones de la app. La API respeta
+las restricciones que haya establecido el usuario.
 
-Cancelación rechaza el Promise y evita una petición todavía no enviada. No revierte
-escrituras, vibración, notificación o UI que ya se hayan ejecutado. Códigos principales:
-INVALID_REQUEST, METHOD_NOT_FOUND, NATIVE_ERROR, PERMISSION_DENIED, STORAGE_ERROR,
-BUSY, TIMEOUT, CANCELLED, CHANNEL_ERROR y PAGE_CLOSED.
+Al cancelar, la promesa se rechaza y se evita enviar la petición si todavía no se
+ha despachado. La cancelación no revierte escrituras, vibraciones, notificaciones
+ni cambios de interfaz que ya se hayan ejecutado. Los códigos de error principales
+son `INVALID_REQUEST`, `METHOD_NOT_FOUND`, `NATIVE_ERROR`, `PERMISSION_DENIED`,
+`STORAGE_ERROR`, `BUSY`, `TIMEOUT`, `CANCELLED`, `CHANNEL_ERROR` y `PAGE_CLOSED`.
 
 ## Plugin personalizado
 
-Declarar `pluginManifests` en koru.json y activar su `id` en plugins. El manifiesto
-contiene ABI=1, permisos, clases del IR DEX y un mapa de handlers. Cada handler es
-public static con descriptor:
+Para añadir un plugin propio, declara su manifiesto en `pluginManifests` y activa
+su `id` en `plugins`. El manifiesto especifica ABI 1, permisos, clases del IR DEX
+y un mapa de handlers. Cada handler debe ser un método `public static` con este
+descriptor:
 
 `(Landroid/app/Activity;Lorg/json/JSONObject;)Lorg/json/JSONObject;`
 
-El dispatcher valida el protocolo, llama al handler y convierte excepciones en un
-error estructurado. El plugin debe validar sus params y respetar el hilo UI. Sus
-clases no pueden reemplazar el runtime/framework. Es código firmado de confianza,
-con acceso a los permisos de su aplicación.
+El dispatcher valida el protocolo, llama al handler y devuelve un error
+estructurado si se produce una excepción. El plugin debe validar sus parámetros
+y respetar los requisitos del hilo de interfaz. Sus clases no pueden reemplazar
+clases del runtime ni del framework Android. Un plugin es código de confianza
+incluido en la app y comparte sus permisos.
 
-`examples/native/plugin.json` usa una clase DEX con clinit que invoca
-System.loadLibrary y un método native. No contiene Java. Se integra así:
+`examples/native/plugin.json` muestra una clase DEX cuyo inicializador estático
+invoca `System.loadLibrary` y declara un método nativo. No incluye código Java.
+Añade estos campos a la configuración del proyecto:
 
 ```json
 {
   "plugins": ["device", "native"],
   "pluginManifests": ["plugins/native/plugin.json"],
-  "nativeLibraries": {"x86_64": ["plugins/native/libkoru_native.so"]}
+  "nativeLibraries": { "x86_64": ["plugins/native/libkoru_native.so"] }
 }
 ```
 
-Son fragmentos que deben añadirse a la configuración completa, no un koru.json
-completo. Las librerías se validan como ELF shared objects de la ABI configurada;
-no se compilan durante koru build. El binario de ejemplo es x86_64 y fue probado
-en Android 11. Para teléfonos ARM se debe proporcionar una librería de su ABI.
-Las apps con los seis plugins estándar no requieren librerías nativas y son
-independientes de la arquitectura del teléfono.
+Este ejemplo es un fragmento; no reemplaza el archivo `koru.json` completo. Koru
+valida que cada biblioteca sea un objeto compartido ELF de la ABI declarada, pero
+no la compila durante el build. El binario de ejemplo es para x86_64 y se probó
+en Android 11. Para un dispositivo ARM, proporciona una biblioteca compatible con
+su ABI. Las apps que usan los seis plugins estándar no necesitan bibliotecas
+nativas y no dependen de la arquitectura del dispositivo.
 
-El código C y la API de scopes JNI están en runtime/native. Cada scope posee su
-JNIEnv del hilo actual; solo se hace detach si el scope hizo attach. Referencias
-locales no salen de su frame; referencias de clase compartidas son globales y se
-liberan en JNI_OnUnload. `scope_test.c` prueba ownership del attach/detach mediante
-una tabla JNI de prueba; el plugin real se ejecutó adicionalmente en ART.
+El código C y la API de scopes JNI están en `runtime/native`. Cada scope usa el
+`JNIEnv` del hilo actual y solo separa (`detach`) el hilo si ese scope lo había
+conectado (`attach`). Las referencias locales no salen de su frame; las referencias
+de clase compartidas son globales y se liberan en `JNI_OnUnload`. `scope_test.c`
+comprueba la responsabilidad de conectar y separar hilos mediante una tabla JNI
+de prueba. Además, el plugin real se ejecutó en ART.

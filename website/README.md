@@ -1,6 +1,6 @@
 # koru documentation website
 
-English and Spanish documentation with Docsify 4, Docsify Themeable and a restrained clay theme. Existing Docsify navigation, search and copy-code controls are reused. Phosphor duotone icons and fonts are served locally; the site makes no CDN requests.
+English and Spanish documentation for people creating Android apps with koru. Built with Docsify 4 and Docsify Themeable, with a soft lavender reading theme. Existing Docsify navigation, search and copy-code controls are reused. Phosphor duotone icons, fonts and application scripts are served locally. The sidebar links to the Ko-fi donation page.
 
 ## Develop
 
@@ -23,7 +23,7 @@ bun run preview
 
 Replace the URL with the real public HTTPS domain and optional subpath. Deploy the contents of `dist/` at that path. Ordinary static directory indexes are sufficient: every localized route has its own `index.html` and `README.md`. Do not configure an SPA catch-all that turns missing URLs into HTTP 200. Serve `404.html` with HTTP 404.
 
-Without `SITE_URL`, the build uses localhost and marks preview pages `noindex`. With a real HTTPS `SITE_URL`, it emits indexable HTML, absolute self-canonicals, reciprocal English/Spanish/x-default `hreflang`, Open Graph metadata, TechArticle JSON-LD, robots.txt and a 36-page sitemap. No domain or ranking is fabricated. The public URL must be set correctly before deployment. When deploying under a subpath, merge the generated robots directives into the host’s domain-root `/robots.txt`; crawlers do not use a robots file inside a subdirectory. The sitemap can stay under the subpath.
+Without `SITE_URL`, the build uses localhost and marks preview pages `noindex`. With a real HTTPS `SITE_URL`, it emits indexable HTML, absolute self-canonicals, reciprocal English/Spanish/x-default `hreflang`, Open Graph metadata, TechArticle JSON-LD, robots.txt and a 40-page sitemap. No domain or ranking is fabricated. The public URL must be set correctly before deployment. When deploying under a subpath, merge the generated robots directives into the host’s domain-root `/robots.txt`; crawlers do not use a robots file inside a subdirectory. The sitemap can stay under the subpath.
 
 The root page directs readers to English; language switching preserves the current document. Other languages can be added to `scripts/catalog.ts`, with matching content and UI translations. Missing content fails the build rather than silently using another language.
 
@@ -33,11 +33,13 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for the Pages workflow and the live `koru.js.
 
 ## Appearance
 
-Use the custom appearance menu in the header to choose System, Light or Dark (Sistema, Claro u Oscuro in Spanish). System follows changes to the OS preference; explicit choices persist across pages, language switches and tabs. The theme initializes before CSS to avoid a light flash. If preference storage is unavailable, the menu still works for the current page. With JavaScript disabled, the site retains its light reading theme and hides the inactive control.
+Use the appearance menu in the header to choose System, Light or Dark (Sistema, Claro u Oscuro in Spanish). System follows changes to the OS preference; explicit choices persist across pages, language switches and tabs. The theme initializes before CSS to avoid a light flash. If preference storage is unavailable, the menu still works for the current page. With JavaScript disabled, the site retains its light reading theme and hides the inactive control.
+
+Long guides with at least three main sections include a collapsible, localized “On this page” index above the first section. It is part of the prerendered HTML for readers without JavaScript and is rebuilt after Docsify navigation so links always match the rendered headings.
 
 ## Content and provenance
 
-English guides are in `content/en/`; original Spanish reference pages are read directly from the repository at build time unless a richer localized page exists in `content/es/`. New Spanish guides live in `content/es/`. The build includes every Markdown file from `docs/`, plus the root README, engineering instructions, testing/native/example READMEs, raw results and example sources. `original/manifest.json` records SHA-256 hashes. Original documents retain their historical language and claims; the reading guides explicitly distinguish early DEX-only evidence from later APK execution.
+English guides are in `content/en/`; original Spanish reference pages are read directly from the repository at build time unless a richer localized page exists in `content/es/`. New Spanish guides live in `content/es/`. The public navigation prioritizes first steps, app guides and reference. Architecture, DEX and JNI live under Inside koru. Historical reports keep their routes and are reachable through the archive. The build includes every Markdown file from `docs/`, plus the root README, engineering instructions, testing/native/example READMEs, raw results and example sources. `original/manifest.json` records SHA-256 hashes. Original documents retain their historical language and claims; the reading guides explicitly distinguish early DEX-only evidence from later APK execution.
 
 When changing a reference, update the English counterpart. Add every new page to `scripts/catalog.ts`; both locales must be present. The build rejects unresolved relative documentation links. The tests check locale parity, coverage, source hashes and metadata. Run the build again after changing source docs or validation notes.
 
@@ -50,7 +52,7 @@ bun run test:browser
 bun run format:check
 ```
 
-Browser tests launch the installed `google-chrome-stable` with Playwright, rather than downloading a separate Chromium. Set `CHROME_PATH` if the executable is elsewhere. They start their own preview server; port 4183 must be available. Checks cover all 36 document routes, locale switching, locale-scoped search, copying, keyboard focus, responsive overflow, axe accessibility, HTTP 404, no-JavaScript reading, local-only assets and metadata updates. Screenshots and the JSON report go to ignored `test-results/`. See [VALIDATION.md](VALIDATION.md) for recorded results.
+Browser tests launch the installed `google-chrome-stable` with Playwright, rather than downloading a separate Chromium. Set `CHROME_PATH` if the executable is elsewhere. They start their own preview server; port 4183 must be available. Checks cover all 40 document routes, locale switching, locale-scoped search, copying, keyboard focus and section-index navigation, responsive overflow, axe accessibility, HTTP 404, no-JavaScript reading, local-only assets and metadata updates. Screenshots and the JSON report go to ignored `test-results/`. See [VALIDATION.md](VALIDATION.md) for recorded results.
 
 Website tooling is separate from koru's Go compiler and never enters an APK build. Upstream licenses are copied into `dist/assets/licenses/`. See [DESIGN.md](DESIGN.md) for design decisions and official research references.
 

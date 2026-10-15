@@ -52,6 +52,6 @@ Fuentes: [formato DEX](https://source.android.com/docs/core/runtime/dex-format),
 [formatos de instrucciones](https://source.android.com/docs/core/runtime/instruction-formats),
 [Activity](https://developer.android.com/reference/android/app/Activity),
 [WebView](https://developer.android.com/reference/android/webkit/WebView),
-[WebSettings](https://developer.android.com/reference/android/webkit/WebSettings#setAllowFileAccess(boolean)).
+[WebSettings](<https://developer.android.com/reference/android/webkit/WebSettings#setAllowFileAccess(boolean)>).
 La firma APK se diseñará a partir de las [especificaciones v2](https://source.android.com/docs/security/features/apksigning/v2)
 y [v3](https://source.android.com/docs/security/features/apksigning/v3) ya consultadas.

@@ -232,6 +232,22 @@ try {
     },
   );
   await check(
+    "section index is localized, keyboard accessible and jumps to its heading",
+    async () => {
+      await page.goto(origin + "/es/configuration/");
+      await ready(page);
+      const toc = page.locator(".page-toc");
+      assert.equal(await toc.locator("summary").innerText(), "En esta página");
+      await toc.locator("summary").click();
+      const link = toc.locator("a").nth(1);
+      const target = await link.getAttribute("href");
+      assert(target?.startsWith("#"));
+      await link.click();
+      assert.equal(new URL(page.url()).hash, target);
+      await page.locator(target!).waitFor();
+    },
+  );
+  await check(
     "overview, API reference and mobile layouts have no horizontal overflow",
     async () => {
       for (const width of [1440, 1024, 768, 390, 320]) {
