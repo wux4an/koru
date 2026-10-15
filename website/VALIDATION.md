@@ -19,7 +19,8 @@ No Playwright browser download was used.
   reference pages; code and wide tables scroll within their containers.
 - All 13 JavaScript API accordions work in both languages.
 - No external asset requests, JavaScript errors or failed requests occurred in
-  the checked browser flows. Missing routes return HTTP 404.
+  the checked browser flows. The Ko-fi link opens the donation page only when a
+  reader follows it. Missing routes return HTTP 404.
 - `bun run format:check` and `git diff --check` pass.
 
 The Chrome review covered desktop, phone and dark screenshots. It caught an icon

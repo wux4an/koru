@@ -157,7 +157,8 @@ function sidebar(base: string, lang: Locale) {
           )
           .join("\n")}`,
     )
-    .join("\n\n");
+    .join("\n\n") +
+    `\n\n<div class="sidebar-donate-section"><a class="sidebar-donate" href="https://ko-fi.com/R5R81YESSI" target="_blank" rel="noopener noreferrer"><span class="donate-icon" aria-hidden="true"><i class="ph-duotone ph-coffee"></i><i class="ph-duotone ph-heart"></i></span><span>${text[lang].donate}</span></a></div>`;
 }
 const renderer = new Marked({
   renderer: {

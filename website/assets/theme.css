@@ -258,7 +258,8 @@ summary:focus-visible,
   margin: 8px 0 0;
   padding: 0;
 }
-.sidebar-nav ul li a {
+.sidebar-nav ul li a,
+.sidebar-nav .sidebar-donate {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -463,6 +464,37 @@ summary:focus-visible,
   gap: 24px;
   margin-top: 26px;
   font-size: 14px;
+}
+.sidebar-donate-section {
+  margin-top: 26px;
+  padding: 12px 0 0;
+  border-top: 1px solid var(--line);
+}
+.sidebar-nav .sidebar-donate {
+  color: var(--muted);
+  text-decoration: none;
+}
+.sidebar-nav .sidebar-donate:hover {
+  background: transparent;
+  color: var(--ink);
+  text-decoration: underline;
+}
+.donate-icon {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 17px;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 17px;
+}
+.donate-icon .ph-heart {
+  position: absolute;
+  right: -4px;
+  bottom: -3px;
+  color: var(--accent);
+  font-size: 10px;
+  pointer-events: none;
 }
 .markdown-section .hero-actions .primary-link {
   display: inline-flex;

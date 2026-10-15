@@ -1,10 +1,28 @@
-# koru
+<p align="center">
+  <img src="website/assets/favicon.svg" width="88" height="88" alt="koru spiral logo" />
+</p>
 
-Turn your HTML, CSS and JavaScript into an Android app. koru packages your web files into a signed APK, with a local WebView and JavaScript access to Android features.
+<h1 align="center">koru</h1>
 
-Use plain web files or the static output of your frontend framework. The koru executable builds APKs without Java, Gradle or Android Studio, and works offline.
+<p align="center"><strong>Your web app, on Android.</strong><br />Package HTML, CSS and JavaScript into a signed APK with koru.</p>
 
-[Documentation](https://koru.js.org/en/) · [Primeros pasos en español](https://koru.js.org/es/getting-started/) · [JavaScript API](https://koru.js.org/en/plugins/)
+<p align="center">
+  <img alt="Go 1.23+" src="https://img.shields.io/badge/Go-1.23%2B-00ADD8?logo=go&logoColor=white" />
+  <img alt="Android APK" src="https://img.shields.io/badge/Android-APK-3DDC84?logo=android&logoColor=white" />
+  <img alt="Experimental" src="https://img.shields.io/badge/status-experimental-e8a838" />
+  <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-806bc8" />
+</p>
+
+<p align="center">
+  <a href="https://koru.js.org/en/getting-started/">Quick start</a> ·
+  <a href="https://koru.js.org/en/">Documentation</a> ·
+  <a href="https://koru.js.org/es/">Español</a> ·
+  <a href="https://koru.js.org/en/plugins/">JavaScript API</a>
+</p>
+
+<p align="center">
+  <a href="https://ko-fi.com/R5R81YESSI">☕️ Support koru 💛</a>
+</p>
 
 ## Get started
 
