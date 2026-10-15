@@ -31,3 +31,15 @@ Android 26–36 y dispositivos ARM, benchmarks comparativos, anotaciones general
 multidex y verificador semántico completo de registros. El parser sigue siendo
 estricto para el subconjunto implementado. El ejemplo JNI precompilado es x86_64;
 las apps estándar DEX no dependen de esa arquitectura.
+
+## Documentación de uso — rework de octubre de 2026
+
+El README y el sitio bilingüe priorizan instalación, primera app, integración de
+un frontend existente, API JavaScript y distribución con actualizaciones firmadas.
+La navegación sitúa arquitectura, DEX y JNI en «Por dentro de koru»; los registros
+históricos mantienen sus rutas y el archivo conserva los documentos originales.
+
+El diseño usa superficies suaves, tipografía local y una paleta lavanda con modos
+claro y oscuro. La investigación y las decisiones están en `website/DESIGN.md`;
+las comprobaciones reproducibles del sitio están en `website/VALIDATION.md`.
+Este hito no amplía la matriz de compatibilidad Android ni modifica el compilador.

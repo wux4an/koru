@@ -1,6 +1,6 @@
 # Configure your project
 
-`koru.json` lives at the project root. Paths are resolved against that directory unless absolute. Unknown fields, trailing JSON and invalid values are rejected.
+Set your app’s name, icon, web files and permissions in `koru.json`. You will find it in the folder created by `koru init`. Paths in this file start at that folder.
 
 ## A complete starting point
 

@@ -1,6 +1,6 @@
 # Configura tu proyecto
 
-`koru.json` está en la raíz del proyecto. Las rutas se resuelven desde ese directorio salvo que sean absolutas. Se rechazan campos desconocidos, JSON adicional y valores inválidos.
+Configura el nombre, el icono, los archivos web y los permisos de tu app en `koru.json`. Lo encontrarás en la carpeta que creaste con `koru init`. Las rutas de este archivo parten de esa carpeta.
 
 ## Un punto de partida completo
 

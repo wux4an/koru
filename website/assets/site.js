@@ -136,7 +136,7 @@
     search: {
       paths: "auto",
       pathNamespaces: [site.base + "en", site.base + "es"],
-      namespace: "koru-docs-v1",
+      namespace: "koru-docs-v2",
       placeholder: t.search,
       noData: t.empty,
       depth: 3,

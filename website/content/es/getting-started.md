@@ -1,55 +1,46 @@
-# Crea tu primera app Android
+# Crea tu primera app
 
-Esta guía empieza en un checkout limpio y termina con un APK firmado ejecutándose en Android. Los comandos se ejecutan desde la raíz del repositorio. Koru necesita Go **1.23 o posterior** para compilar la CLI una vez; el binario resultante no necesita Go, JDK, SDK Android ni red para construir APK.
+Crea un proyecto, edita su página y ábrelo en Android. Necesitas Go 1.23 o posterior para obtener koru desde el código fuente y un dispositivo o emulador Android para probar tu app.
 
-## 1. Obtén la CLI
+## Instala koru
+
+Clona el repositorio y compila el ejecutable:
 
 ```sh
 git clone https://github.com/wux4an/koru.git
 cd koru
-go version
 CGO_ENABLED=0 go build -trimpath -buildvcs=false -o bin/koru ./cmd/koru
 ./bin/koru version
 ```
 
-El último comando muestra la versión y plataforma, por ejemplo:
+La primera compilación puede descargar dependencias de Go. Una vez creado, `bin/koru` funciona por sí solo y genera APK sin Go, Java, Gradle ni conexión a Internet.
 
-```text
-koru 0.2.0-dev (linux/amd64)
-```
+Los ejemplos siguientes se ejecutan desde esta carpeta. Si añades el ejecutable a tu `PATH`, puedes usar `koru` en lugar de `./bin/koru`.
 
-Si falta `go`, instala primero la toolchain oficial. En el workspace de desarrollo registrado, `/usr/bin/go` es un juego; comprueba `command -v go` y `go version`. El binario `bin/koru` es la única herramienta necesaria para el build normal de APK. Cobra se descarga al compilar la CLI por primera vez; no se necesita para ejecutar el binario.
-
-## 2. Crea un proyecto
+## Crea un proyecto
 
 ```sh
 ./bin/koru init ./my-app
 ```
 
-Salida esperada:
-
-```text
-Initialized ./my-app; persistent signing identity: .koru/signing.pem
-```
-
-Se crea esta estructura:
+Encontrarás estos archivos:
 
 ```text
 my-app/
-├── koru.json             configuración
+├── koru.json
 ├── www/
-│   └── index.html        página de ejemplo
+│   └── index.html
 └── .koru/
-    └── signing.pem       clave privada y certificado
+    └── signing.pem
 ```
 
-`init` no reemplaza un `koru.json` existente. La clave se crea una sola vez con modo `0600`. Guárdala fuera de la carpeta web y del control de versiones: Android exige el mismo certificado en cada actualización.
+`www` contiene tu web. `koru.json` configura la app. `signing.pem` es su identidad de firma: guarda una copia segura y excluye `.koru/` de Git. Necesitarás esa misma clave para actualizar la app.
 
-Abre `my-app/www/index.html` en un navegador para ver el ejemplo. Sustitúyelo por tu HTML, CSS, JavaScript, fuentes e imágenes. Los archivos referenciados deben quedar dentro de `webDir`; la app empaquetada no carga scripts e iframes externos.
+Abre `my-app/www/index.html` y cambia el título o añade tu contenido. Puedes previsualizar la parte web en un navegador; las funciones de Android se prueban dentro del APK.
 
-## 3. Define la identidad antes de distribuir
+## Dale un nombre
 
-`my-app/koru.json` comienza con `appId: "com.example.koru"`, `name: "Koru"`, `version: "1.0.0"`, `versionCode: 1` y `webDir: "www"`. Cambia identificador y nombre antes de la primera instalación. Android considera un `appId` diferente como otra app; las actualizaciones deben conservar identificador y clave.
+Sustituye el contenido de `my-app/koru.json` por:
 
 ```json
 {
@@ -66,67 +57,39 @@ Abre `my-app/www/index.html` en un navegador para ver el ejemplo. Sustitúyelo p
 }
 ```
 
-Es una configuración completa. `versionCode` debe subir en cada actualización distribuida. Se acepta el rango SDK 26–36; la ejecución registrada es Android 11/API 30, no todos los niveles. [Todos los campos y reglas]({{base}}es/configuration/) se explican aparte.
+`name` aparece en Android. `appId` identifica tu app; elige uno propio antes de distribuirla. Consulta [Configuración]({{base}}es/configuration/) cuando necesites cambiar el icono, los permisos o la carpeta web.
 
-## 4. Comprueba, compila y verifica
+## Genera el APK
 
 ```sh
 ./bin/koru doctor ./my-app
 ./bin/koru build ./my-app --output app-debug.apk
-./bin/koru build ./my-app --release --output app.apk
-./bin/koru verify app.apk
+./bin/koru verify app-debug.apk
 ```
 
-`doctor` revisa configuración, clave, entrada web y manifiestos de plugins. Una comprobación correcta termina así:
+`doctor` revisa el proyecto. `build` genera `app-debug.apk` en la carpeta actual. `verify` devuelve los datos del APK y comprueba su firma y estructura. La salida del APK debe quedar fuera de `www`.
 
-```text
-Project com.example.hello: configuration, persistent signing identity, web entry point, and plugin manifests are valid.
-```
+Este build permite inspeccionar el WebView durante las pruebas. Para compartir la app, usa después [un build release]({{base}}es/distribution/).
 
-El primer `build` genera un APK debug con inspección WebView disponible. El segundo genera release y desactiva debug y DevTools. Ambos usan la identidad de firma configurada; ninguno crea una clave nueva en silencio. La ruta de salida es relativa al directorio actual de la terminal, debe terminar en `.apk` y quedar fuera de `webDir`. `app.apk` en la raíz del repositorio cumple esto.
+## Abre la app en Android
 
-```text
-Runtime cache hit: false
-Wrote app.apk (16785 bytes), APK v2 RSA/SHA-256, certificate 3ecd2de5…
-```
-
-El tamaño y la huella varían con tus archivos y clave. El segundo build puede decir `Runtime cache hit: true` porque reutiliza DEX del runtime; el APK final sigue usando tus assets y el modo actual.
-
-`verify` imprime JSON en stdout. Sus campos son `appId`, `entries`, `bytes`, `certificateSha256` y `signatureScheme`. Que la firma y estructura pasen no demuestra ejecución en Android.
-
-## 5. Instala y abre en Android
-
-Solo para este paso necesitas un dispositivo o emulador y `adb`. Es una herramienta de instalación/prueba, no dependencia del build. Android 8/API 26 es el mínimo configurado; prueba tus dispositivos objetivo.
+Conecta un dispositivo con depuración USB activada o inicia un emulador. Con `adb` instalado y el dispositivo conectado, ejecuta:
 
 ```sh
-adb install -r app.apk
+adb install -r app-debug.apk
 adb shell am start -W -n com.example.hello/com.koru.runtime.MainActivity
 ```
 
-Usa tu `appId` exacto antes de la barra. La Activity del runtime es `com.koru.runtime.MainActivity`. Comprueba que el WebView muestra tu página y prueba navegación, almacenamiento y métodos nativos que uses. La [matriz Android registrada]({{base}}es/android-results/) cubre API 30/x86_64; no valida tu app en todos los equipos.
+Si elegiste otro `appId`, sustituye `com.example.hello` antes de la barra. Verás la página de `www/index.html` dentro de tu app. `adb` se usa para instalar y probar; no hace falta para generar el APK.
 
-## 6. Actualiza la app
+Cambia algo en el HTML, repite `build` y vuelve a instalar. Ya tienes el recorrido de edición y prueba.
 
-Edita tus archivos web, incrementa `versionCode` (y cambia `version` si quieres otra etiqueta visible), y recompila con **el mismo** `appId` y `signingKey`:
+> La ejecución registrada de koru cubre Android 11 (API 30), x86_64. El rango configurable es API 26–36; comprueba tu app en los dispositivos que quieras admitir.
 
-```sh
-./bin/koru build ./my-app --release --output app-v2.apk
-./bin/koru verify app-v2.apk
-adb install -r app-v2.apk
-```
+## Sigue con tu app
 
-No borres ni reemplaces `my-app/.koru/signing.pem`. Si Android muestra `INSTALL_FAILED_UPDATE_INCOMPATIBLE`, la app instalada y el APK nuevo tienen certificados distintos o cambió su identidad. Recupera la clave original; no generes otra en silencio.
+- [Usa tu frontend existente]({{base}}es/existing-project/).
+- [Guarda datos y usa funciones de Android]({{base}}es/plugins/).
+- [Prepara una versión para compartir]({{base}}es/distribution/).
 
-## Usa un proyecto web existente
-
-Compila React, Vue, Svelte, Parcel u otra herramienta a una **carpeta estática**. Configura `webDir` para esa carpeta y asegúrate de que contiene `index.html` regular y rutas locales para scripts, estilos y assets. Para `dist/` junto a `koru.json`:
-
-```sh
-npm --prefix ./my-app run build
-./bin/koru doctor ./my-app
-./bin/koru build ./my-app --release --output app.apk
-```
-
-Pon `"webDir": "dist"` en `my-app/koru.json` si la entrada generada está en `my-app/dist/index.html`. El framework y sus dependencias Node se ejecutan antes de Koru; no se empaquetan como herramientas de build de Koru. Las rutas de cliente pueden usar `"spa": true`; archivos desconocidos siguen devolviendo 404. La [guía de configuración]({{base}}es/configuration/) explica salidas de frameworks, URLs y permisos de red.
-
-Si un comando falla, la [guía de problemas]({{base}}es/troubleshooting/) relaciona error, causa y solución. La [referencia CLI]({{base}}es/cli/) enumera flags y salidas procesables.
+Si un paso falla, consulta [Solución de problemas]({{base}}es/troubleshooting/).

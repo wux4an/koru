@@ -1,29 +1,34 @@
-# Seguridad y firmas
+# Firmas y seguridad
 
-koru empaqueta código de aplicación de confianza. Sus comprobaciones delimitan assets, navegación y mensajes del puente; no aíslan un plugin firmado malicioso de la aplicación.
+Tu app incluye una identidad de firma y sus propios archivos web. Protege la clave y configura los permisos que necesita tu aplicación.
 
-## Conserva una identidad de firma
+## Conserva tu clave de firma
 
-`init` y `keygen` crean explícitamente un PEM con clave y certificado, con permisos `0600`. `build` exige una identidad válida existente. `--release` la reutiliza y deshabilita debug. Guarda una copia segura fuera del control de versiones y de los assets. Las actualizaciones Android necesitan el mismo certificado.
+`koru init` crea `.koru/signing.pem` con la clave privada y el certificado. Guarda una copia segura fuera del proyecto y excluye `.koru/` del control de versiones. Mantén la clave fuera de `webDir`.
 
-APK v2 usa RSA PKCS#1 v1.5/SHA-256, algoritmo `0x0103`, y bloques digest de 1 MiB. Los recursos se alinean antes de firmar; las bibliotecas nativas usan 16 KiB. El APK firmado no se modifica después. `verify` comprueba firma, certificado, digest, ZIP, DEX, manifiesto, recursos e icono.
+Android exige el mismo certificado para actualizar una app instalada. Tanto debug como release usan `signingKey` de `koru.json`. Si la clave falta o es inválida, el build falla: restaura la identidad original antes de continuar.
 
-## Un origen HTTPS local
+`koru keygen --output nueva-identidad.pem` crea otra identidad, pero no sirve para reemplazar la de una app ya distribuida. Consulta [Distribuye tu app]({{base}}es/distribution/) para preparar actualizaciones.
 
-El runtime sirve solo assets empaquetados de su allowlist en `https://app.koru.invalid`. Comprueba esquema y autoridad; no concatena rutas recibidas con el filesystem del host. Deshabilita file/content. Los assets desconocidos devuelven 404; SPA solo aplica a rutas sin extensión.
+## Incluye solo archivos de la app
 
-Los service workers usan la misma allowlist mediante Application context, sin retener Activity. La red se bloquea salvo permiso `INTERNET` explícito. CSP bloquea scripts y frames externos, pero permite scripts empaquetados, inline/eval que ciertas salidas web necesitan y conexiones HTTPS autorizadas. No es una CSP estricta sin inline.
+Apunta `webDir` a la salida web que quieras distribuir, con su `index.html`. Evita incluir credenciales, archivos privados o contenido ajeno a la app. Koru rechaza claves privadas detectadas, enlaces simbólicos y rutas inseguras, pero revisa siempre qué estás empaquetando.
 
-## Puente MessagePort
+Los archivos se cargan desde `https://app.koru.invalid`. Ese origen pertenece al contenido local de la app; no requiere un dominio ni un servidor externo. Los scripts e iframes remotos están bloqueados. Incluye tus scripts en la carpeta web.
 
-El puerto se transfiere al frame principal con targetOrigin explícito. No existe `addJavascriptInterface`. El receptor comprueba origen del documento, frame principal, evento nativo trusted y ausencia de Window source.
+## Permite solo la red que necesitas
 
-Las peticiones usan protocolo v1, IDs, métodos y parámetros. Solo se aceptan handlers activados. El cliente limita peticiones pendientes, aplica timeouts, cierra promesas al salir y permite cancelar antes del dispatch. Cancelar no deshace una acción ya ejecutada en Android.
+Tu contenido local funciona sin permiso de Internet. Si consumes una API externa, declara `android.permission.INTERNET`, usa HTTPS y configura CORS para el origen de la app. Encontrarás un ejemplo en [Usa tu proyecto web]({{base}}es/existing-project/).
 
-Los plugins DEX y JNI comparten UID y permisos. Son código de confianza del desarrollador. Valida parámetros, respeta el hilo UI y aporta la ABI nativa correcta.
+Los plugins personalizados se ejecutan con los permisos de tu app. Incluye solo plugins y bibliotecas nativas de confianza.
 
-## Qué demuestra la verificación
+## Comprueba el APK que compartes
 
-Un APK estructuralmente válido no demuestra resolución ART, ciclo de vida, renderizado o seguridad de código arbitrario. Las comprobaciones registradas corresponden al runtime probado y la matriz API 30/x86_64. Valida tus propios artefactos en Android.
+```sh
+./bin/koru build ./my-app --release --output app-release.apk
+./bin/koru verify app-release.apk
+```
 
-[Decisiones del runtime]({{base}}es/architecture-apk/) · [Evidencia de ejecución]({{base}}es/android-results/)
+Release desactiva debug y la inspección del WebView. `verify` comprueba la firma y la estructura del APK. Instálalo y prueba también las funciones de tu app en Android.
+
+Para entender el origen HTTPS, MessagePort y los límites del WebView, consulta [APK y runtime]({{base}}es/architecture-apk/).

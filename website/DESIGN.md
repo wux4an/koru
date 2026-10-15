@@ -1,101 +1,83 @@
-# A small workshop for Android apps
+# Documentation for people building apps with koru
 
-Koru turns static web assets into a signed Android package. Its documentation is
-for developers who need runnable examples, precise format references, and honest
-Android evidence. The design makes that transformation tangible.
+## Audience and editorial direction
 
-## Tokens
+Readers want to install koru, package their web project, use Android features and
+share an APK. The README answers what koru does, how to start and where to find
+help. The website guides those tasks with prerequisites, executable commands,
+expected outcomes and next steps. Internal workspace paths and development-tool
+notes belong in engineering documentation.
 
-- Porcelain `#F7F9FD`: reading surface.
-- Ink `#263B66`: text and code.
-- Iris `#A79CE8`: molded hero objects and active navigation.
-- Mint `#BCE4CC`: Android object and success context.
-- Peach `#F2B9A5`: small supporting accents.
-- White `#FFFFFF`: inset paper and highlights.
-
-Nunito Variable supplies rounded, readable headings and body text. JetBrains Mono
-is reserved for commands and code. Both are self-hosted. Phosphor duotone icons
-share the rounded geometry; they replace decorative emoji.
-
-## Layout
-
-Left-aligned documentation lives on a quiet reading sheet, with Docsify's native
-sidebar, search and copy controls. The overview pairs a large, plain headline with
-a tactile browser-to-Android illustration. The illustration is the one bold area.
-
-```text
-┌ logo / documentation ───────────────── language / source ┐
-│ search       │ headline                browser → Android │
-│              │ introduction           molded illustration│
-│ guide        │ get started / architecture                │
-│ reference    │ VHS CLI recording                          │
-│              │ runnable examples + expected output      │
-│ evidence     │ readable documentation                    │
-└──────────────┴───────────────────────────────────────────┘
-```
-
-On phones the illustration gets smaller and the native sidebar becomes a drawer.
-Texture is confined to the molded objects, not behind text. Shadows establish
-physical depth; they are not applied to every paragraph or section. Motion only
-responds to user actions and respects reduced motion.
-
-## Review against the brief
-
-The first sketch spread raised clay cards across every section. That impeded
-scanning and looked like a generic card grid. The final plan keeps Docsify's
-existing reading and navigation structures and concentrates the stop-motion
-reference in the overview. Cold porcelain, iris and mint replace the predictable
-warm terracotta palette. No custom component framework is introduced.
+The information architecture separates first steps, app guides, reference and
+“Inside koru”. DEX, JNI and runtime explanations live in the last section.
+Historical test reports remain reachable at their existing URLs and through the
+project archive; they do not occupy a main navigation group. Compatibility limits
+remain visible where they affect installation or distribution decisions.
 
 ## Research
 
-- [Docsify configuration](https://docsify.js.org/#/configuration): history routing,
-  locale sidebars and plugins. Docsify 4.13.1 is pinned to match Themeable's v4
-  integration; a v5 migration needs a separate compatibility review.
-- [Docsify Themeable](https://jhildenbiddle.github.io/docsify-themeable/#/): reuse
-  the existing theme and override its documented design tokens.
-- [Google JavaScript SEO](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics):
-  serve document text in HTML and use real URLs rather than hash routes.
-- [Google localized pages](https://developers.google.com/search/docs/specialty/international/localized-versions):
-  bidirectional, absolute `hreflang` links and self-canonical pages.
-- [Google robots.txt location](https://developers.google.com/crawling/docs/robots-txt/create-robots-txt):
-  subpath deployments must put crawler directives at the domain root.
-- [Phosphor Web](https://github.com/phosphor-icons/web): reusable duotone icons,
-  self-hosted and licensed under MIT.
+Reviewed on 2026-10-14:
 
-- [Parcel](https://parceljs.org/): concise examples adjacent to the feature they
-  explain, with immediate commands and visible output. Koru uses that teaching
-  pattern while keeping Docsify's native code blocks and copy controls.
-- [Charm VHS](https://github.com/charmbracelet/vhs): a reproducible terminal tape
-  records real CLI commands as a compact GIF for the overview. A static frame
-  replaces the animation under the reader's reduced-motion preference.
-- [Expo documentation](https://docs.expo.dev/versions/latest/sdk/): per-method
-  reference pages make arguments, return values and examples easy to find. Koru
-  uses native HTML details for the equivalent API reference, keeping all method
-  text in the initial HTML and available without JavaScript.
+- [Expo docs](https://docs.expo.dev/): task-oriented entry points and a clear path
+  from starting a project to developing and distributing it.
+- [Bun docs](https://bun.com/docs): short introductions with useful commands near
+  the start, and a compact topic navigation.
+- [Deno docs](https://docs.deno.com/runtime/): separate getting-started material,
+  guides, examples and reference.
+- [Parcel docs](https://parceljs.org/docs/): familiar task names and direct links
+  into setup and feature guides.
+- [GitHub README guidance](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes):
+  introduce the project, explain getting started and point to help.
+- [Diátaxis](https://www.diataxis.fr/start-here/): tutorials, task guides,
+  reference and explanations serve different reader needs.
 
-SEO metadata belongs to each generated HTML document. Docsify enhances that
-document with search and navigation. A JavaScript-free reader receives the same
-content and working document links. Missing routes return HTTP 404.
+These are structural references. Koru's examples come from its CLI and runtime;
+copy is written for this product rather than adapted from another tool's promises.
 
-## Dark appearance
+## Design plan
 
-The night palette uses midnight blue `#171F32`, slate paper `#202B41`, pale ink
-`#E2E8F5`, secondary ink `#B9C5DC`, lavender links `#C3B5F5` and mint accents.
-Clay objects retain their pastel surfaces but cast darker shadows. Code, tables,
-search results, controls and focus rings share the same palette. A custom menu button with checked options
-reuses the header's inset treatment and keeps the mobile header compact.
+Six core colors: paper `#FFFFFF`, wash `#F7F7FA`, ink `#292B36`, secondary text
+`#646674`, lavender `#6851A5`, and lavender wash `#EFEBF8`. Borders use `#E6E5ED`.
+Dark mode uses neutral violet surfaces, pale text and light lavender links.
 
-The initial sketch merely inverted the reading surface, leaving bright search
-fields and weak syntax contrast. The final palette covers those surfaces and
-uses separate readable syntax colors.
+Nunito Variable retains koru's soft character at a quieter weight and scale.
+JetBrains Mono is reserved for code. Fonts and icons stay local. No new package
+is needed for this design.
 
-Browser behavior follows [MDN color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/color-scheme)
-and [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia).
-The preference bootstrap runs before CSS, with system preference as the default
-and optional storage for explicit choices.
+```text
+logo / documentation                  language / appearance / archive
+navigation          introduction and first action
+search              two commands to create an APK
+first steps         task links with short descriptions
+app guides          how the app fits an existing web project
+reference           compatibility and next steps
+inside koru
+```
 
-The custom menu replaces the browser select at the user's request. It follows the
-[WAI-ARIA menu button pattern](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/)
-with radio menu items, arrow keys, Home/End, Escape, Tab dismissal and returned
-focus. The appearance choices are styled entirely with the site theme.
+All reading content is left aligned, with a maximum article width of 880 px
+including padding. Mobile uses the existing navigation drawer and one-column task
+links. Rounded controls, lavender surfaces and generous line spacing provide
+softness. Borders separate content only where they help scanning.
+
+## Review before implementation
+
+The first rework removed the browser-to-APK illustration to bring the first
+commands forward. Reader feedback made clear that the playful illustration was a
+favorite part of koru's character. Keep it beside the headline, where it explains
+the product at a glance. The two-command start follows immediately below. Raised
+clay surfaces remain limited to this one illustration; the rest of the site keeps
+the quiet reading layout. The terminal recording stays behind a reader-opened
+disclosure.
+
+## Implementation and review
+
+The CSS is replaced with a token-based light/dark system rather than another layer
+of overrides. Existing Docsify routing, copy, search, language switching and theme
+keyboard behavior remain. The search namespace changes with this content revision
+to avoid showing stale indexed text. The long-page contents index works with and
+without JavaScript. All original records remain in the generated archive.
+
+Review uses the installed `google-chrome-stable` through Playwright: desktop and
+mobile screenshots, all routes, theme controls, links, code copying, search,
+keyboard access, reduced motion and axe checks. Results are recorded separately
+in [VALIDATION.md](VALIDATION.md).

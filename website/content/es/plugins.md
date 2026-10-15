@@ -1,6 +1,6 @@
 # API JavaScript
 
-Koru ofrece seis plugins Android opcionales a las páginas de un APK generado. Aquí se explica **cada método público de JavaScript**: qué activar, qué argumentos recibe, qué devuelve y cómo puede fallar. La API usa promesas sobre un MessagePort ligado al origen de la app. Una vista previa en un navegador de escritorio no tiene canal nativo; prueba estas llamadas en el APK, sobre Android.
+Usa funciones de Android desde el JavaScript de tu app: consulta el dispositivo, guarda datos, comparte texto o muestra notificaciones. Las llamadas devuelven promesas y funcionan dentro del APK instalado en Android.
 
 ## Antes de llamar la API
 
@@ -265,26 +265,8 @@ console.log(info.model, raw.value); // raw.value es string o null
 
 Los errores rechazan con un `Error` cuyo `code` y `message` puedes mostrar o registrar. `INVALID_REQUEST` significa método o argumentos inválidos; `METHOD_NOT_FOUND`, método o plugin no disponible; `STORAGE_ERROR`, fallo de guardado; `PERMISSION_DENIED`, permiso o ajuste de notificaciones desactivado; `NATIVE_ERROR`, excepción Android. `BUSY`, `TIMEOUT`, `CANCELLED`, `CHANNEL_ERROR`, `CHANNEL_REPLACED`, `INVALID_RESPONSE` y `PAGE_CLOSED` describen el ciclo de vida del puente. Un timeout o cancelación no demuestra que una acción nativa ya iniciada se haya revertido.
 
-## Plugins personalizados
+## Amplía tu app
 
-Añade la ruta del manifest a `pluginManifests` en `koru.json` y su ID a `plugins`. El manifest usa ABI 1, declara permisos, clases IR DEX y un mapa de método a handler. Cada handler es `public static` con descriptor:
+Para añadir funciones propias, consulta el [adaptador nativo]({{base}}es/native/) y la [referencia de plugins personalizados]({{base}}original/docs/plugins.md).
 
-```text
-(Landroid/app/Activity;Lorg/json/JSONObject;)Lorg/json/JSONObject;
-```
-
-Recibe la `Activity` Android y un objeto JSON de `params`; devuelve un objeto JSON de resultado. Debe validar sus parámetros y respetar el hilo UI. Sus clases no pueden reemplazar el runtime ni las clases del framework. Un plugin personalizado es código firmado de confianza con los permisos de la app. La [API DEX]({{base}}es/dex-api/) describe la entrada IR; el [adaptador JNI opcional]({{base}}es/native/) explica el ejemplo y sus requisitos ABI. Las [notas originales]({{base}}original/docs/plugins.md) conservan detalles de implementación.
-
-Para el ejemplo JNI x86_64 incluido, añade estos campos a tu configuración completa después de copiar su manifest y la biblioteca precompilada al proyecto:
-
-```json
-{
-  "plugins": ["device", "native"],
-  "pluginManifests": ["plugins/native/plugin.json"],
-  "nativeLibraries": { "x86_64": ["plugins/native/libkoru_native.so"] }
-}
-```
-
-Es un fragmento, no un `koru.json` completo. Koru valida el ELF para la ABI declarada, pero no lo compila durante el build APK. Ese ejemplo se ejecutó en Android 11/x86_64; un dispositivo ARM necesita un binario compatible. Los plugins integrados no requieren bibliotecas nativas.
-
-[Configuración]({{base}}es/configuration/) · [Seguridad del puente]({{base}}es/security/) · [Solución de problemas]({{base}}es/troubleshooting/)
+[Configuración]({{base}}es/configuration/) · [Solución de problemas]({{base}}es/troubleshooting/)

@@ -2,9 +2,9 @@
 
 Start with `./bin/koru doctor ./my-app`. It validates the configuration, signing identity, web entry point and plugin manifests before a full build. All commands below assume the koru repository root and the project shown in [Getting started]({{base}}en/getting-started/).
 
-## The compiler command is wrong
+## Go is not found
 
-If `go version` launches a game or says command not found, inspect `command -v go` and put an actual Go 1.23+ compiler first on `PATH`. In the recorded development workspace, `/usr/bin/go` is a game. Go is needed to compile the CLI once; it is not needed when running the compiled CLI to make an APK.
+If `go version` returns “command not found”, install Go 1.23 or later and check that it is on your `PATH`. You only need Go to build the koru executable; you can then generate APKs with that executable.
 
 ## `doctor` or `build` rejects the project
 

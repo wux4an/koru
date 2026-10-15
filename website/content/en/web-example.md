@@ -1,6 +1,6 @@
 # Run the web example
 
-`examples/web` is a small, dependency-free app used in the Android execution tests. It has a counter, a second local page, CSS and an SVG icon. It is deliberately plain so each WebView behavior is easy to see. You can build it without a frontend tool.
+Try a small HTML, CSS and JavaScript app before connecting your project. The example includes a counter, an SVG image and a second page. You do not need to install web dependencies.
 
 ## Make the APK
 
@@ -38,7 +38,7 @@ The first page should show the SVG icon, "koru" heading, a Spanish text line, `C
 
 The example's `app.js` does not call native plugins. To test the [JavaScript bridge]({{base}}en/plugins/), add a module script that imports `/__koru/core.mjs`. The browser preview tests only the web portion; Android is required to verify the bridge.
 
-For the recorded service-worker check, copy `tests/fixtures/sw.js` to `my-app/www/sw.js` and register it from your page. The recorded [Android evidence]({{base}}en/android-results/) also covers rendering with network radios disabled.
+For the recorded service-worker check, copy `tests/examples/sw.js` to `my-app/www/sw.js` and register it from your page. The recorded [Android evidence]({{base}}en/android-results/) also covers rendering with network radios disabled.
 
 ## Read the files
 
@@ -48,4 +48,4 @@ For the recorded service-worker check, copy `tests/fixtures/sw.js` to `my-app/ww
 - [icon.svg]({{base}}original/examples/web/icon.svg ":ignore") — local vector image.
 - [second.html]({{base}}original/examples/web/second.html ":ignore") — navigation target.
 
-The archive serves these as source text, so visiting an HTML source link on the docs site does not run the Android app. The original example README contains a historical statement from before the APK builder was completed; [current Android results]({{base}}en/android-results/) supersede that status note.
+These links show the source code. Install the APK on Android to run the example.

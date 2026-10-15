@@ -170,7 +170,7 @@ try {
       await page.goBack();
       await page.waitForURL("**/en/plugins/");
       await page.waitForFunction(
-        () => document.title === "JavaScript & plugins · koru",
+        () => document.title === "JavaScript API · koru",
       );
     },
   );
@@ -180,7 +180,7 @@ try {
       await ready(page);
       await page.waitForFunction(
         (locale) =>
-          !!localStorage.getItem(`docsify.search.index/koru-docs-v1/${locale}`),
+          !!localStorage.getItem(`docsify.search.index/koru-docs-v2/${locale}`),
         lang,
       );
       const input = page.locator(".search input");
@@ -436,7 +436,7 @@ try {
           .click();
         await nestedPage.waitForURL("**/handbook/en/plugins/");
         await nestedPage.waitForFunction(
-          () => document.title === "JavaScript & plugins · koru",
+          () => document.title === "JavaScript API · koru",
         );
         await nestedPage.locator('[data-locale="es"]').click();
         await nestedPage.waitForURL("**/handbook/es/plugins/");
@@ -448,7 +448,7 @@ try {
         await nestedPage.waitForFunction(
           () =>
             !!localStorage.getItem(
-              "docsify.search.index/koru-docs-v1/handbook/es",
+              "docsify.search.index/koru-docs-v2/handbook/es",
             ),
         );
         await nestedPage.locator(".search input").fill("MessagePort");

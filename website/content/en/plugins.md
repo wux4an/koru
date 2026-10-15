@@ -1,6 +1,6 @@
 # JavaScript API
 
-Koru exposes six optional Android plugins to pages inside a built APK. This page documents **every public JavaScript method**: what to enable, what to pass, what resolves, and what can fail. The API uses Promises over an origin-bound MessagePort. A desktop browser preview has no native channel, so test native calls in the APK on Android.
+Use Android features from your app’s JavaScript: read device information, store data, share text or show notifications. Calls return promises and work inside the APK installed on Android.
 
 ## Before you call an API
 
@@ -265,26 +265,8 @@ console.log(info.model, raw.value); // raw.value is string or null
 
 Errors reject with an `Error` whose `code` and `message` can be displayed or logged. `INVALID_REQUEST` means invalid method/arguments; `METHOD_NOT_FOUND` means the method or plugin is unavailable; `STORAGE_ERROR` means a storage commit failed; `PERMISSION_DENIED` means a required notification permission or setting is off; `NATIVE_ERROR` means Android threw an error. `BUSY`, `TIMEOUT`, `CANCELLED`, `CHANNEL_ERROR`, `CHANNEL_REPLACED`, `INVALID_RESPONSE` and `PAGE_CLOSED` describe the bridge lifecycle. A timeout or cancellation does not prove an already dispatched native action was rolled back.
 
-## Custom plugins
+## Extend your app
 
-Add a manifest path to `pluginManifests` in `koru.json` and its ID to `plugins`. The manifest uses ABI 1, declares permissions, DEX IR classes and a method-to-handler map. Every handler is public static with descriptor:
+To add your own features, see the [native adapter]({{base}}en/native/) and the [custom plugin reference]({{base}}original/docs/plugins.md).
 
-```text
-(Landroid/app/Activity;Lorg/json/JSONObject;)Lorg/json/JSONObject;
-```
-
-The handler receives Android's `Activity` and a JSON object of `params`, and returns a JSON result object. It must validate its own parameters and respect the UI thread. Its classes cannot replace runtime or framework classes. A custom plugin is trusted, signed code with the application's permissions. The [DEX API]({{base}}en/dex-api/) describes IR inputs; [optional JNI adapter]({{base}}en/native/) explains the native sample and ABI requirements. The [original plugin notes]({{base}}original/docs/plugins.md) retain implementation details.
-
-For the included x86_64 JNI example, add these fields to your full configuration after copying its manifest and precompiled library into the project:
-
-```json
-{
-  "plugins": ["device", "native"],
-  "pluginManifests": ["plugins/native/plugin.json"],
-  "nativeLibraries": { "x86_64": ["plugins/native/libkoru_native.so"] }
-}
-```
-
-This is a fragment, not a complete `koru.json`. Koru validates the ELF library for the declared ABI but does not compile it during the APK build. That sample was run on Android 11/x86_64; ARM devices need their own matching binary. Built-in plugins do not require a native library.
-
-[Configuration]({{base}}en/configuration/) · [Bridge security]({{base}}en/security/) · [Troubleshooting]({{base}}en/troubleshooting/)
+[Configuration]({{base}}en/configuration/) · [Troubleshooting]({{base}}en/troubleshooting/)

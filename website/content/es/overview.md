@@ -1,101 +1,52 @@
 <div class="hero">
 <div class="hero-copy">
-<p class="release-note"><span class="status-dot"></span> Una toolchain Android independiente</p>
-<h1>Tu app web.<br>Un poco más nativa.</h1>
-<p class="hero-description">Dale un hogar en Android a tu HTML, CSS y JavaScript. koru genera un APK firmado directamente en Go, con un WebView local y un pequeño puente nativo.</p>
-<div class="hero-actions"><a class="primary-link" href="{{base}}es/getting-started/">Crea tu primera app <i class="ph-duotone ph-rocket-launch" aria-hidden="true"></i></a><a href="{{base}}es/architecture-apk/">Cómo funciona</a></div>
+<h1>Tu web, en Android.</h1>
+<p class="hero-description">Convierte tu HTML, CSS y JavaScript en una app Android. koru empaqueta tus archivos web en un APK firmado, listo para instalar y probar en tu dispositivo.</p>
+<div class="hero-actions"><a class="primary-link" href="{{base}}es/getting-started/">Crea tu primera app <i class="ph-duotone ph-rocket-launch" aria-hidden="true"></i></a><a href="{{base}}es/existing-project/">Ya tengo un proyecto web</a></div>
 </div>
-<div class="clay-scene" role="img" aria-label="Un navegador web se convierte en un paquete Android">
-<div class="clay-orbit"></div><div class="clay-browser"><div class="browser-dots"><b></b><b></b><b></b></div><i class="ph-duotone ph-code" aria-hidden="true"></i><span>HTML · CSS · JS</span></div>
+<div class="clay-scene" role="img" aria-label="Un navegador con HTML, CSS y JavaScript se transforma en una app APK para Android">
+<div class="clay-orbit"></div>
+<div class="clay-browser"><div class="browser-dots"><b></b><b></b><b></b></div><i class="ph-duotone ph-code" aria-hidden="true"></i><span>HTML · CSS · JS</span></div>
 <div class="clay-connector"><i class="ph-duotone ph-arrow-bend-down-right" aria-hidden="true"></i></div>
 <div class="clay-android"><i class="ph-duotone ph-android-logo" aria-hidden="true"></i><span>app.apk</span></div>
 <div class="clay-stamp"><i class="ph-duotone ph-seal-check" aria-hidden="true"></i> Firmado en Go</div>
 </div>
 </div>
 
-<figure class="hero-recording">
-<picture><source media="(prefers-reduced-motion: reduce)" srcset="{{base}}assets/hero-poster.png"><img src="{{base}}assets/hero-demo.gif" width="960" height="360" alt="Sesión animada de koru: iniciar un proyecto, generar un APK firmado y verificar su firma"></picture>
-<figcaption>Sesión de terminal real grabada con VHS: un proyecto, un APK firmado y una verificación. Los comandos y su salida aparecen abajo. <a href="{{base}}assets/hero-demo.gif">Abrir el GIF</a>.</figcaption>
-</figure>
-
-## De una carpeta web a una app Android
-
-Koru toma la salida estática de tu aplicación web y la empaqueta como APK. No ejecuta el build de tu framework. Comienza con el proyecto de `koru init` o configura `webDir` para usar una carpeta ya compilada.
-
-### 1. Inicia el proyecto y edita su página
-
-Ejecuta `./bin/koru init ./my-app` desde la raíz del repositorio. Reemplaza el archivo generado `my-app/www/index.html` por:
-
-```html
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hola Android</title>
-    <style>
-      body {
-        font: 1.1rem system-ui;
-        padding: 2rem;
-      }
-      button {
-        padding: 0.8rem 1rem;
-        font: inherit;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Hola Android</h1>
-    <button id="tap">Toques: 0</button>
-    <script>
-      let taps = 0;
-      document.querySelector("#tap").addEventListener("click", (event) => {
-        event.currentTarget.textContent = "Toques: " + ++taps;
-      });
-    </script>
-  </body>
-</html>
-```
-
-El botón cambia con cada toque. Koru también acepta CSS, JavaScript, imágenes y fuentes locales en archivos separados. El [ejemplo web]({{base}}es/web-example/) muestra navegación, plugins y uso sin red.
-
-### 2. Genera e inspecciona el APK
-
-Ejecuta estos comandos desde la raíz del repositorio tras [compilar la CLI]({{base}}es/getting-started/):
+<div class="quick-start">
+<p>Con koru compilado, empieza con una página de ejemplo:</p>
 
 ```sh
-./bin/koru build ./my-app --release --output app.apk
-./bin/koru verify app.apk
+./bin/koru init ./my-app
+./bin/koru build ./my-app --output app.apk
 ```
 
-El build muestra el estado de caché, tamaño, tipo de firma y huella del certificado. `verify` devuelve JSON procesable:
+Edita `my-app/www/index.html` y vuelve a generar el APK para incluir tus cambios. ¿Aún no tienes koru? Sigue la [instalación]({{base}}es/getting-started/).
 
-```text
-Runtime cache hit: false
-Wrote app.apk (16785 bytes), APK v2 RSA/SHA-256, certificate 3ecd2de5…
-{"appId":"com.example.koru","entries":7,"bytes":16785,
- "certificateSha256":"3ecd2de5…","signatureScheme":"APK v2 RSA/SHA-256"}
-```
+</div>
 
-Son valores ilustrativos: tu HTML, assets e identidad de firma cambian el tamaño y la huella. La grabación anterior enseña una ejecución real sin modificar. `verify` comprueba estructura y firma; instala el APK en Android para comprobar su ejecución.
+## ¿Qué quieres hacer?
 
-## JavaScript puede llamar a Android
+<div class="doc-paths">
+<a class="doc-path" href="{{base}}es/existing-project/"><strong>Usa tu proyecto web</strong><span>Conecta la salida de React, Vue, Svelte o cualquier frontend estático.</span></a>
+<a class="doc-path" href="{{base}}es/plugins/"><strong>Añade funciones de Android</strong><span>Guarda datos, comparte texto y muestra notificaciones desde JavaScript.</span></a>
+<a class="doc-path" href="{{base}}es/distribution/"><strong>Comparte tu app</strong><span>Prepara un APK release y conserva la firma de tus actualizaciones.</span></a>
+<a class="doc-path" href="{{base}}es/troubleshooting/"><strong>Resuelve un problema</strong><span>Encuentra ayuda con archivos, instalación y llamadas a plugins.</span></a>
+</div>
 
-Las páginas empaquetadas viven en `https://app.koru.invalid` y acceden a seis plugins mediante MessagePort. Por ejemplo, dentro de un script de módulo de tu app:
+## Cómo encaja en tu proyecto
 
-```js
-import { device, storage } from "/__koru/core.mjs";
+Sigue usando tus herramientas web. Si usas un framework, compila primero su salida estática y dile a koru dónde está con `webDir`. La app muestra esos archivos en el WebView de Android; puedes añadir funciones del dispositivo con la API JavaScript.
 
-const info = await device.getInfo();
-await storage.set("last-device", info.model);
-```
+El ejecutable de koru genera APK sin instalar Java, Gradle ni Android Studio. Tus archivos locales también están disponibles sin conexión. Para llamar a un servicio HTTPS, configura el [permiso de Internet]({{base}}es/configuration/).
 
-Esta API funciona dentro del APK de koru; un navegador común no tiene el puente nativo. En [JavaScript y plugins]({{base}}es/plugins/) están los métodos, parámetros y errores.
+<details class="walkthrough"><summary>Ver un ejemplo en la terminal</summary>
+<figure class="hero-recording">
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="{{base}}assets/hero-poster.png"><img src="{{base}}assets/hero-demo.gif" width="960" height="360" loading="lazy" alt="Crear un proyecto, generar un APK y verificar su firma"></picture>
+<figcaption>Los comandos init, build y verify en una sesión real.</figcaption>
+</figure>
+</details>
 
-## Alcance actual
+### Antes de distribuir
 
-La CLI compilada construye sin red y usa Go estándar para DEX, XML binario, recursos, empaquetado APK y firma v2. No genera Java ni Kotlin; el build normal no invoca JDK, Gradle ni herramientas de build del SDK Android.
-
-Los APK generados se han instalado, arrancado y actualizado en **Android 11, API 30, x86_64**. Las pruebas registradas cubren renderizado sin Wi-Fi ni datos, plugins, service workers, navegación, teclado y persistencia de datos. Es una matriz concreta: prueba tu aplicación en los dispositivos que vas a soportar. Koru está en `0.2.0-dev`; AAB, firmas APK v3/v4 y una matriz mayor quedan fuera del alcance actual.
-
-[Guía completa del primer APK]({{base}}es/getting-started/) · [Configuración]({{base}}es/configuration/) · [Evidencia Android]({{base}}es/android-results/)
+koru está en desarrollo. Genera APK para instalación directa; todavía no genera AAB para Google Play. La ejecución comprobada corresponde a un emulador Android 11 (API 30), x86_64. Prueba tu app en los dispositivos que quieras admitir. Consulta la [compatibilidad comprobada]({{base}}es/android-results/) si necesitas más detalle.

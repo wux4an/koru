@@ -6,7 +6,7 @@ export const text = {
     search: "Search documentation",
     empty: "No results found.",
     menu: "Open navigation",
-    source: "Source files",
+    source: "Project archive",
     language: "Language",
     appearance: "Appearance",
     systemTheme: "System",
@@ -17,7 +17,7 @@ export const text = {
     copy: "Copy",
     copied: "Copied",
     copyError: "Press Ctrl+C to copy",
-    groups: ["Start building", "Reference", "Inside koru", "Project evidence"],
+    groups: ["Get started", "Build your app", "Reference", "Inside koru"],
     footer: "Made for the web. Built for Android.",
     note: "Experimental · 0.2.0-dev",
   },
@@ -26,7 +26,7 @@ export const text = {
     search: "Buscar documentación",
     empty: "No se encontraron resultados.",
     menu: "Abrir navegación",
-    source: "Archivos fuente",
+    source: "Archivo del proyecto",
     language: "Idioma",
     appearance: "Apariencia",
     systemTheme: "Sistema",
@@ -38,10 +38,10 @@ export const text = {
     copied: "Copiado",
     copyError: "Pulsa Ctrl+C para copiar",
     groups: [
-      "Empieza a construir",
+      "Primeros pasos",
+      "Crea tu app",
       "Referencia",
       "Por dentro de koru",
-      "Evidencia del proyecto",
     ],
     footer: "Hecho para la web. Construido para Android.",
     note: "Experimental · 0.2.0-dev",
@@ -49,13 +49,33 @@ export const text = {
 };
 export const pages = [
   {
+    slug: "existing-project",
+    group: 1,
+    icon: "browser",
+    titles: ["Use your web project", "Usa tu proyecto web"],
+    descriptions: [
+      "Package your existing frontend, configure routes and connect an HTTPS API.",
+      "Empaqueta tu frontend, configura sus rutas y conecta una API HTTPS.",
+    ],
+  },
+  {
+    slug: "distribution",
+    group: 1,
+    icon: "export",
+    titles: ["Distribute your app", "Distribuye tu app"],
+    descriptions: [
+      "Build a release APK, share it and update your app with the same signing identity.",
+      "Genera un APK release, compártelo y actualiza tu app con la misma firma.",
+    ],
+  },
+  {
     slug: "overview",
     group: 0,
     icon: "house",
-    titles: ["Meet koru", "Conoce koru"],
+    titles: ["Introduction", "Introducción"],
     descriptions: [
-      "Turn static HTML, CSS and JavaScript into a signed Android APK with koru, an independent Go toolchain.",
-      "Convierte HTML, CSS y JavaScript estáticos en un APK Android firmado con koru, una toolchain independiente en Go.",
+      "Turn static HTML, CSS and JavaScript into a signed Android APK with koru.",
+      "Convierte HTML, CSS y JavaScript estáticos en un APK Android firmado con koru.",
     ],
   },
   {
@@ -70,7 +90,7 @@ export const pages = [
   },
   {
     slug: "configuration",
-    group: 0,
+    group: 2,
     icon: "sliders-horizontal",
     titles: ["Configuration", "Configuración"],
     descriptions: [
@@ -80,7 +100,7 @@ export const pages = [
   },
   {
     slug: "troubleshooting",
-    group: 0,
+    group: 1,
     icon: "lifebuoy",
     titles: ["Troubleshooting", "Solución de problemas"],
     descriptions: [
@@ -90,7 +110,7 @@ export const pages = [
   },
   {
     slug: "cli",
-    group: 1,
+    group: 2,
     icon: "terminal-window",
     titles: ["CLI commands", "Comandos CLI"],
     descriptions: [
@@ -100,18 +120,18 @@ export const pages = [
   },
   {
     slug: "plugins",
-    group: 1,
+    group: 2,
     icon: "puzzle-piece",
     source: "docs/plugins.md",
-    titles: ["JavaScript & plugins", "JavaScript y plugins"],
+    titles: ["JavaScript API", "API JavaScript"],
     descriptions: [
-      "Use the six built-in JavaScript plugins, MessagePort bridge and custom DEX plugin ABI.",
-      "Usa los seis plugins JavaScript, el puente MessagePort y la ABI de plugins DEX personalizados.",
+      "Read device information, store data, share text and show notifications from JavaScript.",
+      "Consulta el dispositivo, guarda datos, comparte texto y muestra notificaciones desde JavaScript.",
     ],
   },
   {
     slug: "dex-api",
-    group: 1,
+    group: 3,
     icon: "code",
     source: "docs/dex-api.md",
     titles: ["DEX API", "API DEX"],
@@ -124,7 +144,7 @@ export const pages = [
     slug: "security",
     group: 1,
     icon: "shield-check",
-    titles: ["Security & signing", "Seguridad y firmas"],
+    titles: ["Signing & security", "Firmas y seguridad"],
     descriptions: [
       "Persistent signing keys, APK v2, intercepted HTTPS assets and WebView trust boundaries.",
       "Claves persistentes, APK v2, assets HTTPS interceptados y límites de confianza del WebView.",
@@ -132,7 +152,7 @@ export const pages = [
   },
   {
     slug: "architecture-dex",
-    group: 2,
+    group: 3,
     icon: "stack",
     source: "docs/adr/0001-dex-core.md",
     titles: ["DEX architecture", "Arquitectura DEX"],
@@ -143,7 +163,7 @@ export const pages = [
   },
   {
     slug: "architecture-apk",
-    group: 2,
+    group: 3,
     icon: "package",
     source: "docs/adr/0002-apk-runtime.md",
     titles: ["APK & runtime", "APK y runtime"],
@@ -154,7 +174,7 @@ export const pages = [
   },
   {
     slug: "native",
-    group: 2,
+    group: 3,
     icon: "cpu",
     source: "runtime/native/README.md",
     titles: ["Optional JNI adapter", "Adaptador JNI opcional"],
@@ -165,7 +185,7 @@ export const pages = [
   },
   {
     slug: "testing",
-    group: 3,
+    group: 4,
     icon: "flask",
     source: "tests/README.md",
     titles: ["Reproduce the tests", "Reproduce las pruebas"],
@@ -179,7 +199,7 @@ export const pages = [
     group: 3,
     icon: "android-logo",
     source: "docs/results/full/README.md",
-    titles: ["Android evidence", "Evidencia Android"],
+    titles: ["Compatibility", "Compatibilidad"],
     descriptions: [
       "Recorded APK installation and execution on Android 11 API 30 x86_64, with explicit matrix limits.",
       "Instalación y ejecución registradas en Android 11 API 30 x86_64, con límites explícitos de la matriz.",
@@ -187,7 +207,7 @@ export const pages = [
   },
   {
     slug: "dex-results",
-    group: 3,
+    group: 4,
     icon: "file-text",
     source: "docs/results/README.md",
     titles: ["Early DEX results", "Resultados DEX iniciales"],
@@ -198,7 +218,7 @@ export const pages = [
   },
   {
     slug: "milestones",
-    group: 3,
+    group: 4,
     icon: "flag",
     source: "docs/milestones.md",
     titles: ["Milestones & scope", "Hitos y alcance"],
@@ -209,7 +229,7 @@ export const pages = [
   },
   {
     slug: "demo",
-    group: 3,
+    group: 4,
     icon: "film-strip",
     source: "docs/demo/README.md",
     titles: ["CLI recording", "Grabación de la CLI"],
@@ -220,7 +240,7 @@ export const pages = [
   },
   {
     slug: "web-example",
-    group: 3,
+    group: 0,
     icon: "browser",
     source: "examples/web/README.md",
     titles: ["Web example", "Ejemplo web"],

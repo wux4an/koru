@@ -2,7 +2,7 @@
 
 Run `./bin/koru --help` for the installed version's command list and `./bin/koru build --help` for flags on a command. Examples on this page assume the binary is at `bin/koru` and the shell is at the repository root. If you put the executable on `PATH`, replace `./bin/koru` with `koru`.
 
-The CLI and help are in English. Interactive terminals use the documentation palette; redirected output and `NO_COLOR` have no ANSI escapes. Errors go to stderr and return a nonzero exit status. The two inspection commands produce JSON on stdout so they can be parsed.
+Help is in English. Errors describe the problem and return a nonzero exit status. Use `NO_COLOR=1` if you prefer output without color.
 
 ## Project commands at a glance
 

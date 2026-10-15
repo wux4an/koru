@@ -2,9 +2,9 @@
 
 Comienza con `./bin/koru doctor ./my-app`. Comprueba la configuración, la identidad de firma, el archivo web inicial y los manifests de plugins antes del build. Los comandos parten de la raíz del repositorio y del proyecto de [Primeros pasos]({{base}}es/getting-started/).
 
-## El comando de Go no funciona
+## No se encuentra Go
 
-Si `go version` abre un juego o dice que no encuentra el comando, revisa `command -v go` y coloca un compilador Go 1.23+ real al inicio de `PATH`. En el entorno de desarrollo registrado, `/usr/bin/go` es un juego. Go solo hace falta para compilar la CLI; el binario compilado genera el APK sin Go.
+Si `go version` devuelve «comando no encontrado», instala Go 1.23 o posterior y comprueba que esté en tu `PATH`. Solo necesitas Go para compilar el ejecutable de koru; después puedes generar APK con ese ejecutable.
 
 ## `doctor` o `build` rechazan el proyecto
 

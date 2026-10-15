@@ -1,0 +1,50 @@
+# Distribute your app
+
+Build a release APK to share and install directly on Android. Koru does not yet generate AABs for publishing on Google Play.
+
+## Prepare the version
+
+Before sharing your first APK, review `appId`, `name`, `version` and `icon` in `koru.json`. Test your screens, navigation and plugins on your target devices.
+
+Keep a secure backup of `.koru/signing.pem` outside the project. Android uses this identity to recognize updates to your app. Keep it out of Git, the web folder and any files you distribute with the APK.
+
+## Build a release
+
+From the koru repository root, with your project in `my-app`:
+
+```sh
+./bin/koru doctor ./my-app
+./bin/koru build ./my-app --release --output app-release.apk
+./bin/koru verify app-release.apk
+```
+
+`--release` disables debug mode and WebView inspection. It uses the key configured in `signingKey`; it does not create a new identity. The resulting file is `app-release.apk` in the current directory.
+
+Install and open this APK too: `verify` checks its signature and structure, but does not run your app.
+
+## Share the file
+
+Send the APK or host it as a download. The person installing it will need to allow their browser or file manager to install apps from that source. The permission wording and location depend on Android and the device.
+
+To test with a connected device:
+
+```sh
+adb install -r app-release.apk
+```
+
+Open the app from the launcher and check its behavior before sharing it.
+
+## Publish an update
+
+Keep the same `appId` and signing key. Increase `versionCode` and change `version`, for example:
+
+```json
+"version": "1.1.0",
+"versionCode": 2
+```
+
+Edit these fields in `koru.json`. Rebuild your frontend, generate the release APK and install it over the previous version. Check that saved data is preserved.
+
+If Android rejects the update because the signature differs, restore the original key. Creating another key with `keygen` does not fix an update. Uninstalling the old app removes its data; avoid using that as a solution for your users.
+
+See [Signing and security]({{base}}en/security/) for identity management and [Troubleshooting]({{base}}en/troubleshooting/) for installation errors.

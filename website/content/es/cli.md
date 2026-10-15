@@ -2,7 +2,7 @@
 
 Ejecuta `./bin/koru --help` para ver los comandos de tu versión y `./bin/koru build --help` para los flags de un comando. Los ejemplos suponen que el binario está en `bin/koru` y que la terminal está en la raíz del repositorio. Si el ejecutable está en `PATH`, sustituye `./bin/koru` por `koru`.
 
-La CLI y su ayuda están en inglés. Las terminales interactivas usan la paleta del sitio; la salida redirigida y `NO_COLOR` no llevan códigos ANSI. Los errores salen por stderr y tienen estado distinto de cero. Los dos comandos de inspección imprimen JSON en stdout para poder procesarlo.
+La ayuda está en inglés. Los errores indican el problema y devuelven un código de salida distinto de cero. Usa `NO_COLOR=1` si prefieres salida sin color.
 
 ## Comandos de proyecto
 

@@ -1,6 +1,6 @@
 # Ejecuta el ejemplo web
 
-`examples/web` es una app pequeña sin dependencias, usada en las pruebas Android. Tiene un contador, una segunda página local, CSS y un icono SVG. Es sencilla para que puedas comprobar cada comportamiento del WebView. No necesitas un bundler.
+Prueba una app pequeña de HTML, CSS y JavaScript antes de conectar tu proyecto. El ejemplo incluye un contador, una imagen SVG y una segunda página. No necesitas instalar dependencias web.
 
 ## Genera el APK
 
@@ -38,8 +38,6 @@ La primera página debe mostrar el SVG, el título «koru», una línea de texto
 
 `app.js` no llama plugins nativos. Para probar el [puente JavaScript]({{base}}es/plugins/), añade un módulo que importe `/__koru/core.mjs`. La vista previa en navegador solo prueba la parte web; necesitas Android para verificar el puente.
 
-Para la prueba registrada de service worker, copia `tests/fixtures/sw.js` como `my-app/www/sw.js` y regístralo desde tu página. La [evidencia Android]({{base}}es/android-results/) también cubre renderizado con radios de red apagadas.
-
 ## Explora los archivos
 
 - [index.html]({{base}}original/examples/web/index.html ":ignore") — estructura y referencias a assets.
@@ -48,4 +46,4 @@ Para la prueba registrada de service worker, copia `tests/fixtures/sw.js` como `
 - [icon.svg]({{base}}original/examples/web/icon.svg ":ignore") — imagen local.
 - [second.html]({{base}}original/examples/web/second.html ":ignore") — destino de navegación.
 
-El archivo de fuentes sirve estos documentos como texto; abrir un enlace HTML en la documentación no ejecuta la app Android. El README original contiene una afirmación histórica anterior al builder APK; los [resultados actuales]({{base}}es/android-results/) actualizan ese estado.
+Estos enlaces muestran el código fuente. Para ver el ejemplo funcionando, instala el APK en Android.
