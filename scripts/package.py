@@ -18,8 +18,9 @@ def main():
         .decode()
         .split("\0")
     )
+    # The delivery writes a fresh SHA256SUMS; never ship the tracked copy too.
     names = sorted(
-        set(filter(None, tracked))
+        (set(filter(None, tracked)) - {"SHA256SUMS"})
         | {"bin/koru", "artifacts/koru-demo.apk", "artifacts/koru-all-plugins.apk"}
     )
     checksums = []
