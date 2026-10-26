@@ -15,6 +15,15 @@ const maxAssets = 256 << 20
 
 var privateKeyPattern = regexp.MustCompile(`-----BEGIN [A-Z0-9 ]*PRIVATE KEY-----`)
 
+// InjectHead inserts snippet before the first </head>, or at the start of a
+// document without one.
+func InjectHead(html, snippet string) string {
+	if p := indexFoldASCII(html, "</head>"); p >= 0 {
+		return html[:p] + snippet + html[p:]
+	}
+	return snippet + html
+}
+
 // indexFoldASCII finds sub in s ignoring ASCII case only, so the offset is
 // valid for s; strings.ToLower can change byte lengths of non-ASCII runes.
 func indexFoldASCII(s, sub string) int {
@@ -85,14 +94,7 @@ func Assets(root string) ([]apk.Entry, error) {
 			return errors.New("private key found in web assets")
 		}
 		if strings.HasSuffix(strings.ToLower(name), ".html") {
-			inject := `<script src="/__koru/core.js"></script>`
-			s := string(b)
-			if p := indexFoldASCII(s, "</head>"); p >= 0 {
-				s = s[:p] + inject + s[p:]
-			} else {
-				s = inject + s
-			}
-			b = []byte(s)
+			b = []byte(InjectHead(string(b), `<script src="/__koru/core.js"></script>`))
 		}
 		total += len(b)
 		out = append(out, apk.Entry{Name: "assets/www/" + name, Data: b})

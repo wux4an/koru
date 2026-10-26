@@ -8,3 +8,8 @@ var Core []byte
 
 //go:embed core.mjs
 var Module []byte
+
+// Types declares the module for TypeScript and editors.
+//
+//go:embed core.d.ts
+var Types []byte

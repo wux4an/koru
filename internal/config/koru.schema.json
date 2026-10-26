@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://koru.js.org/schema/koru.schema.json",
+  "title": "koru project configuration",
+  "description": "koru.json: app identity, web files, Android SDK range, permissions, plugins and signing.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "appId",
+    "name",
+    "version",
+    "versionCode",
+    "webDir",
+    "minSdk",
+    "targetSdk",
+    "permissions",
+    "plugins",
+    "signingKey"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Editor hint; koru ignores it."
+    },
+    "appId": {
+      "type": "string",
+      "maxLength": 127,
+      "pattern": "^[a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)+$",
+      "description": "Android package name in reverse-domain form, for example com.example.myapp. Never change it after publishing.",
+      "examples": ["com.example.myapp"]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "description": "Name shown under the launcher icon."
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "Version shown to people, for example 1.2.0."
+    },
+    "versionCode": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2100000000,
+      "description": "Whole number Android uses to order updates. Increase it for every release."
+    },
+    "webDir": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Folder with index.html and the static files to package, for example www or dist."
+    },
+    "minSdk": {
+      "type": "integer",
+      "minimum": 26,
+      "maximum": 36,
+      "description": "Oldest supported Android API level (26 = Android 8.0)."
+    },
+    "targetSdk": {
+      "type": "integer",
+      "minimum": 26,
+      "maximum": 36,
+      "description": "Android API level the app targets. Must be at least minSdk."
+    },
+    "permissions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^android\\.permission\\.[A-Z][A-Z0-9_]*$"
+      },
+      "description": "Extra Android permissions, for example android.permission.INTERNET for HTTPS APIs."
+    },
+    "plugins": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]{0,31}$",
+        "anyOf": [
+          {
+            "enum": [
+              "app",
+              "device",
+              "notifications",
+              "share",
+              "storage",
+              "vibration"
+            ]
+          },
+          { "description": "Custom plugin id declared in pluginManifests." }
+        ]
+      },
+      "description": "Enabled JavaScript APIs. Built-in: app, device, notifications, share, storage, vibration."
+    },
+    "signingKey": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Path to the PEM signing identity. Back it up: updates need the same key."
+    },
+    "icon": {
+      "type": "string",
+      "description": "Path to a PNG launcher icon."
+    },
+    "spa": {
+      "type": "boolean",
+      "description": "Serve index.html for unknown paths, for client-side routers."
+    },
+    "pluginManifests": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Paths to custom plugin manifests (ABI 1)."
+    },
+    "nativeLibraries": {
+      "type": "object",
+      "description": "Prebuilt JNI libraries per ABI, for example {\"arm64-v8a\": [\"libs/libfoo.so\"]}.",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    }
+  }
+}

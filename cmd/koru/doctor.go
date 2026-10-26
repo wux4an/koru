@@ -1,12 +1,15 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"io"
+	"koru.dev/koru/internal/adb"
 	"koru.dev/koru/internal/config"
 	"koru.dev/koru/internal/signing"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 func doctor(args []string, out io.Writer) error {
@@ -16,12 +19,15 @@ func doctor(args []string, out io.Writer) error {
 	if e := writeStatus(out, "Build and verification", "use the self-contained Go implementation; no Java, SDK, or external build tools are required.", "iris"); e != nil {
 		return e
 	}
+	if e := doctorDevices(out); e != nil {
+		return e
+	}
 	project := "."
 	if len(args) == 1 {
 		project = args[0]
 	} else {
 		if _, e := os.Stat(filepath.Join(project, "koru.json")); os.IsNotExist(e) {
-			return writeStatus(out, "No project selected.", "An Android device or emulator is optional and used only for execution tests.", "peach")
+			return writeStatus(out, "No project selected.", "Run koru doctor inside a project, or create one with koru create.", "peach")
 		}
 	}
 	c, e := config.Load(project)
@@ -50,4 +56,26 @@ func doctor(args []string, out io.Writer) error {
 		return e
 	}
 	return writeStatus(out, "Project", fmt.Sprintf("%s: configuration, persistent signing identity, web entry point, and plugin manifests are valid.", c.AppID), "mint")
+}
+
+// doctorDevices reports the adb server and devices. They are only needed by
+// koru run, so their absence is information, not an error.
+func doctorDevices(out io.Writer) error {
+	addr, err := adb.Address()
+	if err != nil {
+		return writeStatus(out, "Devices", err.Error(), "peach")
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	devices, err := adb.Client{Addr: addr, Timeout: 3 * time.Second}.Devices(ctx)
+	if err != nil {
+		return writeStatus(out, "Devices", "no adb server at "+addr+"; only koru run needs one (adb start-server or Android Studio)", "peach")
+	}
+	ready := 0
+	for _, d := range devices {
+		if d.State == "device" {
+			ready++
+		}
+	}
+	return writeStatus(out, "Devices", fmt.Sprintf("%d ready of %d connected (adb server %s); see koru devices", ready, len(devices), addr), "mint")
 }

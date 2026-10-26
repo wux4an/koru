@@ -2,6 +2,9 @@ import "./core.js";
 const invoke = (method, params, options) =>
   window.Koru.invoke(method, params, options);
 export { invoke };
+/** "android" inside the APK, "web" in a browser or `koru dev`. */
+export const platform = window.Koru.platform;
+export const isNative = () => platform === "android";
 export const device = Object.freeze({
   getInfo: (options) => invoke("device.info", {}, options),
 });

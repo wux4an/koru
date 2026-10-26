@@ -9,6 +9,7 @@ import (
 	"image"
 	"image/color"
 	"image/png"
+	"io/fs"
 	"koru.dev/koru/internal/apk"
 	"koru.dev/koru/internal/arsc"
 	"koru.dev/koru/internal/axml"
@@ -85,6 +86,9 @@ func Build(project string, opt Options) ([]byte, error) {
 	root := c.WebDir
 	if !filepath.IsAbs(root) {
 		root = filepath.Join(project, root)
+	}
+	if _, e := os.Stat(filepath.Join(root, "index.html")); errors.Is(e, fs.ErrNotExist) {
+		return nil, fmt.Errorf("webDir %q has no index.html; if a bundler writes it, run your web build first (for example npm run build)", c.WebDir)
 	}
 	assets, e := Assets(root)
 	if e != nil {

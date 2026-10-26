@@ -38,10 +38,11 @@ func newRootCommand(out, errOut io.Writer) *cobra.Command {
 	root := &cobra.Command{
 		Use:   "koru",
 		Short: "Build native Android packages from web projects",
-		Long:  "Build signed Android APKs from web projects with a self-contained Go toolchain.",
-		Example: `  koru init ./my-app
-  koru build ./my-app --release --output app-release.apk
-  koru dex inspect classes.dex`,
+		Long:  "Create, preview, run and ship Android apps made with HTML, CSS and JavaScript.\nkoru is a self-contained Go toolchain: no Java, Gradle or Android SDK needed to build.",
+		Example: `  koru create my-app        # start from a template
+  koru dev                  # preview in a browser with live reload
+  koru run                  # install and open on a phone or emulator
+  koru build --release --output app-release.apk`,
 		SilenceErrors: true,
 		SilenceUsage:  true,
 		CompletionOptions: cobra.CompletionOptions{
@@ -54,7 +55,7 @@ func newRootCommand(out, errOut io.Writer) *cobra.Command {
 		command.Print(command.UsageString())
 	})
 	root.SetUsageTemplate(helpTemplate(presentationFor(out)))
-	root.AddCommand(newVersionCommand(), newDoctorCommand(), newAPKBuildCommand(), newInitCommand(), newKeygenCommand(), newVerifyCommand(), newDexCommand())
+	root.AddCommand(newCreateCommand(), newDevCommand(), newRunCommand(), newDevicesCommand(), newVersionCommand(), newDoctorCommand(), newAPKBuildCommand(), newInitCommand(), newKeygenCommand(), newVerifyCommand(), newDexCommand())
 	return root
 }
 
@@ -111,7 +112,7 @@ func newAPKBuildCommand() *cobra.Command {
 func newInitCommand() *cobra.Command {
 	return &cobra.Command{
 		Use:     "init [directory]",
-		Short:   "Create a web project with a persistent signing identity",
+		Short:   "Create a minimal project in place (see create for templates)",
 		Example: "  koru init ./my-app",
 		Args:    cobra.MaximumNArgs(1),
 		RunE:    func(cmd *cobra.Command, args []string) error { return initProject(args, cmd.OutOrStdout()) },

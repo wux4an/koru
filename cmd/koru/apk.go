@@ -88,6 +88,7 @@ func initProject(args []string, out io.Writer) error {
 		return err
 	}
 	c := config.Default()
+	c.Schema = config.SchemaURL
 	if _, err := signing.CreateIdentity(filepath.Join(path, c.SigningKey)); err != nil {
 		return err
 	}

@@ -1,6 +1,7 @@
 package config
 
 import (
+	_ "embed"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -12,7 +13,16 @@ import (
 	"strings"
 )
 
+// JSONSchema is the JSON Schema for koru.json, published at SchemaURL.
+//
+//go:embed koru.schema.json
+var JSONSchema []byte
+
+// SchemaURL is where the published JSON Schema for koru.json lives.
+const SchemaURL = "https://koru.js.org/schema/koru.schema.json"
+
 type Config struct {
+	Schema          string              `json:"$schema,omitempty"`
 	AppID           string              `json:"appId"`
 	Name            string              `json:"name"`
 	Version         string              `json:"version"`
@@ -39,10 +49,16 @@ func Default() Config {
 }
 func (c Config) Validate() error {
 	if !appPattern.MatchString(c.AppID) || len(c.AppID) > 127 {
-		return errors.New("invalid appId")
+		return fmt.Errorf("invalid appId %q: use reverse-domain form such as com.example.myapp (letters, digits and _; at least two segments)", c.AppID)
 	}
-	if strings.TrimSpace(c.Name) == "" || len(c.Name) > 256 || c.Version == "" || len(c.Version) > 128 || c.VersionCode == 0 || c.VersionCode > 2100000000 {
-		return errors.New("invalid app name or version")
+	if strings.TrimSpace(c.Name) == "" || len(c.Name) > 256 {
+		return errors.New("invalid name: set a display name of 1 to 256 characters")
+	}
+	if c.Version == "" || len(c.Version) > 128 {
+		return errors.New("invalid version: set a version string such as 1.0.0")
+	}
+	if c.VersionCode == 0 || c.VersionCode > 2100000000 {
+		return errors.New("invalid versionCode: use a whole number from 1 to 2100000000, and increase it for every update")
 	}
 	if c.MinSDK < 26 || c.TargetSDK < c.MinSDK || c.TargetSDK > 36 {
 		return errors.New("supported SDK range: 26 <= minSdk <= targetSdk <= 36")
@@ -60,7 +76,7 @@ func (c Config) Validate() error {
 	seen = map[string]bool{}
 	for _, p := range c.Plugins {
 		if (!supported[p] && len(c.PluginManifests) == 0) || seen[p] || !pluginPattern.MatchString(p) {
-			return fmt.Errorf("unsupported or duplicate plugin %q", p)
+			return fmt.Errorf("unsupported or duplicate plugin %q (built-in plugins: app, device, notifications, share, storage, vibration)", p)
 		}
 		seen[p] = true
 	}
@@ -69,6 +85,9 @@ func (c Config) Validate() error {
 func Load(project string) (Config, error) {
 	var c Config
 	f, e := os.Open(filepath.Join(project, "koru.json"))
+	if os.IsNotExist(e) {
+		return c, fmt.Errorf("no koru.json in %s: create a project with `koru create` or `koru init`", project)
+	}
 	if e != nil {
 		return c, e
 	}
@@ -76,13 +95,16 @@ func Load(project string) (Config, error) {
 	d := json.NewDecoder(io.LimitReader(f, 1<<20))
 	d.DisallowUnknownFields()
 	if e = d.Decode(&c); e != nil {
-		return c, e
+		return c, fmt.Errorf("koru.json: %w", e)
 	}
 	var x any
 	if e = d.Decode(&x); e != io.EOF {
 		return c, errors.New("trailing config content")
 	}
-	return c, c.Validate()
+	if e = c.Validate(); e != nil {
+		return c, fmt.Errorf("koru.json: %w", e)
+	}
+	return c, nil
 }
 func (c Config) HasPlugin(name string) bool {
 	for _, p := range c.Plugins {
