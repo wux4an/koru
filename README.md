@@ -47,7 +47,7 @@ adb shell am start -W -n com.example.koru/com.koru.runtime.MainActivity
 
 `adb` is needed for this installation method, not for building APKs. See the [first app guide](https://koru.js.org/en/getting-started/) for the complete walkthrough.
 
-Keep a secure backup of `my-app/.koru/signing.pem` and exclude `.koru/` from version control. Android needs the same signing identity for future updates.
+Keep a secure backup of `my-app/.koru/signing.pem`. `koru init` adds `.koru/` to the project's `.gitignore` so the key stays out of version control. Android needs the same signing identity for future updates.
 
 ## Bring your frontend
 

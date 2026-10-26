@@ -54,11 +54,11 @@ func apkBuild(project, output, key string, noCache, release bool, out io.Writer)
 	if err != nil {
 		return err
 	}
-	if err = atomicWrite(output, b); err != nil {
-		return err
-	}
 	report, err := app.Verify(b)
 	if err != nil {
+		return err
+	}
+	if err = atomicWrite(output, b); err != nil {
 		return err
 	}
 	if err = writeStatus(out, "Runtime cache hit:", fmt.Sprint(stats.RuntimeCacheHit), "iris"); err != nil {
@@ -83,6 +83,9 @@ func initProject(args []string, out io.Writer) error {
 		if err := os.MkdirAll(filepath.Join(path, dir), 0700); err != nil {
 			return err
 		}
+	}
+	if err := ignoreKoruDir(path); err != nil {
+		return err
 	}
 	c := config.Default()
 	if _, err := signing.CreateIdentity(filepath.Join(path, c.SigningKey)); err != nil {
@@ -117,6 +120,35 @@ func initProject(args []string, out io.Writer) error {
 		return err
 	}
 	return writeStatus(out, "Initialized", fmt.Sprintf("%s; persistent signing identity: %s", path, c.SigningKey), "mint")
+}
+
+// ignoreKoruDir keeps the signing identity and cache out of version control,
+// appending to an existing .gitignore instead of replacing it.
+func ignoreKoruDir(project string) error {
+	path := filepath.Join(project, ".gitignore")
+	b, err := os.ReadFile(path)
+	if err != nil && !os.IsNotExist(err) {
+		return err
+	}
+	for _, line := range strings.Split(string(b), "\n") {
+		switch strings.TrimSpace(line) {
+		case ".koru", ".koru/", "/.koru", "/.koru/", "**/.koru/":
+			return nil
+		}
+	}
+	entry := ".koru/\n"
+	if len(b) > 0 && b[len(b)-1] != '\n' {
+		entry = "\n" + entry
+	}
+	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	if err != nil {
+		return err
+	}
+	_, err = f.WriteString(entry)
+	if closeErr := f.Close(); err == nil {
+		err = closeErr
+	}
+	return err
 }
 
 func keygen(path string, out io.Writer) error {

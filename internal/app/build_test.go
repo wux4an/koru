@@ -108,3 +108,29 @@ func TestCorruptCacheFailsExplicitly(t *testing.T) {
 		t.Fatal("corrupt cache silently regenerated")
 	}
 }
+
+func TestHTMLInjectionOffsetSurvivesNonASCII(t *testing.T) {
+	p := project(t)
+	root := filepath.Join(p, "www")
+	html := "<!doctype html><HEAD><title>İİİİ</title></HEAD><body></body>"
+	os.WriteFile(filepath.Join(root, "index.html"), []byte(html), 0644)
+	entries, e := Assets(root)
+	if e != nil {
+		t.Fatal(e)
+	}
+	want := "<!doctype html><HEAD><title>İİİİ</title><script src=\"/__koru/core.js\"></script></HEAD><body></body>"
+	if got := string(entries[0].Data); got != want {
+		t.Fatalf("injected HTML = %q", got)
+	}
+}
+
+func TestAssetsRejectOtherPrivateKeyFormats(t *testing.T) {
+	for _, header := range []string{"EC PRIVATE KEY", "ENCRYPTED PRIVATE KEY", "OPENSSH PRIVATE KEY"} {
+		p := project(t)
+		root := filepath.Join(p, "www")
+		os.WriteFile(filepath.Join(root, "key.txt"), []byte("-----BEGIN "+header+"-----"), 0600)
+		if _, e := Assets(root); e == nil {
+			t.Fatalf("%s leak allowed", header)
+		}
+	}
+}

@@ -92,6 +92,9 @@ func TestInitBuildReleaseAndVerify(t *testing.T) {
 	if e := run([]string{"init", dir}, &out); e != nil {
 		t.Fatal(e)
 	}
+	if b, e := os.ReadFile(filepath.Join(dir, ".gitignore")); e != nil || string(b) != ".koru/\n" {
+		t.Fatalf("init .gitignore = %q, %v", b, e)
+	}
 	path := filepath.Join(dir, "out.apk")
 	if e := run([]string{"build", dir, "--output", path, "--release"}, &out); e != nil {
 		t.Fatal(e)
@@ -101,5 +104,17 @@ func TestInitBuildReleaseAndVerify(t *testing.T) {
 	}
 	if e := run([]string{"init", dir}, &out); e == nil {
 		t.Fatal("init overwrites existing project")
+	}
+}
+
+func TestInitAppendsToExistingGitignore(t *testing.T) {
+	dir := t.TempDir()
+	os.WriteFile(filepath.Join(dir, ".gitignore"), []byte("node_modules"), 0644)
+	var out bytes.Buffer
+	if e := run([]string{"init", dir}, &out); e != nil {
+		t.Fatal(e)
+	}
+	if b, _ := os.ReadFile(filepath.Join(dir, ".gitignore")); string(b) != "node_modules\n.koru/\n" {
+		t.Fatalf("init .gitignore = %q", b)
 	}
 }

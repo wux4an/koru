@@ -108,13 +108,37 @@ func runtimeDEX(project string, c config.Config, assets []runtimedex.Asset, cust
 		if e = os.MkdirAll(cacheDir, 0700); e != nil {
 			return nil, e
 		}
-		if e = os.WriteFile(path, data, 0600); e != nil {
+		// The checksum is published before the DEX so an interrupted write
+		// leaves a cache miss rather than a "checksum missing" failure.
+		hash := sha256.Sum256(data)
+		if e = writeCacheFile(path+".sha256", []byte(hex.EncodeToString(hash[:]))); e != nil {
 			return nil, e
 		}
-		hash := sha256.Sum256(data)
-		if e = os.WriteFile(path+".sha256", []byte(hex.EncodeToString(hash[:])), 0600); e != nil {
+		if e = writeCacheFile(path, data); e != nil {
 			return nil, e
 		}
 	}
 	return data, nil
+}
+
+func writeCacheFile(path string, data []byte) error {
+	f, e := os.CreateTemp(filepath.Dir(path), ".tmp-*")
+	if e != nil {
+		return e
+	}
+	tmp := f.Name()
+	_, e = f.Write(data)
+	if closeErr := f.Close(); e == nil {
+		e = closeErr
+	}
+	if e == nil {
+		e = os.Chmod(tmp, 0600)
+	}
+	if e == nil {
+		e = os.Rename(tmp, path)
+	}
+	if e != nil {
+		os.Remove(tmp)
+	}
+	return e
 }

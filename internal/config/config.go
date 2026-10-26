@@ -31,6 +31,7 @@ type Config struct {
 
 var appPattern = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)+$`)
 var permissionPattern = regexp.MustCompile(`^android\.permission\.[A-Z][A-Z0-9_]*$`)
+var pluginPattern = regexp.MustCompile(`^[a-z][a-z0-9_]{0,31}$`)
 var supported = map[string]bool{"device": true, "storage": true, "vibration": true, "app": true, "share": true, "notifications": true}
 
 func Default() Config {
@@ -58,7 +59,7 @@ func (c Config) Validate() error {
 	}
 	seen = map[string]bool{}
 	for _, p := range c.Plugins {
-		if (!supported[p] && len(c.PluginManifests) == 0) || seen[p] || !regexp.MustCompile(`^[a-z][a-z0-9_]{0,31}$`).MatchString(p) {
+		if (!supported[p] && len(c.PluginManifests) == 0) || seen[p] || !pluginPattern.MatchString(p) {
 			return fmt.Errorf("unsupported or duplicate plugin %q", p)
 		}
 		seen[p] = true

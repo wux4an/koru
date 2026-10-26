@@ -7,10 +7,34 @@ import (
 	"koru.dev/koru/internal/apk"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
 const maxAssets = 256 << 20
+
+var privateKeyPattern = regexp.MustCompile(`-----BEGIN [A-Z0-9 ]*PRIVATE KEY-----`)
+
+// indexFoldASCII finds sub in s ignoring ASCII case only, so the offset is
+// valid for s; strings.ToLower can change byte lengths of non-ASCII runes.
+func indexFoldASCII(s, sub string) int {
+	for i := 0; i+len(sub) <= len(s); i++ {
+		j := 0
+		for ; j < len(sub); j++ {
+			c := s[i+j]
+			if 'A' <= c && c <= 'Z' {
+				c += 'a' - 'A'
+			}
+			if c != sub[j] {
+				break
+			}
+		}
+		if j == len(sub) {
+			return i
+		}
+	}
+	return -1
+}
 
 func Assets(root string) ([]apk.Entry, error) {
 	var out []apk.Entry
@@ -57,14 +81,13 @@ func Assets(root string) ([]apk.Entry, error) {
 		if e != nil {
 			return e
 		}
-		if strings.Contains(string(b), "-----BEGIN PRIVATE KEY-----") || strings.Contains(string(b), "-----BEGIN RSA PRIVATE KEY-----") {
+		if privateKeyPattern.Match(b) {
 			return errors.New("private key found in web assets")
 		}
 		if strings.HasSuffix(strings.ToLower(name), ".html") {
 			inject := `<script src="/__koru/core.js"></script>`
 			s := string(b)
-			lower := strings.ToLower(s)
-			if p := strings.Index(lower, "</head>"); p >= 0 {
+			if p := indexFoldASCII(s, "</head>"); p >= 0 {
 				s = s[:p] + inject + s[p:]
 			} else {
 				s = inject + s
