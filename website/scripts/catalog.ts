@@ -175,6 +175,16 @@ export const pages = [
     ],
   },
   {
+    slug: "write-a-plugin",
+    group: 2,
+    icon: "plug",
+    titles: ["Write a plugin", "Escribe un plugin"],
+    descriptions: [
+      "Step-by-step guide to a custom koru plugin in DEX IR JSON, using a complete toast example: manifest, handler, parameters, errors, threading and testing.",
+      "Guía paso a paso para un plugin propio de koru en JSON de IR DEX, con un ejemplo completo de toast: manifiesto, handler, parámetros, errores, hilos y pruebas.",
+    ],
+  },
+  {
     slug: "dex-api",
     group: 3,
     icon: "code",

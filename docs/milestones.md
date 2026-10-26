@@ -86,3 +86,16 @@ de configuración inválida y del comando, y un caso `aapt dump xmltree` bajo
 estos campos: ni la verificación de App Links, ni la rotación, ni el teclado. Los
 enlaces abren la app en su página inicial; la URL todavía no llega a JavaScript
 (requeriría cambios en el bytecode del runtime, fuera de este hito).
+
+## Ejemplo de plugin propio y guía — octubre de 2026
+
+`examples/toast` es un plugin propio completo (`toast.show`, ABI 1, sin permisos)
+escrito solo como IR JSON, con README y una página web de ejemplo. La guía «Write a
+plugin» / «Escribe un plugin» del sitio lo explica paso a paso. El handler valida
+`text` y `long`; devuelve `null` (`INVALID_REQUEST`) ante parámetros inválidos y
+`{}` si todo va bien. `internal/app/toast_example_test.go` carga el manifiesto,
+construye y verifica un APK y comprueba la clase y el método en `classes.dex`.
+
+**No se ha ejecutado en Android** (sin dispositivo): ART, el toast visible y el hilo
+de ejecución (se asume el hilo de interfaz por `setWebMessageCallback` sin `Handler`)
+siguen sin comprobarse. En `koru dev` no hay versión web de los plugins propios.

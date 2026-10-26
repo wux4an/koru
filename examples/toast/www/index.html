@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>koru toast plugin</title>
+  </head>
+  <body>
+    <main>
+      <h1>Toast plugin</h1>
+      <input id="text" value="Hello" aria-label="Toast text" />
+      <label><input id="long" type="checkbox" /> Long</label>
+      <button id="show">Show toast</button>
+      <p id="status" role="status">Waiting</p>
+    </main>
+    <script type="module">
+      import { invoke, isNative } from "/__koru/core.mjs";
+
+      const status = document.querySelector("#status");
+      document.querySelector("#show").addEventListener("click", async () => {
+        try {
+          // toast.show returns {} on success.
+          await invoke("toast.show", {
+            text: document.querySelector("#text").value,
+            long: document.querySelector("#long").checked,
+          });
+          status.textContent = "Toast requested";
+        } catch (error) {
+          // INVALID_REQUEST: empty or wrongly typed parameters.
+          // METHOD_NOT_FOUND: plugin not enabled, or `koru dev` (no web version).
+          // NATIVE_ERROR: Android threw while showing the toast.
+          status.textContent = `${error.code}: ${error.message}`;
+        }
+      });
+      if (!isNative()) status.textContent = "Not running in the APK";
+    </script>
+  </body>
+</html>

@@ -309,6 +309,6 @@ Los errores rechazan con un `Error` cuyo `code` y `message` puedes mostrar o reg
 
 ## Amplía tu app
 
-Para añadir funciones propias, consulta el [adaptador nativo]({{base}}es/native/) y la [referencia de plugins personalizados]({{base}}original/docs/plugins.md).
+Para añadir funciones propias, sigue la guía paso a paso [Escribe un plugin]({{base}}es/write-a-plugin/) o consulta el [adaptador nativo]({{base}}es/native/) y la [referencia de plugins personalizados]({{base}}original/docs/plugins.md).
 
 [Configuración]({{base}}es/configuration/) · [Solución de problemas]({{base}}es/troubleshooting/)

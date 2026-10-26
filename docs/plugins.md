@@ -66,6 +66,14 @@ y respetar los requisitos del hilo de interfaz. Sus clases no pueden reemplazar
 clases del runtime ni del framework Android. Un plugin es código de confianza
 incluido en la app y comparte sus permisos.
 
+Un ejemplo completo sin permisos, `examples/toast/plugin.json` (handler
+`toast.show`, que muestra un `Toast`), se explica paso a paso en
+[`examples/toast/README.md`](../examples/toast/README.md) y en la guía del sitio
+`website/content/es/write-a-plugin.md` («Escribe un plugin»). Su prueba
+(`internal/app/toast_example_test.go`) construye un APK y comprueba `classes.dex`,
+pero el plugin no se ha ejecutado en Android. En `koru dev` los plugins propios
+no tienen implementación web: `invoke` rechaza con `METHOD_NOT_FOUND`.
+
 `examples/native/plugin.json` muestra una clase DEX cuyo inicializador estático
 invoca `System.loadLibrary` y declara un método nativo. No incluye código Java.
 Añade estos campos a la configuración del proyecto:

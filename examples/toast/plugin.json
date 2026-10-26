@@ -1,0 +1,218 @@
+{
+  "id": "toast",
+  "abi": 1,
+  "permissions": [],
+  "handlers": {
+    "toast.show": {
+      "owner": "Lcom/example/toast/ToastPlugin;",
+      "name": "show",
+      "descriptor": "(Landroid/app/Activity;Lorg/json/JSONObject;)Lorg/json/JSONObject;"
+    }
+  },
+  "classes": [
+    {
+      "descriptor": "Lcom/example/toast/ToastPlugin;",
+      "super": "Ljava/lang/Object;",
+      "access": 1,
+      "methods": [
+        {
+          "name": "show",
+          "descriptor": "(Landroid/app/Activity;Lorg/json/JSONObject;)Lorg/json/JSONObject;",
+          "access": 9,
+          "code": {
+            "locals": 5,
+            "instructions": [
+              {
+                "op": "const-string",
+                "regs": [0],
+                "string": "text"
+              },
+              {
+                "op": "invoke-virtual",
+                "regs": [-2, 0],
+                "method": {
+                  "owner": "Lorg/json/JSONObject;",
+                  "name": "opt",
+                  "descriptor": "(Ljava/lang/String;)Ljava/lang/Object;"
+                }
+              },
+              {
+                "op": "move-result-object",
+                "regs": [1]
+              },
+              {
+                "op": "instance-of",
+                "regs": [2, 1],
+                "type": "Ljava/lang/String;"
+              },
+              {
+                "op": "if-eqz",
+                "regs": [2],
+                "target": "invalid"
+              },
+              {
+                "op": "check-cast",
+                "regs": [1],
+                "type": "Ljava/lang/String;"
+              },
+              {
+                "op": "invoke-virtual",
+                "regs": [1],
+                "method": {
+                  "owner": "Ljava/lang/String;",
+                  "name": "trim",
+                  "descriptor": "()Ljava/lang/String;"
+                }
+              },
+              {
+                "op": "move-result-object",
+                "regs": [2]
+              },
+              {
+                "op": "invoke-virtual",
+                "regs": [2],
+                "method": {
+                  "owner": "Ljava/lang/String;",
+                  "name": "isEmpty",
+                  "descriptor": "()Z"
+                }
+              },
+              {
+                "op": "move-result",
+                "regs": [2]
+              },
+              {
+                "op": "if-nez",
+                "regs": [2],
+                "target": "invalid"
+              },
+              {
+                "op": "const",
+                "regs": [3],
+                "literal": 0
+              },
+              {
+                "op": "const-string",
+                "regs": [0],
+                "string": "long"
+              },
+              {
+                "op": "invoke-virtual",
+                "regs": [-2, 0],
+                "method": {
+                  "owner": "Lorg/json/JSONObject;",
+                  "name": "opt",
+                  "descriptor": "(Ljava/lang/String;)Ljava/lang/Object;"
+                }
+              },
+              {
+                "op": "move-result-object",
+                "regs": [2]
+              },
+              {
+                "op": "if-eqz",
+                "regs": [2],
+                "target": "show"
+              },
+              {
+                "op": "instance-of",
+                "regs": [4, 2],
+                "type": "Ljava/lang/Boolean;"
+              },
+              {
+                "op": "if-eqz",
+                "regs": [4],
+                "target": "invalid"
+              },
+              {
+                "op": "check-cast",
+                "regs": [2],
+                "type": "Ljava/lang/Boolean;"
+              },
+              {
+                "op": "invoke-virtual",
+                "regs": [2],
+                "method": {
+                  "owner": "Ljava/lang/Boolean;",
+                  "name": "booleanValue",
+                  "descriptor": "()Z"
+                }
+              },
+              {
+                "op": "move-result",
+                "regs": [4]
+              },
+              {
+                "op": "if-eqz",
+                "regs": [4],
+                "target": "show"
+              },
+              {
+                "op": "const",
+                "regs": [3],
+                "literal": 1
+              },
+              {
+                "op": "label",
+                "label": "show"
+              },
+              {
+                "op": "invoke-static",
+                "regs": [-1, 1, 3],
+                "method": {
+                  "owner": "Landroid/widget/Toast;",
+                  "name": "makeText",
+                  "descriptor": "(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;"
+                }
+              },
+              {
+                "op": "move-result-object",
+                "regs": [0]
+              },
+              {
+                "op": "invoke-virtual",
+                "regs": [0],
+                "method": {
+                  "owner": "Landroid/widget/Toast;",
+                  "name": "show",
+                  "descriptor": "()V"
+                }
+              },
+              {
+                "op": "new-instance",
+                "regs": [0],
+                "type": "Lorg/json/JSONObject;"
+              },
+              {
+                "op": "invoke-direct",
+                "regs": [0],
+                "method": {
+                  "owner": "Lorg/json/JSONObject;",
+                  "name": "<init>",
+                  "descriptor": "()V"
+                }
+              },
+              {
+                "op": "return-object",
+                "regs": [0]
+              },
+              {
+                "op": "label",
+                "label": "invalid"
+              },
+              {
+                "op": "const",
+                "regs": [0],
+                "literal": 0
+              },
+              {
+                "op": "return-object",
+                "regs": [0]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

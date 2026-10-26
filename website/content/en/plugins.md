@@ -309,6 +309,6 @@ Errors reject with an `Error` whose `code` and `message` can be displayed or log
 
 ## Extend your app
 
-To add your own features, see the [native adapter]({{base}}en/native/) and the [custom plugin reference]({{base}}original/docs/plugins.md).
+To add your own features, follow the step-by-step guide [Write a plugin]({{base}}en/write-a-plugin/), or see the [native adapter]({{base}}en/native/) and the [custom plugin reference]({{base}}original/docs/plugins.md).
 
 [Configuration]({{base}}en/configuration/) · [Troubleshooting]({{base}}en/troubleshooting/)
