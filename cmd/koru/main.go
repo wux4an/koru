@@ -42,6 +42,7 @@ func newRootCommand(out, errOut io.Writer) *cobra.Command {
 		Example: `  koru create my-app        # start from a template
   koru dev                  # preview in a browser with live reload
   koru run                  # install and open on a phone or emulator
+  koru logs                 # stream the app's logs from the device
   koru build --release --output app-release.apk`,
 		SilenceErrors: true,
 		SilenceUsage:  true,
@@ -55,7 +56,7 @@ func newRootCommand(out, errOut io.Writer) *cobra.Command {
 		command.Print(command.UsageString())
 	})
 	root.SetUsageTemplate(helpTemplate(presentationFor(out)))
-	root.AddCommand(newCreateCommand(), newDevCommand(), newRunCommand(), newDevicesCommand(), newJSCommand(), newVersionCommand(), newDoctorCommand(), newAPKBuildCommand(), newInitCommand(), newKeygenCommand(), newVerifyCommand(), newDexCommand())
+	root.AddCommand(newCreateCommand(), newDevCommand(), newRunCommand(), newLogsCommand(), newDevicesCommand(), newJSCommand(), newVersionCommand(), newDoctorCommand(), newAPKBuildCommand(), newInitCommand(), newKeygenCommand(), newVerifyCommand(), newDexCommand())
 	return root
 }
 
