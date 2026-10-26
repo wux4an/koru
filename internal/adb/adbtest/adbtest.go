@@ -19,6 +19,10 @@ type Server struct {
 	Devices   string
 	Reply     string
 	installed []byte
+	appID     string
+	pid       int
+	pidLog    string
+	chromeLog string
 	commands  []string
 }
 
@@ -42,6 +46,24 @@ func (s *Server) SetReply(reply string) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.Reply = reply
+}
+
+// SetRunning makes `pidof appID` answer pid, as for a running app. Without it
+// pidof prints nothing, like the real tool for a process that is not running.
+func (s *Server) SetRunning(appID string, pid int) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.appID, s.pid = appID, pid
+}
+
+// SetLogcat sets the simulated output of `logcat --pid=<pid> -v brief` and of
+// `logcat -v brief -s chromium:V`. After writing it the fake keeps the stream
+// open until the client disconnects, like a followed logcat. The lines are
+// invented in logcat's brief format; real device output is not validated.
+func (s *Server) SetLogcat(pidLog, chromiumLog string) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.pidLog, s.chromeLog = pidLog, chromiumLog
 }
 
 func (s *Server) Installed() []byte {
@@ -93,6 +115,7 @@ func (s *Server) handle(conn net.Conn) {
 		s.mu.Lock()
 		s.commands = append(s.commands, req)
 		devices, reply := s.Devices, s.Reply
+		appID, pid, pidLog, chromeLog := s.appID, s.pid, s.pidLog, s.chromeLog
 		s.mu.Unlock()
 		const install = "exec:cmd package install -r -S "
 		switch {
@@ -132,6 +155,21 @@ func (s *Server) handle(conn net.Conn) {
 			} else {
 				io.WriteString(conn, "Error type 3\nError: Activity class does not exist.\n")
 			}
+			return
+		case transport != "" && strings.HasPrefix(req, "exec:pidof "):
+			io.WriteString(conn, "OKAY")
+			if appID != "" && strings.TrimPrefix(req, "exec:pidof ") == appID {
+				fmt.Fprintf(conn, "%d\n", pid)
+			}
+			return
+		case transport != "" && (req == fmt.Sprintf("exec:logcat --pid=%d -v brief", pid) || req == "exec:logcat -v brief -s chromium:V"):
+			io.WriteString(conn, "OKAY")
+			if strings.Contains(req, "chromium") {
+				io.WriteString(conn, chromeLog)
+			} else {
+				io.WriteString(conn, pidLog)
+			}
+			io.Copy(io.Discard, conn) // follow until the client goes away
 			return
 		default:
 			io.WriteString(conn, "FAIL"+block("unknown service "+req))
