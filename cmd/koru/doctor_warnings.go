@@ -59,9 +59,6 @@ func doctorWarnings(project, webRoot string, c config.Config) ([]string, error) 
 		}
 		out = append(out, iw...)
 	}
-	if c.TargetSDK != 30 {
-		out = append(out, fmt.Sprintf("targetSdk is %d; the recorded Android execution matrix covers API 30 only (docs/results/full). Test on a device before shipping.", c.TargetSDK))
-	}
 	return out, nil
 }
 

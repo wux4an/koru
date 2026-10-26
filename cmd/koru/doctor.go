@@ -67,6 +67,11 @@ func doctor(args []string, out io.Writer) error {
 			return e
 		}
 	}
+	// The default targetSdk differs from the recorded matrix, so this is a
+	// note rather than a warning every new project would show.
+	if c.TargetSDK != 30 {
+		return writeStatus(out, "Note", fmt.Sprintf("recorded Android execution covers API 30 (targetSdk here is %d); test on your devices before shipping.", c.TargetSDK), "iris")
+	}
 	return nil
 }
 

@@ -184,9 +184,9 @@ func doctorOutput(t *testing.T, dir string) string {
 
 func TestDoctorWarnings(t *testing.T) {
 	dir := newTestProject(t)
-	// A fresh init project (no repository, viewport present) only warns about targetSdk.
+	// A fresh init project (no repository, viewport present) has no warnings, only the API 30 note.
 	base := doctorOutput(t, dir)
-	if !strings.Contains(base, "targetSdk is 36") || strings.Count(base, "Warning") != 1 {
+	if !strings.Contains(base, "targetSdk here is 36") || strings.Count(base, "Warning") != 0 {
 		t.Fatal(base)
 	}
 	if strings.Contains(base, ".gitignore") || strings.Contains(base, "viewport") {
