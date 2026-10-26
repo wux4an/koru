@@ -1,0 +1,16 @@
+{
+  "name": "__APP_SLUG__",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "android": "npm run build && koru run",
+    "apk": "npm run build && koru build --release --output __APP_SLUG__.apk"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vite": "^5.4.0"
+  }
+}

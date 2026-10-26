@@ -72,3 +72,16 @@ func TestCreatePromptsInTerminal(t *testing.T) {
 		t.Fatal("non-interactive create without directory accepted")
 	}
 }
+
+func TestCreateFrameworkTemplatesPrintNodeSteps(t *testing.T) {
+	for _, id := range []string{"react", "vue", "svelte", "vanilla-ts"} {
+		dir := filepath.Join(t.TempDir(), id)
+		var out bytes.Buffer
+		if e := run([]string{"create", dir, "-t", id, "--name", "Web", "--app-id", "com.example.web"}, &out); e != nil {
+			t.Fatal(id, e)
+		}
+		if !strings.Contains(out.String(), "npm install") {
+			t.Fatalf("%s next steps: %s", id, out.String())
+		}
+	}
+}

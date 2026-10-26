@@ -68,3 +68,5 @@ pruebas unitarias del protocolo.
 `koru bump`, `koru build --bump`, `koru plugin list|add|remove`, `koru config` y los avisos de `koru doctor` (.gitignore, viewport, INTERNET por heurística, icono, targetSdk) se cubren con pruebas Go en `cmd/koru`; son edición de `koru.json` y diagnóstico, sin cambios en el APK generado.
 
 `koru logs`, `koru run --logs` y el QR de `koru dev --qr`: `adb.Stream` (sin límite de 1 MiB), `pidof` y `logcat --pid` más las líneas `chromium`, y la URL de red como QR con `rsc.io/qr` (BSD-3); probados contra `internal/adb/adbtest` y con comprobación de la matriz QR, **sin validar el formato real de logcat ni el escaneo en un dispositivo**.
+
+Plantillas `react`, `vue`, `svelte` y `vanilla-ts` de `koru create`: cada una se validó con `npm install`, `npm run build` (y `tsc --noEmit` en `vanilla-ts`), `koru build` y `koru verify`; no se ejecutaron en Android.
