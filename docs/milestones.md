@@ -64,3 +64,5 @@ Este hito no amplía la matriz Android registrada: el APK generado no cambia sal
 el contenido de `core.js` (modo web y `platform`). Hasta reejecutar la matriz de
 API 30 con este `core.js`, el camino nativo se considera validado solo por las
 pruebas unitarias del protocolo.
+
+Plantillas `react`, `vue`, `svelte` y `vanilla-ts` de `koru create`: cada una se validó con `npm install`, `npm run build` (y `tsc --noEmit` en `vanilla-ts`), `koru build` y `koru verify`; no se ejecutaron en Android.
