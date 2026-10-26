@@ -64,3 +64,5 @@ Este hito no amplía la matriz Android registrada: el APK generado no cambia sal
 el contenido de `core.js` (modo web y `platform`). Hasta reejecutar la matriz de
 API 30 con este `core.js`, el camino nativo se considera validado solo por las
 pruebas unitarias del protocolo.
+
+`koru bump`, `koru build --bump`, `koru plugin list|add|remove`, `koru config` y los avisos de `koru doctor` (.gitignore, viewport, INTERNET por heurística, icono, targetSdk) se cubren con pruebas Go en `cmd/koru`; son edición de `koru.json` y diagnóstico, sin cambios en el APK generado.

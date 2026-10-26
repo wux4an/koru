@@ -55,7 +55,19 @@ func doctor(args []string, out io.Writer) error {
 	if _, e = c.LoadPlugins(project); e != nil {
 		return e
 	}
-	return writeStatus(out, "Project", fmt.Sprintf("%s: configuration, persistent signing identity, web entry point, and plugin manifests are valid.", c.AppID), "mint")
+	if e = writeStatus(out, "Project", fmt.Sprintf("%s: configuration, persistent signing identity, web entry point, and plugin manifests are valid.", c.AppID), "mint"); e != nil {
+		return e
+	}
+	warnings, e := doctorWarnings(project, root, c)
+	if e != nil {
+		return e
+	}
+	for _, w := range warnings {
+		if e = writeStatus(out, "Warning", w, "peach"); e != nil {
+			return e
+		}
+	}
+	return nil
 }
 
 // doctorDevices reports the adb server and devices. They are only needed by
