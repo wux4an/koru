@@ -230,6 +230,40 @@ func (c Client) Exec(ctx context.Context, serial, command string, stdin io.Reade
 	return out.String(), nil
 }
 
+// Stream runs a command on the device and copies its output to w until the
+// command ends, the connection drops or ctx is cancelled. Unlike Exec it has
+// no size or time limit, so it suits `logcat`. A cancelled ctx returns
+// ctx.Err(); a command that ends by itself returns nil.
+func (c Client) Stream(ctx context.Context, serial, command string, w io.Writer) error {
+	conn, err := c.dial(ctx)
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+	// Closing the connection is what unblocks the copy below.
+	stop := context.AfterFunc(ctx, func() { conn.Close() })
+	defer stop()
+	if err = send(conn, "host:transport:"+serial); err != nil {
+		return ctxOr(ctx, err)
+	}
+	if err = send(conn, "exec:"+command); err != nil {
+		return ctxOr(ctx, err)
+	}
+	// The handshake deadline from dial must not cut a long-lived stream.
+	if err = conn.SetDeadline(time.Time{}); err != nil {
+		return err
+	}
+	_, err = io.Copy(w, conn)
+	return ctxOr(ctx, err)
+}
+
+func ctxOr(ctx context.Context, err error) error {
+	if ctx.Err() != nil {
+		return ctx.Err()
+	}
+	return err
+}
+
 // Install streams an APK to the package manager (`cmd package install -S`).
 func (c Client) Install(ctx context.Context, serial string, apk []byte) error {
 	out, err := c.Exec(ctx, serial, fmt.Sprintf("cmd package install -r -S %d", len(apk)), bytes.NewReader(apk))

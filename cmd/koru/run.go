@@ -8,6 +8,7 @@ import (
 	"koru.dev/koru/internal/app"
 	"koru.dev/koru/internal/config"
 	"os"
+	"os/signal"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -27,11 +28,13 @@ does not start programs itself. Debug builds can be inspected in Chrome at
 chrome://inspect.`,
 		Example: `  koru run
   koru run ./my-app --device emulator-5554
-  koru run --release`,
+  koru run --release
+  koru run --logs                      # keep streaming the app's logs`,
 		Args: cobra.MaximumNArgs(1),
 	}
 	cmd.Flags().String("device", "", "device serial from `koru devices` (default: the only connected device, or $ANDROID_SERIAL)")
 	cmd.Flags().Bool("release", false, "install a release build (debugging disabled)")
+	cmd.Flags().Bool("logs", false, "after opening the app, stream its logs like `koru logs`")
 	cmd.Flags().Bool("no-cache", false, "disable runtime DEX cache")
 	cmd.RunE = func(cmd *cobra.Command, args []string) error {
 		project := "."
@@ -44,16 +47,23 @@ chrome://inspect.`,
 		}
 		release, _ := cmd.Flags().GetBool("release")
 		noCache, _ := cmd.Flags().GetBool("no-cache")
+		logs, _ := cmd.Flags().GetBool("logs")
 		addr, err := adb.Address()
 		if err != nil {
 			return err
 		}
-		return runOnDevice(cmd.Context(), adb.Client{Addr: addr}, project, serial, release, noCache, cmd.OutOrStdout())
+		ctx := cmd.Context()
+		if logs {
+			var stop context.CancelFunc
+			ctx, stop = signal.NotifyContext(ctx, os.Interrupt)
+			defer stop()
+		}
+		return runOnDevice(ctx, adb.Client{Addr: addr}, project, serial, release, noCache, logs, cmd.OutOrStdout())
 	}
 	return cmd
 }
 
-func runOnDevice(ctx context.Context, client adb.Client, project, serial string, release, noCache bool, out io.Writer) error {
+func runOnDevice(ctx context.Context, client adb.Client, project, serial string, release, noCache, logs bool, out io.Writer) error {
 	c, err := config.Load(project)
 	if err != nil {
 		return err
@@ -92,7 +102,11 @@ func runOnDevice(ctx context.Context, client adb.Client, project, serial string,
 	if release {
 		hint = "release build; debugging is disabled"
 	}
-	return writeStatus(out, "Opened", fmt.Sprintf("%s on %s; %s", c.Name, name, hint), "mint")
+	if err = writeStatus(out, "Opened", fmt.Sprintf("%s on %s; %s", c.Name, name, hint), "mint"); err != nil || !logs {
+		return err
+	}
+	// `am start -W` returns once the activity is up; allow a moment for pidof.
+	return followLogs(ctx, client, device.Serial, c.AppID, 5, out)
 }
 
 func newDevicesCommand() *cobra.Command {

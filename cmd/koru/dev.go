@@ -31,11 +31,13 @@ SvelteKit...) and adds the koru API to them, keeping that server's hot reload.`,
 		Example: `  koru dev
   koru dev ./my-app --port 3000
   koru dev --host 0.0.0.0              # also reachable from phones on your network
+  koru dev --host 0.0.0.0 --qr         # print a QR code of the network URL
   koru dev --proxy http://localhost:5173`,
 		Args: cobra.MaximumNArgs(1),
 	}
 	cmd.Flags().Int("port", 8100, "port to listen on")
 	cmd.Flags().String("host", "127.0.0.1", "address to listen on; 0.0.0.0 exposes it to your network")
+	cmd.Flags().Bool("qr", false, "print a QR code of the network URL (shown automatically in a terminal when the host is not loopback)")
 	cmd.Flags().String("proxy", "", "forward to this web dev server instead of serving webDir")
 	cmd.RunE = func(cmd *cobra.Command, args []string) error {
 		project := "."
@@ -45,9 +47,10 @@ SvelteKit...) and adds the koru API to them, keeping that server's hot reload.`,
 		port, _ := cmd.Flags().GetInt("port")
 		host, _ := cmd.Flags().GetString("host")
 		proxy, _ := cmd.Flags().GetString("proxy")
+		qr, _ := cmd.Flags().GetBool("qr")
 		ctx, stop := signal.NotifyContext(cmd.Context(), os.Interrupt)
 		defer stop()
-		return serveDev(ctx, devOptions{project: project, host: host, port: port, proxy: proxy}, cmd.OutOrStdout(), nil)
+		return serveDev(ctx, devOptions{project: project, host: host, port: port, proxy: proxy, qr: qr}, cmd.OutOrStdout(), nil)
 	}
 	return cmd
 }
@@ -55,6 +58,7 @@ SvelteKit...) and adds the koru API to them, keeping that server's hot reload.`,
 type devOptions struct {
 	project, host, proxy string
 	port                 int
+	qr                   bool // print the QR even when out is not a terminal
 }
 
 func serveDev(ctx context.Context, o devOptions, out io.Writer, listening func(addr string)) error {
@@ -88,7 +92,7 @@ func serveDev(ctx context.Context, o devOptions, out io.Writer, listening func(a
 	}
 	srv := &http.Server{Handler: s, ReadHeaderTimeout: 10 * time.Second}
 	addr := ln.Addr().(*net.TCPAddr)
-	if err = printDevURLs(out, o.host, addr.Port, o.proxy); err != nil {
+	if err = printDevURLs(out, o.host, addr.Port, o.proxy, o.qr); err != nil {
 		ln.Close()
 		return err
 	}
@@ -116,7 +120,7 @@ func serveDev(ctx context.Context, o devOptions, out io.Writer, listening func(a
 	}
 }
 
-func printDevURLs(out io.Writer, host string, port int, proxy string) error {
+func printDevURLs(out io.Writer, host string, port int, proxy string, forceQR bool) error {
 	p := presentationFor(out)
 	what := "live reload on save"
 	if proxy != "" {
@@ -126,14 +130,31 @@ func printDevURLs(out io.Writer, host string, port int, proxy string) error {
 		return err
 	}
 	local := host
-	if host == "0.0.0.0" || host == "::" || host == "" {
+	wildcard := host == "0.0.0.0" || host == "::" || host == ""
+	if wildcard {
 		local = "127.0.0.1"
 	}
 	fmt.Fprintf(out, "  %s  http://%s\n", p.paint("Local:  ", "iris"), net.JoinHostPort(local, strconv.Itoa(port)))
-	if local != host {
-		for _, ip := range lanAddresses() {
+	var network []string
+	switch ip := net.ParseIP(host); {
+	case wildcard:
+		network = lanAddresses()
+	case ip != nil && !ip.IsLoopback():
+		network = []string{host}
+	}
+	if wildcard {
+		// A specific non-loopback host is already the Local line.
+		for _, ip := range network {
 			fmt.Fprintf(out, "  %s  http://%s\n", p.paint("Network:", "iris"), net.JoinHostPort(ip, strconv.Itoa(port)))
 		}
+	}
+	if len(network) > 0 && (forceQR || isTerminalWriter(out)) {
+		first := "http://" + net.JoinHostPort(network[0], strconv.Itoa(port))
+		art, err := renderQR(first, p)
+		if err != nil {
+			return err
+		}
+		fmt.Fprintf(out, "\n  Scan to open %s on your phone:\n\n%s\n", first, art)
 	}
 	_, err := fmt.Fprintln(out, "  The koru API uses web implementations here; run `koru run` for the native app.")
 	return err

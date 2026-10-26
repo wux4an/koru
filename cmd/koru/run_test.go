@@ -24,7 +24,7 @@ func TestRunBuildsInstallsAndOpens(t *testing.T) {
 	}
 	client := adb.Client{Addr: fake.Addr()}
 	out.Reset()
-	if e := runOnDevice(context.Background(), client, dir, "", false, false, &out); e != nil {
+	if e := runOnDevice(context.Background(), client, dir, "", false, false, false, &out); e != nil {
 		t.Fatal(e)
 	}
 	report, e := app.Verify(fake.Installed())
@@ -41,10 +41,10 @@ func TestRunBuildsInstallsAndOpens(t *testing.T) {
 		}
 	}
 	fake.SetReply("Failure [INSTALL_FAILED_UPDATE_INCOMPATIBLE]\n")
-	if e = runOnDevice(context.Background(), client, dir, "", true, false, &out); e == nil || !strings.Contains(e.Error(), "Uninstall") {
+	if e = runOnDevice(context.Background(), client, dir, "", true, false, false, &out); e == nil || !strings.Contains(e.Error(), "Uninstall") {
 		t.Fatal(e)
 	}
-	if e = runOnDevice(context.Background(), client, dir, "missing", false, false, &out); e == nil || !strings.Contains(e.Error(), "koru devices") {
+	if e = runOnDevice(context.Background(), client, dir, "missing", false, false, false, &out); e == nil || !strings.Contains(e.Error(), "koru devices") {
 		t.Fatal(e)
 	}
 	out.Reset()
