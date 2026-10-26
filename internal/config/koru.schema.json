@@ -113,6 +113,51 @@
       "items": { "type": "string" },
       "description": "Paths to custom plugin manifests (ABI 1)."
     },
+    "orientation": {
+      "enum": ["portrait", "landscape", "sensor"],
+      "description": "Lock the screen orientation (android:screenOrientation). Omit to keep Android's default."
+    },
+    "allowBackup": {
+      "type": "boolean",
+      "default": false,
+      "description": "Allow Android auto backup of app data (android:allowBackup). Off by default."
+    },
+    "keyboard": {
+      "enum": ["resize", "pan"],
+      "default": "resize",
+      "description": "Soft keyboard behaviour (android:windowSoftInputMode): resize shrinks the page, pan slides it up."
+    },
+    "deepLinks": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 32,
+      "description": "Links that open the app: https App Links (verified with koru deeplinks) or a custom scheme. The link opens the app on its initial page; the URL is not delivered to JavaScript yet.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["scheme"],
+        "properties": {
+          "scheme": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9+.-]{0,31}$",
+            "not": { "enum": ["http", "javascript", "file", "content"] },
+            "description": "\"https\" or a custom lowercase scheme such as myapp. http, javascript, file and content are rejected."
+          },
+          "host": {
+            "type": "string",
+            "maxLength": 253,
+            "pattern": "^(\\*\\.)?[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$",
+            "description": "Lowercase host such as example.com or *.example.com. Required for https."
+          },
+          "pathPrefix": {
+            "type": "string",
+            "pattern": "^/[^\\s?#]*$",
+            "maxLength": 256,
+            "description": "Path prefix starting with /, for example /app. Needs host."
+          }
+        }
+      }
+    },
     "nativeLibraries": {
       "type": "object",
       "description": "Prebuilt JNI libraries per ABI, for example {\"arm64-v8a\": [\"libs/libfoo.so\"]}.",
