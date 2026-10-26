@@ -24,7 +24,7 @@ func newCreateCommand() *cobra.Command {
 		Short: "Create a new app from a template",
 		Long:  "Create a new app from a template, with its configuration and a persistent signing identity. Missing details are asked for in an interactive terminal.",
 		Example: `  koru create my-app
-  koru create my-app --template vite --name "My App" --app-id com.example.myapp`,
+  koru create my-app --template react --name "My App" --app-id com.example.myapp`,
 		Args: cobra.MaximumNArgs(1),
 	}
 	cmd.Flags().StringP("template", "t", "", "starter template: "+strings.Join(ids, ", ")+" (default basic)")
@@ -133,7 +133,7 @@ func printNextSteps(out io.Writer, dir, template string, c config.Config) error 
 		return err
 	}
 	steps := []string{"cd " + dir}
-	if template == "vite" {
+	if t, err := templates.Find(template); err == nil && t.Vendor != "" {
 		steps = append(steps, "npm install", "npm run dev        # browser preview with hot reload", "npm run android    # install and open on a device")
 	} else {
 		steps = append(steps, "koru dev           # browser preview with live reload", "koru run           # install and open on a device")

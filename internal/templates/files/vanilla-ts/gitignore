@@ -1,0 +1,4 @@
+.koru/
+node_modules/
+dist/
+*.apk

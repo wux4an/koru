@@ -33,6 +33,10 @@ type Template struct {
 var List = []Template{
 	{ID: "basic", Description: "HTML, CSS and JavaScript, no build step or Node.js needed", WebDir: "www", Plugins: []string{"device", "storage", "app", "vibration", "share"}},
 	{ID: "vite", Description: "Vite project with hot reload (needs Node.js)", WebDir: "dist", Plugins: []string{"device", "storage", "app"}, Vendor: "src/koru"},
+	{ID: "react", Description: "Vite with React 18 and JSX (needs Node.js)", WebDir: "dist", Plugins: []string{"device", "storage", "app"}, Vendor: "src/koru"},
+	{ID: "vue", Description: "Vite with Vue 3 single-file components (needs Node.js)", WebDir: "dist", Plugins: []string{"device", "storage", "app"}, Vendor: "src/koru"},
+	{ID: "svelte", Description: "Vite with Svelte 5 (needs Node.js)", WebDir: "dist", Plugins: []string{"device", "storage", "app"}, Vendor: "src/koru"},
+	{ID: "vanilla-ts", Description: "Vite with strict TypeScript and no framework (needs Node.js)", WebDir: "dist", Plugins: []string{"device", "storage", "app"}, Vendor: "src/koru"},
 }
 
 func Find(id string) (Template, error) {
@@ -135,6 +139,9 @@ func Write(dir string, o Options) (config.Config, error) {
 		switch path.Ext(rel) {
 		case ".html":
 			appName = html.EscapeString(o.Name)
+		case ".jsx", ".vue", ".svelte":
+			// Markup of component templates: braces would start expressions.
+			appName = strings.NewReplacer("{", "&#123;", "}", "&#125;").Replace(html.EscapeString(o.Name))
 		case ".json":
 			quoted, _ := json.Marshal(o.Name)
 			appName = string(quoted[1 : len(quoted)-1])
