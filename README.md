@@ -38,7 +38,7 @@ koru dev                         # preview in your browser with live reload
 koru run                         # install and open on a phone or emulator
 ```
 
-`koru run` talks to the adb server that Android Studio or the platform tools run; koru never starts external programs. The [first app guide](https://koru.js.org/en/getting-started/) walks through every step.
+`koru run` talks to the adb server that Android Studio or the platform tools run; koru never starts external programs. `koru dev --host 0.0.0.0 --qr` prints a QR code to open the preview on your phone, and `koru logs` (or `koru run --logs`) streams the app's logs and WebView console to your terminal. The [first app guide](https://koru.js.org/en/getting-started/) walks through every step.
 
 Keep a secure backup of `.koru/signing.pem`. `koru create` and `koru init` add `.koru/` to the project's `.gitignore` so the key stays out of version control. Android needs the same signing identity for future updates.
 
@@ -53,7 +53,7 @@ Need iOS, Google Play bundles or a large plugin ecosystem? See the honest [compa
 
 ## Bring your frontend
 
-Start with `koru create my-app --template vite`, or add koru to an existing project with `koru init` and set `webDir` to the folder containing the generated `index.html`. Enable `spa` if your app uses client-side routes. Keep your framework's hot reload with `koru dev --proxy http://localhost:5173`.
+Start with `koru create my-app --template react` (also `vue`, `svelte`, `vanilla-ts`, `vite` and `basic`), or add koru to an existing project with `koru init` and set `webDir` to the folder containing the generated `index.html`. Enable `spa` if your app uses client-side routes. Keep your framework's hot reload with `koru dev --proxy http://localhost:5173`.
 
 Koru packages static files. Apps that render on a server need a static export or an HTTPS API. [Frameworks guide](https://koru.js.org/en/existing-project/).
 
@@ -78,13 +78,13 @@ koru build --release --output app-release.apk
 koru verify app-release.apk
 ```
 
-A release build disables debugging and uses your existing signing identity. Install and test the release APK before sharing it (`koru run --release`). To update an app, keep its `appId` and key, and increase `versionCode`. [Distribution guide](https://koru.js.org/en/distribution/).
+A release build disables debugging and uses your existing signing identity. Install and test the release APK before sharing it (`koru run --release`). To update an app, keep its `appId` and key, and raise the version with `koru bump [patch|minor|major|code]` or `koru build --bump`. `koru plugin list|add|remove` and `koru config` edit and inspect `koru.json`. [Distribution guide](https://koru.js.org/en/distribution/).
 
 ## Current support
 
 Koru is in development. APK installation and execution have been tested on an **Android 11 (API 30), x86_64 emulator**, including local web content, offline use and the standard plugins. The configurable SDK range is 26–36; this does not establish compatibility with every device or API level.
 
-Distribution currently uses APKs for direct installation. AAB output for Google Play and scheduled notifications are not available. Linux is the validated operational host; Windows and macOS have compile checks. See the [recorded Android results](docs/results/full/README.md) for the tested scope. `koru run` and `koru devices` are tested against an in-process implementation of the adb server protocol; they are not yet recorded on physical hardware.
+Distribution currently uses APKs for direct installation. AAB output for Google Play and scheduled notifications are not available. Linux is the validated operational host; Windows and macOS have compile checks. See the [recorded Android results](docs/results/full/README.md) for the tested scope. `koru run`, `koru devices` and `koru logs` are tested against an in-process implementation of the adb server protocol; they are not yet recorded on physical hardware, and the real logcat format is not validated. The framework templates and the `orientation`, `allowBackup`, `keyboard` and `deepLinks` fields of `koru.json` (with `koru deeplinks` for `assetlinks.json`) have not been run on Android; deep links open the app on its first page and do not pass the URL to JavaScript yet.
 
 ## Learn more
 

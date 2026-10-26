@@ -55,6 +55,21 @@ Debug builds (the default for `koru run`) enable WebView debugging. With the app
 
 `koru run --release` installs a release build instead. Debugging is disabled, as in the APK you distribute.
 
+## See the app’s logs
+
+```sh
+koru logs
+koru run --logs     # build, install, open, then keep streaming
+```
+
+`koru logs` prints what the running app writes to Android’s log, including the WebView’s `console.log`, `console.warn` and `console.error` lines, in your terminal. The app must be open; press Ctrl+C to stop. koru prints this status line first (the pid and serial are placeholders):
+
+```text
+Logs com.example.myapp (pid 1234) on emulator-5554; press Ctrl+C to stop
+```
+
+The lines after it are Android’s `logcat` brief format. koru reads them through the adb server (running `pidof` and `logcat` on the device), not through a local `adb`. **The real line format has not been validated on a device**: this feature is tested against a simulated adb server. If it fails or looks wrong, fall back on `chrome://inspect` above. Flags are in [CLI commands]({{base}}en/cli/).
+
 ## When installation fails
 
 koru explains the common Android errors:
@@ -62,7 +77,7 @@ koru explains the common Android errors:
 | Message                                 | Fix                                                                                                                         |
 | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | …installed with a different signing key | The device has an app with the same `appId` signed by another key. Uninstall it on the device, or restore the original key. |
-| …the device has a newer versionCode     | Increase `versionCode` in `koru.json`, or uninstall the newer app.                                                          |
+| …the device has a newer versionCode     | Increase `versionCode` in `koru.json` (for example `koru bump code`), or uninstall the newer app.                           |
 | …older than minSdk                      | The device’s Android version is below `minSdk`. Use a newer device or emulator image.                                       |
 | no adb server …                         | Run `adb start-server`, or open Android Studio.                                                                             |
 | several devices are connected           | Add `--device <serial>`.                                                                                                    |

@@ -10,18 +10,21 @@ Capacitor and Expo are mature, widely used tools. koru does much less, on purpos
 
 ## Side by side
 
-|                      | koru                                                                 | Capacitor                                                           | Expo                                              |
-| -------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------- |
-| You write            | HTML, CSS, JavaScript; any static frontend                           | HTML, CSS, JavaScript; any web framework                            | React Native (JavaScript/TypeScript)              |
-| UI renders in        | Android System WebView                                               | WebView (Android, iOS)                                              | Native views                                      |
-| Android build needs  | The koru binary only                                                 | Android Studio or Gradle, JDK, Android SDK                          | EAS Build (cloud), or JDK and Android SDK locally |
-| Platforms            | Android                                                              | Android, iOS, web                                                   | Android, iOS, web                                 |
-| Output               | Signed APK (v2)                                                      | APK, AAB                                                            | APK, AAB                                          |
-| Start a project      | `koru create`                                                        | `npm init @capacitor/app`                                           | `npx create-expo-app`                             |
-| Preview while coding | `koru dev`: browser, live reload, web implementations of the API     | Your framework’s dev server; live reload on device via `server.url` | Expo Go or a development build, with fast refresh |
-| Run on a device      | `koru run`                                                           | `npx cap run android`                                               | `npx expo run:android`                            |
-| Native features      | 6 built-in plugins; custom plugins as DEX manifests or JNI libraries | Official and community plugins; write your own natively             | Expo SDK modules; write your own natively         |
-| Maturity             | Experimental; recorded on Android 11 (API 30) x86_64                 | Widely used in production                                           | Widely used in production                         |
+|                      | koru                                                                                             | Capacitor                                                           | Expo                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------------------------- |
+| You write            | HTML, CSS, JavaScript; any static frontend                                                       | HTML, CSS, JavaScript; any web framework                            | React Native (JavaScript/TypeScript)              |
+| UI renders in        | Android System WebView                                                                           | WebView (Android, iOS)                                              | Native views                                      |
+| Android build needs  | The koru binary only                                                                             | Android Studio or Gradle, JDK, Android SDK                          | EAS Build (cloud), or JDK and Android SDK locally |
+| Platforms            | Android                                                                                          | Android, iOS, web                                                   | Android, iOS, web                                 |
+| Output               | Signed APK (v2)                                                                                  | APK, AAB                                                            | APK, AAB                                          |
+| Start a project      | `koru create`: `basic`, Vite, React, Vue, Svelte or TypeScript templates                         | `npm init @capacitor/app`                                           | `npx create-expo-app`                             |
+| Preview while coding | `koru dev`: browser, live reload, web implementations of the API                                 | Your framework’s dev server; live reload on device via `server.url` | Expo Go or a development build, with fast refresh |
+| Run on a device      | `koru run`                                                                                       | `npx cap run android`                                               | `npx expo run:android`                            |
+| Device logs          | `koru logs` in your terminal (not yet validated on a device)                                     | Android Studio Logcat, or `chrome://inspect` for the WebView        | Terminal and dev tools while the dev server runs  |
+| Deep links           | `deepLinks` in `koru.json`; opens the app, URL not passed to JavaScript yet; untested on Android | Supported, including the URL in JavaScript (App plugin)             | Supported through Expo Router and linking         |
+| Versioning           | `koru bump`, `koru build --bump`                                                                 | Edit Gradle or Xcode project files                                  | `version` in app config; EAS can auto-increment   |
+| Native features      | 6 built-in plugins; custom plugins as DEX manifests or JNI libraries                             | Official and community plugins; write your own natively             | Expo SDK modules; write your own natively         |
+| Maturity             | Experimental; recorded on Android 11 (API 30) x86_64                                             | Widely used in production                                           | Widely used in production                         |
 
 ## What koru does differently
 
@@ -35,6 +38,7 @@ Capacitor and Expo are mature, widely used tools. koru does much less, on purpos
 
 - iOS apps.
 - Android App Bundles (AAB) for Google Play. koru produces APKs for direct installation and stores that accept APKs.
+- Pass a deep link’s URL to your JavaScript. The link opens the app on its first page, and neither the verified-link flow nor any of this has been run on Android.
 - Scheduled notifications, camera, geolocation, file pickers and other plugins outside the six built-in ones.
 - Live reload inside the installed APK. Use `koru dev` in a browser, then `koru run`.
 - Verified execution beyond the [recorded matrix]({{base}}en/android-results/).

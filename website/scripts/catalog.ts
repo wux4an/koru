@@ -96,8 +96,8 @@ export const pages = [
     icon: "device-mobile",
     titles: ["Run on a device", "Ejecuta en un dispositivo"],
     descriptions: [
-      "Install and open your app on a phone or emulator with koru run, list devices and debug the WebView.",
-      "Instala y abre tu app en un móvil o emulador con koru run, lista dispositivos y depura el WebView.",
+      "Install and open your app on a phone or emulator with koru run, list devices, read logs with koru logs and debug the WebView.",
+      "Instala y abre tu app en un móvil o emulador con koru run, lista dispositivos, lee los logs con koru logs y depura el WebView.",
     ],
   },
   {
@@ -119,8 +119,8 @@ export const pages = [
     icon: "export",
     titles: ["Distribute your app", "Distribuye tu app"],
     descriptions: [
-      "Build a release APK, share it and update your app with the same signing identity.",
-      "Genera un APK release, compártelo y actualiza tu app con la misma firma.",
+      "Build a release APK, bump its version, share it and update your app with the same signing identity.",
+      "Genera un APK release, sube su versión, compártelo y actualiza tu app con la misma firma.",
     ],
   },
   {
@@ -149,8 +149,8 @@ export const pages = [
     icon: "terminal-window",
     titles: ["CLI commands", "Comandos CLI"],
     descriptions: [
-      "Reference for koru create, dev, run, devices, build, verify, doctor, init, keygen and DEX commands.",
-      "Referencia de koru create, dev, run, devices, build, verify, doctor, init, keygen y comandos DEX.",
+      "Reference for koru create, dev, run, logs, devices, build, bump, plugin, config, deeplinks, verify, doctor, init, keygen and DEX commands.",
+      "Referencia de koru create, dev, run, logs, devices, build, bump, plugin, config, deeplinks, verify, doctor, init, keygen y comandos DEX.",
     ],
   },
   {
@@ -159,8 +159,8 @@ export const pages = [
     icon: "sliders-horizontal",
     titles: ["Configuration", "Configuración"],
     descriptions: [
-      "Every koru.json option, SDK constraint, permission, asset path and signing identity.",
-      "Opciones de koru.json, límites SDK, permisos, rutas de assets e identidad de firma.",
+      "Every koru.json option, SDK constraint, permission, orientation, deep link, asset path and signing identity.",
+      "Opciones de koru.json, límites SDK, permisos, orientación, deep links, rutas de assets e identidad de firma.",
     ],
   },
   {

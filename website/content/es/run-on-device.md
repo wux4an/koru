@@ -55,6 +55,21 @@ Las builds de depuración (las que usa `koru run` por defecto) activan la depura
 
 `koru run --release` instala en cambio una build release. La depuración queda desactivada, como en el APK que distribuyes.
 
+## Mira los logs de la app
+
+```sh
+koru logs
+koru run --logs     # compila, instala, abre y sigue mostrando logs
+```
+
+`koru logs` muestra en tu terminal lo que la app en ejecución escribe en el log de Android, incluidas las líneas `console.log`, `console.warn` y `console.error` del WebView. La app debe estar abierta; pulsa Ctrl+C para detenerlo. koru imprime primero esta línea de estado (el pid y el número de serie son ilustrativos):
+
+```text
+Logs com.example.myapp (pid 1234) on emulator-5554; press Ctrl+C to stop
+```
+
+Las líneas siguientes usan el formato `brief` de `logcat` de Android. koru las lee a través del servidor adb (ejecutando `pidof` y `logcat` en el dispositivo), no con un `adb` local. **El formato real de línea no se ha validado en un dispositivo**: esta función se probó contra un servidor adb simulado. Si falla o la salida se ve mal, recurre a `chrome://inspect`, descrito arriba. Las opciones están en [Comandos CLI]({{base}}es/cli/).
+
 ## Si la instalación falla
 
 koru explica los errores habituales de Android:
@@ -62,7 +77,7 @@ koru explica los errores habituales de Android:
 | Mensaje                                 | Solución                                                                                                                               |
 | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | …installed with a different signing key | El dispositivo tiene una app con el mismo `appId` firmada con otra clave. Desinstálala en el dispositivo o recupera la clave original. |
-| …the device has a newer versionCode     | Incrementa `versionCode` en `koru.json` o desinstala la app más nueva.                                                                 |
+| …the device has a newer versionCode     | Incrementa `versionCode` en `koru.json` (por ejemplo con `koru bump code`) o desinstala la app más nueva.                              |
 | …older than minSdk                      | La versión de Android del dispositivo es inferior a `minSdk`. Usa un dispositivo o una imagen de emulador más reciente.                |
 | no adb server …                         | Ejecuta `adb start-server` o abre Android Studio.                                                                                      |
 | several devices are connected           | Añade `--device <serie>`.                                                                                                              |

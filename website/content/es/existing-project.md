@@ -2,19 +2,30 @@
 
 koru empaqueta archivos estáticos: un `index.html` y los scripts, estilos e imágenes que usa. Sirve cualquier framework que pueda exportar un sitio estático. Apunta `webDir` a la carpeta de salida y koru hace el resto.
 
-## Empieza un proyecto Vite nuevo
+## Empieza desde una plantilla de framework
 
-El camino más rápido para React, Vue, Svelte o Solid es la plantilla de Vite:
+El camino más rápido es una plantilla basada en Vite. Todas necesitan Node.js:
 
 ```sh
-koru create mi-app --template vite
+koru create mi-app --template react
 cd mi-app
 npm install
 npm run dev        # Vite con recarga en caliente
 npm run android    # vite build y después koru run
+npm run apk        # vite build y después un APK release firmado
 ```
 
-Contiene una app Vite en JavaScript, un `koru.json` con `"webDir": "dist"` y una copia del módulo JavaScript de koru en `src/koru/`, para que los imports funcionen tanto en el servidor de desarrollo de Vite como en las builds de producción. Añade un framework como de costumbre, por ejemplo `npm install react react-dom @vitejs/plugin-react` y un `vite.config.js`.
+| `--template` | Obtienes                                                     |
+| ------------ | ------------------------------------------------------------ |
+| `react`      | Vite con React 18 y JSX.                                     |
+| `vue`        | Vite con componentes de un solo archivo de Vue 3.            |
+| `svelte`     | Vite con Svelte 5.                                           |
+| `vanilla-ts` | Vite con TypeScript estricto y sin framework.                |
+| `vite`       | Una app Vite en JavaScript simple, para cualquier otro caso. |
+
+Cada plantilla trae un `koru.json` con `"webDir": "dist"` y una copia del módulo JavaScript de koru en `src/koru/`, para que los imports funcionen tanto en el servidor de desarrollo de Vite como en las builds de producción. Para Solid u otro framework, parte de `vite` y añádelo como de costumbre, por ejemplo `npm install solid-js vite-plugin-solid` y un `vite.config.js`.
+
+Estas plantillas se compilaron con `npm run build`, `koru build` y `koru verify` (y `tsc --noEmit` en `vanilla-ts`). No se han instalado ni ejecutado en Android, así que pruébala en un dispositivo antes de construir sobre ella.
 
 ## Añade koru a un proyecto existente
 

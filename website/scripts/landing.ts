@@ -58,17 +58,17 @@ const copy = {
       [
         "magic-wand",
         "Start in seconds",
-        "koru create asks for a name and writes a ready project: plain HTML or Vite, with typed JavaScript, a signing key and a .gitignore that keeps it private.",
+        "koru create writes a ready project from a template: plain HTML, Vite, React, Vue, Svelte or TypeScript, with typed JavaScript, a signing key and a .gitignore that keeps it private.",
       ],
       [
         "arrows-clockwise",
         "Live reload in your browser",
-        "koru dev serves your app with live reload. The same JavaScript API runs on web implementations, so storage, share and notifications work before you build.",
+        "koru dev serves your app with live reload and prints a QR code to open it on your phone. The same JavaScript API runs on web implementations, so storage, share and notifications work before you build.",
       ],
       [
         "device-mobile",
         "One command to your phone",
-        "koru run builds, installs and opens the app on a connected phone or emulator, and explains what to fix when something is wrong.",
+        "koru run builds, installs and opens the app on a connected phone or emulator, and explains what to fix when something is wrong. koru logs shows the app's logs in your terminal.",
       ],
       [
         "puzzle-piece",
@@ -99,7 +99,7 @@ document.querySelector("#share").onclick = () =>
     codeLink: "Read the JavaScript API",
     frameworksTitle: "Bring your own frontend",
     frameworksLead:
-      "Anything that outputs static files works: point webDir at the build folder. Keep your framework's hot reload with koru dev --proxy.",
+      "Start from a React, Vue, Svelte or TypeScript template, or bring anything that outputs static files: point webDir at the build folder. Keep your framework's hot reload with koru dev --proxy.",
     frameworks: [
       "Vite",
       "React",
@@ -189,17 +189,17 @@ cd koru && make install`,
       [
         "magic-wand",
         "Empieza en segundos",
-        "koru create pide un nombre y escribe un proyecto listo: HTML simple o Vite, con JavaScript tipado, una clave de firma y un .gitignore que la mantiene privada.",
+        "koru create escribe un proyecto listo desde una plantilla: HTML simple, Vite, React, Vue, Svelte o TypeScript, con JavaScript tipado, una clave de firma y un .gitignore que la mantiene privada.",
       ],
       [
         "arrows-clockwise",
         "Recarga en vivo en el navegador",
-        "koru dev sirve tu app con recarga en vivo. La misma API JavaScript usa implementaciones web, así que storage, share y las notificaciones funcionan antes de compilar.",
+        "koru dev sirve tu app con recarga en vivo e imprime un código QR para abrirla en tu móvil. La misma API JavaScript usa implementaciones web, así que storage, share y las notificaciones funcionan antes de compilar.",
       ],
       [
         "device-mobile",
         "Un comando hasta tu móvil",
-        "koru run compila, instala y abre la app en un móvil o emulador conectado, y explica qué corregir cuando algo falla.",
+        "koru run compila, instala y abre la app en un móvil o emulador conectado, y explica qué corregir cuando algo falla. koru logs muestra los logs de la app en tu terminal.",
       ],
       [
         "puzzle-piece",
@@ -230,7 +230,7 @@ document.querySelector("#share").onclick = () =>
     codeLink: "Lee la API JavaScript",
     frameworksTitle: "Trae tu propio frontend",
     frameworksLead:
-      "Sirve cualquier herramienta que genere archivos estáticos: apunta webDir a la carpeta de salida. Conserva la recarga de tu framework con koru dev --proxy.",
+      "Empieza con una plantilla de React, Vue, Svelte o TypeScript, o trae cualquier herramienta que genere archivos estáticos: apunta webDir a la carpeta de salida. Conserva la recarga de tu framework con koru dev --proxy.",
     frameworks: [
       "Vite",
       "React",

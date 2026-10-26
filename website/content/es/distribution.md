@@ -36,15 +36,26 @@ Abre la app desde el lanzador y comprueba su comportamiento antes de compartirla
 
 ## Publica una actualización
 
-Conserva el mismo `appId` y la misma clave. Aumenta `versionCode` y cambia `version`, por ejemplo:
+Conserva el mismo `appId` y la misma clave. Aumenta `versionCode` y cambia `version`. Deja que koru lo haga:
+
+```sh
+koru bump minor                     # version 1.0.0 -> 1.1.0, versionCode 1 -> 2
+koru build --release --bump --output app-release.apk   # bump de patch y luego build
+```
+
+`bump` acepta `patch` (por defecto), `minor`, `major` o `code` (solo `versionCode`). Usa `--bump` en `build` para una versión de parche, o ejecuta antes `bump` con otro nivel, pero no ambos: subirías la versión dos veces. También puedes editar los campos de `koru.json` a mano, por ejemplo:
 
 ```json
 "version": "1.1.0",
 "versionCode": 2
 ```
 
-Son campos para editar en `koru.json`. Vuelve a compilar tu frontend, genera el APK release e instálalo sobre la versión anterior. Comprueba que se mantienen los datos guardados.
+Vuelve a compilar tu frontend, genera el APK release e instálalo sobre la versión anterior. Comprueba que se mantienen los datos guardados.
 
 Si Android rechaza la actualización por una firma distinta, recupera la clave original. Crear otra clave con `keygen` no soluciona la actualización. Desinstalar la app anterior borra sus datos; evita usarlo como solución para tus usuarios.
+
+## Deep links
+
+Si tu app debe abrirse desde enlaces web, añade `deepLinks` a `koru.json` y publica en tu dominio el `assetlinks.json` que imprime `koru deeplinks`, para que Android pueda verificar los enlaces `https`. Los detalles y límites, incluido que el enlace todavía no llega a tu JavaScript, están en [Configura tu proyecto]({{base}}es/configuration/). Nada de los deep links se ha ejecutado en Android; pruébalos en un dispositivo antes de publicar.
 
 Consulta [Firmas y seguridad]({{base}}es/security/) para gestionar la identidad y [Solución de problemas]({{base}}es/troubleshooting/) si la instalación falla.

@@ -53,7 +53,7 @@ Con `koru dev`, una llamada a un plugin que **no** esté activado en `koru.json`
 koru dev --host 0.0.0.0
 ```
 
-koru también muestra direcciones `Network:`, como `http://192.168.1.20:8100`. Abre una en el navegador del móvil con ambos dispositivos en la misma red. Sirve para revisar el diseño y el tacto; la API sigue usando implementaciones web. Usa `0.0.0.0` solo en redes de confianza: cualquiera en la red puede leer los archivos servidos.
+koru también muestra direcciones `Network:`, como `http://192.168.1.20:8100` y, cuando se ejecuta en una terminal, un código QR de la primera. Escanéalo con la cámara del móvil, o abre la dirección a mano, con ambos dispositivos en la misma red. Añade `--qr` para imprimir el código aunque la salida esté redirigida. El código se genera y se comprueba en pruebas, pero no se ha probado escanearlo con la cámara de un móvil real; si no se lee, escribe la dirección. Sirve para revisar el diseño y el tacto; la API sigue usando implementaciones web. Usa `0.0.0.0` solo en redes de confianza: cualquiera en la red puede leer los archivos servidos.
 
 ## Usa el servidor de desarrollo de tu framework
 
@@ -70,10 +70,11 @@ La [plantilla `vite`]({{base}}es/existing-project/) incluye una copia del módul
 
 ## Opciones
 
-| Opción          | Valor por defecto | Significado                                                        |
-| --------------- | ----------------- | ------------------------------------------------------------------ |
-| `--port <n>`    | `8100`            | Puerto de escucha. `0` elige uno libre.                            |
-| `--host <dir>`  | `127.0.0.1`       | Dirección de escucha. `0.0.0.0` la expone en la red.               |
-| `--proxy <url>` | ninguno           | Reenvía a otro servidor de desarrollo en lugar de servir `webDir`. |
+| Opción          | Valor por defecto | Significado                                                                                            |
+| --------------- | ----------------- | ------------------------------------------------------------------------------------------------------ |
+| `--port <n>`    | `8100`            | Puerto de escucha. `0` elige uno libre.                                                                |
+| `--host <dir>`  | `127.0.0.1`       | Dirección de escucha. `0.0.0.0` la expone en la red.                                                   |
+| `--proxy <url>` | ninguno           | Reenvía a otro servidor de desarrollo en lugar de servir `webDir`.                                     |
+| `--qr`          | desactivado       | Imprime un código QR de la URL de red. En una terminal también aparece solo si el host no es loopback. |
 
 `koru dev` nunca genera un APK y no forma parte de la cadena de compilación. Siguiente paso: [ejecuta en un dispositivo]({{base}}es/run-on-device/).

@@ -53,7 +53,7 @@ Under `koru dev`, a call to a plugin that is **not** enabled in `koru.json` reje
 koru dev --host 0.0.0.0
 ```
 
-koru also prints `Network:` addresses, such as `http://192.168.1.20:8100`. Open one in the phone’s browser while both devices are on the same network. This is useful for layout and touch checks; the API still uses web implementations. Only use `0.0.0.0` on networks you trust: anyone on the network can read the served files.
+koru also prints `Network:` addresses, such as `http://192.168.1.20:8100`, and, when it runs in a terminal, a QR code of the first one. Scan it with the phone’s camera, or open the address by hand, while both devices are on the same network. Add `--qr` to print the code even when the output is redirected. The code is generated and checked in tests, but scanning it with a real phone camera has not been tested; if it does not scan, type the address. This is useful for layout and touch checks; the API still uses web implementations. Only use `0.0.0.0` on networks you trust: anyone on the network can read the served files.
 
 ## Use your framework’s dev server
 
@@ -70,10 +70,11 @@ The [`vite` template]({{base}}en/existing-project/) includes a copy of the JavaS
 
 ## Options
 
-| Flag            | Default     | Meaning                                                    |
-| --------------- | ----------- | ---------------------------------------------------------- |
-| `--port <n>`    | `8100`      | Port to listen on. `0` picks a free port.                  |
-| `--host <addr>` | `127.0.0.1` | Address to listen on. `0.0.0.0` exposes it to the network. |
-| `--proxy <url>` | none        | Forward to another dev server instead of serving `webDir`. |
+| Flag            | Default     | Meaning                                                                                                    |
+| --------------- | ----------- | ---------------------------------------------------------------------------------------------------------- |
+| `--port <n>`    | `8100`      | Port to listen on. `0` picks a free port.                                                                  |
+| `--host <addr>` | `127.0.0.1` | Address to listen on. `0.0.0.0` exposes it to the network.                                                 |
+| `--proxy <url>` | none        | Forward to another dev server instead of serving `webDir`.                                                 |
+| `--qr`          | off         | Print a QR code of the network URL. In a terminal it also appears by itself when the host is not loopback. |
 
 `koru dev` never builds an APK and is not part of the APK toolchain. Next: [run on a device]({{base}}en/run-on-device/).

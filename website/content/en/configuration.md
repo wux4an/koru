@@ -54,8 +54,84 @@ koru: koru.json: invalid appId "myapp": use reverse-domain form such as com.exam
 | `spa`             | Optional boolean; routes without an extension fall back to `index.html`.                                                         |
 | `pluginManifests` | Optional paths to custom DEX plugin manifests. Enable their IDs in `plugins`.                                                    |
 | `nativeLibraries` | Optional map from Android ABI to lists of precompiled ELF shared libraries.                                                      |
+| `orientation`     | Optional: `portrait`, `landscape` or `sensor`. Omit it to keep Android’s default.                                                |
+| `allowBackup`     | Optional boolean, default `false`. `true` opts the app into Android’s automatic backup.                                          |
+| `keyboard`        | Optional: `resize` (default; the page shrinks) or `pan` (the page slides up) when the on-screen keyboard opens.                  |
+| `deepLinks`       | Optional list of links that open the app. At most 32, no duplicates. See [Deep links](#deep-links) below.                        |
 
 The defaults are written by `init`, so edit the generated file rather than guessing missing values. A custom plugin ID must appear in `plugins` and have a corresponding manifest in `pluginManifests`. The six built-in IDs and their methods are in [JavaScript and plugins]({{base}}en/plugins/).
+
+## Screen, keyboard and backup
+
+```json
+{
+  "orientation": "portrait",
+  "keyboard": "pan",
+  "allowBackup": false
+}
+```
+
+This is a fragment to merge into your `koru.json`. `orientation` locks the screen: `portrait`, `landscape`, or `sensor` (follows the device sensor). `keyboard` decides what the on-screen keyboard does to a page with a text field near the bottom: `resize` shrinks the page above the keyboard, `pan` slides the whole page up instead. `allowBackup` is off unless you set it; turn it on only if you want Android to back up the app’s data to the user’s Google account.
+
+An invalid value stops the build and says how to fix it:
+
+```text
+koru: koru.json: invalid orientation "upside": use "portrait", "landscape" or "sensor", or remove the field to keep Android's default
+```
+
+`koru build` writes these into the generated manifest, and the attribute IDs were checked against the Android sources. None of them has been run on a device yet: the recorded API 30 matrix does not cover rotation, the keyboard or backup.
+
+## Deep links
+
+`deepLinks` makes links open your app. Each entry is a `scheme`, and optionally a `host` and a `pathPrefix`:
+
+```json
+"deepLinks": [
+  { "scheme": "https", "host": "example.com", "pathPrefix": "/app" },
+  { "scheme": "myapp" }
+]
+```
+
+| Entry                                                                | Opens the app for                                         |
+| -------------------------------------------------------------------- | --------------------------------------------------------- |
+| `{ "scheme": "myapp" }`                                              | Any `myapp://…` link. A custom scheme needs nothing else. |
+| `{ "scheme": "https", "host": "example.com" }`                       | Any `https://example.com/…` link.                         |
+| `{ "scheme": "https", "host": "example.com", "pathPrefix": "/app" }` | Only paths starting with `/app`. Needs a `host`.          |
+
+Rules koru checks: the scheme is lowercase letters, digits, `+`, `.` or `-`, starting with a letter; `http`, `javascript`, `file` and `content` are rejected; an `https` link needs a full domain in `host` (a leading `*.` wildcard is allowed); `pathPrefix` starts with `/`, has no spaces, `?` or `#`, and needs a `host`. Errors name the entry, for example:
+
+```text
+koru: koru.json: forbidden deepLinks scheme "http": plain HTTP is not allowed: use "https"
+```
+
+**The link opens the app on its initial page. The URL is not passed to your JavaScript yet**, so the app cannot read which link was tapped. Today deep links are useful for launching the app from a web link, not for routing to a screen.
+
+### Verify `https` links with assetlinks.json
+
+For `https` links, Android opens the app without a chooser only after it verifies that your domain trusts the app. koru marks these links for verification (`autoVerify`) and prints the file the domain must serve:
+
+```sh
+koru deeplinks ./my-app --json > assetlinks.json
+```
+
+```json
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.example.myapp",
+      "sha256_cert_fingerprints": [
+        "86:CC:81:42:72:1E:56:ED:50:68:3F:39:CF:48:64:56:27:90:D1:6E:54:32:B1:C8:12:C4:23:4B:5C:70:C2:B1"
+      ]
+    }
+  }
+]
+```
+
+The fingerprint is the SHA-256 of the certificate in your `signingKey` (this one comes from a throwaway example key). Publish the file at `https://example.com/.well-known/assetlinks.json` for every `https` domain in `deepLinks`, over HTTPS with status 200, content type `application/json` and no redirects. A `*.example.com` wildcard needs the file on every subdomain that should open the app. If you replace the signing key, the fingerprint changes and verification fails; see [Signing and security]({{base}}en/security/). Without the file, or until Android has checked it, a link may show a chooser instead of opening the app directly.
+
+`koru verify app.apk` lists the deep links found in the manifest. **Nothing here has been run on Android:** koru has not recorded an install, a verification or a tapped link. Test on a device before relying on it.
 
 ## Point to frontend output
 

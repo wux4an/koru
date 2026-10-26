@@ -2,19 +2,30 @@
 
 koru packages static files: an `index.html` and the scripts, styles and images it uses. Any framework that can export a static site works. Point `webDir` at the build output and koru does the rest.
 
-## Start a new Vite project
+## Start from a framework template
 
-The quickest path for React, Vue, Svelte or Solid is the Vite template:
+The quickest path is a Vite-based template. They all need Node.js:
 
 ```sh
-koru create my-app --template vite
+koru create my-app --template react
 cd my-app
 npm install
 npm run dev        # Vite with hot reload
 npm run android    # vite build, then koru run
+npm run apk        # vite build, then a signed release APK
 ```
 
-It contains a plain JavaScript Vite app, a `koru.json` with `"webDir": "dist"` and a copy of the koru JavaScript module in `src/koru/`, so imports work in Vite’s dev server and in production builds. Add a framework the usual way, for example `npm install react react-dom @vitejs/plugin-react` and a `vite.config.js`.
+| `--template` | You get                                           |
+| ------------ | ------------------------------------------------- |
+| `react`      | Vite with React 18 and JSX.                       |
+| `vue`        | Vite with Vue 3 single-file components.           |
+| `svelte`     | Vite with Svelte 5.                               |
+| `vanilla-ts` | Vite with strict TypeScript and no framework.     |
+| `vite`       | A plain JavaScript Vite app, for any other setup. |
+
+Each template has a `koru.json` with `"webDir": "dist"` and a copy of the koru JavaScript module in `src/koru/`, so imports work in Vite’s dev server and in production builds. For Solid or another framework, start from `vite` and add it the usual way, for example `npm install solid-js vite-plugin-solid` and a `vite.config.js`.
+
+These templates were built with `npm run build`, `koru build` and `koru verify` (plus `tsc --noEmit` for `vanilla-ts`). They have not been installed or run on Android, so test one on a device before you build on it.
 
 ## Add koru to an existing project
 

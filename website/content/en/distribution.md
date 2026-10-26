@@ -36,15 +36,26 @@ Open the app from the launcher and check its behavior before sharing it.
 
 ## Publish an update
 
-Keep the same `appId` and signing key. Increase `versionCode` and change `version`, for example:
+Keep the same `appId` and signing key. Increase `versionCode` and change `version`. Let koru do it:
+
+```sh
+koru bump minor                     # version 1.0.0 -> 1.1.0, versionCode 1 -> 2
+koru build --release --bump --output app-release.apk   # patch bump, then build
+```
+
+`bump` takes `patch` (the default), `minor`, `major` or `code` (only `versionCode`). Use `--bump` on `build` for a patch release, or run `bump` first for another level, but not both: that would raise the version twice. You can still edit the fields in `koru.json` by hand, for example:
 
 ```json
 "version": "1.1.0",
 "versionCode": 2
 ```
 
-Edit these fields in `koru.json`. Rebuild your frontend, generate the release APK and install it over the previous version. Check that saved data is preserved.
+Rebuild your frontend, generate the release APK and install it over the previous version. Check that saved data is preserved.
 
 If Android rejects the update because the signature differs, restore the original key. Creating another key with `keygen` does not fix an update. Uninstalling the old app removes its data; avoid using that as a solution for your users.
+
+## Deep links
+
+If your app should open from web links, add `deepLinks` to `koru.json` and publish the `assetlinks.json` that `koru deeplinks` prints on your domain, so Android can verify the `https` links. Details and limits, including that the link does not reach your JavaScript yet, are in [Configure your project]({{base}}en/configuration/). Nothing about deep links has been run on Android; test them on a device before you ship.
 
 See [Signing and security]({{base}}en/security/) for identity management and [Troubleshooting]({{base}}en/troubleshooting/) for installation errors.

@@ -27,7 +27,11 @@ En una terminal, koru hace tres preguntas. Pulsa Intro para aceptar cada sugeren
 ? App name: (Mi App)
 ? Application id: (com.example.miapp)
   1. basic  HTML, CSS and JavaScript, no build step or Node.js needed
-  2. vite   Vite project with hot reload (needs Node.js)
+  2. vite  Vite project with hot reload (needs Node.js)
+  3. react  Vite with React 18 and JSX (needs Node.js)
+  4. vue  Vite with Vue 3 single-file components (needs Node.js)
+  5. svelte  Vite with Svelte 5 (needs Node.js)
+  6. vanilla-ts  Vite with strict TypeScript and no framework (needs Node.js)
 ? Template: (basic)
 ```
 
@@ -36,6 +40,8 @@ También puedes responderlas con opciones, algo útil en scripts:
 ```sh
 koru create mi-app --name "Mi App" --app-id com.example.miapp --template basic
 ```
+
+Esta guía usa `basic`, que no necesita Node.js. Si prefieres un framework, pasa `--template react`, `vue`, `svelte`, `vanilla-ts` o `vite`; consulta [Frameworks]({{base}}es/existing-project/). Esas plantillas añaden `npm install` y `npm run dev` antes de los pasos siguientes.
 
 La plantilla `basic` contiene:
 
@@ -79,7 +85,7 @@ Opened Mi App on sdk gphone64 x86 64 (emulator-5554); inspect it at chrome://ins
 
 `koru run` compila un APK de depuración, lo instala y lo abre. Se comunica con el servidor adb que ejecutan Android Studio y las platform tools; si no hay ninguno activo, el error te dice cómo iniciarlo. Con la app abierta, visita `chrome://inspect` en Chrome en tu ordenador para ver su consola y su DOM. Más detalles en [Ejecuta en un dispositivo]({{base}}es/run-on-device/).
 
-Cambia algo y vuelve a ejecutar `koru run`. Ese es el ciclo completo: **editar → `koru dev` → `koru run`**.
+Cambia algo y vuelve a ejecutar `koru run`. Para ver los logs de la app y la consola del WebView en tu terminal, usa `koru run --logs` o `koru logs`. Ese es el ciclo completo: **editar → `koru dev` → `koru run`**.
 
 ## 5. Genera una versión release
 
@@ -88,13 +94,13 @@ koru build --release --output mi-app.apk
 koru verify mi-app.apk
 ```
 
-Una build release desactiva la depuración del WebView y firma con tu clave existente. Para publicar una actualización, conserva el mismo `appId` y la misma clave, e incrementa `versionCode` en `koru.json`. Consulta [Distribuye tu app]({{base}}es/distribution/).
+Una build release desactiva la depuración del WebView y firma con tu clave existente. Para publicar una actualización, conserva el mismo `appId` y la misma clave, y sube la versión con `koru bump` (o `koru build --bump`). Consulta [Distribuye tu app]({{base}}es/distribution/).
 
 > koru es experimental. La ejecución registrada cubre Android 11 (API 30) en un emulador x86_64; el rango configurable es API 26–36. Prueba en los dispositivos que quieras soportar.
 
 ## Siguientes pasos
 
-- [Usa React, Vue, Svelte u otro framework]({{base}}es/existing-project/), o empieza con `koru create mi-app --template vite`.
+- [Usa React, Vue, Svelte u otro framework]({{base}}es/existing-project/), o empieza con `koru create mi-app --template react`.
 - [Usa funciones de Android desde JavaScript]({{base}}es/plugins/), con tipos TypeScript.
 - [Consulta todos los comandos]({{base}}es/cli/) y [todas las opciones de `koru.json`]({{base}}es/configuration/).
 
