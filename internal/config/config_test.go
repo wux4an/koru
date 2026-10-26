@@ -24,6 +24,65 @@ func TestValidate(t *testing.T) {
 	}
 }
 
+func TestManifestFieldsValidation(t *testing.T) {
+	c := Default()
+	c.Orientation, c.Keyboard, c.AllowBackup = "sensor", "pan", true
+	c.DeepLinks = []DeepLink{{Scheme: "https", Host: "example.com", PathPrefix: "/app"}, {Scheme: "https", Host: "*.example.org"}, {Scheme: "myapp"}, {Scheme: "myapp", Host: "open", PathPrefix: "/x"}}
+	if e := c.Validate(); e != nil {
+		t.Fatal(e)
+	}
+	if got := c.HTTPSHosts(); !slices.Equal(got, []string{"example.com", "example.org"}) {
+		t.Fatal(got)
+	}
+	https := func(h, p string) DeepLink { return DeepLink{Scheme: "https", Host: h, PathPrefix: p} }
+	cases := []struct {
+		name string
+		edit func(*Config)
+		want string
+	}{
+		{"orientation", func(c *Config) { c.Orientation = "Portrait" }, `use "portrait"`},
+		{"keyboard", func(c *Config) { c.Keyboard = "none" }, `use "resize"`},
+		{"http", func(c *Config) { c.DeepLinks = []DeepLink{{Scheme: "http", Host: "example.com"}} }, "plain HTTP"},
+		{"javascript", func(c *Config) { c.DeepLinks = []DeepLink{{Scheme: "javascript"}} }, "forbidden"},
+		{"file", func(c *Config) { c.DeepLinks = []DeepLink{{Scheme: "file"}} }, "forbidden"},
+		{"content", func(c *Config) { c.DeepLinks = []DeepLink{{Scheme: "content"}} }, "forbidden"},
+		{"uppercase scheme", func(c *Config) { c.DeepLinks = []DeepLink{{Scheme: "MyApp"}} }, "lowercase"},
+		{"empty scheme", func(c *Config) { c.DeepLinks = []DeepLink{{}} }, "scheme"},
+		{"https without host", func(c *Config) { c.DeepLinks = []DeepLink{{Scheme: "https"}} }, "full domain"},
+		{"https single label", func(c *Config) { c.DeepLinks = []DeepLink{https("localhost", "")} }, "full domain"},
+		{"host with scheme", func(c *Config) { c.DeepLinks = []DeepLink{https("https://example.com", "")} }, "invalid deepLinks host"},
+		{"host with port", func(c *Config) { c.DeepLinks = []DeepLink{https("example.com:8080", "")} }, "invalid deepLinks host"},
+		{"uppercase host", func(c *Config) { c.DeepLinks = []DeepLink{https("Example.com", "")} }, "lowercase"},
+		{"path without slash", func(c *Config) { c.DeepLinks = []DeepLink{https("example.com", "app")} }, `start with "/"`},
+		{"path with query", func(c *Config) { c.DeepLinks = []DeepLink{https("example.com", "/a?b")} }, "remove spaces"},
+		{"path with space", func(c *Config) { c.DeepLinks = []DeepLink{https("example.com", "/a b")} }, "remove spaces"},
+		{"path without host", func(c *Config) { c.DeepLinks = []DeepLink{{Scheme: "myapp", PathPrefix: "/x"}} }, "needs a host"},
+		{"duplicate", func(c *Config) { c.DeepLinks = []DeepLink{https("example.com", ""), https("example.com", "")} }, "duplicate"},
+		{"too many", func(c *Config) {
+			for i := 0; i <= MaxDeepLinks; i++ {
+				c.DeepLinks = append(c.DeepLinks, DeepLink{Scheme: "myapp", Host: "h", PathPrefix: "/" + strings.Repeat("a", i+1)})
+			}
+		}, "too many"},
+	}
+	for _, tc := range cases {
+		c := Default()
+		tc.edit(&c)
+		if e := c.Validate(); e == nil || !strings.Contains(e.Error(), tc.want) {
+			t.Errorf("%s: error = %v, want %q", tc.name, e, tc.want)
+		}
+	}
+}
+
+func TestLoadRejectsUnknownDeepLinkField(t *testing.T) {
+	dir := t.TempDir()
+	b, _ := json.Marshal(Default())
+	b = append(b[:len(b)-1], []byte(`,"deepLinks":[{"scheme":"myapp","path":"/x"}]}`)...)
+	os.WriteFile(filepath.Join(dir, "koru.json"), b, 0644)
+	if _, e := Load(dir); e == nil || !strings.Contains(e.Error(), "unknown field") {
+		t.Fatal(e)
+	}
+}
+
 func TestSchemaMatchesConfigFields(t *testing.T) {
 	var schema struct {
 		Required   []string                   `json:"required"`

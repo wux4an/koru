@@ -70,3 +70,19 @@ pruebas unitarias del protocolo.
 `koru logs`, `koru run --logs` y el QR de `koru dev --qr`: `adb.Stream` (sin límite de 1 MiB), `pidof` y `logcat --pid` más las líneas `chromium`, y la URL de red como QR con `rsc.io/qr` (BSD-3); probados contra `internal/adb/adbtest` y con comprobación de la matriz QR, **sin validar el formato real de logcat ni el escaneo en un dispositivo**.
 
 Plantillas `react`, `vue`, `svelte` y `vanilla-ts` de `koru create`: cada una se validó con `npm install`, `npm run build` (y `tsc --noEmit` en `vanilla-ts`), `koru build` y `koru verify`; no se ejecutaron en Android.
+
+## Manifiesto configurable — octubre de 2026
+
+Campos opcionales de `koru.json` emitidos en el AXML generado por Go: `orientation`
+(`android:screenOrientation`), `allowBackup`, `keyboard` (`android:windowSoftInputMode`)
+y `deepLinks` (un `<intent-filter>` VIEW/DEFAULT/BROWSABLE por enlace, con `autoVerify`
+para https). `koru deeplinks` imprime el `assetlinks.json` con la huella SHA-256 de la
+identidad de firma, y `koru verify` lista los `deepLinks` del manifiesto. Los IDs de
+atributo se contrastaron con `public-final.xml` de AOSP; hay pruebas golden del AXML,
+de configuración inválida y del comando, y un caso `aapt dump xmltree` bajo
+`tests/external` (build tag `android_external`) que no se ha ejecutado.
+
+**No se ha ejecutado en Android** y la matriz API 30 de `docs/results/full` no cubre
+estos campos: ni la verificación de App Links, ni la rotación, ni el teclado. Los
+enlaces abren la app en su página inicial; la URL todavía no llega a JavaScript
+(requeriría cambios en el bytecode del runtime, fuera de este hito).

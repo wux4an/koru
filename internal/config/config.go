@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"strings"
 )
 
@@ -37,6 +38,80 @@ type Config struct {
 	SPA             bool                `json:"spa,omitempty"`
 	PluginManifests []string            `json:"pluginManifests,omitempty"`
 	NativeLibraries map[string][]string `json:"nativeLibraries,omitempty"`
+	// Orientation locks the Activity: "portrait", "landscape" or "sensor".
+	// Empty leaves Android's default and emits no attribute.
+	Orientation string `json:"orientation,omitempty"`
+	// AllowBackup opts the app into Android auto backup (default false).
+	AllowBackup bool `json:"allowBackup,omitempty"`
+	// Keyboard is the soft keyboard policy: "resize" (default) or "pan".
+	Keyboard string `json:"keyboard,omitempty"`
+	// DeepLinks make links open the app. The link opens the app on its
+	// initial page: the URL is not delivered to JavaScript yet.
+	DeepLinks []DeepLink `json:"deepLinks,omitempty"`
+}
+
+// DeepLink is one URL pattern the app handles: an https link such as
+// {"scheme":"https","host":"example.com","pathPrefix":"/app"} or a custom
+// scheme such as {"scheme":"myapp"}.
+type DeepLink struct {
+	Scheme     string `json:"scheme"`
+	Host       string `json:"host,omitempty"`
+	PathPrefix string `json:"pathPrefix,omitempty"`
+}
+
+// MaxDeepLinks bounds the number of deep link intent filters in the manifest.
+const MaxDeepLinks = 32
+
+var schemePattern = regexp.MustCompile(`^[a-z][a-z0-9+.-]{0,31}$`)
+var hostPattern = regexp.MustCompile(`^(\*\.)?[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$`)
+var forbiddenSchemes = map[string]string{
+	"http":       "plain HTTP is not allowed: use \"https\"",
+	"javascript": "it would let any page run script in the app",
+	"file":       "it would expose local files",
+	"content":    "it would expose content providers",
+}
+
+// Validate checks one link and explains how to fix it.
+func (l DeepLink) Validate() error {
+	if !schemePattern.MatchString(l.Scheme) {
+		return fmt.Errorf("invalid deepLinks scheme %q: use lowercase letters, digits, + . - starting with a letter, for example \"https\" or \"myapp\"", l.Scheme)
+	}
+	if why, bad := forbiddenSchemes[l.Scheme]; bad {
+		return fmt.Errorf("forbidden deepLinks scheme %q: %s", l.Scheme, why)
+	}
+	if l.Host != "" && (len(l.Host) > 253 || !hostPattern.MatchString(l.Host)) {
+		return fmt.Errorf("invalid deepLinks host %q: use a lowercase host name such as example.com (or *.example.com), without scheme, port or path", l.Host)
+	}
+	if l.Scheme == "https" && (l.Host == "" || !strings.Contains(strings.TrimPrefix(l.Host, "*."), ".")) {
+		return fmt.Errorf("deepLinks https link needs a full domain in host, for example \"example.com\" (got %q)", l.Host)
+	}
+	if l.PathPrefix != "" {
+		if l.Host == "" {
+			return fmt.Errorf("deepLinks pathPrefix %q needs a host: Android ignores paths without one", l.PathPrefix)
+		}
+		if !strings.HasPrefix(l.PathPrefix, "/") || len(l.PathPrefix) > 256 {
+			return fmt.Errorf("invalid deepLinks pathPrefix %q: it must start with \"/\", for example \"/app\"", l.PathPrefix)
+		}
+		for _, r := range l.PathPrefix {
+			if r <= ' ' || r == 0x7f || r == '?' || r == '#' {
+				return fmt.Errorf("invalid deepLinks pathPrefix %q: remove spaces, control characters, \"?\" and \"#\"", l.PathPrefix)
+			}
+		}
+	}
+	return nil
+}
+
+// HTTPSHosts returns the distinct domains of https deep links in order, with
+// any "*." wildcard removed: Digital Asset Links are published per domain.
+func (c Config) HTTPSHosts() []string {
+	var out []string
+	for _, l := range c.DeepLinks {
+		h := strings.TrimPrefix(l.Host, "*.")
+		if l.Scheme == "https" && !slices.Contains(out, h) {
+			out = append(out, h)
+		}
+	}
+	return out
 }
 
 var appPattern = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)+$`)
@@ -65,6 +140,29 @@ func (c Config) Validate() error {
 	}
 	if c.WebDir == "" || c.SigningKey == "" {
 		return errors.New("webDir and signingKey required")
+	}
+	switch c.Orientation {
+	case "", "portrait", "landscape", "sensor":
+	default:
+		return fmt.Errorf("invalid orientation %q: use \"portrait\", \"landscape\" or \"sensor\", or remove the field to keep Android's default", c.Orientation)
+	}
+	switch c.Keyboard {
+	case "", "resize", "pan":
+	default:
+		return fmt.Errorf("invalid keyboard %q: use \"resize\" (shrink the page) or \"pan\" (slide the page up), or remove the field", c.Keyboard)
+	}
+	if len(c.DeepLinks) > MaxDeepLinks {
+		return fmt.Errorf("too many deepLinks (%d): at most %d are supported; use pathPrefix to cover several pages", len(c.DeepLinks), MaxDeepLinks)
+	}
+	links := map[DeepLink]bool{}
+	for _, l := range c.DeepLinks {
+		if e := l.Validate(); e != nil {
+			return e
+		}
+		if links[l] {
+			return fmt.Errorf("duplicate deepLinks entry %+v: remove the repeated link", l)
+		}
+		links[l] = true
 	}
 	seen := map[string]bool{}
 	for _, p := range c.Permissions {

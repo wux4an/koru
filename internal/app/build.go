@@ -107,7 +107,11 @@ func Build(project string, opt Options) ([]byte, error) {
 	if e != nil {
 		return nil, e
 	}
-	manifest, e := axml.Build(axml.Manifest{Package: c.AppID, Name: c.Name, Version: c.Version, VersionCode: c.VersionCode, MinSDK: c.MinSDK, TargetSDK: c.TargetSDK, Activity: "com.koru.runtime.MainActivity", Permissions: permissions, Debuggable: !opt.Release, Icon: arsc.IconID})
+	links := make([]axml.DeepLink, 0, len(c.DeepLinks))
+	for _, l := range c.DeepLinks {
+		links = append(links, axml.DeepLink{Scheme: l.Scheme, Host: l.Host, PathPrefix: l.PathPrefix})
+	}
+	manifest, e := axml.Build(axml.Manifest{Package: c.AppID, Name: c.Name, Version: c.Version, VersionCode: c.VersionCode, MinSDK: c.MinSDK, TargetSDK: c.TargetSDK, Activity: "com.koru.runtime.MainActivity", Permissions: permissions, Debuggable: !opt.Release, Icon: arsc.IconID, Orientation: c.Orientation, AllowBackup: c.AllowBackup, Keyboard: c.Keyboard, DeepLinks: links})
 	if e != nil {
 		return nil, e
 	}
@@ -162,6 +166,8 @@ type Report struct {
 	Bytes             int    `json:"bytes"`
 	CertificateSHA256 string `json:"certificateSha256"`
 	SignatureScheme   string `json:"signatureScheme"`
+	// DeepLinks lists the manifest URL patterns as scheme://host/pathPrefix.
+	DeepLinks []string `json:"deepLinks,omitempty"`
 }
 
 func Verify(b []byte) (Report, error) {
@@ -186,6 +192,9 @@ func Verify(b []byte) (Report, error) {
 	}
 	if out.Package == "" {
 		return out, errors.New("manifest package missing")
+	}
+	for _, l := range axml.Links(els) {
+		out.DeepLinks = append(out.DeepLinks, l.Scheme+"://"+l.Host+l.PathPrefix)
 	}
 	resources, e := arsc.Parse(files["resources.arsc"])
 	if e != nil {

@@ -58,7 +58,7 @@ func newRootCommand(out, errOut io.Writer) *cobra.Command {
 		command.Print(command.UsageString())
 	})
 	root.SetUsageTemplate(helpTemplate(presentationFor(out)))
-	root.AddCommand(newCreateCommand(), newDevCommand(), newRunCommand(), newLogsCommand(), newDevicesCommand(), newJSCommand(), newVersionCommand(), newDoctorCommand(), newAPKBuildCommand(), newInitCommand(), newKeygenCommand(), newVerifyCommand(), newDexCommand(), newBumpCommand(), newPluginCommand(), newConfigCommand())
+	root.AddCommand(newCreateCommand(), newDevCommand(), newRunCommand(), newLogsCommand(), newDevicesCommand(), newJSCommand(), newVersionCommand(), newDoctorCommand(), newAPKBuildCommand(), newInitCommand(), newKeygenCommand(), newDeepLinksCommand(), newVerifyCommand(), newDexCommand(), newBumpCommand(), newPluginCommand(), newConfigCommand())
 	return root
 }
 
