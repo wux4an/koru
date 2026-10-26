@@ -1,0 +1,28 @@
+manifest package="com.example.koru" android:versionCode=#10:0x1 android:versionName="1.0"
+uses-sdk android:minSdkVersion=#10:0x1a android:targetSdkVersion=#10:0x24
+uses-permission android:name="android.permission.VIBRATE"
+application android:theme=#1:0x1030241 android:label="Koru" android:icon=#1:0x7f010000 android:debuggable=false android:allowBackup=true android:hardwareAccelerated=true android:usesCleartextTraffic=false
+activity android:name="com.koru.runtime.MainActivity" android:exported=true android:screenOrientation=#10:0x0 android:windowSoftInputMode=#10:0x20 android:enableOnBackInvokedCallback=false
+intent-filter
+action android:name="android.intent.action.MAIN"
+category android:name="android.intent.category.LAUNCHER"
+intent-filter android:autoVerify=true
+action android:name="android.intent.action.VIEW"
+category android:name="android.intent.category.DEFAULT"
+category android:name="android.intent.category.BROWSABLE"
+data android:scheme="https" android:host="example.com" android:pathPrefix="/app"
+intent-filter android:autoVerify=true
+action android:name="android.intent.action.VIEW"
+category android:name="android.intent.category.DEFAULT"
+category android:name="android.intent.category.BROWSABLE"
+data android:scheme="https" android:host="*.example.org"
+intent-filter
+action android:name="android.intent.action.VIEW"
+category android:name="android.intent.category.DEFAULT"
+category android:name="android.intent.category.BROWSABLE"
+data android:scheme="myapp"
+intent-filter
+action android:name="android.intent.action.VIEW"
+category android:name="android.intent.category.DEFAULT"
+category android:name="android.intent.category.BROWSABLE"
+data android:scheme="myapp" android:host="open" android:pathPrefix="/x"

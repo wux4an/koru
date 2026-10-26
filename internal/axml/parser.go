@@ -17,6 +17,50 @@ type Element struct {
 	Attributes []Value
 }
 
+// Link is a <data> URL pattern found in a parsed manifest.
+type Link struct {
+	Scheme, Host, PathPrefix string
+	AutoVerify               bool
+}
+
+// Links lists the <data> elements that declare a scheme, in document order.
+// AutoVerify reports android:autoVerify on the enclosing intent-filter.
+func Links(elements []Element) []Link {
+	var out []Link
+	verify := false
+	for _, el := range elements {
+		switch el.Name {
+		case "intent-filter":
+			verify = false
+			for _, a := range el.Attributes {
+				if a.Namespace == android && a.Name == "autoVerify" && a.Kind == 0x12 && a.Data != 0 {
+					verify = true
+				}
+			}
+		case "data":
+			var l Link
+			for _, a := range el.Attributes {
+				if a.Namespace != android || a.Kind != 3 {
+					continue
+				}
+				switch a.Name {
+				case "scheme":
+					l.Scheme = a.Text
+				case "host":
+					l.Host = a.Text
+				case "pathPrefix":
+					l.PathPrefix = a.Text
+				}
+			}
+			if l.Scheme != "" {
+				l.AutoVerify = verify
+				out = append(out, l)
+			}
+		}
+	}
+	return out
+}
+
 func Parse(b []byte) ([]Element, error) {
 	if len(b) < 8 || binary.LittleEndian.Uint16(b) != 3 || binary.LittleEndian.Uint16(b[2:]) != 8 || int(binary.LittleEndian.Uint32(b[4:])) != len(b) {
 		return nil, errors.New("invalid binary XML")
