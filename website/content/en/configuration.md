@@ -1,11 +1,12 @@
 # Configure your project
 
-Set your app’s name, icon, web files and permissions in `koru.json`. You will find it in the folder created by `koru init`. Paths in this file start at that folder.
+Set your app’s name, icon, web files and permissions in `koru.json`, at the root of the project that `koru create` or `koru init` made. Paths in this file start at that folder.
 
 ## A complete starting point
 
 ```json
 {
+  "$schema": "https://koru.js.org/schema/koru.schema.json",
   "appId": "com.example.demo",
   "name": "Demo",
   "version": "1.0.0",
@@ -20,14 +21,25 @@ Set your app’s name, icon, web files and permissions in `koru.json`. You will 
 }
 ```
 
-`init` uses `www` for `webDir`, `com.example.koru` for `appId`, `Koru` for `name`, and leaves SPA mode off. The example above selects a framework output folder and enables SPA routing.
+`create` fills in `name` and `appId` from your answers and sets `webDir` for the template (`www` or `dist`). `init` uses `www`, `com.example.koru` and `Koru`. The example above selects a framework output folder and enables SPA routing.
 
-Run `./bin/koru doctor ./my-app` after changing the file. A successful check names your configured `appId`; a full build additionally scans all web assets. Keep `koru.json` at the project root, next to the configured web folder. Paths in this file are relative to that project root, while CLI `--output` is relative to your current shell directory.
+Run `koru doctor` after changing the file. A successful check names your configured `appId`; a full build additionally scans all web assets. Keep `koru.json` at the project root, next to the configured web folder. Paths in this file are relative to that project root, while CLI `--output` is relative to your current shell directory.
+
+## Editor autocompletion
+
+The `$schema` line points editors such as VS Code at koru’s [JSON Schema]({{base}}schema/koru.schema.json ":ignore"). You get completion, descriptions on hover and errors for invalid values while you type. koru ignores the field when building; projects created by `create` and `init` include it.
+
+When a value is invalid, koru names the field and the fix, for example:
+
+```text
+koru: koru.json: invalid appId "myapp": use reverse-domain form such as com.example.myapp (letters, digits and _; at least two segments)
+```
 
 ## Fields
 
 | Field             | Meaning and validation                                                                                                           |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `$schema`         | Optional editor hint; ignored by koru.                                                                                           |
 | `appId`           | Dotted application identifier, at most 127 bytes. Each segment begins with a letter and contains letters, digits or underscores. |
 | `name`            | Nonblank application label, at most 256 bytes.                                                                                   |
 | `version`         | Nonempty version label, at most 128 bytes.                                                                                       |
@@ -51,8 +63,8 @@ Build your frontend before invoking koru. For a Parcel or Vite project rooted at
 
 ```sh
 npm --prefix ./my-app run build
-./bin/koru doctor ./my-app
-./bin/koru build ./my-app --release --output app.apk
+koru doctor ./my-app
+koru build ./my-app --release --output app.apk
 ```
 
 The `npm` command assumes that project has a `build` script; use the package manager and script your frontend actually provides. Koru does not install packages or build JavaScript. If the output HTML refers to `/assets/app.js`, the APK must contain `dist/assets/app.js`. Configure your frontend's public/base path for the APK origin, not a deployment subdirectory. Do not add `dist` itself to the URL.

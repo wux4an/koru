@@ -25,8 +25,8 @@ Custom plugins run with your app’s permissions. Include only trusted plugins a
 ## Check the APK you share
 
 ```sh
-./bin/koru build ./my-app --release --output app-release.apk
-./bin/koru verify app-release.apk
+koru build ./my-app --release --output app-release.apk
+koru verify app-release.apk
 ```
 
 Release disables debugging and WebView inspection. `verify` checks the signature and APK structure. Install it and test your app’s features on Android too.

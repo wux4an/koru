@@ -3,6 +3,7 @@ import { resolve, dirname, relative, extname, posix } from "node:path";
 import { createHash } from "node:crypto";
 import { Marked } from "marked";
 import { locales, pages, route, text, type Locale } from "./catalog";
+import { landing, landingRoute } from "./landing";
 
 export const root = resolve(import.meta.dir, "..");
 const repo = resolve(root, "..");
@@ -242,7 +243,7 @@ function template(
 <script id="site-config" type="application/json">${data}</script>
 </head><body data-page="${slug}">
 <a class="skip-link" href="#main">${lang === "en" ? "Skip to content" : "Saltar al contenido"}</a>
-<header class="site-header"><a class="brand" href="${route(config.base, lang, "overview")}" aria-label="koru ${t.docs}"><i class="ph-duotone ph-spiral" aria-hidden="true"></i><span>koru</span></a><span class="header-label">${t.docs}</span><nav class="language-nav" aria-label="${t.language}">${localeLinks}</nav><div class="theme-control"><button class="theme-button" data-theme-button data-preference="system" type="button" aria-label="${t.appearance}" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu"><i class="ph-duotone ph-desktop" data-theme-icon aria-hidden="true"></i><span data-theme-label>${t.systemTheme}</span><i class="ph-duotone ph-caret-down theme-caret" aria-hidden="true"></i></button><div class="theme-menu" id="theme-menu" data-theme-menu role="menu" aria-label="${t.appearance}" hidden>${[
+<header class="site-header"><a class="brand" href="${landingRoute(config.base, lang)}" aria-label="koru"><i class="ph-duotone ph-spiral" aria-hidden="true"></i><span>koru</span></a><span class="header-label">${t.docs}</span><nav class="language-nav" aria-label="${t.language}">${localeLinks}</nav><div class="theme-control"><button class="theme-button" data-theme-button data-preference="system" type="button" aria-label="${t.appearance}" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu"><i class="ph-duotone ph-desktop" data-theme-icon aria-hidden="true"></i><span data-theme-label>${t.systemTheme}</span><i class="ph-duotone ph-caret-down theme-caret" aria-hidden="true"></i></button><div class="theme-menu" id="theme-menu" data-theme-menu role="menu" aria-label="${t.appearance}" hidden>${[
     ["system", t.systemTheme, "desktop"],
     ["light", t.lightTheme, "sun"],
     ["dark", t.darkTheme, "moon"],
@@ -473,13 +474,13 @@ export async function build(
       );
     }
   }
-  const landing = await readFile(resolve(dist, "en/index.html"), "utf8");
-  await writeFile(
-    resolve(dist, "index.html"),
-    landing.replace(
-      "<head>",
-      `<head><meta http-equiv="refresh" content="0;url=${route(config.base, "en", "overview")}">`,
-    ),
+  await writeFile(resolve(dist, "index.html"), landing("en", config));
+  await mkdir(resolve(dist, "es/inicio"), { recursive: true });
+  await writeFile(resolve(dist, "es/inicio/index.html"), landing("es", config));
+  await mkdir(resolve(dist, "schema"), { recursive: true });
+  await cp(
+    resolve(repo, "internal/config/koru.schema.json"),
+    resolve(dist, "schema/koru.schema.json"),
   );
   await writeFile(
     resolve(dist, "README.md"),
@@ -501,14 +502,18 @@ export async function build(
       route(config.base, "es", "overview") +
       ")",
   );
-  const sitemap = locales
-    .flatMap((lang) =>
+  const sitemap = [
+    ...locales.map(
+      (lang) =>
+        `<url><loc>${escape(new URL(landingRoute(config.base, lang), config.url).href)}</loc></url>`,
+    ),
+    ...locales.flatMap((lang) =>
       pages.map(
         (page) =>
           `<url><loc>${escape(new URL(route(config.base, lang, page.slug), config.url).href)}</loc></url>`,
       ),
-    )
-    .join("\n");
+    ),
+  ].join("\n");
   await writeFile(
     resolve(dist, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemap}\n</urlset>\n`,

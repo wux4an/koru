@@ -45,3 +45,22 @@ El diseño usa superficies suaves, tipografía local y una paleta lavanda con mo
 claro y oscuro. La investigación y las decisiones están en `website/DESIGN.md`;
 las comprobaciones reproducibles del sitio están en `website/VALIDATION.md`.
 Este hito no amplía la matriz de compatibilidad Android ni modifica el compilador.
+
+## Experiencia de desarrollo — octubre de 2026
+
+Spec: `docs/specs/developer-experience.md`. Decisión: ADR 0003.
+
+| Pieza                | Implementación y pruebas                                                                                  | Resultado / límite                                                                 |
+| -------------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `koru create`        | Plantillas `basic` y `vite` embebidas, preguntas en TTY, `$schema`, `.gitignore`, tipos y clave           | Ambas generan APKs verificados; la de Vite se validó con `npm install` y `vite build` reales |
+| `koru dev`           | Servidor `net/http`, recarga SSE, vigilancia por sondeo, SPA, `--proxy` con `httputil.ReverseProxy`        | Probado en Chromium (modo web, persistencia, recarga) y con el HMR real de Vite vía proxy |
+| Modo web de `core.js` | Implementaciones web fuera de `https://app.koru.invalid`; `Koru.platform`                                | Probado en Node y Chromium; no reejecutado en el WebView de API 30                 |
+| `koru run`/`devices` | Cliente del protocolo smart-socket de adb, sin procesos externos                                          | Probado contra `internal/adb/adbtest`; **no registrado en hardware ni emulador**   |
+| Tipos y schema       | `core.d.ts`, `koru.schema.json` publicado en `/schema/`, mensajes de error con la corrección               | `tsc` 5.6 comprueba ambas plantillas; un test enlaza schema y struct `Config`       |
+| `koru js`            | Copia el módulo y sus tipos para bundlers                                                                 | Pruebas Go                                                                         |
+| Sitio                | Landing en `/` y `/es/inicio/`; guías de desarrollo, dispositivo, frameworks y comparación en en/es       | `bun test` y 23 comprobaciones de navegador, con axe WCAG 2.2 AA en la landing     |
+
+Este hito no amplía la matriz Android registrada: el APK generado no cambia salvo
+el contenido de `core.js` (modo web y `platform`). Hasta reejecutar la matriz de
+API 30 con este `core.js`, el camino nativo se considera validado solo por las
+pruebas unitarias del protocolo.

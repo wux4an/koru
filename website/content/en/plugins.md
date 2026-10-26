@@ -1,10 +1,10 @@
 # JavaScript API
 
-Use Android features from your app’s JavaScript: read device information, store data, share text or show notifications. Calls return promises and work inside the APK installed on Android.
+Use Android features from your app’s JavaScript: read device information, store data, share text or show notifications. Calls return promises. Inside the APK they run natively on Android; in a browser and under [`koru dev`]({{base}}en/develop/) the same calls use web implementations, so you can develop without a device.
 
 ## Before you call an API
 
-The generated `koru.json` enables `device`, `storage` and `app`. To use the other plugins, add their IDs and rebuild:
+`koru init` enables `device`, `storage` and `app`; the `basic` template also enables `vibration` and `share`. To use another plugin, add its ID and rebuild:
 
 ```json
 "plugins": ["device", "storage", "app", "vibration", "share", "notifications"]
@@ -19,7 +19,7 @@ This is one field to put in your existing `koru.json`, not a complete file. Enab
 </script>
 ```
 
-Add an element with `id="model"` to that page. Koru also injects `/__koru/core.js`, which exposes `window.Koru`. The packaged module exports `device`, `app`, `storage`, `vibration`, `share`, `notifications` and `invoke`. If your frontend bundles the JavaScript package from `packages/javascript`, build it before calling koru; the browser-facing examples below use the generated `/__koru/core.mjs` path. All methods return a Promise. Wrap calls in `try/catch` to show a useful error:
+Add an element with `id="model"` to that page. Koru also injects `/__koru/core.js`, which exposes `window.Koru`. The module exports `device`, `app`, `storage`, `vibration`, `share`, `notifications`, `invoke`, `platform` and `isNative`. With a bundler such as Vite, import a copy written by [`koru js`]({{base}}en/cli/) instead (`./koru/core.mjs`); it behaves the same. All methods return a Promise. Wrap calls in `try/catch` to show a useful error:
 
 ```js
 try {
@@ -29,6 +29,48 @@ try {
   console.error(error.code, error.message);
 }
 ```
+
+## TypeScript and editor support
+
+The module ships with type declarations. Projects from `koru create` are already set up:
+
+- **basic**: `types/koru.d.mts` and a `jsconfig.json` that maps `/__koru/core.mjs` to it, so VS Code and `tsc --checkJs` type-check `www/app.js`.
+- **vite**: `src/koru/core.d.mts` sits next to `core.mjs` and is picked up automatically.
+
+For your own TypeScript project, run `koru js src/koru`, or map the served path in `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "paths": { "/__koru/core.mjs": ["./types/koru.d.mts"] }
+  }
+}
+```
+
+Types cover every method, result shape, `CallOptions` and the `KoruError` codes:
+
+```ts
+import { storage, type KoruError } from "/__koru/core.mjs";
+
+try {
+  const theme: string | null = await storage.get("theme");
+} catch (error) {
+  console.warn((error as KoruError).code);
+}
+```
+
+## Android or browser
+
+`platform` is `"android"` inside the APK and `"web"` anywhere else. `isNative()` returns `platform === "android"`. Use them for the few places where behavior should differ:
+
+```js
+import { isNative, share } from "/__koru/core.mjs";
+
+const label = isNative() ? "Share" : "Copy link";
+```
+
+In the browser, `device.getInfo()` reports `model: "Web browser"` and `sdk: 0`; `storage` uses `localStorage` with a `koru:` prefix; `share.text` uses the Web Share API or copies to the clipboard; notifications use the browser’s Notification API; `vibration.vibrate` uses `navigator.vibrate` where it exists. Argument validation and error codes are the same as on Android. A browser without an equivalent rejects with `UNAVAILABLE`. Under `koru dev`, calls to plugins not enabled in `koru.json` reject with `METHOD_NOT_FOUND`, as in the APK.
 
 ## Method index
 
@@ -263,7 +305,7 @@ console.log(info.model, raw.value); // raw.value is string or null
 
 </details>
 
-Errors reject with an `Error` whose `code` and `message` can be displayed or logged. `INVALID_REQUEST` means invalid method/arguments; `METHOD_NOT_FOUND` means the method or plugin is unavailable; `STORAGE_ERROR` means a storage commit failed; `PERMISSION_DENIED` means a required notification permission or setting is off; `NATIVE_ERROR` means Android threw an error. `BUSY`, `TIMEOUT`, `CANCELLED`, `CHANNEL_ERROR`, `CHANNEL_REPLACED`, `INVALID_RESPONSE` and `PAGE_CLOSED` describe the bridge lifecycle. A timeout or cancellation does not prove an already dispatched native action was rolled back.
+Errors reject with an `Error` whose `code` and `message` can be displayed or logged. `INVALID_REQUEST` means invalid method/arguments; `METHOD_NOT_FOUND` means the method or plugin is unavailable; `STORAGE_ERROR` means a storage commit failed; `PERMISSION_DENIED` means a required notification permission or setting is off; `NATIVE_ERROR` means Android threw an error; `UNAVAILABLE` means the browser has no equivalent (web implementations only). `BUSY`, `TIMEOUT`, `CANCELLED`, `CHANNEL_ERROR`, `CHANNEL_REPLACED`, `INVALID_RESPONSE` and `PAGE_CLOSED` describe the bridge lifecycle. A timeout or cancellation does not prove an already dispatched native action was rolled back.
 
 ## Extend your app
 

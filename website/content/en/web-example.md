@@ -7,11 +7,11 @@ Try a small HTML, CSS and JavaScript app before connecting your project. The exa
 From the repository root, after [compiling koru]({{base}}en/getting-started/):
 
 ```sh
-./bin/koru init ./my-app
+koru init ./my-app
 cp -a examples/web/. my-app/www/
-./bin/koru doctor ./my-app
-./bin/koru build ./my-app --release --output example.apk
-./bin/koru verify example.apk
+koru doctor ./my-app
+koru build ./my-app --release --output example.apk
+koru verify example.apk
 ```
 
 `cp -a examples/web/. my-app/www/` copies all files over the initial sample page. The dot matters: it copies the contents of the directory, including `index.html`, rather than making `www/web/`. On systems without GNU `cp`, copy each file into `my-app/www/`.

@@ -1,95 +1,101 @@
 # Crea tu primera app
 
-Crea un proyecto, edita su página y ábrelo en Android. Necesitas Go 1.23 o posterior para obtener koru desde el código fuente y un dispositivo o emulador Android para probar tu app.
+En unos cinco minutos vas a crear una app desde una plantilla, previsualizarla en el navegador con recarga en vivo y abrirla en un móvil o emulador Android. Necesitas **Go 1.23 o posterior** para instalar koru. Para ejecutar la app en Android necesitas además un móvil con depuración USB o un emulador.
 
-## Instala koru
-
-Clona el repositorio y compila el ejecutable:
+## 1. Instala koru
 
 ```sh
 git clone https://github.com/wux4an/koru.git
 cd koru
-CGO_ENABLED=0 go build -trimpath -buildvcs=false -o bin/koru ./cmd/koru
-./bin/koru version
+make install
+koru version
 ```
 
-La primera compilación puede descargar dependencias de Go. Una vez creado, `bin/koru` funciona por sí solo y genera APK sin Go, Java, Gradle ni conexión a Internet.
+`make install` compila un binario autónomo y lo copia en `~/.local/bin`. Si `koru version` responde «command not found», añade esa carpeta a tu `PATH` (por ejemplo, `export PATH="$HOME/.local/bin:$PATH"` en el perfil de tu shell). Sin `make`, ejecuta `CGO_ENABLED=0 go build -trimpath -o ~/.local/bin/koru ./cmd/koru`.
 
-Los ejemplos siguientes se ejecutan desde esta carpeta. Si añades el ejecutable a tu `PATH`, puedes usar `koru` en lugar de `./bin/koru`.
+A partir de aquí solo necesitas ese binario: genera APKs sin Go, Java, Gradle, el SDK de Android ni conexión a Internet.
 
-## Crea un proyecto
+## 2. Crea un proyecto
 
 ```sh
-./bin/koru init ./my-app
+koru create mi-app
 ```
 
-Encontrarás estos archivos:
+En una terminal, koru hace tres preguntas. Pulsa Intro para aceptar cada sugerencia:
 
 ```text
-my-app/
-├── koru.json
-├── www/
-│   └── index.html
-└── .koru/
-    └── signing.pem
+? App name: (Mi App)
+? Application id: (com.example.miapp)
+  1. basic  HTML, CSS and JavaScript, no build step or Node.js needed
+  2. vite   Vite project with hot reload (needs Node.js)
+? Template: (basic)
 ```
 
-`www` contiene tu web. `koru.json` configura la app. `signing.pem` es su identidad de firma: guarda una copia segura y excluye `.koru/` de Git. Necesitarás esa misma clave para actualizar la app.
-
-Abre `my-app/www/index.html` y cambia el título o añade tu contenido. Puedes previsualizar la parte web en un navegador; las funciones de Android se prueban dentro del APK.
-
-## Dale un nombre
-
-Sustituye el contenido de `my-app/koru.json` por:
-
-```json
-{
-  "appId": "com.example.hello",
-  "name": "Hola Android",
-  "version": "1.0.0",
-  "versionCode": 1,
-  "webDir": "www",
-  "minSdk": 26,
-  "targetSdk": 36,
-  "permissions": [],
-  "plugins": ["device", "storage", "app"],
-  "signingKey": ".koru/signing.pem"
-}
-```
-
-`name` aparece en Android. `appId` identifica tu app; elige uno propio antes de distribuirla. Consulta [Configuración]({{base}}es/configuration/) cuando necesites cambiar el icono, los permisos o la carpeta web.
-
-## Genera el APK
+También puedes responderlas con opciones, algo útil en scripts:
 
 ```sh
-./bin/koru doctor ./my-app
-./bin/koru build ./my-app --output app-debug.apk
-./bin/koru verify app-debug.apk
+koru create mi-app --name "Mi App" --app-id com.example.miapp --template basic
 ```
 
-`doctor` revisa el proyecto. `build` genera `app-debug.apk` en la carpeta actual. `verify` devuelve los datos del APK y comprueba su firma y estructura. La salida del APK debe quedar fuera de `www`.
+La plantilla `basic` contiene:
 
-Este build permite inspeccionar el WebView durante las pruebas. Para compartir la app, usa después [un build release]({{base}}es/distribution/).
+```text
+mi-app/
+├── koru.json          nombre, id, versión y plugins de la app
+├── www/               los archivos que se empaquetan en el APK
+│   ├── index.html
+│   ├── app.js
+│   └── style.css
+├── types/koru.d.mts   tipos de la API JavaScript
+├── jsconfig.json      permite que tu editor use esos tipos
+├── .gitignore         deja .koru/ fuera de Git
+└── .koru/signing.pem  tu clave privada de firma
+```
 
-## Abre la app en Android
+> **Haz una copia de seguridad de `.koru/signing.pem`.** Android solo instala actualizaciones firmadas con la misma clave. El `.gitignore` generado la mantiene fuera del control de versiones.
 
-Conecta un dispositivo con depuración USB activada o inicia un emulador. Con `adb` instalado y el dispositivo conectado, ejecuta:
+## 3. Previsualiza con recarga en vivo
 
 ```sh
-adb install -r app-debug.apk
-adb shell am start -W -n com.example.hello/com.koru.runtime.MainActivity
+cd mi-app
+koru dev
 ```
 
-Si elegiste otro `appId`, sustituye `com.example.hello` antes de la barra. Verás la página de `www/index.html` dentro de tu app. `adb` se usa para instalar y probar; no hace falta para generar el APK.
+Abre la dirección que muestra, `http://127.0.0.1:8100`. Edita `www/index.html` o `www/app.js` y guarda: la página se recarga sola. La API JavaScript también funciona aquí, con implementaciones web: el contador se guarda con `storage` y **Share** usa el menú de compartir del navegador. La etiqueta muestra `web`; dentro del APK muestra `android`. En [Desarrolla con recarga en vivo]({{base}}es/develop/) verás cómo probar en el navegador del móvil o usar otro servidor de desarrollo.
 
-Cambia algo en el HTML, repite `build` y vuelve a instalar. Ya tienes el recorrido de edición y prueba.
+## 4. Ejecútala en Android
 
-> La ejecución registrada de koru cubre Android 11 (API 30), x86_64. El rango configurable es API 26–36; comprueba tu app en los dispositivos que quieras admitir.
+Conecta un móvil con la [depuración USB](https://developer.android.com/studio/debug/dev-options) activada, o inicia un emulador desde el Device Manager de Android Studio. Después:
 
-## Sigue con tu app
+```sh
+koru run
+```
 
-- [Usa tu frontend existente]({{base}}es/existing-project/).
-- [Guarda datos y usa funciones de Android]({{base}}es/plugins/).
-- [Prepara una versión para compartir]({{base}}es/distribution/).
+```text
+Built com.example.miapp 1.0.0 (20 KB) in 35ms
+Installed on sdk gphone64 x86 64 (emulator-5554)
+Opened Mi App on sdk gphone64 x86 64 (emulator-5554); inspect it at chrome://inspect
+```
 
-Si un paso falla, consulta [Solución de problemas]({{base}}es/troubleshooting/).
+`koru run` compila un APK de depuración, lo instala y lo abre. Se comunica con el servidor adb que ejecutan Android Studio y las platform tools; si no hay ninguno activo, el error te dice cómo iniciarlo. Con la app abierta, visita `chrome://inspect` en Chrome en tu ordenador para ver su consola y su DOM. Más detalles en [Ejecuta en un dispositivo]({{base}}es/run-on-device/).
+
+Cambia algo y vuelve a ejecutar `koru run`. Ese es el ciclo completo: **editar → `koru dev` → `koru run`**.
+
+## 5. Genera una versión release
+
+```sh
+koru build --release --output mi-app.apk
+koru verify mi-app.apk
+```
+
+Una build release desactiva la depuración del WebView y firma con tu clave existente. Para publicar una actualización, conserva el mismo `appId` y la misma clave, e incrementa `versionCode` en `koru.json`. Consulta [Distribuye tu app]({{base}}es/distribution/).
+
+> koru es experimental. La ejecución registrada cubre Android 11 (API 30) en un emulador x86_64; el rango configurable es API 26–36. Prueba en los dispositivos que quieras soportar.
+
+## Siguientes pasos
+
+- [Usa React, Vue, Svelte u otro framework]({{base}}es/existing-project/), o empieza con `koru create mi-app --template vite`.
+- [Usa funciones de Android desde JavaScript]({{base}}es/plugins/), con tipos TypeScript.
+- [Consulta todos los comandos]({{base}}es/cli/) y [todas las opciones de `koru.json`]({{base}}es/configuration/).
+
+Si un paso falla, ejecuta `koru doctor` y consulta [Solución de problemas]({{base}}es/troubleshooting/).

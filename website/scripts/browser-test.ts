@@ -821,6 +821,82 @@ try {
       assert.equal(await trigger.getAttribute("aria-expanded"), "false");
     },
   );
+  await check(
+    "landing pages pass accessibility, fit every width and copy the quick start in both themes",
+    async () => {
+      for (const [lang, path] of [
+        ["en", "/"],
+        ["es", "/es/inicio/"],
+      ] as const) {
+        for (const theme of ["light", "dark"]) {
+          await page.setViewportSize({ width: 1440, height: 1050 });
+          await page.goto(origin + path);
+          await page.evaluate(() => document.fonts.ready);
+          await chooseTheme(page, theme);
+          assert.equal(
+            await page.evaluate(() => document.documentElement.dataset.theme),
+            theme,
+          );
+          assert.equal(await page.locator("h1").count(), 1);
+          assert.equal(await page.getAttribute("html", "lang"), lang);
+          for (const width of [1440, 1024, 768, 390, 320]) {
+            await page.setViewportSize({
+              width,
+              height: width < 800 ? 844 : 1050,
+            });
+            assert(
+              await page.evaluate(
+                () => document.documentElement.scrollWidth <= innerWidth + 1,
+              ),
+              `Landing overflow at ${width}px (${lang}, ${theme})`,
+            );
+            if (width === 390 || width === 1440)
+              await page.screenshot({
+                path: resolve(
+                  root,
+                  `test-results/landing-${lang}-${theme}-${width}.png`,
+                ),
+                fullPage: true,
+              });
+            const result = await new AxeBuilder({ page })
+              .withTags([
+                "wcag2a",
+                "wcag2aa",
+                "wcag21aa",
+                "wcag22aa",
+                "best-practice",
+              ])
+              .analyze();
+            report.accessibility.push({
+              lang,
+              slug: `landing-${theme}-${width}`,
+              violations: result.violations,
+            });
+            assert.equal(
+              result.violations.length,
+              0,
+              `landing ${lang} ${theme} ${width}: ${JSON.stringify(result.violations.map((v) => ({ id: v.id, nodes: v.nodes.map((n) => n.target) })))}`,
+            );
+          }
+        }
+        await page.setViewportSize({ width: 1440, height: 1050 });
+        await page.locator(".copy-button").click();
+        assert.match(
+          await page.evaluate(() => navigator.clipboard.readText()),
+          lang === "en"
+            ? /^koru create my-app\ncd my-app/
+            : /^koru create mi-app/,
+        );
+        await page.locator(".landing-actions .button-primary").first().click();
+        await page.waitForURL(`**/${lang}/getting-started/`);
+        await ready(page);
+        assert.equal(
+          await page.locator(".site-header .brand").getAttribute("href"),
+          path,
+        );
+      }
+    },
+  );
   assert.deepEqual(report.errors, [], "Browser errors");
   report.passed.push("no page errors or external asset requests");
 } finally {

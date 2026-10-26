@@ -1,10 +1,10 @@
 # API JavaScript
 
-Usa funciones de Android desde el JavaScript de tu app: consulta el dispositivo, guarda datos, comparte texto o muestra notificaciones. Las llamadas devuelven promesas y funcionan dentro del APK instalado en Android.
+Usa funciones de Android desde el JavaScript de tu app: consulta el dispositivo, guarda datos, comparte texto o muestra notificaciones. Las llamadas devuelven promesas. Dentro del APK se ejecutan de forma nativa en Android; en un navegador y con [`koru dev`]({{base}}es/develop/) las mismas llamadas usan implementaciones web, así que puedes desarrollar sin un dispositivo.
 
 ## Antes de llamar la API
 
-El `koru.json` generado activa `device`, `storage` y `app`. Para usar los otros plugins, añade sus IDs y reconstruye:
+`koru init` activa `device`, `storage` y `app`; la plantilla `basic` activa además `vibration` y `share`. Para usar otro plugin, añade su ID y reconstruye:
 
 ```json
 "plugins": ["device", "storage", "app", "vibration", "share", "notifications"]
@@ -19,7 +19,7 @@ Es un campo para añadir a tu `koru.json`, no un archivo completo. Activar `vibr
 </script>
 ```
 
-Añade a la página un elemento con `id="model"`. Koru también inyecta `/__koru/core.js`, que expone `window.Koru`. El módulo exporta `device`, `app`, `storage`, `vibration`, `share`, `notifications` e `invoke`. Si tu frontend usa el paquete JavaScript de `packages/javascript`, compílalo antes de usar koru; los ejemplos siguientes importan el módulo generado `/__koru/core.mjs`. Todos los métodos devuelven una promesa. Maneja los errores para mostrar algo útil:
+Añade a la página un elemento con `id="model"`. Koru también inyecta `/__koru/core.js`, que expone `window.Koru`. El módulo exporta `device`, `app`, `storage`, `vibration`, `share`, `notifications`, `invoke`, `platform` e `isNative`. Con un bundler como Vite, importa en su lugar la copia que escribe [`koru js`]({{base}}es/cli/) (`./koru/core.mjs`); se comporta igual. Todos los métodos devuelven una promesa. Maneja los errores para mostrar algo útil:
 
 ```js
 try {
@@ -29,6 +29,48 @@ try {
   console.error(error.code, error.message);
 }
 ```
+
+## TypeScript y soporte del editor
+
+El módulo incluye declaraciones de tipos. Los proyectos de `koru create` ya vienen configurados:
+
+- **basic**: `types/koru.d.mts` y un `jsconfig.json` que asocia `/__koru/core.mjs` a ese archivo, para que VS Code y `tsc --checkJs` comprueben `www/app.js`.
+- **vite**: `src/koru/core.d.mts` está junto a `core.mjs` y se detecta automáticamente.
+
+En tu propio proyecto TypeScript, ejecuta `koru js src/koru` o asocia la ruta servida en `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "paths": { "/__koru/core.mjs": ["./types/koru.d.mts"] }
+  }
+}
+```
+
+Los tipos cubren cada método, la forma de cada resultado, `CallOptions` y los códigos de `KoruError`:
+
+```ts
+import { storage, type KoruError } from "/__koru/core.mjs";
+
+try {
+  const theme: string | null = await storage.get("theme");
+} catch (error) {
+  console.warn((error as KoruError).code);
+}
+```
+
+## Android o navegador
+
+`platform` vale `"android"` dentro del APK y `"web"` en cualquier otro sitio. `isNative()` devuelve `platform === "android"`. Úsalos en los pocos lugares donde el comportamiento deba cambiar:
+
+```js
+import { isNative, share } from "/__koru/core.mjs";
+
+const label = isNative() ? "Compartir" : "Copiar enlace";
+```
+
+En el navegador, `device.getInfo()` devuelve `model: "Web browser"` y `sdk: 0`; `storage` usa `localStorage` con el prefijo `koru:`; `share.text` usa la Web Share API o copia al portapapeles; las notificaciones usan la API Notification del navegador; `vibration.vibrate` usa `navigator.vibrate` donde existe. La validación de argumentos y los códigos de error son los mismos que en Android. Un navegador sin equivalente rechaza con `UNAVAILABLE`. Con `koru dev`, las llamadas a plugins no activados en `koru.json` se rechazan con `METHOD_NOT_FOUND`, como en el APK.
 
 ## Índice de métodos
 
@@ -263,7 +305,7 @@ console.log(info.model, raw.value); // raw.value es string o null
 
 </details>
 
-Los errores rechazan con un `Error` cuyo `code` y `message` puedes mostrar o registrar. `INVALID_REQUEST` significa método o argumentos inválidos; `METHOD_NOT_FOUND`, método o plugin no disponible; `STORAGE_ERROR`, fallo de guardado; `PERMISSION_DENIED`, permiso o ajuste de notificaciones desactivado; `NATIVE_ERROR`, excepción Android. `BUSY`, `TIMEOUT`, `CANCELLED`, `CHANNEL_ERROR`, `CHANNEL_REPLACED`, `INVALID_RESPONSE` y `PAGE_CLOSED` describen el ciclo de vida del puente. Un timeout o cancelación no demuestra que una acción nativa ya iniciada se haya revertido.
+Los errores rechazan con un `Error` cuyo `code` y `message` puedes mostrar o registrar. `INVALID_REQUEST` significa método o argumentos inválidos; `METHOD_NOT_FOUND`, método o plugin no disponible; `STORAGE_ERROR`, fallo de guardado; `PERMISSION_DENIED`, permiso o ajuste de notificaciones desactivado; `NATIVE_ERROR`, excepción Android; `UNAVAILABLE`, el navegador no tiene equivalente (solo implementaciones web). `BUSY`, `TIMEOUT`, `CANCELLED`, `CHANNEL_ERROR`, `CHANNEL_REPLACED`, `INVALID_RESPONSE` y `PAGE_CLOSED` describen el ciclo de vida del puente. Un timeout o cancelación no demuestra que una acción nativa ya iniciada se haya revertido.
 
 ## Amplía tu app
 

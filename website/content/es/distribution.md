@@ -10,17 +10,17 @@ Conserva una copia segura de `.koru/signing.pem` fuera del proyecto. Es la ident
 
 ## Genera un release
 
-Desde la raíz del repositorio de koru, con tu proyecto en `my-app`:
+Desde el directorio que contiene tu proyecto `my-app`:
 
 ```sh
-./bin/koru doctor ./my-app
-./bin/koru build ./my-app --release --output app-release.apk
-./bin/koru verify app-release.apk
+koru doctor ./my-app
+koru build ./my-app --release --output app-release.apk
+koru verify app-release.apk
 ```
 
 `--release` desactiva el modo debug y la inspección del WebView. Usa la clave configurada en `signingKey`; no crea otra identidad. El archivo resultante es `app-release.apk` en el directorio actual.
 
-Instala y abre también este APK: `verify` comprueba la firma y la estructura, pero no ejecuta tu app.
+Instala y abre también este APK: `verify` comprueba la firma y la estructura, pero no ejecuta tu app. `koru run --release` instala una build release en un dispositivo conectado en un solo paso.
 
 ## Comparte el archivo
 

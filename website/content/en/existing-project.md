@@ -1,60 +1,95 @@
-# Use your web project
+# Frameworks & existing projects
 
-Bring an HTML, CSS and JavaScript site, or your framework’s static output, to Android. You need a folder containing `index.html` and the files it uses.
+koru packages static files: an `index.html` and the scripts, styles and images it uses. Any framework that can export a static site works. Point `webDir` at the build output and koru does the rest.
 
-If you do not have the executable yet, follow [getting started]({{base}}en/getting-started/). Run the commands in this guide from the koru repository root.
+## Start a new Vite project
 
-## Prepare your files
-
-Build your frontend with your usual command. For a project with a `build` script:
+The quickest path for React, Vue, Svelte or Solid is the Vite template:
 
 ```sh
-npm --prefix /path/to/your-web-app run build
+koru create my-app --template vite
+cd my-app
+npm install
+npm run dev        # Vite with hot reload
+npm run android    # vite build, then koru run
 ```
 
-Find the output folder, usually `dist` or `build`. Koru packages this output after your frontend build. Apps that need a server to render pages must provide a static export or access their server as an HTTPS API.
+It contains a plain JavaScript Vite app, a `koru.json` with `"webDir": "dist"` and a copy of the koru JavaScript module in `src/koru/`, so imports work in Vite’s dev server and in production builds. Add a framework the usual way, for example `npm install react react-dom @vitejs/plugin-react` and a `vite.config.js`.
 
-## Create the Android project
+## Add koru to an existing project
 
-Use a new directory for your koru configuration:
+From your project’s root, create a `koru.json` and signing key in place:
 
 ```sh
-./bin/koru init ./my-app
+cd your-web-app
+koru init
 ```
 
-Copy the contents of your frontend output into `my-app/www/`. Place `index.html` directly inside `www`, alongside its scripts, styles and images.
-
-To avoid copying, change `webDir` in `my-app/koru.json` to point to your frontend output. Relative paths start at the directory containing `koru.json`. For example, `../your-web-app/dist` points to a sibling directory named `your-web-app`.
-
-## Configure navigation
-
-If your app uses client-side routing, add this field to `koru.json`:
+`init` also adds `.koru/` to your `.gitignore`. Then edit `koru.json`: set `name`, choose your own `appId` and point `webDir` at your build output. Delete the sample `www/` folder that `init` created if you do not use it.
 
 ```json
-"spa": true
+{
+  "name": "My App",
+  "appId": "com.example.myapp",
+  "webDir": "dist",
+  "spa": true
+}
 ```
 
-Routes such as `/settings` will open `index.html`, letting your router choose the screen. Missing files with extensions, such as `/assets/app.js`, still return 404.
+These are the fields to change; keep the others `init` wrote. Each build is then two steps:
 
-For a site with several HTML files, leave `spa` disabled and link to the included pages. Configure your frontend to serve from the root: `/assets/app.js` should match `www/assets/app.js`, without a deployment prefix or domain.
+```sh
+npm run build
+koru run           # or: koru build --release --output my-app.apk
+```
 
-## Connect your API
+## Output folders by framework
 
-Packaged files are served from `https://app.koru.invalid`. To call external services, add the Internet permission to `permissions`:
+| Framework                        | Static build                                              | `webDir`                 | Client-side routes?                                          |
+| -------------------------------- | --------------------------------------------------------- | ------------------------ | ------------------------------------------------------------ |
+| Vite (React, Vue, Svelte, Solid) | `vite build`                                              | `dist`                   | Set `"spa": true` if you use a router                        |
+| Create React App                 | `react-scripts build`                                     | `build`                  | `"spa": true` with React Router                              |
+| Angular                          | `ng build`                                                | `dist/<project>/browser` | `"spa": true`                                                |
+| Next.js                          | `output: "export"` in `next.config.js`, then `next build` | `out`                    | Leave off; pages are exported as HTML                        |
+| Nuxt                             | `nuxi generate`                                           | `.output/public`         | Leave off for generated routes                               |
+| SvelteKit                        | `@sveltejs/adapter-static`, then `vite build`             | `build`                  | Use the adapter’s `fallback: "index.html"` and `"spa": true` |
+| Astro                            | `astro build` (static output, the default)                | `dist`                   | Leave off                                                    |
+
+Server-side rendering, API routes and image optimization services do not run inside the APK. Use their static export, and call your server as an HTTPS API.
+
+## Routing and paths
+
+With `"spa": true`, any path without a file extension (such as `/settings/profile`) returns `index.html`, so your router can choose the screen. Missing files with extensions, such as `/assets/app.js`, still return 404 so a typo does not load HTML as JavaScript.
+
+Files are served from the root of `https://app.koru.invalid/`. Build with a base path of `/` (the default in most tools). If your site is configured for a sub-path such as `/my-repo/`, set the build’s `base`/`publicPath` back to `/` for the APK.
+
+## Use the JavaScript API from a bundler
+
+Bundlers resolve imports at build time, so they cannot import `/__koru/core.mjs`, which only exists inside the app. Write a copy of the module into your sources:
+
+```sh
+koru js src/koru            # after upgrading koru: koru js src/koru --force
+```
+
+Then `import { device, storage } from "./koru/core.mjs"`. In the APK it uses the native bridge; in a browser or `vite dev` it uses web implementations. `core.d.mts` next to it gives TypeScript and editors the types. For apps without a bundler, import `/__koru/core.mjs` directly, as the `basic` template does.
+
+## Call your API
+
+Your app’s origin is `https://app.koru.invalid`. To call an HTTPS service, add the Internet permission and allow that origin in your server’s CORS settings:
 
 ```json
 "permissions": ["android.permission.INTERNET"]
 ```
 
-Use HTTPS URLs and allow `https://app.koru.invalid` in your server’s CORS settings. This origin is local to the app: you do not need a domain or DNS configuration. Bundle your JavaScript dependencies; remote scripts and iframes are blocked.
+Bundle your JavaScript dependencies: remote scripts and iframes are blocked by the app’s content security policy. Plain `http://` requests are blocked too.
 
-## Build and test the APK
+## Keep hot reload while you work
+
+Run your framework’s dev server and put `koru dev` in front of it to get the koru API with your real app details and plugin checks:
 
 ```sh
-./bin/koru doctor ./my-app
-./bin/koru build ./my-app --output app-debug.apk
+npm run dev
+koru dev --proxy http://localhost:5173
 ```
 
-Install the APK on Android and check the first screen, routes, Back button and network requests. After changing your frontend, build it again and rebuild the APK.
-
-Continue with [Android features from JavaScript]({{base}}en/plugins/) or [distribute your app]({{base}}en/distribution/).
+See [Develop with live reload]({{base}}en/develop/). Then [run on a device]({{base}}en/run-on-device/) and [distribute your app]({{base}}en/distribution/).

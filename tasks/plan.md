@@ -9,6 +9,6 @@ Orden por dependencias; cada tarea deja el árbol verde.
 - [x] 4. `internal/devserver` + `koru dev` (estático, SPA, SSE, proxy).
 - [x] 5. `internal/adb` + `koru devices` + `koru run`; ADR 0003; doctor.
 - [x] Checkpoint: go test/vet/race, gofmt, node --test.
-- [ ] 6. Sitio: landing page en/es, guías nuevas (dev, run, frameworks,
+- [x] 6. Sitio: landing page en/es, guías nuevas (dev, run, frameworks,
       TypeScript, comparación), CLI/config/API actualizadas, README.
-- [ ] 7. milestones.md, tests/README.md, resultados; zip final.
+- [x] 7. milestones.md, tests/README.md, resultados; zip final.

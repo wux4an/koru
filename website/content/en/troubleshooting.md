@@ -1,17 +1,18 @@
 # Troubleshooting
 
-Start with `./bin/koru doctor ./my-app`. It validates the configuration, signing identity, web entry point and plugin manifests before a full build. All commands below assume the koru repository root and the project shown in [Getting started]({{base}}en/getting-started/).
+Start with `koru doctor` in your project directory. It validates the configuration, signing identity, web entry point and plugin manifests before a full build, and reports whether an adb server and devices are available. Every error message names the field or file involved and how to fix it.
 
-## Go is not found
+## `koru` or Go is not found
 
-If `go version` returns “command not found”, install Go 1.23 or later and check that it is on your `PATH`. You only need Go to build the koru executable; you can then generate APKs with that executable.
+If `go version` returns “command not found”, install Go 1.23 or later. You only need Go to build the koru executable. If `koru` is not found after `make install`, add `~/.local/bin` to your `PATH`.
 
 ## `doctor` or `build` rejects the project
 
 | Symptom                                | What to check                                                                                                                                                                        |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `koru.json` cannot be read             | Pass the directory containing `koru.json`, such as `./my-app`. Use valid JSON with only documented fields.                                                                           |
-| `index.html` is missing                | Build the web frontend first. Check that `webDir` points to a directory with a regular `index.html` at its root.                                                                     |
+| `no koru.json in …`                    | Run the command inside the project, or pass its directory (`koru build ./my-app`). Create one with `koru create` or `koru init`.                                                     |
+| `koru.json: unknown field …`           | Fix the field name; the `$schema` line gives your editor completion for every valid field.                                                                                           |
+| `webDir … has no index.html`           | Build the web frontend first (for example `npm run build`). Check that `webDir` points to the folder with `index.html` at its root.                                                  |
 | Signing identity is missing or invalid | Restore the same PEM key and certificate named by `signingKey`. `build` does not silently replace it. For a brand-new app only, run `koru keygen --output my-app/.koru/signing.pem`. |
 | APK output must be outside webDir      | Move `--output` outside the asset folder; for example `--output app.apk` from the repository root.                                                                                   |
 | A plugin is unavailable                | Enable its ID in `plugins`. For custom plugins, also supply its manifest in `pluginManifests` and validate the manifest's declared ABI and handler.                                  |
@@ -26,14 +27,24 @@ Open the generated `index.html` and inspect its script, stylesheet and image URL
 
 For client-side routes like `/settings`, set `"spa": true` in `koru.json`. Routes containing a file extension still return 404 when no matching asset exists; this keeps missing CSS and JavaScript from receiving HTML. Service workers must also be packaged as permitted local assets.
 
-A normal desktop browser can preview the page and its pure web behavior, but `/__koru/core.mjs` and native methods work only inside the APK. Guard native calls in a browser preview or test them on Android.
+In a browser, preview with `koru dev` rather than opening the file directly: it serves `/__koru/core.mjs` with web implementations of the API. A plain static server or `file://` cannot load it. Native behavior (permissions, Android share sheet, notifications) still needs a test on Android with `koru run`.
+
+## `koru dev` problems
+
+| Symptom                             | What to check                                                                                                             |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `cannot listen on …`                | Another program uses the port. Run `koru dev --port 3000`, or `--port 0` for any free port.                               |
+| The page does not reload            | Save inside the project directory; `node_modules`, `.git` and `.koru` are ignored. Check the terminal for `Watch` errors. |
+| `METHOD_NOT_FOUND … is not enabled` | Add the plugin to `plugins` in `koru.json`; the next reload picks it up.                                                  |
+| `--proxy` shows `cannot reach …`    | Start your framework’s dev server first and use its exact URL, for example `http://localhost:5173`.                       |
+| A phone cannot open the Network URL | Use `--host 0.0.0.0`, keep both devices on the same network and allow the port in your firewall.                          |
 
 ## Installation or update fails
 
-Confirm a device is available with `adb devices`. Build and inspect the exact APK you plan to install:
+Run `koru devices`. `unauthorized` means you must accept the USB debugging prompt on the phone; `offline` means reconnecting it. If koru reports that no adb server is running, start one with `adb start-server` or open Android Studio. `koru run` explains the common install errors; see [Run on a device]({{base}}en/run-on-device/). To install by hand, build and inspect the exact APK first:
 
 ```sh
-./bin/koru verify app.apk
+koru verify app.apk
 adb install -r app.apk
 adb shell am start -W -n com.example.hello/com.koru.runtime.MainActivity
 ```

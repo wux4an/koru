@@ -14,7 +14,7 @@ To check that your code only calls plugins enabled in `koru.json`, run
 address it prints.
 
 `koru.json` points `webDir` at `dist`, the folder `vite build` writes.
-`src/koru/` is a copy of the koru JavaScript module and its types; replace it
-when you upgrade koru (`koru create` writes the current version).
+`src/koru/` is a copy of the koru JavaScript module and its types. After
+upgrading koru, refresh it with `koru js src/koru --force`.
 
 `.koru/signing.pem` is your signing key. Back it up and never commit it.

@@ -8,7 +8,18 @@ go vet ./...
 go test -race ./...
 ```
 
-Cliente JavaScript: `node --test packages/javascript/core.test.cjs`.
+Cliente JavaScript: `node --test packages/javascript/core.test.cjs` (protocolo
+nativo y modo web).
+
+Flujo de desarrollo (sin red ni dispositivo): `internal/templates` genera ambas
+plantillas, `internal/devserver` prueba estáticos, SPA, SSE, vigilancia y proxy
+con `httptest`, e `internal/adb` usa el servidor adb falso de
+`internal/adb/adbtest`. `cmd/koru` encadena `create` → `build` → `verify`,
+`dev` y `run` contra ese servidor falso. Ninguna de estas pruebas sustituye una
+instalación real en Android.
+
+Sitio de documentación (Bun): `cd website && bun test` y
+`CHROME_PATH=/ruta/chrome bun run test:browser`, que incluye la landing page.
 JNI: `make native-test` prueba propiedad de referencias/hilos con una tabla JNI
 controlada; no sustituye la ejecución real del ejemplo en Android.
 

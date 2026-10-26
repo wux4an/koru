@@ -81,7 +81,11 @@ describe("localized, crawlable documentation", () => {
       resolve(root, output, "sitemap.xml"),
       "utf8",
     );
-    expect(sitemap.match(/<loc>/g)?.length).toBe(pages.length * locales.length);
+    expect(sitemap.match(/<loc>/g)?.length).toBe(
+      pages.length * locales.length + locales.length,
+    );
+    expect(sitemap).toContain(`<loc>${canonical}</loc>`);
+    expect(sitemap).toContain(`<loc>${canonical}es/inicio/</loc>`);
     for (const lang of locales)
       for (const page of pages)
         expect(sitemap).toContain(
@@ -105,9 +109,10 @@ describe("localized, crawlable documentation", () => {
           root,
           output,
           link,
-          link.endsWith("/") ? "index.html" : "",
+          link === "" || link.endsWith("/") ? "index.html" : "",
         );
-        expect(await Bun.file(target).exists()).toBe(true);
+        if (!(await Bun.file(target).exists()))
+          throw new Error(`${relative(root, file)} links to missing ${link}`);
       }
     }
   });
@@ -171,7 +176,27 @@ describe("deployment configuration and broken input", () => {
       "utf8",
     );
     const icon = await readFile(resolve(root, domainOutput, "favicon.ico"));
-    expect(index).toContain('content="0;url=/en/"');
+    // The domain root is the product landing page, not a redirect.
+    expect(index).not.toContain('http-equiv="refresh"');
+    expect(index).toContain('rel="canonical" href="https://koru.js.org/"');
+    expect(index).toContain(
+      'hreflang="es" href="https://koru.js.org/es/inicio/"',
+    );
+    expect(index.match(/<h1\b/g)?.length).toBe(1);
+    expect(index).toContain('href="/en/getting-started/"');
+    const spanish = await readFile(
+      resolve(root, domainOutput, "es/inicio/index.html"),
+      "utf8",
+    );
+    expect(spanish).toContain('<html lang="es">');
+    expect(spanish).toContain('href="/es/getting-started/"');
+    const schema = JSON.parse(
+      await readFile(
+        resolve(root, domainOutput, "schema/koru.schema.json"),
+        "utf8",
+      ),
+    );
+    expect(schema.$id).toBe("https://koru.js.org/schema/koru.schema.json");
     expect(english).toContain('rel="canonical" href="https://koru.js.org/en/"');
     expect(english).toContain('href="/assets/favicon.svg"');
     expect(notFound).toContain('href="/en/"');

@@ -10,17 +10,17 @@ Keep a secure backup of `.koru/signing.pem` outside the project. Android uses th
 
 ## Build a release
 
-From the koru repository root, with your project in `my-app`:
+From the directory that contains your project `my-app`:
 
 ```sh
-./bin/koru doctor ./my-app
-./bin/koru build ./my-app --release --output app-release.apk
-./bin/koru verify app-release.apk
+koru doctor ./my-app
+koru build ./my-app --release --output app-release.apk
+koru verify app-release.apk
 ```
 
 `--release` disables debug mode and WebView inspection. It uses the key configured in `signingKey`; it does not create a new identity. The resulting file is `app-release.apk` in the current directory.
 
-Install and open this APK too: `verify` checks its signature and structure, but does not run your app.
+Install and open this APK too: `verify` checks its signature and structure, but does not run your app. `koru run --release` installs a release build on a connected device in one step.
 
 ## Share the file
 

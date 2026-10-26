@@ -49,3 +49,15 @@ This documentation work does not add Android execution evidence. APK installatio
 and device behavior remain covered only by the existing matrix in
 [the Android results](../docs/results/full/README.md). The rework is local; no new
 production deployment was performed.
+
+## Landing page and developer-workflow guides (2026-10-26)
+
+`bun test` (10 tests) and `bun run test:browser` (23 checks) passed with Chromium
+153 through `CHROME_PATH`, after adding the landing page at `/` and `/es/inicio/`
+and the Develop, Run on a device and Comparison guides in both locales. The new
+landing check runs axe WCAG 2.2 AA in light and dark themes at 1440, 1024, 768,
+390 and 320 px, verifies there is no horizontal overflow, copies the quick start
+and follows the primary action. Screenshots are written to
+`test-results/landing-*.png`. The commands shown in the guides were run against
+the real CLI in temporary projects; `koru run` output comes from the adb protocol
+fake, not a device. No production deployment was performed.

@@ -25,8 +25,8 @@ Los plugins personalizados se ejecutan con los permisos de tu app. Incluye solo 
 ## Comprueba el APK que compartes
 
 ```sh
-./bin/koru build ./my-app --release --output app-release.apk
-./bin/koru verify app-release.apk
+koru build ./my-app --release --output app-release.apk
+koru verify app-release.apk
 ```
 
 Release desactiva debug y la inspección del WebView. `verify` comprueba la firma y la estructura del APK. Instálalo y prueba también las funciones de tu app en Android.

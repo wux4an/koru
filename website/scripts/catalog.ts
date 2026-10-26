@@ -51,26 +51,6 @@ export const text = {
 };
 export const pages = [
   {
-    slug: "existing-project",
-    group: 1,
-    icon: "browser",
-    titles: ["Use your web project", "Usa tu proyecto web"],
-    descriptions: [
-      "Package your existing frontend, configure routes and connect an HTTPS API.",
-      "Empaqueta tu frontend, configura sus rutas y conecta una API HTTPS.",
-    ],
-  },
-  {
-    slug: "distribution",
-    group: 1,
-    icon: "export",
-    titles: ["Distribute your app", "Distribuye tu app"],
-    descriptions: [
-      "Build a release APK, share it and update your app with the same signing identity.",
-      "Genera un APK release, compártelo y actualiza tu app con la misma firma.",
-    ],
-  },
-  {
     slug: "overview",
     group: 0,
     icon: "house",
@@ -86,18 +66,71 @@ export const pages = [
     icon: "rocket-launch",
     titles: ["Getting started", "Primeros pasos"],
     descriptions: [
-      "Build koru, initialize a web project and produce your first signed Android APK.",
-      "Compila koru, inicia un proyecto web y genera tu primer APK Android firmado.",
+      "Install koru, create an app from a template, preview it with live reload and open it on your phone.",
+      "Instala koru, crea una app desde una plantilla, previsualízala con recarga en vivo y ábrela en tu móvil.",
     ],
   },
   {
-    slug: "configuration",
-    group: 2,
-    icon: "sliders-horizontal",
-    titles: ["Configuration", "Configuración"],
+    slug: "comparison",
+    group: 0,
+    icon: "scales",
+    titles: ["koru, Capacitor and Expo", "koru, Capacitor y Expo"],
     descriptions: [
-      "Every koru.json option, SDK constraint, permission, asset path and signing identity.",
-      "Opciones de koru.json, límites SDK, permisos, rutas de assets e identidad de firma.",
+      "An honest comparison of koru with Capacitor and Expo: toolchain, workflow, platforms, plugins and when to choose each.",
+      "Comparación honesta de koru con Capacitor y Expo: herramientas, flujo de trabajo, plataformas, plugins y cuándo elegir cada uno.",
+    ],
+  },
+  {
+    slug: "develop",
+    group: 1,
+    icon: "arrows-clockwise",
+    titles: ["Develop with live reload", "Desarrolla con recarga en vivo"],
+    descriptions: [
+      "Preview your app in a browser with koru dev, live reload, web implementations of the API and framework proxies.",
+      "Previsualiza tu app en el navegador con koru dev, recarga en vivo, implementaciones web de la API y proxy para frameworks.",
+    ],
+  },
+  {
+    slug: "run-on-device",
+    group: 1,
+    icon: "device-mobile",
+    titles: ["Run on a device", "Ejecuta en un dispositivo"],
+    descriptions: [
+      "Install and open your app on a phone or emulator with koru run, list devices and debug the WebView.",
+      "Instala y abre tu app en un móvil o emulador con koru run, lista dispositivos y depura el WebView.",
+    ],
+  },
+  {
+    slug: "existing-project",
+    group: 1,
+    icon: "browser",
+    titles: [
+      "Frameworks & existing projects",
+      "Frameworks y proyectos existentes",
+    ],
+    descriptions: [
+      "Package Vite, React, Vue, Svelte, Astro or any static frontend, configure routes and connect an HTTPS API.",
+      "Empaqueta Vite, React, Vue, Svelte, Astro o cualquier frontend estático, configura rutas y conecta una API HTTPS.",
+    ],
+  },
+  {
+    slug: "distribution",
+    group: 1,
+    icon: "export",
+    titles: ["Distribute your app", "Distribuye tu app"],
+    descriptions: [
+      "Build a release APK, share it and update your app with the same signing identity.",
+      "Genera un APK release, compártelo y actualiza tu app con la misma firma.",
+    ],
+  },
+  {
+    slug: "security",
+    group: 1,
+    icon: "shield-check",
+    titles: ["Signing & security", "Firmas y seguridad"],
+    descriptions: [
+      "Persistent signing keys, APK v2, intercepted HTTPS assets and WebView trust boundaries.",
+      "Claves persistentes, APK v2, assets HTTPS interceptados y límites de confianza del WebView.",
     ],
   },
   {
@@ -116,8 +149,18 @@ export const pages = [
     icon: "terminal-window",
     titles: ["CLI commands", "Comandos CLI"],
     descriptions: [
-      "Reference for koru init, build, verify, doctor, keygen and standalone DEX commands.",
-      "Referencia de koru init, build, verify, doctor, keygen y comandos DEX independientes.",
+      "Reference for koru create, dev, run, devices, build, verify, doctor, init, keygen and DEX commands.",
+      "Referencia de koru create, dev, run, devices, build, verify, doctor, init, keygen y comandos DEX.",
+    ],
+  },
+  {
+    slug: "configuration",
+    group: 2,
+    icon: "sliders-horizontal",
+    titles: ["Configuration", "Configuración"],
+    descriptions: [
+      "Every koru.json option, SDK constraint, permission, asset path and signing identity.",
+      "Opciones de koru.json, límites SDK, permisos, rutas de assets e identidad de firma.",
     ],
   },
   {
@@ -140,16 +183,6 @@ export const pages = [
     descriptions: [
       "Go DEX 035 API: registers, bytecode, identifiers, sections, exceptions and parser limits.",
       "API Go DEX 035: registros, bytecode, identificadores, secciones, excepciones y límites del parser.",
-    ],
-  },
-  {
-    slug: "security",
-    group: 1,
-    icon: "shield-check",
-    titles: ["Signing & security", "Firmas y seguridad"],
-    descriptions: [
-      "Persistent signing keys, APK v2, intercepted HTTPS assets and WebView trust boundaries.",
-      "Claves persistentes, APK v2, assets HTTPS interceptados y límites de confianza del WebView.",
     ],
   },
   {
@@ -186,17 +219,6 @@ export const pages = [
     ],
   },
   {
-    slug: "testing",
-    group: 4,
-    icon: "flask",
-    source: "tests/README.md",
-    titles: ["Reproduce the tests", "Reproduce las pruebas"],
-    descriptions: [
-      "Go, JavaScript, JNI, opt-in Android validation and real WebView execution test instructions.",
-      "Pruebas Go, JavaScript, JNI, validación Android externa y ejecución real del WebView.",
-    ],
-  },
-  {
     slug: "android-results",
     group: 3,
     icon: "android-logo",
@@ -205,6 +227,27 @@ export const pages = [
     descriptions: [
       "Recorded APK installation and execution on Android 11 API 30 x86_64, with explicit matrix limits.",
       "Instalación y ejecución registradas en Android 11 API 30 x86_64, con límites explícitos de la matriz.",
+    ],
+  },
+  {
+    slug: "sources",
+    group: 3,
+    icon: "books",
+    titles: ["Documentation archive", "Archivo de documentación"],
+    descriptions: [
+      "All original koru documentation, official specification sources and raw validation artifacts.",
+      "Toda la documentación original, fuentes oficiales y artefactos de validación de koru.",
+    ],
+  },
+  {
+    slug: "testing",
+    group: 4,
+    icon: "flask",
+    source: "tests/README.md",
+    titles: ["Reproduce the tests", "Reproduce las pruebas"],
+    descriptions: [
+      "Go, JavaScript, JNI, opt-in Android validation and real WebView execution test instructions.",
+      "Pruebas Go, JavaScript, JNI, validación Android externa y ejecución real del WebView.",
     ],
   },
   {
@@ -242,23 +285,13 @@ export const pages = [
   },
   {
     slug: "web-example",
-    group: 0,
+    group: 4,
     icon: "browser",
     source: "examples/web/README.md",
     titles: ["Web example", "Ejemplo web"],
     descriptions: [
       "The web fixture used to validate HTML, CSS, SVG, navigation, JavaScript and offline behavior.",
       "Fixture web para validar HTML, CSS, SVG, navegación, JavaScript y comportamiento offline.",
-    ],
-  },
-  {
-    slug: "sources",
-    group: 3,
-    icon: "books",
-    titles: ["Documentation archive", "Archivo de documentación"],
-    descriptions: [
-      "All original koru documentation, official specification sources and raw validation artifacts.",
-      "Toda la documentación original, fuentes oficiales y artefactos de validación de koru.",
     ],
   },
 ];

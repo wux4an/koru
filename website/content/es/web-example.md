@@ -7,11 +7,11 @@ Prueba una app pequeña de HTML, CSS y JavaScript antes de conectar tu proyecto.
 Desde la raíz del repositorio, después de [compilar koru]({{base}}es/getting-started/):
 
 ```sh
-./bin/koru init ./my-app
+koru init ./my-app
 cp -a examples/web/. my-app/www/
-./bin/koru doctor ./my-app
-./bin/koru build ./my-app --release --output example.apk
-./bin/koru verify example.apk
+koru doctor ./my-app
+koru build ./my-app --release --output example.apk
+koru verify example.apk
 ```
 
 `cp -a examples/web/. my-app/www/` reemplaza la página inicial con todos los archivos del ejemplo. El punto final importa: copia el contenido, sin crear `www/web/`. Si tu sistema no tiene `cp` de GNU, copia cada archivo a `my-app/www/`.
