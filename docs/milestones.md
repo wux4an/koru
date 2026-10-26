@@ -64,3 +64,5 @@ Este hito no amplía la matriz Android registrada: el APK generado no cambia sal
 el contenido de `core.js` (modo web y `platform`). Hasta reejecutar la matriz de
 API 30 con este `core.js`, el camino nativo se considera validado solo por las
 pruebas unitarias del protocolo.
+
+`koru logs`, `koru run --logs` y el QR de `koru dev --qr`: `adb.Stream` (sin límite de 1 MiB), `pidof` y `logcat --pid` más las líneas `chromium`, y la URL de red como QR con `rsc.io/qr` (BSD-3); probados contra `internal/adb/adbtest` y con comprobación de la matriz QR, **sin validar el formato real de logcat ni el escaneo en un dispositivo**.
