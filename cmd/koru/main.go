@@ -42,7 +42,9 @@ func newRootCommand(out, errOut io.Writer) *cobra.Command {
 		Example: `  koru create my-app        # start from a template
   koru dev                  # preview in a browser with live reload
   koru run                  # install and open on a phone or emulator
-  koru build --release --output app-release.apk`,
+  koru plugin add vibration # enable a plugin in koru.json
+  koru bump minor           # raise version and versionCode
+  koru build --release --bump --output app-release.apk`,
 		SilenceErrors: true,
 		SilenceUsage:  true,
 		CompletionOptions: cobra.CompletionOptions{
@@ -55,7 +57,7 @@ func newRootCommand(out, errOut io.Writer) *cobra.Command {
 		command.Print(command.UsageString())
 	})
 	root.SetUsageTemplate(helpTemplate(presentationFor(out)))
-	root.AddCommand(newCreateCommand(), newDevCommand(), newRunCommand(), newDevicesCommand(), newJSCommand(), newVersionCommand(), newDoctorCommand(), newAPKBuildCommand(), newInitCommand(), newKeygenCommand(), newVerifyCommand(), newDexCommand())
+	root.AddCommand(newCreateCommand(), newDevCommand(), newRunCommand(), newDevicesCommand(), newJSCommand(), newVersionCommand(), newDoctorCommand(), newAPKBuildCommand(), newInitCommand(), newKeygenCommand(), newVerifyCommand(), newDexCommand(), newBumpCommand(), newPluginCommand(), newConfigCommand())
 	return root
 }
 
@@ -95,14 +97,21 @@ func newAPKBuildCommand() *cobra.Command {
 	cmd.Flags().String("keystore", "", "existing PEM signing identity")
 	cmd.Flags().Bool("no-cache", false, "disable runtime DEX cache")
 	cmd.Flags().Bool("release", false, "disable debug mode and reuse the persistent identity")
+	cmd.Flags().Bool("bump", false, "increase versionCode and the patch version in koru.json before building")
 	cmd.RunE = func(cmd *cobra.Command, args []string) error {
 		output, _ := cmd.Flags().GetString("output")
 		key, _ := cmd.Flags().GetString("keystore")
 		noCache, _ := cmd.Flags().GetBool("no-cache")
 		release, _ := cmd.Flags().GetBool("release")
+		bump, _ := cmd.Flags().GetBool("bump")
 		project := "."
 		if len(args) == 1 {
 			project = args[0]
+		}
+		if bump {
+			if err := bumpVersion(project, "patch", cmd.OutOrStdout()); err != nil {
+				return err
+			}
 		}
 		return apkBuild(project, output, key, noCache, release, cmd.OutOrStdout())
 	}
