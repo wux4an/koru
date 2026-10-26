@@ -64,3 +64,19 @@ Este hito no amplía la matriz Android registrada: el APK generado no cambia sal
 el contenido de `core.js` (modo web y `platform`). Hasta reejecutar la matriz de
 API 30 con este `core.js`, el camino nativo se considera validado solo por las
 pruebas unitarias del protocolo.
+
+## Manifiesto configurable — octubre de 2026
+
+Campos opcionales de `koru.json` emitidos en el AXML generado por Go: `orientation`
+(`android:screenOrientation`), `allowBackup`, `keyboard` (`android:windowSoftInputMode`)
+y `deepLinks` (un `<intent-filter>` VIEW/DEFAULT/BROWSABLE por enlace, con `autoVerify`
+para https). `koru deeplinks` imprime el `assetlinks.json` con la huella SHA-256 de la
+identidad de firma, y `koru verify` lista los `deepLinks` del manifiesto. Los IDs de
+atributo se contrastaron con `public-final.xml` de AOSP; hay pruebas golden del AXML,
+de configuración inválida y del comando, y un caso `aapt dump xmltree` bajo
+`tests/external` (build tag `android_external`) que no se ha ejecutado.
+
+**No se ha ejecutado en Android** y la matriz API 30 de `docs/results/full` no cubre
+estos campos: ni la verificación de App Links, ni la rotación, ni el teclado. Los
+enlaces abren la app en su página inicial; la URL todavía no llega a JavaScript
+(requeriría cambios en el bytecode del runtime, fuera de este hito).
