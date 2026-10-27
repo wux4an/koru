@@ -41,7 +41,7 @@ En un navegador, previsualiza con `koru dev` en lugar de abrir el archivo direct
 
 ## Fallo al instalar o actualizar
 
-Ejecuta `koru devices`. `unauthorized` significa que debes aceptar el aviso de depuración USB en el móvil; `offline`, que debes reconectarlo. Si koru indica que no hay servidor adb, inicia uno con `adb start-server` o abre Android Studio. `koru run` explica los errores de instalación habituales; consulta [Ejecuta en un dispositivo]({{base}}es/run-on-device/). Para instalar a mano, verifica antes el APK exacto:
+Ejecuta `koru devices`. `unauthorized` significa que debes aceptar el aviso de depuración USB en el móvil; `offline`, que debes reconectarlo. Si koru indica que no hay servidor adb, inicia uno con `adb start-server` o abre Android Studio. `koru run` explica los errores de instalación habituales; consulta [Ejecuta en un dispositivo]({{base}}docs/es/run-on-device/). Para instalar a mano, verifica antes el APK exacto:
 
 ```sh
 koru verify app.apk
@@ -51,12 +51,12 @@ adb shell am start -W -n com.example.miapp/com.koru.runtime.MainActivity
 
 Cambia `com.example.miapp` por tu `appId`. `INSTALL_FAILED_UPDATE_INCOMPATIBLE` indica que el ID o el certificado no coinciden con la app instalada. Para actualizar, conserva el `appId` y la clave `.koru/signing.pem` originales; aumentar `versionCode` no arregla una firma distinta. En una versión nueva incrementa `versionCode`.
 
-`verify` comprueba estructura y firma v2, pero no renderizado WebView, resolución del framework ni plugins. Instala y ejercita la app en los Android que soportarás. La [matriz ejecutada]({{base}}es/android-results/) cubre Android 11/API 30/x86_64.
+`verify` comprueba estructura y firma v2, pero no renderizado WebView, resolución del framework ni plugins. Instala y ejercita la app en los Android que soportarás. La [matriz ejecutada]({{base}}docs/es/android-results/) cubre Android 11/API 30/x86_64.
 
 ## Falla una llamada nativa
 
-Comprueba que el plugin esté activo y que los argumentos coincidan con [la API JavaScript]({{base}}es/plugins/). Maneja las promesas rechazadas y consulta su código (`METHOD_NOT_FOUND`, `PERMISSION_DENIED`, `TIMEOUT` o `CHANNEL_ERROR`, por ejemplo). Un permiso en el manifest aún puede requerir la decisión del usuario en Android recientes. El diálogo de notificaciones de API 33+ no se ha probado en la matriz API 30.
+Comprueba que el plugin esté activo y que los argumentos coincidan con [la API JavaScript]({{base}}docs/es/plugins/). Maneja las promesas rechazadas y consulta su código (`METHOD_NOT_FOUND`, `PERMISSION_DENIED`, `TIMEOUT` o `CHANNEL_ERROR`, por ejemplo). Un permiso en el manifest aún puede requerir la decisión del usuario en Android recientes. El diálogo de notificaciones de API 33+ no se ha probado en la matriz API 30.
 
 Para reportar un fallo, incluye comando, código de salida, error exacto, `koru.json` sin datos privados, API/ABI Android y resultado de `koru verify`. Nunca compartas `signing.pem`.
 
-[Referencia CLI]({{base}}es/cli/) · [Configuración]({{base}}es/configuration/) · [Seguridad]({{base}}es/security/)
+[Referencia CLI]({{base}}docs/es/cli/) · [Configuración]({{base}}docs/es/configuration/) · [Seguridad]({{base}}docs/es/security/)

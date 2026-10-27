@@ -1,6 +1,6 @@
 # Early DEX results
 
-> Historical DEX-only snapshot, recorded 2026-10-13 before APK/runtime completion. Its “no Android execution yet” statements refer to that stage. Current APK evidence is on the [Android execution page]({{base}}en/android-results/).
+> Historical DEX-only snapshot, recorded 2026-10-13 before APK/runtime completion. Its “no Android execution yet” statements refer to that stage. Current APK evidence is on the [Android execution page]({{base}}docs/en/android-results/).
 
 All recorded tests ran against real workspace code. At this stage there were no Android installation/execution tests or APK results. `summary.json` records cases, coverage and artifact hashes.
 
@@ -51,4 +51,4 @@ PATH=/nonexistent ./bin/koru dex inspect activity.dex
 
 Rebuilding today's Cobra CLI without a proxy requires its modules to be cached first. The compiled binary's app build remains offline. The normal compiler does not launch external processes. dexdump validates structure/checksum and shows code; it does not execute methods in ART or validate Android rendering.
 
-[Browse original records]({{base}}en/sources/)
+[Browse original records]({{base}}docs/en/sources/)

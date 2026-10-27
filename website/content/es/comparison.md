@@ -41,8 +41,8 @@ Capacitor y Expo son herramientas maduras y muy usadas. koru hace mucho menos, a
 - Pasar la URL de un deep link a tu JavaScript. El enlace abre la app en su primera página, y ni el flujo de enlaces verificados ni nada de esto se ha ejecutado en Android.
 - Notificaciones programadas, cámara, geolocalización, selectores de archivos y otros plugins fuera de los seis integrados.
 - Recarga en vivo dentro del APK instalado. Usa `koru dev` en un navegador y luego `koru run`.
-- Ejecución verificada más allá de la [matriz registrada]({{base}}es/android-results/).
+- Ejecución verificada más allá de la [matriz registrada]({{base}}docs/es/android-results/).
 
-Si hoy necesitas alguna de esas funciones, Capacitor o Expo son mejor opción. Si necesitas una cadena de herramientas Android pequeña y auditable para una app web, prueba koru: [crea tu primera app]({{base}}es/getting-started/).
+Si hoy necesitas alguna de esas funciones, Capacitor o Expo son mejor opción. Si necesitas una cadena de herramientas Android pequeña y auditable para una app web, prueba koru: [crea tu primera app]({{base}}docs/es/getting-started/).
 
 _Capacitor y Expo cambian rápido; consulta la documentación de [Capacitor](https://capacitorjs.com/docs) y de [Expo](https://docs.expo.dev/) para conocer los detalles actuales._

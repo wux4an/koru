@@ -59,7 +59,7 @@ koru: koru.json: invalid appId "myapp": use reverse-domain form such as com.exam
 | `keyboard`        | Optional: `resize` (default; the page shrinks) or `pan` (the page slides up) when the on-screen keyboard opens.                  |
 | `deepLinks`       | Optional list of links that open the app. At most 32, no duplicates. See [Deep links](#deep-links) below.                        |
 
-The defaults are written by `init`, so edit the generated file rather than guessing missing values. A custom plugin ID must appear in `plugins` and have a corresponding manifest in `pluginManifests`. The six built-in IDs and their methods are in [JavaScript and plugins]({{base}}en/plugins/).
+The defaults are written by `init`, so edit the generated file rather than guessing missing values. A custom plugin ID must appear in `plugins` and have a corresponding manifest in `pluginManifests`. The six built-in IDs and their methods are in [JavaScript and plugins]({{base}}docs/en/plugins/).
 
 ## Screen, keyboard and backup
 
@@ -129,7 +129,7 @@ koru deeplinks ./my-app --json > assetlinks.json
 ]
 ```
 
-The fingerprint is the SHA-256 of the certificate in your `signingKey` (this one comes from a throwaway example key). Publish the file at `https://example.com/.well-known/assetlinks.json` for every `https` domain in `deepLinks`, over HTTPS with status 200, content type `application/json` and no redirects. A `*.example.com` wildcard needs the file on every subdomain that should open the app. If you replace the signing key, the fingerprint changes and verification fails; see [Signing and security]({{base}}en/security/). Without the file, or until Android has checked it, a link may show a chooser instead of opening the app directly.
+The fingerprint is the SHA-256 of the certificate in your `signingKey` (this one comes from a throwaway example key). Publish the file at `https://example.com/.well-known/assetlinks.json` for every `https` domain in `deepLinks`, over HTTPS with status 200, content type `application/json` and no redirects. A `*.example.com` wildcard needs the file on every subdomain that should open the app. If you replace the signing key, the fingerprint changes and verification fails; see [Signing and security]({{base}}docs/en/security/). Without the file, or until Android has checked it, a link may show a chooser instead of opening the app directly.
 
 `koru verify app.apk` lists the deep links found in the manifest. **Nothing here has been run on Android:** koru has not recorded an install, a verification or a tapped link. Test on a device before relying on it.
 
@@ -165,4 +165,4 @@ There can be at most 2,000 assets, 64 MiB per file and 256 MiB in total. The bui
 
 The runtime DEX cache tracks toolchain, configuration, plugins, paths and MIME types. Changing only web file bytes can reuse DEX. Integrity or structural corruption produces an error. Use `--no-cache` to disable it.
 
-[Signing and security]({{base}}en/security/) · [Custom plugins]({{base}}en/plugins/)
+[Signing and security]({{base}}docs/en/security/) · [Custom plugins]({{base}}docs/en/plugins/)

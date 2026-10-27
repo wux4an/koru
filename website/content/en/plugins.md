@@ -1,6 +1,6 @@
 # JavaScript API
 
-Use Android features from your app’s JavaScript: read device information, store data, share text or show notifications. Calls return promises. Inside the APK they run natively on Android; in a browser and under [`koru dev`]({{base}}en/develop/) the same calls use web implementations, so you can develop without a device.
+Use Android features from your app’s JavaScript: read device information, store data, share text or show notifications. Calls return promises. Inside the APK they run natively on Android; in a browser and under [`koru dev`]({{base}}docs/en/develop/) the same calls use web implementations, so you can develop without a device.
 
 ## Before you call an API
 
@@ -19,7 +19,7 @@ This is one field to put in your existing `koru.json`, not a complete file. Enab
 </script>
 ```
 
-Add an element with `id="model"` to that page. Koru also injects `/__koru/core.js`, which exposes `window.Koru`. The module exports `device`, `app`, `storage`, `vibration`, `share`, `notifications`, `invoke`, `platform` and `isNative`. With a bundler such as Vite, import a copy written by [`koru js`]({{base}}en/cli/) instead (`./koru/core.mjs`); it behaves the same. All methods return a Promise. Wrap calls in `try/catch` to show a useful error:
+Add an element with `id="model"` to that page. Koru also injects `/__koru/core.js`, which exposes `window.Koru`. The module exports `device`, `app`, `storage`, `vibration`, `share`, `notifications`, `invoke`, `platform` and `isNative`. With a bundler such as Vite, import a copy written by [`koru js`]({{base}}docs/en/cli/) instead (`./koru/core.mjs`); it behaves the same. All methods return a Promise. Wrap calls in `try/catch` to show a useful error:
 
 ```js
 try {
@@ -309,6 +309,6 @@ Errors reject with an `Error` whose `code` and `message` can be displayed or log
 
 ## Extend your app
 
-To add your own features, follow the step-by-step guide [Write a plugin]({{base}}en/write-a-plugin/), or see the [native adapter]({{base}}en/native/) and the [custom plugin reference]({{base}}original/docs/plugins.md).
+To add your own features, follow the step-by-step guide [Write a plugin]({{base}}docs/en/write-a-plugin/), or see the [native adapter]({{base}}docs/en/native/) and the [custom plugin reference]({{base}}original/docs/plugins.md).
 
-[Configuration]({{base}}en/configuration/) · [Troubleshooting]({{base}}en/troubleshooting/)
+[Configuration]({{base}}docs/en/configuration/) · [Troubleshooting]({{base}}docs/en/troubleshooting/)

@@ -1,6 +1,6 @@
 # API JavaScript
 
-Usa funciones de Android desde el JavaScript de tu app: consulta el dispositivo, guarda datos, comparte texto o muestra notificaciones. Las llamadas devuelven promesas. Dentro del APK se ejecutan de forma nativa en Android; en un navegador y con [`koru dev`]({{base}}es/develop/) las mismas llamadas usan implementaciones web, así que puedes desarrollar sin un dispositivo.
+Usa funciones de Android desde el JavaScript de tu app: consulta el dispositivo, guarda datos, comparte texto o muestra notificaciones. Las llamadas devuelven promesas. Dentro del APK se ejecutan de forma nativa en Android; en un navegador y con [`koru dev`]({{base}}docs/es/develop/) las mismas llamadas usan implementaciones web, así que puedes desarrollar sin un dispositivo.
 
 ## Antes de llamar la API
 
@@ -19,7 +19,7 @@ Es un campo para añadir a tu `koru.json`, no un archivo completo. Activar `vibr
 </script>
 ```
 
-Añade a la página un elemento con `id="model"`. Koru también inyecta `/__koru/core.js`, que expone `window.Koru`. El módulo exporta `device`, `app`, `storage`, `vibration`, `share`, `notifications`, `invoke`, `platform` e `isNative`. Con un bundler como Vite, importa en su lugar la copia que escribe [`koru js`]({{base}}es/cli/) (`./koru/core.mjs`); se comporta igual. Todos los métodos devuelven una promesa. Maneja los errores para mostrar algo útil:
+Añade a la página un elemento con `id="model"`. Koru también inyecta `/__koru/core.js`, que expone `window.Koru`. El módulo exporta `device`, `app`, `storage`, `vibration`, `share`, `notifications`, `invoke`, `platform` e `isNative`. Con un bundler como Vite, importa en su lugar la copia que escribe [`koru js`]({{base}}docs/es/cli/) (`./koru/core.mjs`); se comporta igual. Todos los métodos devuelven una promesa. Maneja los errores para mostrar algo útil:
 
 ```js
 try {
@@ -309,6 +309,6 @@ Los errores rechazan con un `Error` cuyo `code` y `message` puedes mostrar o reg
 
 ## Amplía tu app
 
-Para añadir funciones propias, sigue la guía paso a paso [Escribe un plugin]({{base}}es/write-a-plugin/) o consulta el [adaptador nativo]({{base}}es/native/) y la [referencia de plugins personalizados]({{base}}original/docs/plugins.md).
+Para añadir funciones propias, sigue la guía paso a paso [Escribe un plugin]({{base}}docs/es/write-a-plugin/) o consulta el [adaptador nativo]({{base}}docs/es/native/) y la [referencia de plugins personalizados]({{base}}original/docs/plugins.md).
 
-[Configuración]({{base}}es/configuration/) · [Solución de problemas]({{base}}es/troubleshooting/)
+[Configuración]({{base}}docs/es/configuration/) · [Solución de problemas]({{base}}docs/es/troubleshooting/)

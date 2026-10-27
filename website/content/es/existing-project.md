@@ -103,4 +103,4 @@ npm run dev
 koru dev --proxy http://localhost:5173
 ```
 
-Consulta [Desarrolla con recarga en vivo]({{base}}es/develop/). Después, [ejecuta en un dispositivo]({{base}}es/run-on-device/) y [distribuye tu app]({{base}}es/distribution/).
+Consulta [Desarrolla con recarga en vivo]({{base}}docs/es/develop/). Después, [ejecuta en un dispositivo]({{base}}docs/es/run-on-device/) y [distribuye tu app]({{base}}docs/es/distribution/).

@@ -59,7 +59,7 @@ koru: koru.json: invalid appId "myapp": use reverse-domain form such as com.exam
 | `keyboard`        | Opcional: `resize` (por defecto; la página se reduce) o `pan` (la página sube) cuando se abre el teclado en pantalla.       |
 | `deepLinks`       | Lista opcional de enlaces que abren la app. Máximo 32, sin duplicados. Consulta [Deep links](#deep-links) más abajo.        |
 
-`init` escribe los valores iniciales; edita el archivo generado. Un plugin personalizado debe estar en `plugins` y tener su manifest en `pluginManifests`. Los seis IDs integrados y sus métodos están en [JavaScript y plugins]({{base}}es/plugins/).
+`init` escribe los valores iniciales; edita el archivo generado. Un plugin personalizado debe estar en `plugins` y tener su manifest en `pluginManifests`. Los seis IDs integrados y sus métodos están en [JavaScript y plugins]({{base}}docs/es/plugins/).
 
 ## Pantalla, teclado y copia de seguridad
 
@@ -129,7 +129,7 @@ koru deeplinks ./my-app --json > assetlinks.json
 ]
 ```
 
-La huella es el SHA-256 del certificado de tu `signingKey` (esta sale de una clave de ejemplo desechable). Publica el archivo en `https://example.com/.well-known/assetlinks.json` para cada dominio `https` de `deepLinks`, por HTTPS con estado 200, tipo de contenido `application/json` y sin redirecciones. Un comodín `*.example.com` necesita el archivo en cada subdominio que deba abrir la app. Si cambias la clave de firma, la huella cambia y la verificación falla; consulta [Firmas y seguridad]({{base}}es/security/). Sin el archivo, o hasta que Android lo compruebe, un enlace puede mostrar un selector en lugar de abrir la app directamente.
+La huella es el SHA-256 del certificado de tu `signingKey` (esta sale de una clave de ejemplo desechable). Publica el archivo en `https://example.com/.well-known/assetlinks.json` para cada dominio `https` de `deepLinks`, por HTTPS con estado 200, tipo de contenido `application/json` y sin redirecciones. Un comodín `*.example.com` necesita el archivo en cada subdominio que deba abrir la app. Si cambias la clave de firma, la huella cambia y la verificación falla; consulta [Firmas y seguridad]({{base}}docs/es/security/). Sin el archivo, o hasta que Android lo compruebe, un enlace puede mostrar un selector en lugar de abrir la app directamente.
 
 `koru verify app.apk` lista los deep links que hay en el manifiesto. **Nada de esto se ha ejecutado en Android:** koru no ha registrado una instalación, una verificación ni un enlace pulsado. Prueba en un dispositivo antes de depender de ello.
 
@@ -165,4 +165,4 @@ El límite es 2.000 assets, 64 MiB por archivo y 256 MiB en total. El builder om
 
 La caché DEX considera toolchain, configuración, plugins, rutas y tipos MIME. Cambiar solo bytes web puede reutilizar DEX. La corrupción de integridad o estructura produce un error. `--no-cache` permite desactivarla.
 
-[Firmas y seguridad]({{base}}es/security/) · [Plugins personalizados]({{base}}es/plugins/)
+[Firmas y seguridad]({{base}}docs/es/security/) · [Plugins personalizados]({{base}}docs/es/plugins/)

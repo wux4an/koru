@@ -8,7 +8,7 @@ Your app includes a signing identity and its own web files. Protect the key and 
 
 Android requires the same certificate to update an installed app. Debug and release both use `signingKey` from `koru.json`. If the key is missing or invalid, the build fails: restore the original identity before continuing.
 
-`koru keygen --output new-identity.pem` creates another identity, but cannot replace the identity of an app you have already distributed. See [Distribute your app]({{base}}en/distribution/) to prepare updates.
+`koru keygen --output new-identity.pem` creates another identity, but cannot replace the identity of an app you have already distributed. See [Distribute your app]({{base}}docs/en/distribution/) to prepare updates.
 
 ## Include only application files
 
@@ -18,7 +18,7 @@ Files load from `https://app.koru.invalid`. This origin belongs to the app’s l
 
 ## Allow the network access you need
 
-Local content works without Internet permission. If you consume an external API, declare `android.permission.INTERNET`, use HTTPS and configure CORS for the app origin. See [Use your web project]({{base}}en/existing-project/) for an example.
+Local content works without Internet permission. If you consume an external API, declare `android.permission.INTERNET`, use HTTPS and configure CORS for the app origin. See [Use your web project]({{base}}docs/en/existing-project/) for an example.
 
 Custom plugins run with your app’s permissions. Include only trusted plugins and native libraries.
 
@@ -31,4 +31,4 @@ koru verify app-release.apk
 
 Release disables debugging and WebView inspection. `verify` checks the signature and APK structure. Install it and test your app’s features on Android too.
 
-For the HTTPS origin, MessagePort and WebView boundaries, see [APK and runtime]({{base}}en/architecture-apk/).
+For the HTTPS origin, MessagePort and WebView boundaries, see [APK and runtime]({{base}}docs/en/architecture-apk/).

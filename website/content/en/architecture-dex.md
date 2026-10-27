@@ -2,7 +2,7 @@
 
 Date: 2026-10-13. Status: adopted for the initial increment.
 
-> This is the initial architectural decision. Its APK and runtime work was completed in later milestones. The file-based Activity described here remains an experiment; the normal runtime uses intercepted HTTPS. See [ADR 0002]({{base}}en/architecture-apk/).
+> This is the initial architectural decision. Its APK and runtime work was completed in later milestones. The file-based Activity described here remains an experiment; the normal runtime uses intercepted HTTPS. See [ADR 0002]({{base}}docs/en/architecture-apk/).
 
 The goal requires real DEX emission without Java tools or Android packagers. The implementation uses Go and the standard library exclusively. Output is DEX 035: invoke-custom, default methods and container versions are unnecessary. The experimental runtime targets Android API 26 or later; this initial increment did not yet include APK configuration enforcing that minimum.
 

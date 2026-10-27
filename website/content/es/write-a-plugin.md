@@ -1,11 +1,11 @@
 # Escribe un plugin
 
-Un plugin añade un método nativo propio a la app, como `toast.show`, que JavaScript puede llamar con `invoke()`. Esta guía construye un ejemplo real, el plugin `toast` de [`examples/toast`]({{base}}original/examples/toast/README.md), paso a paso. Lee antes la [API JavaScript]({{base}}es/plugins/) para conocer `invoke()` y los códigos de error.
+Un plugin añade un método nativo propio a la app, como `toast.show`, que JavaScript puede llamar con `invoke()`. Esta guía construye un ejemplo real, el plugin `toast` de [`examples/toast`]({{base}}original/examples/toast/README.md), paso a paso. Lee antes la [API JavaScript]({{base}}docs/es/plugins/) para conocer `invoke()` y los códigos de error.
 
 ## Qué es un plugin
 
 - **Código de confianza dentro de tu app.** Se ejecuta con los permisos de Android de la app y puede hacer lo que ella hace. Incluye solo código que hayas escrito o revisado. No está aislado de la app.
-- **Sin Java ni Kotlin.** koru no tiene JVM, `javac`, `d8` ni Gradle. Un plugin es una descripción JSON de clases DEX: el _IR_ (representación intermedia) que el ensamblador en Go de koru convierte en `classes.dex`. Escribes instrucciones Dalvik, un objeto JSON por instrucción. Consulta la [API DEX]({{base}}es/dex-api/) para ver todas las operaciones admitidas.
+- **Sin Java ni Kotlin.** koru no tiene JVM, `javac`, `d8` ni Gradle. Un plugin es una descripción JSON de clases DEX: el _IR_ (representación intermedia) que el ensamblador en Go de koru convierte en `classes.dex`. Escribes instrucciones Dalvik, un objeto JSON por instrucción. Consulta la [API DEX]({{base}}docs/es/dex-api/) para ver todas las operaciones admitidas.
 - **Un handler es un método estático.** Cada nombre de método de JavaScript, como `toast.show`, corresponde a un método `public static` con una firma fija. El dispatcher de koru lo llama y empaqueta el resultado para JavaScript.
 
 Escribir IR a mano es de bajo nivel. Mantén los handlers cortos y, si prefieres, genera el JSON con un script.
@@ -251,6 +251,6 @@ La prueba del repositorio `internal/app/toast_example_test.go` automatiza los tr
 
 - **Los errores son genéricos.** `INVALID_REQUEST` y `NATIVE_ERROR` llevan mensajes fijos (sección 6).
 - **El IR escrito a mano es fácil de equivocar.** El ensamblador comprueba estructura, etiquetas, referencias y destinos de salto, pero no todos los tipos de registro. Un error que pase el build aún puede fallar cuando ART verifique la clase.
-- **Solo código de confianza.** Un plugin comparte los permisos de la app. Cualquier página que cargues puede llamar a cualquier handler activo, así que valida todos los parámetros. Para código nativo `.so`, consulta el [adaptador JNI opcional]({{base}}es/native/).
+- **Solo código de confianza.** Un plugin comparte los permisos de la app. Cualquier página que cargues puede llamar a cualquier handler activo, así que valida todos los parámetros. Para código nativo `.so`, consulta el [adaptador JNI opcional]({{base}}docs/es/native/).
 
-[API JavaScript]({{base}}es/plugins/) · [API DEX]({{base}}es/dex-api/) · [Configuración]({{base}}es/configuration/)
+[API JavaScript]({{base}}docs/es/plugins/) · [API DEX]({{base}}docs/es/dex-api/) · [Configuración]({{base}}docs/es/configuration/)

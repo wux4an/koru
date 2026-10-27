@@ -51,7 +51,7 @@ These QA scripts require Python websockets. Default port: 9223; smoke accepts `-
 
 Keyboard/navigation tests use the reference emulator's 720×1280 screen, density 320 and 24dp status bar. Adapt coordinates for other screens. No test controls unrelated apps or sends chooser content to a recipient.
 
-[Recorded matrix and results]({{base}}en/android-results/). API 30 execution does not test the notification permission dialog introduced in API 33.
+[Recorded matrix and results]({{base}}docs/en/android-results/). API 30 execution does not test the notification permission dialog introduced in API 33.
 
 ## Formatting before commit
 

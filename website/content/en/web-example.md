@@ -4,7 +4,7 @@ Try a small HTML, CSS and JavaScript app before connecting your project. The exa
 
 ## Make the APK
 
-From the repository root, after [compiling koru]({{base}}en/getting-started/):
+From the repository root, after [compiling koru]({{base}}docs/en/getting-started/):
 
 ```sh
 koru init ./my-app
@@ -36,9 +36,9 @@ adb shell am start -W -n com.example.koru/com.koru.runtime.MainActivity
 
 The first page should show the SVG icon, "koru" heading, a Spanish text line, `Contador: 0` and `JavaScript ejecutado`. Tap the counter twice: its label becomes `Contador: 2`. Open `Probar navegación`: the second page should display `Segunda página local`. Android Back should return to the first page. This checks local HTML, CSS, SVG, JavaScript and document navigation in the WebView.
 
-The example's `app.js` does not call native plugins. To test the [JavaScript bridge]({{base}}en/plugins/), add a module script that imports `/__koru/core.mjs`. The browser preview tests only the web portion; Android is required to verify the bridge.
+The example's `app.js` does not call native plugins. To test the [JavaScript bridge]({{base}}docs/en/plugins/), add a module script that imports `/__koru/core.mjs`. The browser preview tests only the web portion; Android is required to verify the bridge.
 
-For the recorded service-worker check, copy `tests/examples/sw.js` to `my-app/www/sw.js` and register it from your page. The recorded [Android evidence]({{base}}en/android-results/) also covers rendering with network radios disabled.
+For the recorded service-worker check, copy `tests/examples/sw.js` to `my-app/www/sw.js` and register it from your page. The recorded [Android evidence]({{base}}docs/en/android-results/) also covers rendering with network radios disabled.
 
 ## Read the files
 

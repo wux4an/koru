@@ -45,7 +45,7 @@ console.log(platform); // "android" o "web"
 
 Con `koru dev`, una llamada a un plugin que **no** esté activado en `koru.json` se rechaza con `METHOD_NOT_FOUND`, igual que en el APK. Así detectas el error antes de compilar.
 
-> Las implementaciones web son para desarrollar. Prueba siempre el comportamiento real con [`koru run`]({{base}}es/run-on-device/): los permisos, el menú de compartir de Android, las notificaciones y la vibración no son iguales en un navegador.
+> Las implementaciones web son para desarrollar. Prueba siempre el comportamiento real con [`koru run`]({{base}}docs/es/run-on-device/): los permisos, el menú de compartir de Android, las notificaciones y la vibración no son iguales en un navegador.
 
 ## Pruébala en el navegador del móvil
 
@@ -66,7 +66,7 @@ koru dev --proxy http://localhost:5173       # en una segunda terminal
 
 Abre `http://127.0.0.1:8100`. koru reenvía todas las peticiones salvo `/__koru/…` al servidor del framework, añade sus scripts a las páginas HTML y deja pasar las conexiones WebSocket, así que la recarga en caliente sigue funcionando.
 
-La [plantilla `vite`]({{base}}es/existing-project/) incluye una copia del módulo JavaScript en `src/koru/`, de modo que `npm run dev` por sí solo ya tiene la API con implementaciones web. Usa `--proxy` cuando quieras además comprobar los plugins contra `koru.json` y los datos reales de tu app.
+La [plantilla `vite`]({{base}}docs/es/existing-project/) incluye una copia del módulo JavaScript en `src/koru/`, de modo que `npm run dev` por sí solo ya tiene la API con implementaciones web. Usa `--proxy` cuando quieras además comprobar los plugins contra `koru.json` y los datos reales de tu app.
 
 ## Opciones
 
@@ -77,4 +77,4 @@ La [plantilla `vite`]({{base}}es/existing-project/) incluye una copia del módul
 | `--proxy <url>` | ninguno           | Reenvía a otro servidor de desarrollo en lugar de servir `webDir`.                                     |
 | `--qr`          | desactivado       | Imprime un código QR de la URL de red. En una terminal también aparece solo si el host no es loopback. |
 
-`koru dev` nunca genera un APK y no forma parte de la cadena de compilación. Siguiente paso: [ejecuta en un dispositivo]({{base}}es/run-on-device/).
+`koru dev` nunca genera un APK y no forma parte de la cadena de compilación. Siguiente paso: [ejecuta en un dispositivo]({{base}}docs/es/run-on-device/).

@@ -12,7 +12,7 @@ bun install --frozen-lockfile
 bun run dev
 ```
 
-Visit http://localhost:4173/en/ or http://localhost:4173/es/. The site builds before serving. After editing Markdown, CSS or scripts, rebuild and refresh; this intentionally small server does not provide hot reload.
+Visit http://localhost:4173/docs/en/ or http://localhost:4173/docs/es/. The site builds before serving. After editing Markdown, CSS or scripts, rebuild and refresh; this intentionally small server does not provide hot reload.
 
 ## Build and deploy
 
@@ -25,7 +25,7 @@ Replace the URL with the real public HTTPS domain and optional subpath. Deploy t
 
 Without `SITE_URL`, the build uses localhost and marks preview pages `noindex`. With a real HTTPS `SITE_URL`, it emits indexable HTML, absolute self-canonicals, reciprocal English/Spanish/x-default `hreflang`, Open Graph metadata, TechArticle JSON-LD, robots.txt and a sitemap with every localized page plus both landing pages. No domain or ranking is fabricated. The public URL must be set correctly before deployment. When deploying under a subpath, merge the generated robots directives into the host’s domain-root `/robots.txt`; crawlers do not use a robots file inside a subdirectory. The sitemap can stay under the subpath.
 
-The root page is the product landing page (`scripts/landing.ts`), with a Spanish version at `/es/inicio/`; its copy lives in that file rather than in Markdown. Language switching in the documentation preserves the current document. The build also publishes `internal/config/koru.schema.json` at `/schema/koru.schema.json` for editors. Other languages can be added to `scripts/catalog.ts`, with matching content and UI translations. Missing content fails the build rather than silently using another language.
+The landing pages (`scripts/landing.ts`) live at `/en/` and `/es/`, the domain root redirects to one by browser language, and the documentation lives under `/docs/en/` and `/docs/es/` (old `/<lang>/<page>/` URLs redirect there); its copy lives in that file rather than in Markdown. Language switching in the documentation preserves the current document. The build also publishes `internal/config/koru.schema.json` at `/schema/koru.schema.json` for editors. Other languages can be added to `scripts/catalog.ts`, with matching content and UI translations. Missing content fails the build rather than silently using another language.
 
 Text records in `original/` have noindex HTML viewers, with download links preserving their original bytes. Example HTML/SVG sources are stored as `.txt` downloads so they cannot execute as another app on the documentation origin. This works on GitHub Pages, which cannot set custom response headers. `robots.txt` excludes the raw archive; its records remain accessible to readers.
 

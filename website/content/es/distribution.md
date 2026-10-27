@@ -56,6 +56,6 @@ Si Android rechaza la actualización por una firma distinta, recupera la clave o
 
 ## Deep links
 
-Si tu app debe abrirse desde enlaces web, añade `deepLinks` a `koru.json` y publica en tu dominio el `assetlinks.json` que imprime `koru deeplinks`, para que Android pueda verificar los enlaces `https`. Los detalles y límites, incluido que el enlace todavía no llega a tu JavaScript, están en [Configura tu proyecto]({{base}}es/configuration/). Nada de los deep links se ha ejecutado en Android; pruébalos en un dispositivo antes de publicar.
+Si tu app debe abrirse desde enlaces web, añade `deepLinks` a `koru.json` y publica en tu dominio el `assetlinks.json` que imprime `koru deeplinks`, para que Android pueda verificar los enlaces `https`. Los detalles y límites, incluido que el enlace todavía no llega a tu JavaScript, están en [Configura tu proyecto]({{base}}docs/es/configuration/). Nada de los deep links se ha ejecutado en Android; pruébalos en un dispositivo antes de publicar.
 
-Consulta [Firmas y seguridad]({{base}}es/security/) para gestionar la identidad y [Solución de problemas]({{base}}es/troubleshooting/) si la instalación falla.
+Consulta [Firmas y seguridad]({{base}}docs/es/security/) para gestionar la identidad y [Solución de problemas]({{base}}docs/es/troubleshooting/) si la instalación falla.

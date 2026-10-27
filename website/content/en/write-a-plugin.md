@@ -1,11 +1,11 @@
 # Write a plugin
 
-A plugin adds your own native method to the app, such as `toast.show`, that JavaScript can call with `invoke()`. This guide builds one real example, the `toast` plugin in [`examples/toast`]({{base}}original/examples/toast/README.md), step by step. Read [JavaScript API]({{base}}en/plugins/) first for `invoke()` and the error codes.
+A plugin adds your own native method to the app, such as `toast.show`, that JavaScript can call with `invoke()`. This guide builds one real example, the `toast` plugin in [`examples/toast`]({{base}}original/examples/toast/README.md), step by step. Read [JavaScript API]({{base}}docs/en/plugins/) first for `invoke()` and the error codes.
 
 ## What a plugin is
 
 - **Trusted code inside your app.** It runs with the app's Android permissions and can do what the app can do. Include only code you wrote or reviewed. It is not sandboxed from the app.
-- **No Java or Kotlin.** koru has no JVM, `javac`, `d8` or Gradle. A plugin is a JSON description of DEX classes: the _IR_ (intermediate representation) that koru's Go assembler turns into `classes.dex`. You write Dalvik instructions, one JSON object per instruction. See the [DEX API]({{base}}en/dex-api/) for every supported operation.
+- **No Java or Kotlin.** koru has no JVM, `javac`, `d8` or Gradle. A plugin is a JSON description of DEX classes: the _IR_ (intermediate representation) that koru's Go assembler turns into `classes.dex`. You write Dalvik instructions, one JSON object per instruction. See the [DEX API]({{base}}docs/en/dex-api/) for every supported operation.
 - **A handler is a static method.** Each JavaScript method name, such as `toast.show`, maps to one `public static` method with a fixed signature. koru's dispatcher calls it and wraps the result for JavaScript.
 
 Writing IR by hand is low level. Keep handlers short, and generate the JSON with a script if you prefer.
@@ -251,6 +251,6 @@ The repository test `internal/app/toast_example_test.go` automates the first thr
 
 - **Errors are generic.** `INVALID_REQUEST` and `NATIVE_ERROR` carry fixed messages (section 6).
 - **Hand-written IR is easy to get wrong.** The assembler checks structure, labels, references and jump targets, but not every register type. A mistake that passes the build can still crash when ART verifies the class.
-- **Trusted code only.** A plugin shares the app's permissions. A page you load can call any enabled handler, so validate every parameter. For native `.so` code, see [Optional JNI adapter]({{base}}en/native/).
+- **Trusted code only.** A plugin shares the app's permissions. A page you load can call any enabled handler, so validate every parameter. For native `.so` code, see [Optional JNI adapter]({{base}}docs/en/native/).
 
-[JavaScript API]({{base}}en/plugins/) · [DEX API]({{base}}en/dex-api/) · [Configuration]({{base}}en/configuration/)
+[JavaScript API]({{base}}docs/en/plugins/) · [DEX API]({{base}}docs/en/dex-api/) · [Configuration]({{base}}docs/en/configuration/)

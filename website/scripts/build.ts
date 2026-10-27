@@ -208,7 +208,7 @@ function template(
     )
     .join("");
   const data = JSON.stringify({
-    base: config.base,
+    base: config.base + "docs/",
     siteURL: config.url,
     production: config.production,
     lang,
@@ -375,8 +375,8 @@ export async function build(
   );
   for (const lang of locales) {
     const sidebarMD = sidebar(config.base, lang);
-    await mkdir(resolve(dist, lang), { recursive: true });
-    await writeFile(resolve(dist, lang, "_sidebar.md"), sidebarMD);
+    await mkdir(resolve(dist, "docs", lang), { recursive: true });
+    await writeFile(resolve(dist, "docs", lang, "_sidebar.md"), sidebarMD);
     for (const page of pages) {
       let markdown: string;
       if (page.slug === "sources") {
@@ -428,11 +428,11 @@ export async function build(
         else markdown = await readFile(local, "utf8");
         if (lang === "es" && page.slug === "dex-results")
           markdown =
-            "> Registro histórico anterior al builder APK. Las afirmaciones de ausencia de ejecución corresponden a esa etapa. Consulta la [evidencia Android posterior]({{base}}es/android-results/).\n\n" +
+            "> Registro histórico anterior al builder APK. Las afirmaciones de ausencia de ejecución corresponden a esa etapa. Consulta la [evidencia Android posterior]({{base}}docs/es/android-results/).\n\n" +
             markdown;
         if (lang === "es" && page.slug === "architecture-dex")
           markdown =
-            "> Decisión inicial conservada como registro histórico. El runtime normal posterior usa HTTPS interceptado; véase [ADR 0002]({{base}}es/architecture-apk/).\n\n" +
+            "> Decisión inicial conservada como registro histórico. El runtime normal posterior usa HTTPS interceptado; véase [ADR 0002]({{base}}docs/es/architecture-apk/).\n\n" +
             markdown;
         if (source)
           markdown = normalizeLinks(
@@ -456,6 +456,7 @@ export async function build(
         .replaceAll("<table>", '<table tabindex="0">');
       const folder = resolve(
         dist,
+        "docs",
         lang,
         page.slug === "overview" ? "" : page.slug,
       );
@@ -477,9 +478,30 @@ export async function build(
       );
     }
   }
-  await writeFile(resolve(dist, "index.html"), landing("en", config));
+  for (const lang of locales) {
+    await mkdir(resolve(dist, lang), { recursive: true });
+    await writeFile(resolve(dist, lang, "index.html"), landing(lang, config));
+    // Earlier releases served the docs at /<lang>/<slug>/; keep those links working.
+    for (const page of pages) {
+      if (page.slug === "overview") continue;
+      const target = route(config.base, lang, page.slug);
+      await mkdir(resolve(dist, lang, page.slug), { recursive: true });
+      await writeFile(
+        resolve(dist, lang, page.slug, "index.html"),
+        `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="robots" content="noindex"><link rel="canonical" href="${new URL(target, config.url).href}"><meta http-equiv="refresh" content="0;url=${target}"><title>koru</title></head><body><a href="${target}">${target}</a></body></html>`,
+      );
+    }
+  }
   await mkdir(resolve(dist, "es/inicio"), { recursive: true });
-  await writeFile(resolve(dist, "es/inicio/index.html"), landing("es", config));
+  await writeFile(
+    resolve(dist, "es/inicio/index.html"),
+    `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=${config.base}es/"><title>koru</title></head><body><a href="${config.base}es/">koru</a></body></html>`,
+  );
+  // The domain root sends readers to their language's landing page.
+  await writeFile(
+    resolve(dist, "index.html"),
+    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>koru</title><link rel="canonical" href="${new URL(landingRoute(config.base, "en"), config.url).href}"><script>location.replace((navigator.language || "").toLowerCase().startsWith("es") ? "${config.base}es/" : "${config.base}en/")</script><meta http-equiv="refresh" content="1;url=${config.base}en/"></head><body><p><a href="${config.base}en/">English</a> · <a href="${config.base}es/">Español</a></p></body></html>`,
+  );
   await mkdir(resolve(dist, "schema"), { recursive: true });
   await cp(
     resolve(repo, "internal/config/koru.schema.json"),
@@ -487,7 +509,7 @@ export async function build(
   );
   await writeFile(
     resolve(dist, "README.md"),
-    await readFile(resolve(dist, "en/README.md")),
+    await readFile(resolve(dist, "docs/en/README.md")),
   );
   await writeFile(resolve(dist, "_sidebar.md"), sidebar(config.base, "en"));
   const notFound =
@@ -497,6 +519,14 @@ export async function build(
     route(config.base, "es", "overview") +
     '">Documentación en español</a></p></body></html>';
   await writeFile(resolve(dist, "404.html"), notFound);
+  await writeFile(
+    resolve(dist, "docs/_404.md"),
+    "# Page not found / Página no encontrada\n\n[English](" +
+      route(config.base, "en", "overview") +
+      ") · [Español](" +
+      route(config.base, "es", "overview") +
+      ")",
+  );
   await writeFile(
     resolve(dist, "_404.md"),
     "# Page not found / Página no encontrada\n\n[English](" +

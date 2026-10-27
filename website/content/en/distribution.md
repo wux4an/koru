@@ -56,6 +56,6 @@ If Android rejects the update because the signature differs, restore the origina
 
 ## Deep links
 
-If your app should open from web links, add `deepLinks` to `koru.json` and publish the `assetlinks.json` that `koru deeplinks` prints on your domain, so Android can verify the `https` links. Details and limits, including that the link does not reach your JavaScript yet, are in [Configure your project]({{base}}en/configuration/). Nothing about deep links has been run on Android; test them on a device before you ship.
+If your app should open from web links, add `deepLinks` to `koru.json` and publish the `assetlinks.json` that `koru deeplinks` prints on your domain, so Android can verify the `https` links. Details and limits, including that the link does not reach your JavaScript yet, are in [Configure your project]({{base}}docs/en/configuration/). Nothing about deep links has been run on Android; test them on a device before you ship.
 
-See [Signing and security]({{base}}en/security/) for identity management and [Troubleshooting]({{base}}en/troubleshooting/) for installation errors.
+See [Signing and security]({{base}}docs/en/security/) for identity management and [Troubleshooting]({{base}}docs/en/troubleshooting/) for installation errors.

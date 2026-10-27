@@ -14,10 +14,10 @@
 </p>
 
 <p align="center">
-  <a href="https://koru.js.org/en/getting-started/">Quick start</a> ·
-  <a href="https://koru.js.org/en/">Documentation</a> ·
-  <a href="https://koru.js.org/es/">Español</a> ·
-  <a href="https://koru.js.org/en/plugins/">JavaScript API</a>
+  <a href="https://koru.js.org/docs/en/getting-started/">Quick start</a> ·
+  <a href="https://koru.js.org/docs/en/">Documentation</a> ·
+  <a href="https://koru.js.org/docs/es/">Español</a> ·
+  <a href="https://koru.js.org/docs/en/plugins/">JavaScript API</a>
 </p>
 
 <p align="center">
@@ -38,7 +38,7 @@ koru dev                         # preview in your browser with live reload
 koru run                         # install and open on a phone or emulator
 ```
 
-`koru run` talks to the adb server that Android Studio or the platform tools run; koru never starts external programs. `koru dev --host 0.0.0.0 --qr` prints a QR code to open the preview on your phone, and `koru logs` (or `koru run --logs`) streams the app's logs and WebView console to your terminal. The [first app guide](https://koru.js.org/en/getting-started/) walks through every step.
+`koru run` talks to the adb server that Android Studio or the platform tools run; koru never starts external programs. `koru dev --host 0.0.0.0 --qr` prints a QR code to open the preview on your phone, and `koru logs` (or `koru run --logs`) streams the app's logs and WebView console to your terminal. The [first app guide](https://koru.js.org/docs/en/getting-started/) walks through every step.
 
 Keep a secure backup of `.koru/signing.pem`. `koru create` and `koru init` add `.koru/` to the project's `.gitignore` so the key stays out of version control. Android needs the same signing identity for future updates.
 
@@ -49,13 +49,13 @@ Keep a secure backup of `.koru/signing.pem`. `koru create` and `koru init` add `
 - **The same API in the browser.** Under `koru dev`, the JavaScript API runs on web implementations, so you can build most of your app before installing it.
 - **Typed and strict.** TypeScript declarations, a JSON Schema for `koru.json`, error messages that say how to fix the input, an HTTPS-only app origin and a MessagePort bridge with no `addJavascriptInterface`.
 
-Need iOS, Google Play bundles or a large plugin ecosystem? See the honest [comparison with Capacitor and Expo](https://koru.js.org/en/comparison/).
+Need iOS, Google Play bundles or a large plugin ecosystem? See the honest [comparison with Capacitor and Expo](https://koru.js.org/docs/en/comparison/).
 
 ## Bring your frontend
 
 Start with `koru create my-app --template react` (also `vue`, `svelte`, `vanilla-ts`, `vite` and `basic`), or add koru to an existing project with `koru init` and set `webDir` to the folder containing the generated `index.html`. Enable `spa` if your app uses client-side routes. Keep your framework's hot reload with `koru dev --proxy http://localhost:5173`.
 
-Koru packages static files. Apps that render on a server need a static export or an HTTPS API. [Frameworks guide](https://koru.js.org/en/existing-project/).
+Koru packages static files. Apps that render on a server need a static export or an HTTPS API. [Frameworks guide](https://koru.js.org/docs/en/existing-project/).
 
 ## Use Android features
 
@@ -69,7 +69,7 @@ await storage.set("theme", "dark");
 console.log(platform, info.model); // "android" in the APK, "web" under koru dev
 ```
 
-`device`, `storage` and `app` are enabled by default; enable other plugins in `koru.json`. With a bundler, `koru js src/koru` writes the module and its types into your sources. See the [JavaScript API](https://koru.js.org/en/plugins/) for arguments, return values and error handling.
+`device`, `storage` and `app` are enabled by default; enable other plugins in `koru.json`. With a bundler, `koru js src/koru` writes the module and its types into your sources. See the [JavaScript API](https://koru.js.org/docs/en/plugins/) for arguments, return values and error handling.
 
 ## Share your app
 
@@ -78,7 +78,7 @@ koru build --release --output app-release.apk
 koru verify app-release.apk
 ```
 
-A release build disables debugging and uses your existing signing identity. Install and test the release APK before sharing it (`koru run --release`). To update an app, keep its `appId` and key, and raise the version with `koru bump [patch|minor|major|code]` or `koru build --bump`. `koru plugin list|add|remove` and `koru config` edit and inspect `koru.json`. [Distribution guide](https://koru.js.org/en/distribution/).
+A release build disables debugging and uses your existing signing identity. Install and test the release APK before sharing it (`koru run --release`). To update an app, keep its `appId` and key, and raise the version with `koru bump [patch|minor|major|code]` or `koru build --bump`. `koru plugin list|add|remove` and `koru config` edit and inspect `koru.json`. [Distribution guide](https://koru.js.org/docs/en/distribution/).
 
 ## Current support
 
@@ -88,11 +88,11 @@ Distribution currently uses APKs for direct installation. AAB output for Google 
 
 ## Learn more
 
-- [Configuration](https://koru.js.org/en/configuration/): app identity, files, icons and permissions.
-- [Develop with live reload](https://koru.js.org/en/develop/) and [run on a device](https://koru.js.org/en/run-on-device/).
-- [CLI reference](https://koru.js.org/en/cli/): commands and options.
-- [Troubleshooting](https://koru.js.org/en/troubleshooting/): build, installation and plugin errors.
-- [Inside koru](https://koru.js.org/en/architecture-apk/): how the Go toolchain builds and runs an APK.
+- [Configuration](https://koru.js.org/docs/en/configuration/): app identity, files, icons and permissions.
+- [Develop with live reload](https://koru.js.org/docs/en/develop/) and [run on a device](https://koru.js.org/docs/en/run-on-device/).
+- [CLI reference](https://koru.js.org/docs/en/cli/): commands and options.
+- [Troubleshooting](https://koru.js.org/docs/en/troubleshooting/): build, installation and plugin errors.
+- [Inside koru](https://koru.js.org/docs/en/architecture-apk/): how the Go toolchain builds and runs an APK.
 
 For work on koru itself, see the [test instructions](tests/README.md), [milestones](docs/milestones.md) and [documentation website guide](website/README.md). The Android formats and signing core use Go and its standard library; documentation tooling is separate.
 

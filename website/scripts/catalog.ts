@@ -306,5 +306,5 @@ export const pages = [
   },
 ];
 export function route(base: string, lang: string, slug: string) {
-  return `${base}${lang}/${slug === "overview" ? "" : slug + "/"}`;
+  return `${base}docs/${lang}/${slug === "overview" ? "" : slug + "/"}`;
 }

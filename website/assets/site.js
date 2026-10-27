@@ -139,6 +139,33 @@
     });
     document.dispatchEvent(new CustomEvent("koru:page-ready"));
   };
+  // Docsify's history router treats "#id" links as routes and leaves the page.
+  // Handle in-page anchors first: scroll to the heading and keep the hash.
+  const scrollToHash = (hash, smooth) => {
+    const id = decodeURIComponent(hash.replace(/^#/, ""));
+    const target = id && document.getElementById(id);
+    if (!target) return false;
+    // Leave room for the fixed header, as html { scroll-padding-top } does.
+    const top = target.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top, behavior: smooth ? "smooth" : "auto" });
+    return true;
+  };
+  document.addEventListener(
+    "click",
+    (event) => {
+      const link = event.target.closest?.('#main a[href^="#"]');
+      if (!link || event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+        return;
+      const hash = link.getAttribute("href");
+      if (!scrollToHash(hash, false)) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      history.pushState(history.state, "", hash);
+    },
+    true,
+  );
+  window.addEventListener("hashchange", () => scrollToHash(location.hash));
   const sidebarAlias = {};
   sidebarAlias[`${site.base}(en|es)/.*/_sidebar.md`] =
     `${site.base}$1/_sidebar.md`;
@@ -173,7 +200,10 @@
     },
     plugins: [
       (hook, vm) => {
-        hook.doneEach(() => update(vm));
+        hook.doneEach(() => {
+          update(vm);
+          if (location.hash) scrollToHash(location.hash);
+        });
         hook.ready(() => {
           update(vm);
           // A skip link should focus the reading area without becoming a route.

@@ -73,7 +73,7 @@ const check = async (name: string, task: () => Promise<void>) => {
 try {
   for (let attempt = 0; attempt < 60; attempt++) {
     try {
-      if ((await fetch(origin + "/en/")).ok) break;
+      if ((await fetch(origin + "/docs/en/")).ok) break;
     } catch {}
     await Bun.sleep(100);
     if (attempt === 59) throw new Error("Preview server did not start.");
@@ -121,7 +121,7 @@ try {
         await new Promise((resolve) => setTimeout(resolve, 350));
         await route.continue();
       });
-      await page.goto(origin + "/en/");
+      await page.goto(origin + "/docs/en/");
       await ready(page);
       await page.unroute("**/assets/vendor/search.min.js");
     },
@@ -129,7 +129,7 @@ try {
   await check(
     "language switch preserves document, translates navigation and search",
     async () => {
-      await page.goto(origin + "/en/plugins/");
+      await page.goto(origin + "/docs/en/plugins/");
       await ready(page);
       await page.locator('[data-locale="es"]').click();
       await page.waitForURL("**/es/plugins/");
@@ -150,18 +150,20 @@ try {
   await check(
     "client navigation updates canonical, hreflang, JSON-LD and browser history",
     async () => {
-      await page.locator('.sidebar-nav a[href="/en/configuration/"]').click();
+      await page
+        .locator('.sidebar-nav a[href="/docs/en/configuration/"]')
+        .click();
       await page.waitForURL("**/en/configuration/");
       await page.waitForFunction(
         () => document.title === "Configuration · koru",
       );
       assert.equal(
         await page.locator('link[rel="canonical"]').getAttribute("href"),
-        "http://localhost:4173/en/configuration/",
+        "http://localhost:4173/docs/en/configuration/",
       );
       assert.equal(
         await page.locator('link[hreflang="es"]').getAttribute("href"),
-        "http://localhost:4173/es/configuration/",
+        "http://localhost:4173/docs/es/configuration/",
       );
       const jsonld = JSON.parse(
         (await page.locator("#structured-data").textContent()) || "{}",
@@ -180,7 +182,9 @@ try {
       await ready(page);
       await page.waitForFunction(
         (locale) =>
-          !!localStorage.getItem(`docsify.search.index/koru-docs-v2/${locale}`),
+          !!localStorage.getItem(
+            `docsify.search.index/koru-docs-v2/docs/${locale}`,
+          ),
         lang,
       );
       const input = page.locator(".search input");
@@ -191,7 +195,7 @@ try {
         .evaluateAll((links) => links.map((link) => link.getAttribute("href")));
       assert(hrefs.length > 0);
       assert(
-        hrefs.every((href) => href?.startsWith(`/${lang}/`)),
+        hrefs.every((href) => href?.startsWith(`/docs/${lang}/`)),
         JSON.stringify(hrefs),
       );
       await input.fill("zzzzkorunomatchzzzz");
@@ -207,7 +211,7 @@ try {
   await check(
     "copy code uses the existing plugin and copies the complete command",
     async () => {
-      await page.goto(origin + "/en/");
+      await page.goto(origin + "/docs/en/");
       await ready(page);
       const code = await page.locator("pre code").first().textContent();
       await page.locator(".docsify-copy-code-button").first().click();
@@ -220,7 +224,7 @@ try {
   await check(
     "keyboard skip link reaches content with visible focus",
     async () => {
-      await page.goto(origin + "/en/");
+      await page.goto(origin + "/docs/en/");
       await ready(page);
       await page.keyboard.press("Tab");
       assert.equal(
@@ -234,7 +238,7 @@ try {
   await check(
     "section index is localized, keyboard accessible and jumps to its heading",
     async () => {
-      await page.goto(origin + "/es/configuration/");
+      await page.goto(origin + "/docs/es/configuration/");
       await ready(page);
       const toc = page.locator(".page-toc");
       assert.equal(await toc.locator("summary").innerText(), "En esta página");
@@ -245,6 +249,12 @@ try {
       await link.click();
       assert.equal(new URL(page.url()).hash, target);
       await page.locator(target!).waitFor();
+      // The link must scroll within the page, not route away from it.
+      assert.equal(new URL(page.url()).pathname, "/docs/es/configuration/");
+      const top = await page
+        .locator(target!)
+        .evaluate((heading) => heading.getBoundingClientRect().top);
+      assert(top >= 60 && top < 200, `section heading at ${top}px`);
     },
   );
   await check(
@@ -272,20 +282,20 @@ try {
         }
       }
       await page.setViewportSize({ width: 1440, height: 1050 });
-      await page.goto(origin + "/en/");
+      await page.goto(origin + "/docs/en/");
       await ready(page);
       await page.screenshot({
         path: resolve(root, "test-results/desktop-en.png"),
         fullPage: true,
       });
-      await page.goto(origin + "/es/plugins/");
+      await page.goto(origin + "/docs/es/plugins/");
       await ready(page);
       await page.screenshot({
         path: resolve(root, "test-results/reference-es.png"),
         fullPage: true,
       });
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.goto(origin + "/es/");
+      await page.goto(origin + "/docs/es/");
       await ready(page);
       await page.screenshot({
         path: resolve(root, "test-results/mobile-es.png"),
@@ -305,7 +315,9 @@ try {
           () => document.documentElement.scrollWidth <= innerWidth + 1,
         ),
       );
-      await page.locator('.sidebar-nav a[href="/es/configuration/"]').click();
+      await page
+        .locator('.sidebar-nav a[href="/docs/es/configuration/"]')
+        .click();
       await page.waitForURL("**/es/configuration/");
       await page.waitForFunction(
         () => !document.body.classList.contains("close"),
@@ -370,7 +382,7 @@ try {
             ),
           );
         }
-      await reader.goto(origin + "/en/configuration/");
+      await reader.goto(origin + "/docs/en/configuration/");
       await reader.locator('[data-locale="es"]').click();
       await reader.waitForURL("**/es/configuration/");
       assert.equal(await reader.locator("html").getAttribute("lang"), "es");
@@ -384,8 +396,14 @@ try {
   await check(
     "unknown routes return HTTP 404 and archived HTML is source text",
     async () => {
-      assert.equal((await fetch(origin + "/en/not-a-document/")).status, 404);
-      assert.equal((await fetch(origin + "/es/missing/README.md")).status, 404);
+      assert.equal(
+        (await fetch(origin + "/docs/en/not-a-document/")).status,
+        404,
+      );
+      assert.equal(
+        (await fetch(origin + "/docs/es/missing/README.md")).status,
+        404,
+      );
       const raw = await fetch(origin + "/original/examples/web/index.html.txt");
       assert.match(raw.headers.get("content-type") || "", /^text\/plain/);
       assert.equal(raw.headers.get("x-robots-tag"), "noindex");
@@ -393,7 +411,7 @@ try {
   );
   await check("reduced motion is respected", async () => {
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await page.goto(origin + "/en/");
+    await page.goto(origin + "/docs/en/");
     await ready(page);
     assert.equal(
       await page
@@ -428,12 +446,14 @@ try {
       try {
         for (let attempt = 0; attempt < 60; attempt++) {
           try {
-            if ((await fetch(nestedOrigin + "/handbook/en/")).ok) break;
+            if ((await fetch(nestedOrigin + "/handbook/docs/en/")).ok) break;
           } catch {}
           await Bun.sleep(100);
           if (attempt === 59) throw new Error("Subpath server did not start.");
         }
-        await nestedPage.goto(nestedOrigin + "/handbook/en/configuration/");
+        await nestedPage.goto(
+          nestedOrigin + "/handbook/docs/en/configuration/",
+        );
         await ready(nestedPage);
         assert.equal(
           await nestedPage
@@ -445,17 +465,17 @@ try {
           await nestedPage
             .locator('link[rel="canonical"]')
             .getAttribute("href"),
-          "https://docs.koru.test/handbook/en/configuration/",
+          "https://docs.koru.test/handbook/docs/en/configuration/",
         );
         await nestedPage
-          .locator('.sidebar-nav a[href="/handbook/en/plugins/"]')
+          .locator('.sidebar-nav a[href="/handbook/docs/en/plugins/"]')
           .click();
-        await nestedPage.waitForURL("**/handbook/en/plugins/");
+        await nestedPage.waitForURL("**/handbook/docs/en/plugins/");
         await nestedPage.waitForFunction(
           () => document.title === "JavaScript API · koru",
         );
         await nestedPage.locator('[data-locale="es"]').click();
-        await nestedPage.waitForURL("**/handbook/es/plugins/");
+        await nestedPage.waitForURL("**/handbook/docs/es/plugins/");
         await ready(nestedPage);
         assert.equal(
           await nestedPage.locator(".markdown-section h1").innerText(),
@@ -464,7 +484,7 @@ try {
         await nestedPage.waitForFunction(
           () =>
             !!localStorage.getItem(
-              "docsify.search.index/koru-docs-v2/handbook/es",
+              "docsify.search.index/koru-docs-v2/handbook/docs/es",
             ),
         );
         await nestedPage.locator(".search input").fill("MessagePort");
@@ -474,9 +494,9 @@ try {
           .evaluateAll((elements) =>
             elements.map((el) => el.getAttribute("href")),
           );
-        assert(hrefs.every((href) => href?.startsWith("/handbook/es/")));
+        assert(hrefs.every((href) => href?.startsWith("/handbook/docs/es/")));
         assert.equal(
-          (await fetch(nestedOrigin + "/handbook/es/missing/")).status,
+          (await fetch(nestedOrigin + "/handbook/docs/es/missing/")).status,
           404,
         );
       } finally {
@@ -491,7 +511,7 @@ try {
       const themed = await browser.newContext({ colorScheme: "dark" });
       const hero = await themed.newPage();
       try {
-        await hero.goto(origin + "/en/");
+        await hero.goto(origin + "/docs/en/");
         await ready(hero);
         const action = hero.locator(".hero-actions .primary-link");
         await action.click();
@@ -583,7 +603,7 @@ try {
         );
       };
       try {
-        await themed.goto(origin + "/en/");
+        await themed.goto(origin + "/docs/en/");
         await ready(themed);
         await assertTheme("dark");
         assert.equal(
@@ -616,7 +636,7 @@ try {
           "Apariencia",
         );
         const second = await themes.newPage();
-        await second.goto(origin + "/es/configuration/");
+        await second.goto(origin + "/docs/es/configuration/");
         await ready(second);
         await chooseTheme(themed, "light");
         await assertTheme("light");
@@ -661,7 +681,7 @@ try {
       // Stop enhancement scripts: the blocking theme bootstrap must still run.
       await reader.route("**/assets/site.js", (request) => request.abort());
       try {
-        await reader.goto(origin + "/en/");
+        await reader.goto(origin + "/docs/en/");
         assert.equal(
           await reader.locator("html").getAttribute("data-theme"),
           "dark",
@@ -715,7 +735,7 @@ try {
               `${lang}/${slug} dark: ${JSON.stringify(result.violations.map((v) => ({ id: v.id, nodes: v.nodes.map((n) => n.target) })))}`,
             );
           }
-        await darkPage.goto(origin + "/en/");
+        await darkPage.goto(origin + "/docs/en/");
         await ready(darkPage);
         await darkPage.screenshot({
           path: resolve(root, "test-results/desktop-dark-en.png"),
@@ -723,7 +743,7 @@ try {
         });
         for (const width of [768, 390, 320]) {
           await darkPage.setViewportSize({ width, height: 844 });
-          await darkPage.goto(origin + "/es/");
+          await darkPage.goto(origin + "/docs/es/");
           await ready(darkPage);
           await darkPage.waitForTimeout(350);
           assert(
@@ -755,7 +775,7 @@ try {
     "custom appearance menu supports keyboard selection, Escape, outside dismissal and accessible checked states",
     async () => {
       await page.setViewportSize({ width: 1440, height: 1050 });
-      await page.goto(origin + "/en/");
+      await page.goto(origin + "/docs/en/");
       await ready(page);
       const trigger = page.locator("[data-theme-button]");
       assert.equal(await page.locator(".theme-control select").count(), 0);
@@ -825,8 +845,8 @@ try {
     "landing pages pass accessibility, fit every width and copy the quick start in both themes",
     async () => {
       for (const [lang, path] of [
-        ["en", "/"],
-        ["es", "/es/inicio/"],
+        ["en", "/en/"],
+        ["es", "/es/"],
       ] as const) {
         for (const theme of ["light", "dark"]) {
           await page.setViewportSize({ width: 1440, height: 1050 });

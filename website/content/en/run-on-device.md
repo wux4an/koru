@@ -68,7 +68,7 @@ koru run --logs     # build, install, open, then keep streaming
 Logs com.example.myapp (pid 1234) on emulator-5554; press Ctrl+C to stop
 ```
 
-The lines after it are Android’s `logcat` brief format. koru reads them through the adb server (running `pidof` and `logcat` on the device), not through a local `adb`. **The real line format has not been validated on a device**: this feature is tested against a simulated adb server. If it fails or looks wrong, fall back on `chrome://inspect` above. Flags are in [CLI commands]({{base}}en/cli/).
+The lines after it are Android’s `logcat` brief format. koru reads them through the adb server (running `pidof` and `logcat` on the device), not through a local `adb`. **The real line format has not been validated on a device**: this feature is tested against a simulated adb server. If it fails or looks wrong, fall back on `chrome://inspect` above. Flags are in [CLI commands]({{base}}docs/en/cli/).
 
 ## When installation fails
 
@@ -92,4 +92,4 @@ adb install -r app.apk
 adb shell am start -W -n com.example.myapp/com.koru.runtime.MainActivity
 ```
 
-Replace `com.example.myapp` with your `appId`. To share the app with other people, see [Distribute your app]({{base}}en/distribution/).
+Replace `com.example.myapp` with your `appId`. To share the app with other people, see [Distribute your app]({{base}}docs/en/distribution/).

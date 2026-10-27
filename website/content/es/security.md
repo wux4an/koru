@@ -8,7 +8,7 @@ Tu app incluye una identidad de firma y sus propios archivos web. Protege la cla
 
 Android exige el mismo certificado para actualizar una app instalada. Tanto debug como release usan `signingKey` de `koru.json`. Si la clave falta o es inválida, el build falla: restaura la identidad original antes de continuar.
 
-`koru keygen --output nueva-identidad.pem` crea otra identidad, pero no sirve para reemplazar la de una app ya distribuida. Consulta [Distribuye tu app]({{base}}es/distribution/) para preparar actualizaciones.
+`koru keygen --output nueva-identidad.pem` crea otra identidad, pero no sirve para reemplazar la de una app ya distribuida. Consulta [Distribuye tu app]({{base}}docs/es/distribution/) para preparar actualizaciones.
 
 ## Incluye solo archivos de la app
 
@@ -18,7 +18,7 @@ Los archivos se cargan desde `https://app.koru.invalid`. Ese origen pertenece al
 
 ## Permite solo la red que necesitas
 
-Tu contenido local funciona sin permiso de Internet. Si consumes una API externa, declara `android.permission.INTERNET`, usa HTTPS y configura CORS para el origen de la app. Encontrarás un ejemplo en [Usa tu proyecto web]({{base}}es/existing-project/).
+Tu contenido local funciona sin permiso de Internet. Si consumes una API externa, declara `android.permission.INTERNET`, usa HTTPS y configura CORS para el origen de la app. Encontrarás un ejemplo en [Usa tu proyecto web]({{base}}docs/es/existing-project/).
 
 Los plugins personalizados se ejecutan con los permisos de tu app. Incluye solo plugins y bibliotecas nativas de confianza.
 
@@ -31,4 +31,4 @@ koru verify app-release.apk
 
 Release desactiva debug y la inspección del WebView. `verify` comprueba la firma y la estructura del APK. Instálalo y prueba también las funciones de tu app en Android.
 
-Para entender el origen HTTPS, MessagePort y los límites del WebView, consulta [APK y runtime]({{base}}es/architecture-apk/).
+Para entender el origen HTTPS, MessagePort y los límites del WebView, consulta [APK y runtime]({{base}}docs/es/architecture-apk/).

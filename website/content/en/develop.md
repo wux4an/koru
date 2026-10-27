@@ -45,7 +45,7 @@ console.log(platform); // "android" or "web"
 
 Under `koru dev`, a call to a plugin that is **not** enabled in `koru.json` rejects with `METHOD_NOT_FOUND`, just like the APK. You find the mistake before building.
 
-> Web implementations are for development. Always test the real behavior with [`koru run`]({{base}}en/run-on-device/): permissions, the Android share sheet, notifications and vibration differ between a browser and Android.
+> Web implementations are for development. Always test the real behavior with [`koru run`]({{base}}docs/en/run-on-device/): permissions, the Android share sheet, notifications and vibration differ between a browser and Android.
 
 ## Try it on a phone’s browser
 
@@ -66,7 +66,7 @@ koru dev --proxy http://localhost:5173       # in a second terminal
 
 Open `http://127.0.0.1:8100`. koru forwards every request except `/__koru/…` to the framework server, adds its scripts to HTML pages and passes WebSocket upgrades through, so hot reload keeps working.
 
-The [`vite` template]({{base}}en/existing-project/) includes a copy of the JavaScript module in `src/koru/`, so `npm run dev` alone already has the API on web implementations. Use `--proxy` when you also want plugin checks against `koru.json` and your real app details.
+The [`vite` template]({{base}}docs/en/existing-project/) includes a copy of the JavaScript module in `src/koru/`, so `npm run dev` alone already has the API on web implementations. Use `--proxy` when you also want plugin checks against `koru.json` and your real app details.
 
 ## Options
 
@@ -77,4 +77,4 @@ The [`vite` template]({{base}}en/existing-project/) includes a copy of the JavaS
 | `--proxy <url>` | none        | Forward to another dev server instead of serving `webDir`.                                                 |
 | `--qr`          | off         | Print a QR code of the network URL. In a terminal it also appears by itself when the host is not loopback. |
 
-`koru dev` never builds an APK and is not part of the APK toolchain. Next: [run on a device]({{base}}en/run-on-device/).
+`koru dev` never builds an APK and is not part of the APK toolchain. Next: [run on a device]({{base}}docs/en/run-on-device/).

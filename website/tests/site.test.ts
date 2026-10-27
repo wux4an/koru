@@ -24,6 +24,7 @@ describe("localized, crawlable documentation", () => {
         const folder = resolve(
           root,
           output,
+          "docs",
           lang,
           page.slug === "overview" ? "" : page.slug,
         );
@@ -32,14 +33,14 @@ describe("localized, crawlable documentation", () => {
         expect(markdown.length).toBeGreaterThan(300);
         expect(html).toContain(`<html lang="${lang}">`);
         expect(html).toContain(
-          `rel="canonical" href="${canonical}${lang}/${page.slug === "overview" ? "" : page.slug + "/"}"`,
+          `rel="canonical" href="${canonical}docs/${lang}/${page.slug === "overview" ? "" : page.slug + "/"}"`,
         );
         expect(html).toContain('content="index,follow"');
         expect(html.match(/<h1\b/g)?.length).toBe(1);
         expect(html).not.toContain("{{base}}");
         for (const other of locales)
           expect(html).toContain(
-            `hreflang="${other}" href="${canonical}${other}/${page.slug === "overview" ? "" : page.slug + "/"}"`,
+            `hreflang="${other}" href="${canonical}docs/${other}/${page.slug === "overview" ? "" : page.slug + "/"}"`,
           );
         expect(html).toContain('hreflang="x-default"');
         expect(html).toContain('"@type":"TechArticle"');
@@ -84,8 +85,8 @@ describe("localized, crawlable documentation", () => {
     expect(sitemap.match(/<loc>/g)?.length).toBe(
       pages.length * locales.length + locales.length,
     );
-    expect(sitemap).toContain(`<loc>${canonical}</loc>`);
-    expect(sitemap).toContain(`<loc>${canonical}es/inicio/</loc>`);
+    expect(sitemap).toContain(`<loc>${canonical}en/</loc>`);
+    expect(sitemap).toContain(`<loc>${canonical}es/</loc>`);
     for (const lang of locales)
       for (const page of pages)
         expect(sitemap).toContain(
@@ -122,6 +123,7 @@ describe("localized, crawlable documentation", () => {
         const folder = resolve(
           root,
           output,
+          "docs",
           lang,
           page.slug === "overview" ? "" : page.slug,
         );
@@ -150,10 +152,10 @@ describe("localized, crawlable documentation", () => {
   test("early evidence is explicitly historical in both locales", async () => {
     for (const lang of locales) {
       const content = await readFile(
-        resolve(root, output, lang, "dex-results/README.md"),
+        resolve(root, output, "docs", lang, "dex-results/README.md"),
         "utf8",
       );
-      expect(content).toContain(`/handbook/${lang}/android-results/`);
+      expect(content).toContain(`/handbook/docs/${lang}/android-results/`);
       expect(content).toMatch(/Historical|histórico/);
     }
   });
@@ -168,7 +170,7 @@ describe("deployment configuration and broken input", () => {
       "utf8",
     );
     const english = await readFile(
-      resolve(root, domainOutput, "en/index.html"),
+      resolve(root, domainOutput, "docs/en/index.html"),
       "utf8",
     );
     const notFound = await readFile(
@@ -176,20 +178,24 @@ describe("deployment configuration and broken input", () => {
       "utf8",
     );
     const icon = await readFile(resolve(root, domainOutput, "favicon.ico"));
-    // The domain root is the product landing page, not a redirect.
-    expect(index).not.toContain('http-equiv="refresh"');
-    expect(index).toContain('rel="canonical" href="https://koru.js.org/"');
-    expect(index).toContain(
-      'hreflang="es" href="https://koru.js.org/es/inicio/"',
+    // The domain root sends readers to a language's landing page.
+    expect(index).toContain('content="1;url=/en/"');
+    const landingEN = await readFile(
+      resolve(root, domainOutput, "en/index.html"),
+      "utf8",
     );
-    expect(index.match(/<h1\b/g)?.length).toBe(1);
-    expect(index).toContain('href="/en/getting-started/"');
+    expect(landingEN).toContain(
+      'rel="canonical" href="https://koru.js.org/en/"',
+    );
+    expect(landingEN).toContain('hreflang="es" href="https://koru.js.org/es/"');
+    expect(landingEN.match(/<h1\b/g)?.length).toBe(1);
+    expect(landingEN).toContain('href="/docs/en/getting-started/"');
     const spanish = await readFile(
-      resolve(root, domainOutput, "es/inicio/index.html"),
+      resolve(root, domainOutput, "es/index.html"),
       "utf8",
     );
     expect(spanish).toContain('<html lang="es">');
-    expect(spanish).toContain('href="/es/getting-started/"');
+    expect(spanish).toContain('href="/docs/es/getting-started/"');
     const schema = JSON.parse(
       await readFile(
         resolve(root, domainOutput, "schema/koru.schema.json"),
@@ -197,9 +203,11 @@ describe("deployment configuration and broken input", () => {
       ),
     );
     expect(schema.$id).toBe("https://koru.js.org/schema/koru.schema.json");
-    expect(english).toContain('rel="canonical" href="https://koru.js.org/en/"');
+    expect(english).toContain(
+      'rel="canonical" href="https://koru.js.org/docs/en/"',
+    );
     expect(english).toContain('href="/assets/favicon.svg"');
-    expect(notFound).toContain('href="/en/"');
+    expect(notFound).toContain('href="/docs/en/"');
     expect(index).not.toContain("/koru/en/");
     expect(icon.subarray(0, 4).equals(Buffer.from([0, 0, 1, 0]))).toBe(true);
   });

@@ -41,7 +41,7 @@ In a browser, preview with `koru dev` rather than opening the file directly: it 
 
 ## Installation or update fails
 
-Run `koru devices`. `unauthorized` means you must accept the USB debugging prompt on the phone; `offline` means reconnecting it. If koru reports that no adb server is running, start one with `adb start-server` or open Android Studio. `koru run` explains the common install errors; see [Run on a device]({{base}}en/run-on-device/). To install by hand, build and inspect the exact APK first:
+Run `koru devices`. `unauthorized` means you must accept the USB debugging prompt on the phone; `offline` means reconnecting it. If koru reports that no adb server is running, start one with `adb start-server` or open Android Studio. `koru run` explains the common install errors; see [Run on a device]({{base}}docs/en/run-on-device/). To install by hand, build and inspect the exact APK first:
 
 ```sh
 koru verify app.apk
@@ -51,12 +51,12 @@ adb shell am start -W -n com.example.hello/com.koru.runtime.MainActivity
 
 Replace `com.example.hello` with your configured `appId`. If Android reports `INSTALL_FAILED_UPDATE_INCOMPATIBLE`, the installed app and APK have different package IDs or signing certificates. An update needs the original `appId` and `.koru/signing.pem`; changing `versionCode` alone cannot repair a key mismatch. For a newly distributed version, increment `versionCode`.
 
-`verify` confirms APK structure and its v2 signature, not WebView rendering, framework resolution or plugin behavior. Install and exercise the app on the Android versions you support. The [recorded execution matrix]({{base}}en/android-results/) covers Android 11/API 30/x86_64.
+`verify` confirms APK structure and its v2 signature, not WebView rendering, framework resolution or plugin behavior. Install and exercise the app on the Android versions you support. The [recorded execution matrix]({{base}}docs/en/android-results/) covers Android 11/API 30/x86_64.
 
 ## Native call fails
 
-Check that the plugin is enabled and that its arguments match [the JavaScript API]({{base}}en/plugins/). Handle rejected Promises and inspect the error code (`METHOD_NOT_FOUND`, `PERMISSION_DENIED`, `TIMEOUT` or `CHANNEL_ERROR`, for example). A permission declared in the manifest can still require a user decision on a newer Android version. The API 33+ notification dialog has not been exercised in the recorded API 30 matrix.
+Check that the plugin is enabled and that its arguments match [the JavaScript API]({{base}}docs/en/plugins/). Handle rejected Promises and inspect the error code (`METHOD_NOT_FOUND`, `PERMISSION_DENIED`, `TIMEOUT` or `CHANNEL_ERROR`, for example). A permission declared in the manifest can still require a user decision on a newer Android version. The API 33+ notification dialog has not been exercised in the recorded API 30 matrix.
 
 Still stuck? Capture the exact command, exit status, error text, `koru.json` with private values removed, Android API/ABI and the result of `koru verify`. Never include `signing.pem` in a report.
 
-[CLI reference]({{base}}en/cli/) · [Configuration]({{base}}en/configuration/) · [Security]({{base}}en/security/)
+[CLI reference]({{base}}docs/en/cli/) · [Configuration]({{base}}docs/en/configuration/) · [Security]({{base}}docs/en/security/)

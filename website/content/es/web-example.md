@@ -4,7 +4,7 @@ Prueba una app pequeña de HTML, CSS y JavaScript antes de conectar tu proyecto.
 
 ## Genera el APK
 
-Desde la raíz del repositorio, después de [compilar koru]({{base}}es/getting-started/):
+Desde la raíz del repositorio, después de [compilar koru]({{base}}docs/es/getting-started/):
 
 ```sh
 koru init ./my-app
@@ -36,7 +36,7 @@ adb shell am start -W -n com.example.koru/com.koru.runtime.MainActivity
 
 La primera página debe mostrar el SVG, el título «koru», una línea de texto, `Contador: 0` y `JavaScript ejecutado`. Toca dos veces: el botón pasa a `Contador: 2`. Abre `Probar navegación`: verás `Segunda página local`. El botón Atrás de Android debe volver a la primera página. Así se comprueban HTML, CSS, SVG, JavaScript y navegación local en WebView.
 
-`app.js` no llama plugins nativos. Para probar el [puente JavaScript]({{base}}es/plugins/), añade un módulo que importe `/__koru/core.mjs`. La vista previa en navegador solo prueba la parte web; necesitas Android para verificar el puente.
+`app.js` no llama plugins nativos. Para probar el [puente JavaScript]({{base}}docs/es/plugins/), añade un módulo que importe `/__koru/core.mjs`. La vista previa en navegador solo prueba la parte web; necesitas Android para verificar el puente.
 
 ## Explora los archivos
 

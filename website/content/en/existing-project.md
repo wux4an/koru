@@ -103,4 +103,4 @@ npm run dev
 koru dev --proxy http://localhost:5173
 ```
 
-See [Develop with live reload]({{base}}en/develop/). Then [run on a device]({{base}}en/run-on-device/) and [distribute your app]({{base}}en/distribution/).
+See [Develop with live reload]({{base}}docs/en/develop/). Then [run on a device]({{base}}docs/en/run-on-device/) and [distribute your app]({{base}}docs/en/distribution/).

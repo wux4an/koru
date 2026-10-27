@@ -41,7 +41,7 @@ You can answer them with flags instead, which is handy in scripts:
 koru create my-app --name "My App" --app-id com.example.myapp --template basic
 ```
 
-This guide uses `basic`, which needs no Node.js. If you prefer a framework, pass `--template react`, `vue`, `svelte`, `vanilla-ts` or `vite`; see [Frameworks]({{base}}en/existing-project/). They add `npm install` and `npm run dev` before the steps below.
+This guide uses `basic`, which needs no Node.js. If you prefer a framework, pass `--template react`, `vue`, `svelte`, `vanilla-ts` or `vite`; see [Frameworks]({{base}}docs/en/existing-project/). They add `npm install` and `npm run dev` before the steps below.
 
 The `basic` template contains:
 
@@ -67,7 +67,7 @@ cd my-app
 koru dev
 ```
 
-Open the address it prints, `http://127.0.0.1:8100`. Edit `www/index.html` or `www/app.js` and save: the page reloads by itself. The JavaScript API works here too, on web implementations: the counter is saved with `storage`, and **Share** uses your browser’s share sheet. The badge shows `web`; inside the APK it shows `android`. See [Develop with live reload]({{base}}en/develop/) for testing on a phone’s browser or using another dev server.
+Open the address it prints, `http://127.0.0.1:8100`. Edit `www/index.html` or `www/app.js` and save: the page reloads by itself. The JavaScript API works here too, on web implementations: the counter is saved with `storage`, and **Share** uses your browser’s share sheet. The badge shows `web`; inside the APK it shows `android`. See [Develop with live reload]({{base}}docs/en/develop/) for testing on a phone’s browser or using another dev server.
 
 ## 4. Run it on Android
 
@@ -83,7 +83,7 @@ Installed on sdk gphone64 x86 64 (emulator-5554)
 Opened My App on sdk gphone64 x86 64 (emulator-5554); inspect it at chrome://inspect
 ```
 
-`koru run` builds a debug APK, installs it and opens it. It talks to the adb server that Android Studio and the platform tools run; if none is running, the error tells you how to start it. While the app is open, visit `chrome://inspect` in Chrome on your computer to see its console and DOM. More in [Run on a device]({{base}}en/run-on-device/).
+`koru run` builds a debug APK, installs it and opens it. It talks to the adb server that Android Studio and the platform tools run; if none is running, the error tells you how to start it. While the app is open, visit `chrome://inspect` in Chrome on your computer to see its console and DOM. More in [Run on a device]({{base}}docs/en/run-on-device/).
 
 Change something, then run `koru run` again. To see the app’s logs and WebView console in your terminal, use `koru run --logs` or `koru logs`. That is the whole loop: **edit → `koru dev` → `koru run`**.
 
@@ -94,14 +94,14 @@ koru build --release --output my-app.apk
 koru verify my-app.apk
 ```
 
-A release build turns off WebView debugging and signs with your existing key. To publish an update later, keep the same `appId` and key and raise the version with `koru bump` (or `koru build --bump`). See [Distribute your app]({{base}}en/distribution/).
+A release build turns off WebView debugging and signs with your existing key. To publish an update later, keep the same `appId` and key and raise the version with `koru bump` (or `koru build --bump`). See [Distribute your app]({{base}}docs/en/distribution/).
 
 > koru is experimental. Recorded execution covers Android 11 (API 30) on an x86_64 emulator; the configurable range is API 26–36. Test on the devices you want to support.
 
 ## Next steps
 
-- [Use React, Vue, Svelte or another framework]({{base}}en/existing-project/), or start with `koru create my-app --template react`.
-- [Call Android features from JavaScript]({{base}}en/plugins/), with TypeScript types.
-- [See every command]({{base}}en/cli/) and [every `koru.json` option]({{base}}en/configuration/).
+- [Use React, Vue, Svelte or another framework]({{base}}docs/en/existing-project/), or start with `koru create my-app --template react`.
+- [Call Android features from JavaScript]({{base}}docs/en/plugins/), with TypeScript types.
+- [See every command]({{base}}docs/en/cli/) and [every `koru.json` option]({{base}}docs/en/configuration/).
 
-If a step fails, run `koru doctor` and see [Troubleshooting]({{base}}en/troubleshooting/).
+If a step fails, run `koru doctor` and see [Troubleshooting]({{base}}docs/en/troubleshooting/).

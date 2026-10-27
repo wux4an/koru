@@ -23,4 +23,4 @@ Initial failure logs and diagnoses are retained. Native-port reception and Back 
 
 APK v3/v4, AAB, scheduled alarms, Android 26–36/ARM device matrix, comparative benchmarks, general annotations, multidex and full semantic register verification. The parser remains strict for the implemented subset. The JNI prebuilt example is x86_64; standard DEX apps do not depend on that architecture.
 
-[Android evidence]({{base}}en/android-results/) · [Documentation archive]({{base}}en/sources/)
+[Android evidence]({{base}}docs/en/android-results/) · [Documentation archive]({{base}}docs/en/sources/)

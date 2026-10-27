@@ -82,7 +82,7 @@ koru dev --proxy http://localhost:5173
 | `--proxy` | ninguno           | Reenvía al servidor de desarrollo de tu framework y añade la API de koru.                          |
 | `--qr`    | desactivado       | Imprime un código QR de la URL de red. Aparece solo en una terminal cuando el host no es loopback. |
 
-Detenlo con Ctrl+C. Consulta [Desarrolla con recarga en vivo]({{base}}es/develop/).
+Detenlo con Ctrl+C. Consulta [Desarrolla con recarga en vivo]({{base}}docs/es/develop/).
 
 ## `run` y `devices`
 
@@ -100,7 +100,7 @@ koru run --logs
 | `--logs`     | desactivado                                     | Tras abrir la app, muestra sus logs como `koru logs`. |
 | `--no-cache` | desactivado                                     | Regenera el DEX del runtime.                          |
 
-`run`, `logs` y `devices` hablan con el servidor adb en `127.0.0.1:5037` (o en `ANDROID_ADB_SERVER_PORT` / `ADB_SERVER_SOCKET=tcp:host:puerto`). koru no lo inicia; ejecuta `adb start-server` o abre Android Studio. Consulta [Ejecuta en un dispositivo]({{base}}es/run-on-device/).
+`run`, `logs` y `devices` hablan con el servidor adb en `127.0.0.1:5037` (o en `ANDROID_ADB_SERVER_PORT` / `ADB_SERVER_SOCKET=tcp:host:puerto`). koru no lo inicia; ejecuta `adb start-server` o abre Android Studio. Consulta [Ejecuta en un dispositivo]({{base}}docs/es/run-on-device/).
 
 ## `logs`: los logs de la app en tu terminal
 
@@ -133,7 +133,7 @@ koru js src/koru
 koru js src/koru --force   # tras actualizar koru
 ```
 
-Escribe `core.js`, `core.mjs` y `core.d.mts`. Importa `./koru/core.mjs` desde tu código; consulta [Frameworks]({{base}}es/existing-project/).
+Escribe `core.js`, `core.mjs` y `core.d.mts`. Importa `./koru/core.mjs` desde tu código; consulta [Frameworks]({{base}}docs/es/existing-project/).
 
 ## `doctor`: revisa antes de empaquetar
 
@@ -168,7 +168,7 @@ Note recorded Android execution covers API 30 (targetSdk here is 36); test on yo
 | `INTERNET`   | Un script o HTML llama a `fetch()` con una URL `https://` literal y falta el permiso. Es una coincidencia de texto: puede pasar por alto llamadas o marcar código muerto. |
 | icono        | `icon` no es cuadrado o mide menos de 192 × 192 px. Un icono que falta o que no es PNG es un error.                                                                       |
 
-La `Note` final aparece cuando `targetSdk` no es 30, lo que incluye los proyectos nuevos (por defecto es 36): las ejecuciones registradas cubren solo Android 11 (API 30), así que prueba en los dispositivos que quieras soportar. Consulta [Compatibilidad probada]({{base}}es/android-results/).
+La `Note` final aparece cuando `targetSdk` no es 30, lo que incluye los proyectos nuevos (por defecto es 36): las ejecuciones registradas cubren solo Android 11 (API 30), así que prueba en los dispositivos que quieras soportar. Consulta [Compatibilidad probada]({{base}}docs/es/android-results/).
 
 ## `build`: debug, release y destinos
 
@@ -215,7 +215,7 @@ Bumped version 1.1.0 -> 2.0.0, versionCode 4 -> 5
 
 `versionCode` siempre sube una unidad, que es lo que compara Android al instalar una actualización. El nivel (por defecto `patch`) cambia además el `X.Y.Z` de `version`; `code` no toca `version`. Si `version` no son tres números separados por puntos, como `1.0`, solo sube `versionCode` y un aviso te pide editar `version` a mano. `bump` se niega a superar el límite de Android, 2.100.000.000.
 
-`koru build --bump` hace un bump de patch y después compila, así que el APK lleva los números nuevos; la compilación imprime antes la misma línea `Bumped …`. `bump` reescribe `koru.json` con sangría de dos espacios y el orden de campos de koru; si te importa el formato, reordénalo a mano después. Consulta [Distribuye tu app]({{base}}es/distribution/).
+`koru build --bump` hace un bump de patch y después compila, así que el APK lleva los números nuevos; la compilación imprime antes la misma línea `Bumped …`. `bump` reescribe `koru.json` con sangría de dos espacios y el orden de campos de koru; si te importa el formato, reordénalo a mano después. Consulta [Distribuye tu app]({{base}}docs/es/distribution/).
 
 ## `plugin` y `config`: edita e inspecciona `koru.json`
 
@@ -237,7 +237,7 @@ koru config
   off  notifications  android.permission.POST_NOTIFICATIONS
 ```
 
-`plugin add <id>...` y `plugin remove <id>...` editan `plugins` en `koru.json` e imprimen `Enabled …` o `Disabled …`. `list` recibe el proyecto como argumento; `add` y `remove` lo reciben con `--project` (por defecto `.`). Un ID desconocido es un error que enumera los válidos. Los plugins DEX personalizados siguen yendo en `pluginManifests`; consulta [JavaScript y plugins]({{base}}es/plugins/).
+`plugin add <id>...` y `plugin remove <id>...` editan `plugins` en `koru.json` e imprimen `Enabled …` o `Disabled …`. `list` recibe el proyecto como argumento; `add` y `remove` lo reciben con `--project` (por defecto `.`). Un ID desconocido es un error que enumera los válidos. Los plugins DEX personalizados siguen yendo en `pluginManifests`; consulta [JavaScript y plugins]({{base}}docs/es/plugins/).
 
 `config` imprime lo que usará koru, como JSON: el `config` leído de `koru.json`, `effectivePermissions` (los que añaden tus plugins, como `android.permission.VIBRATE`), el `webRoot` absoluto y la ruta absoluta de `signingKey`. Valida antes de imprimir, así que sirve también para comprobar tus cambios:
 
@@ -252,7 +252,7 @@ koru deeplinks
 koru deeplinks ./my-app --json > assetlinks.json
 ```
 
-Imprime el archivo Digital Asset Links (`assetlinks.json`) para las entradas `https` de `deepLinks` en `koru.json`. Con `--json` imprime solo el JSON, listo para guardar; `--keystore` usa otra identidad PEM existente en lugar de `signingKey`. Sin entradas `https` falla y lo indica. El flujo completo está en [Configura tu proyecto]({{base}}es/configuration/).
+Imprime el archivo Digital Asset Links (`assetlinks.json`) para las entradas `https` de `deepLinks` en `koru.json`. Con `--json` imprime solo el JSON, listo para guardar; `--keystore` usa otra identidad PEM existente en lugar de `signingKey`. Sin entradas `https` falla y lo indica. El flujo completo está en [Configura tu proyecto]({{base}}docs/es/configuration/).
 
 ## `verify`: reporte estructurado
 
@@ -285,7 +285,7 @@ koru version
 
 ## Comandos DEX independientes
 
-Los subcomandos DEX operan sobre la [representación intermedia JSON de DEX]({{base}}es/dex-api/) por separado del builder APK.
+Los subcomandos DEX operan sobre la [representación intermedia JSON de DEX]({{base}}docs/es/dex-api/) por separado del builder APK.
 
 ```sh
 koru dex build examples/dex/answer.json --output answer.dex
@@ -304,4 +304,4 @@ koru dex build --activity-experiment --output experiment.dex
 
 `--activity-experiment` no acepta archivo IR. Produce el experimento histórico de Activity con `file://` para comparación; el APK normal usa HTTPS interceptado.
 
-[Primer APK]({{base}}es/getting-started/) · [Problemas frecuentes]({{base}}es/troubleshooting/) · [API DEX]({{base}}es/dex-api/)
+[Primer APK]({{base}}docs/es/getting-started/) · [Problemas frecuentes]({{base}}docs/es/troubleshooting/) · [API DEX]({{base}}docs/es/dex-api/)

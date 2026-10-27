@@ -10,8 +10,7 @@ const escape = (value: string) =>
       ]!,
   );
 
-export const landingRoute = (base: string, lang: Locale) =>
-  lang === "en" ? base : `${base}es/inicio/`;
+export const landingRoute = (base: string, lang: Locale) => `${base}${lang}/`;
 
 const copy = {
   en: {
