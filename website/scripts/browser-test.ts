@@ -249,6 +249,12 @@ try {
       await link.click();
       assert.equal(new URL(page.url()).hash, target);
       await page.locator(target!).waitFor();
+      // The brand leads to the landing page with a full page load.
+      await page.locator(".site-header .brand").click();
+      await page.waitForURL("**/es/");
+      await page.locator(".landing-hero h1").waitFor();
+      await page.goBack();
+      await ready(page);
       // The link must scroll within the page, not route away from it.
       assert.equal(new URL(page.url()).pathname, "/docs/es/configuration/");
       const top = await page

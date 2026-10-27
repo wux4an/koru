@@ -153,6 +153,17 @@
   document.addEventListener(
     "click",
     (event) => {
+      // Links outside the documentation (landing page, schema, archive)
+      // need a real page load; Docsify would render them as missing docs.
+      const outside = event.target.closest?.("a[href]");
+      if (
+        outside &&
+        outside.origin === location.origin &&
+        !outside.pathname.startsWith(site.base)
+      ) {
+        event.stopImmediatePropagation();
+        return;
+      }
       const link = event.target.closest?.('#main a[href^="#"]');
       if (!link || event.defaultPrevented || event.button !== 0) return;
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
