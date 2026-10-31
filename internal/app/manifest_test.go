@@ -2,9 +2,9 @@ package app
 
 import (
 	"encoding/json"
-	"koru.dev/koru/internal/apk"
-	"koru.dev/koru/internal/axml"
-	"koru.dev/koru/internal/config"
+	"github.com/wux4an/koru/internal/apk"
+	"github.com/wux4an/koru/internal/axml"
+	"github.com/wux4an/koru/internal/config"
 	"os"
 	"path/filepath"
 	"reflect"

@@ -43,7 +43,13 @@ gh attestation verify koru_0.0.1_linux_amd64.tar.gz --repo wux4an/koru
 
 ### Build from source
 
-You need **Go 1.23 or later**:
+With **Go 1.23 or later**, one command installs koru into `$(go env GOPATH)/bin`:
+
+```sh
+go install github.com/wux4an/koru/cmd/koru@latest
+```
+
+Or clone the repository:
 
 ```sh
 git clone https://github.com/wux4an/koru.git

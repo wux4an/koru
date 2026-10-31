@@ -1,8 +1,8 @@
 package runtimedex
 
 import (
-	"koru.dev/koru/internal/config"
-	"koru.dev/koru/pkg/dex"
+	"github.com/wux4an/koru/internal/config"
+	"github.com/wux4an/koru/pkg/dex"
 	"testing"
 )
 

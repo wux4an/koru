@@ -1,6 +1,6 @@
 package runtimedex
 
-import "koru.dev/koru/pkg/dex"
+import "github.com/wux4an/koru/pkg/dex"
 
 func notificationStatusMethod() dex.Method {
 	b := dex.NewCode(2)

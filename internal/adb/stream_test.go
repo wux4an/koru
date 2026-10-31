@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"koru.dev/koru/internal/adb/adbtest"
+	"github.com/wux4an/koru/internal/adb/adbtest"
 )
 
 type syncBuf struct {

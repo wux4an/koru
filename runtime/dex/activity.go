@@ -3,7 +3,7 @@
 // normal APK builds use ControlledActivity and the HTTPS resource interceptor.
 package runtimedex
 
-import "koru.dev/koru/pkg/dex"
+import "github.com/wux4an/koru/pkg/dex"
 
 const ActivityDescriptor = "Lcom/koru/runtime/MainActivity;"
 

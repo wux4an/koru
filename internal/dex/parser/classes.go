@@ -3,8 +3,8 @@ package parser
 import (
 	"encoding/binary"
 	"fmt"
-	"koru.dev/koru/internal/dex/format"
-	"koru.dev/koru/internal/dex/model"
+	"github.com/wux4an/koru/internal/dex/format"
+	"github.com/wux4an/koru/internal/dex/model"
 )
 
 func (f *File) classes(b []byte) error {

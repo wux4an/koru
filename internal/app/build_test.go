@@ -3,8 +3,8 @@ package app
 import (
 	"bytes"
 	"encoding/json"
-	"koru.dev/koru/internal/config"
-	"koru.dev/koru/internal/signing"
+	"github.com/wux4an/koru/internal/config"
+	"github.com/wux4an/koru/internal/signing"
 	"os"
 	"path/filepath"
 	"testing"

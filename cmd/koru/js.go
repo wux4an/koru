@@ -3,9 +3,9 @@ package main
 import (
 	"errors"
 	"fmt"
+	"github.com/wux4an/koru/packages/javascript"
 	"io"
 	"io/fs"
-	"koru.dev/koru/packages/javascript"
 	"os"
 	"path/filepath"
 

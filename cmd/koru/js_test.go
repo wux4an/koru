@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"koru.dev/koru/packages/javascript"
+	"github.com/wux4an/koru/packages/javascript"
 	"os"
 	"path/filepath"
 	"strings"

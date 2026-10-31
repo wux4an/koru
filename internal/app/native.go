@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"koru.dev/koru/internal/apk"
+	"github.com/wux4an/koru/internal/apk"
 	"os"
 	"path/filepath"
 	"sort"

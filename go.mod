@@ -1,4 +1,4 @@
-module koru.dev/koru
+module github.com/wux4an/koru
 
 go 1.23
 

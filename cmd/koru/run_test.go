@@ -3,9 +3,9 @@ package main
 import (
 	"bytes"
 	"context"
-	"koru.dev/koru/internal/adb"
-	"koru.dev/koru/internal/adb/adbtest"
-	"koru.dev/koru/internal/app"
+	"github.com/wux4an/koru/internal/adb"
+	"github.com/wux4an/koru/internal/adb/adbtest"
+	"github.com/wux4an/koru/internal/app"
 	"path/filepath"
 	"strings"
 	"testing"

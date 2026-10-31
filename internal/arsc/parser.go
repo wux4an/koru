@@ -3,7 +3,7 @@ package arsc
 import (
 	"encoding/binary"
 	"errors"
-	"koru.dev/koru/internal/androidbin"
+	"github.com/wux4an/koru/internal/androidbin"
 	"unicode/utf16"
 )
 

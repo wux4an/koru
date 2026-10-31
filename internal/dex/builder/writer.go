@@ -3,8 +3,8 @@ package builder
 import (
 	"encoding/binary"
 	"fmt"
-	"koru.dev/koru/internal/dex/encoding"
-	"koru.dev/koru/internal/dex/format"
+	"github.com/wux4an/koru/internal/dex/encoding"
+	"github.com/wux4an/koru/internal/dex/format"
 )
 
 // A bounded append-only writer; table fixups never change already assigned offsets.

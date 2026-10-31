@@ -4,8 +4,8 @@
 package external_test
 
 import (
-	"koru.dev/koru/pkg/dex"
-	runtimedex "koru.dev/koru/runtime/dex"
+	"github.com/wux4an/koru/pkg/dex"
+	runtimedex "github.com/wux4an/koru/runtime/dex"
 	"os"
 	"os/exec"
 	"path/filepath"

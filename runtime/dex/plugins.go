@@ -2,10 +2,10 @@ package runtimedex
 
 import (
 	"fmt"
-	"koru.dev/koru/internal/arsc"
-	"koru.dev/koru/internal/config"
-	"koru.dev/koru/pkg/dex"
-	"koru.dev/koru/plugins"
+	"github.com/wux4an/koru/internal/arsc"
+	"github.com/wux4an/koru/internal/config"
+	"github.com/wux4an/koru/pkg/dex"
+	"github.com/wux4an/koru/plugins"
 	"sort"
 )
 

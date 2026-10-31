@@ -3,7 +3,7 @@ package axml
 
 import (
 	"fmt"
-	"koru.dev/koru/internal/androidbin"
+	"github.com/wux4an/koru/internal/androidbin"
 	"sort"
 )
 

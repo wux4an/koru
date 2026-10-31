@@ -3,7 +3,7 @@ package adb
 import (
 	"context"
 	"errors"
-	"koru.dev/koru/internal/adb/adbtest"
+	"github.com/wux4an/koru/internal/adb/adbtest"
 	"net"
 	"strings"
 	"testing"

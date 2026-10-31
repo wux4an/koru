@@ -3,7 +3,7 @@
 This API is experimental and will stabilize before v1. Every error propagates explicitly; missing references are not silently resolved.
 
 ```go
-import "koru.dev/koru/pkg/dex"
+import "github.com/wux4an/koru/pkg/dex"
 
 code := dex.NewCode(1).
     Const(dex.V(0), 42).

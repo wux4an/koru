@@ -1,6 +1,6 @@
 package runtimedex
 
-import "koru.dev/koru/pkg/dex"
+import "github.com/wux4an/koru/pkg/dex"
 
 const dispatcherClass = "Lcom/koru/runtime/Dispatcher;"
 

@@ -3,10 +3,10 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/wux4an/koru/internal/config"
+	"github.com/wux4an/koru/internal/signing"
+	"github.com/wux4an/koru/internal/templates"
 	"io"
-	"koru.dev/koru/internal/config"
-	"koru.dev/koru/internal/signing"
-	"koru.dev/koru/internal/templates"
 	"os"
 	"path/filepath"
 	"strings"

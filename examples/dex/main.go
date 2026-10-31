@@ -2,7 +2,7 @@
 package main
 
 import (
-	"koru.dev/koru/pkg/dex"
+	"github.com/wux4an/koru/pkg/dex"
 	"log"
 	"os"
 )

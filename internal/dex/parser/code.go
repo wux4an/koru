@@ -2,7 +2,7 @@ package parser
 
 import (
 	"fmt"
-	"koru.dev/koru/internal/dex/model"
+	"github.com/wux4an/koru/internal/dex/model"
 	"strings"
 )
 

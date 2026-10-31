@@ -4,12 +4,12 @@ import (
 	"bytes"
 	"crypto/sha1"
 	"encoding/binary"
+	"github.com/wux4an/koru/internal/dex/builder"
+	"github.com/wux4an/koru/internal/dex/model"
+	. "github.com/wux4an/koru/internal/dex/parser"
+	"github.com/wux4an/koru/pkg/dex"
+	runtimedex "github.com/wux4an/koru/runtime/dex"
 	"hash/adler32"
-	"koru.dev/koru/internal/dex/builder"
-	"koru.dev/koru/internal/dex/model"
-	. "koru.dev/koru/internal/dex/parser"
-	"koru.dev/koru/pkg/dex"
-	runtimedex "koru.dev/koru/runtime/dex"
 	"testing"
 )
 

@@ -1,7 +1,7 @@
 package plugins
 
 import (
-	"koru.dev/koru/pkg/dex"
+	"github.com/wux4an/koru/pkg/dex"
 	"testing"
 )
 

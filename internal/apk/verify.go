@@ -6,8 +6,8 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"github.com/wux4an/koru/internal/signing"
 	"io"
-	"koru.dev/koru/internal/signing"
 	"strings"
 )
 

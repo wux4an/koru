@@ -2,8 +2,8 @@ package builder
 
 import (
 	"fmt"
-	"koru.dev/koru/internal/dex/encoding"
-	"koru.dev/koru/internal/dex/model"
+	"github.com/wux4an/koru/internal/dex/encoding"
+	"github.com/wux4an/koru/internal/dex/model"
 	"sort"
 	"unicode/utf8"
 )

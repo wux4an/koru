@@ -5,7 +5,7 @@ devuelven explícitamente; una referencia ausente nunca se resuelve de forma
 implícita.
 
 ```go
-import "koru.dev/koru/pkg/dex"
+import "github.com/wux4an/koru/pkg/dex"
 
 code := dex.NewCode(1).
     Const(dex.V(0), 42).

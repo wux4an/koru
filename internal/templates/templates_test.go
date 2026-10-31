@@ -2,8 +2,8 @@ package templates
 
 import (
 	"encoding/json"
+	"github.com/wux4an/koru/internal/config"
 	"io/fs"
-	"koru.dev/koru/internal/config"
 	"os"
 	"path/filepath"
 	"strings"

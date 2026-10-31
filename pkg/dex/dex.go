@@ -4,9 +4,9 @@ package dex
 
 import (
 	"fmt"
-	"koru.dev/koru/internal/dex/builder"
-	"koru.dev/koru/internal/dex/model"
-	"koru.dev/koru/internal/dex/parser"
+	"github.com/wux4an/koru/internal/dex/builder"
+	"github.com/wux4an/koru/internal/dex/model"
+	"github.com/wux4an/koru/internal/dex/parser"
 )
 
 type Program = model.Program

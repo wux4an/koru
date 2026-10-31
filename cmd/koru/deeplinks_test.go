@@ -3,8 +3,8 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"koru.dev/koru/internal/app"
-	"koru.dev/koru/internal/config"
+	"github.com/wux4an/koru/internal/app"
+	"github.com/wux4an/koru/internal/config"
 	"os"
 	"path/filepath"
 	"regexp"

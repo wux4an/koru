@@ -10,9 +10,9 @@ import (
 	"strings"
 	"testing"
 
-	"koru.dev/koru/internal/app"
-	"koru.dev/koru/internal/config"
-	"koru.dev/koru/internal/signing"
+	"github.com/wux4an/koru/internal/app"
+	"github.com/wux4an/koru/internal/config"
+	"github.com/wux4an/koru/internal/signing"
 )
 
 // The official aapt parses the configurable manifest the Go AXML writer emits.

@@ -3,8 +3,8 @@ package app
 import (
 	"errors"
 	"fmt"
+	"github.com/wux4an/koru/internal/apk"
 	"io/fs"
-	"koru.dev/koru/internal/apk"
 	"os"
 	"path/filepath"
 	"regexp"

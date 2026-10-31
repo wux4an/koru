@@ -1,7 +1,7 @@
 package assembler
 
 import (
-	"koru.dev/koru/internal/dex/model"
+	"github.com/wux4an/koru/internal/dex/model"
 	"reflect"
 	"testing"
 )

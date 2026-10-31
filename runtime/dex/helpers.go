@@ -1,6 +1,6 @@
 package runtimedex
 
-import "koru.dev/koru/pkg/dex"
+import "github.com/wux4an/koru/pkg/dex"
 
 func call(b *dex.CodeBuilder, op, owner, name, descriptor string, regs ...dex.Register) {
 	b.Invoke(op, dex.MethodRef{Owner: owner, Name: name, Descriptor: descriptor}, regs...)

@@ -4,11 +4,11 @@ package builder
 import (
 	"crypto/sha1"
 	"fmt"
+	"github.com/wux4an/koru/internal/dex/assembler"
+	"github.com/wux4an/koru/internal/dex/encoding"
+	"github.com/wux4an/koru/internal/dex/format"
+	"github.com/wux4an/koru/internal/dex/model"
 	"hash/adler32"
-	"koru.dev/koru/internal/dex/assembler"
-	"koru.dev/koru/internal/dex/encoding"
-	"koru.dev/koru/internal/dex/format"
-	"koru.dev/koru/internal/dex/model"
 	"sort"
 )
 

@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/wux4an/koru/internal/adb"
+	"github.com/wux4an/koru/internal/app"
+	"github.com/wux4an/koru/internal/config"
 	"io"
-	"koru.dev/koru/internal/adb"
-	"koru.dev/koru/internal/app"
-	"koru.dev/koru/internal/config"
 	"os"
 	"os/signal"
 	"time"

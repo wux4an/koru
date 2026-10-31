@@ -8,9 +8,9 @@ import (
 	"crypto/sha1"
 	"encoding/binary"
 	"fmt"
+	"github.com/wux4an/koru/internal/dex/encoding"
+	"github.com/wux4an/koru/internal/dex/format"
 	"hash/adler32"
-	"koru.dev/koru/internal/dex/encoding"
-	"koru.dev/koru/internal/dex/format"
 )
 
 type File struct {

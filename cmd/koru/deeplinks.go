@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/wux4an/koru/internal/config"
+	"github.com/wux4an/koru/internal/signing"
 	"io"
-	"koru.dev/koru/internal/config"
-	"koru.dev/koru/internal/signing"
 	"path/filepath"
 	"strings"
 

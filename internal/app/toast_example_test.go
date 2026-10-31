@@ -2,10 +2,10 @@ package app
 
 import (
 	"encoding/json"
-	"koru.dev/koru/internal/apk"
-	"koru.dev/koru/internal/config"
-	"koru.dev/koru/pkg/dex"
-	"koru.dev/koru/plugins"
+	"github.com/wux4an/koru/internal/apk"
+	"github.com/wux4an/koru/internal/config"
+	"github.com/wux4an/koru/pkg/dex"
+	"github.com/wux4an/koru/plugins"
 	"os"
 	"path/filepath"
 	"testing"

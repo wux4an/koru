@@ -4,7 +4,7 @@ package assembler
 
 import (
 	"fmt"
-	"koru.dev/koru/internal/dex/model"
+	"github.com/wux4an/koru/internal/dex/model"
 	"math"
 	"strings"
 )

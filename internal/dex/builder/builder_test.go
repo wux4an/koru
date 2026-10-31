@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"crypto/sha1"
 	"encoding/binary"
+	"github.com/wux4an/koru/internal/dex/model"
 	"hash/adler32"
-	"koru.dev/koru/internal/dex/model"
 	"testing"
 )
 

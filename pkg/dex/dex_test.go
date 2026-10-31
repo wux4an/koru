@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"koru.dev/koru/pkg/dex"
+	"github.com/wux4an/koru/pkg/dex"
 	"testing"
 )
 

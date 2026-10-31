@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"koru.dev/koru/internal/androidbin"
+	"github.com/wux4an/koru/internal/androidbin"
 )
 
 type Value struct {
