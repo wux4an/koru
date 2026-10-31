@@ -59,3 +59,25 @@ Official references:
 - [JS.ORG contribution guide](https://github.com/js-org/js.org/blob/master/CONTRIBUTING.md)
 - [GitHub Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
 - [GitHub custom domains](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site)
+
+## Search engines and variables
+
+Settings, in Settings > Secrets and variables > Actions of the repository:
+
+| Name                       | Kind     | Purpose                                                                              |
+| -------------------------- | -------- | ------------------------------------------------------------------------------------ |
+| `SITE_URL`                 | variable | Public URL, for example `https://koru.js.org/`. If set it wins; the workflow logs it |
+| `GOOGLE_SITE_VERIFICATION` | variable | Content of the Search Console `google-site-verification` meta tag                    |
+| `BING_SITE_VERIFICATION`   | variable | Content of the Bing Webmaster `msvalidate.01` meta tag                               |
+| `YANDEX_VERIFICATION`      | variable | Content of the Yandex Webmaster `yandex-verification` meta tag                       |
+| `INDEXNOW_KEY`             | secret   | 8-128 characters `[a-zA-Z0-9-]`; published as `/<key>.txt`                           |
+
+The checkout uses `fetch-depth: 0` so the sitemap's `lastmod` reflects real commit dates. Run the workflow again after changing any of these.
+
+Manual steps that cannot be automated:
+
+1. **Google Search Console**: add a "URL prefix" property for `https://koru.js.org/` (js.org does not let you create DNS TXT records). Choose the HTML tag method, copy the `content` value into `GOOGLE_SITE_VERIFICATION`, rerun the workflow, then verify. Under Sitemaps submit `sitemap.xml`; use URL inspection to request indexing of `/`, `/en/` and `/es/`. Check the Pages and International reports over the following weeks.
+2. **Bing Webmaster Tools**: import the site from Search Console, or verify with the meta tag (`BING_SITE_VERIFICATION`). Submit `sitemap.xml`. This also covers DuckDuckGo.
+3. **IndexNow**: generate a key (for example `openssl rand -hex 16`), store it as the `INDEXNOW_KEY` secret and rerun the workflow. The `notify` job submits the sitemap after each deployment to Bing, Yandex, Naver and Seznam; a failure only warns.
+4. **Yandex Webmaster** (optional): verify with `YANDEX_VERIFICATION` and submit the sitemap.
+5. Check a shared link's preview (`assets/og-en.png`, `assets/og-es.png`) with a debugger such as opengraph.xyz, and validate structured data with validator.schema.org.

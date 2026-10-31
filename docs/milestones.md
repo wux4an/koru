@@ -101,3 +101,4 @@ de ejecución (se asume el hilo de interfaz por `setWebMessageCallback` sin `Han
 siguen sin comprobarse. En `koru dev` no hay versión web de los plugins propios.
 
 - Sitio de documentación: `llms.txt`, `es/llms.txt` y `llms-full.txt` generados en el build desde `website/scripts/catalog.ts`, con enlaces absolutos validados y `<link rel="alternate">` en landings y páginas (probado con `bun test` y `test:browser`; sin cambios en el compilador ni en Android).
+- Sitio de documentación: SEO de indexación (og:image 1200x630 por idioma, sitemap con `lastmod` desde git y `xhtml:link` hreflang, raíz `/` indexable como x-default, redirecciones legacy sin `noindex`, JSON-LD `@graph`, verificación e IndexNow opcionales) probado con `bun test` y `test:browser`; sin cambios en el compilador ni en Android.
