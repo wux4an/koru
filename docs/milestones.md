@@ -113,3 +113,11 @@ siguen sin comprobarse. En `koru dev` no hay versión web de los plugins propios
 - v0.0.2: módulo `github.com/wux4an/koru` (`go install …@latest`), fórmula de Homebrew en `Formula/` y manifiesto de Scoop en `bucket/`, generados en cada release por `scripts/package-managers.sh`. La fórmula se instala con Homebrew en el workflow; el manifiesto de Scoop solo se valida como JSON, no se instala en Windows.
 - App de autodiagnóstico `examples/selftest`: 37 comprobaciones automáticas al abrirse (puente, plugins, plugin propio y WebView) más comprobaciones interactivas. Pasa en `koru dev` con Chromium (35 pass, 2 skip esperados); el APK se construye y verifica en CI. Pendiente: ejecutarla en Android.
 - v0.0.3: `selftest.apk` publicado en cada release y como artefacto del CI (firma estable si existe el secret `SELFTEST_SIGNING_KEY`).
+
+## v0.1.0 — contenido remoto, APIs web y plugins nativos (octubre de 2026)
+
+- Verificador de tipos de registros (`internal/dex/verify`) aplicado por `koru build` a todo el bytecode; probado con casos válidos e inválidos, todas las variantes del runtime y mutaciones del runtime real.
+- `server` (url, allowNavigation, bridge) con enlaces externos al sistema; `webFeatures` (files, geolocation, camera, microphone) con un WebChromeClient generado; plugins `alarms`, `browser`, `screen` y `clipboard`.
+- Sin las opciones nuevas, el DEX es idéntico al de 0.0.3 (prueba con hashes fijados) y el manifiesto también.
+- Probado: verificador, tests Go y JS, y las versiones web en Chromium con `koru dev`. **Pendiente: ejecutarlo en Android** con `selftest.apk`.
+- Fase 4 (actualizaciones OTA) aplazada a propósito hasta validar esta base en un dispositivo.
