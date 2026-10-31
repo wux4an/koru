@@ -72,6 +72,8 @@ const label = isNative() ? "Compartir" : "Copiar enlace";
 
 En el navegador, `device.getInfo()` devuelve `model: "Web browser"` y `sdk: 0`; `storage` usa `localStorage` con el prefijo `koru:`; `share.text` usa la Web Share API o copia al portapapeles; las notificaciones usan la API Notification del navegador; `vibration.vibrate` usa `navigator.vibrate` donde existe. La validación de argumentos y los códigos de error son los mismos que en Android. Un navegador sin equivalente rechaza con `UNAVAILABLE`. Con `koru dev`, las llamadas a plugins no activados en `koru.json` se rechazan con `METHOD_NOT_FOUND`, como en el APK.
 
+En una página remota cargada mediante `server.bridge`, la app añade ` KoruApp/1` al user agent, así que `platform` es `"android"` desde el principio y las llamadas esperan a que la página termine de cargar. Las páginas remotas fuera de `bridge` reciben `koru-none`: `core.js` informa `"web"` y usa las implementaciones web. Esas páginas deben cargar `core.js` ellas mismas. Consulta [Contenido remoto y apps híbridas]({{base}}docs/es/remote-content/).
+
 ## Índice de métodos
 
 | Plugin         | Métodos                                                                                                                                                                        | ¿Activo con `init`?           |

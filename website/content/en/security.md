@@ -22,6 +22,10 @@ Local content works without Internet permission. If you consume an external API,
 
 Custom plugins run with your app’s permissions. Include only trusted plugins and native libraries.
 
+## Remote origins and the bridge
+
+If you use `server.bridge`, the listed HTTPS origins get the same native access as your app, through the same plugins and shared storage. Any XSS or compromise of one of those sites can call the API. List only origins you control, require HTTPS and send a Content-Security-Policy; remote pages do not receive the CSP koru sets on local files. Pages outside `bridge` get no native channel. See [Remote content and hybrid apps]({{base}}docs/en/remote-content/).
+
 ## Check the APK you share
 
 ```sh

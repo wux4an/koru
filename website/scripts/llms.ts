@@ -90,6 +90,10 @@ const when: Record<string, [string, string]> = {
     "packaging Vite, React, Vue, Svelte, Astro or another existing frontend.",
     "empaquetas Vite, React, Vue, Svelte, Astro u otro frontend existente.",
   ],
+  "remote-content": [
+    "loading your website in the app, choosing which links open inside it or exposing the koru API to your own origins.",
+    "cargas tu sitio en la app, eliges qué enlaces se abren dentro o expones la API de koru a tus orígenes.",
+  ],
   distribution: [
     "building a release APK, bumping versions or updating an installed app.",
     "generas un APK release, subes la versión o actualizas una app instalada.",

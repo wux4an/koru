@@ -125,6 +125,19 @@ export const pages = [
     ],
   },
   {
+    slug: "remote-content",
+    group: 1,
+    icon: "globe",
+    titles: [
+      "Remote content and hybrid apps",
+      "Contenido remoto y apps híbridas",
+    ],
+    descriptions: [
+      "Load your website in the app with the server block, choose which hosts open inside it, open other links in the system and expose the koru API to your origins.",
+      "Carga tu sitio en la app con el bloque server, elige qué hosts se abren dentro, abre otros enlaces en el sistema y expón la API de koru a tus orígenes.",
+    ],
+  },
+  {
     slug: "distribution",
     group: 1,
     icon: "export",

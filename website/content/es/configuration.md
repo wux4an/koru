@@ -58,6 +58,7 @@ koru: koru.json: invalid appId "myapp": use reverse-domain form such as com.exam
 | `allowBackup`     | Booleano opcional, por defecto `false`. Con `true` la app usa la copia de seguridad automática de Android.                  |
 | `keyboard`        | Opcional: `resize` (por defecto; la página se reduce) o `pan` (la página sube) cuando se abre el teclado en pantalla.       |
 | `deepLinks`       | Lista opcional de enlaces que abren la app. Máximo 32, sin duplicados. Consulta [Deep links](#deep-links) más abajo.        |
+| `server`          | Contenido remoto opcional: `url`, `allowNavigation` y `bridge`. Consulta [Contenido remoto](#contenido-remoto) más abajo.   |
 
 `init` escribe los valores iniciales; edita el archivo generado. Un plugin personalizado debe estar en `plugins` y tener su manifest en `pluginManifests`. Los seis IDs integrados y sus métodos están en [JavaScript y plugins]({{base}}docs/es/plugins/).
 
@@ -156,6 +157,20 @@ El contenido local funciona sin `INTERNET`. Declara ese permiso si necesitas ser
 Es un fragmento de campo, no un `koru.json` completo. Haz las solicitudes remotas desde el JavaScript de tu app y configura CORS en el servidor. El origen local HTTPS está reservado; no necesitas registrarlo en DNS.
 
 Activar `vibration` añade `android.permission.VIBRATE`. Activar `notifications` añade `android.permission.POST_NOTIFICATIONS`. La matriz API 30 no cubre el diálogo de permisos introducido en API 33.
+
+## Contenido remoto
+
+El bloque opcional `server` carga una página de tu sitio y decide dónde se abren los enlaces:
+
+```json
+"server": {
+  "url": "https://example.com/app",
+  "allowNavigation": ["example.com", "*.example.com"],
+  "bridge": ["https://example.com"]
+}
+```
+
+Es un fragmento, no un `koru.json` completo. `url` debe ser `https` y no puede ser `app.koru.invalid`; `webDir` sigue siendo obligatorio. `allowNavigation` lista hasta 32 hosts que se abren dentro de la app (`*.example.com` coincide solo con subdominios). `bridge` lista hasta 32 orígenes `https` exactos, que la app también carga, cuyas páginas reciben la API de koru. Con cualquier campo de `server`, los demás enlaces se abren con la app del sistema. `server` añade `android.permission.INTERNET`. Aún no está validado en un dispositivo. Los detalles, casos de uso y notas de seguridad están en [Contenido remoto y apps híbridas]({{base}}docs/es/remote-content/).
 
 ## Assets, rutas y caché
 

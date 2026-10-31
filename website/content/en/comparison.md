@@ -40,7 +40,7 @@ Capacitor and Expo are mature, widely used tools. koru does much less, on purpos
 - Android App Bundles (AAB) for Google Play. koru produces APKs for direct installation and stores that accept APKs.
 - Pass a deep link’s URL to your JavaScript. The link opens the app on its first page, and neither the verified-link flow nor any of this has been run on Android.
 - Scheduled notifications, camera, geolocation, file pickers and other plugins outside the six built-in ones.
-- Live reload inside the installed APK. Use `koru dev` in a browser, then `koru run`.
+- Live reload inside the installed APK. Use `koru dev` in a browser, then `koru run`. koru can load a published HTTPS page with `server.url`, but that is not live reload of your local files; see [Remote content]({{base}}docs/en/remote-content/).
 - Verified execution beyond the [recorded matrix]({{base}}docs/en/android-results/).
 
 If you need those today, Capacitor or Expo are the better choice. If you need a small, auditable Android toolchain for a web app, try koru: [create your first app]({{base}}docs/en/getting-started/).

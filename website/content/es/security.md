@@ -22,6 +22,10 @@ Tu contenido local funciona sin permiso de Internet. Si consumes una API externa
 
 Los plugins personalizados se ejecutan con los permisos de tu app. Incluye solo plugins y bibliotecas nativas de confianza.
 
+## Orígenes remotos y el bridge
+
+Si usas `server.bridge`, los orígenes HTTPS listados reciben el mismo acceso nativo que tu app, con los mismos plugins y el storage compartido. Cualquier XSS o compromiso de uno de esos sitios puede llamar a la API. Lista solo orígenes que controles, exige HTTPS y envía una Content-Security-Policy; las páginas remotas no reciben la CSP que koru pone a los archivos locales. Las páginas fuera de `bridge` no reciben canal nativo. Consulta [Contenido remoto y apps híbridas]({{base}}docs/es/remote-content/).
+
 ## Comprueba el APK que compartes
 
 ```sh

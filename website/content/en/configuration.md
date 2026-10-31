@@ -58,6 +58,7 @@ koru: koru.json: invalid appId "myapp": use reverse-domain form such as com.exam
 | `allowBackup`     | Optional boolean, default `false`. `true` opts the app into Android’s automatic backup.                                          |
 | `keyboard`        | Optional: `resize` (default; the page shrinks) or `pan` (the page slides up) when the on-screen keyboard opens.                  |
 | `deepLinks`       | Optional list of links that open the app. At most 32, no duplicates. See [Deep links](#deep-links) below.                        |
+| `server`          | Optional remote content: `url`, `allowNavigation` and `bridge`. See [Remote content](#remote-content) below.                     |
 
 The defaults are written by `init`, so edit the generated file rather than guessing missing values. A custom plugin ID must appear in `plugins` and have a corresponding manifest in `pluginManifests`. The six built-in IDs and their methods are in [JavaScript and plugins]({{base}}docs/en/plugins/).
 
@@ -156,6 +157,20 @@ Local content works without `INTERNET`. Add that permission explicitly if your a
 This is a field fragment, not a complete `koru.json`. Keep remote access in your own JavaScript fetch calls and account for CORS on the remote server. The app origin is a reserved local HTTPS origin, not a host you need to register in DNS.
 
 Enabling `vibration` adds `android.permission.VIBRATE`. Enabling `notifications` adds `android.permission.POST_NOTIFICATIONS`. The notification permission dialog for API 33+ has not been covered by the API 30 execution matrix.
+
+## Remote content
+
+The optional `server` block loads a page from your website and decides where links open:
+
+```json
+"server": {
+  "url": "https://example.com/app",
+  "allowNavigation": ["example.com", "*.example.com"],
+  "bridge": ["https://example.com"]
+}
+```
+
+This is a field fragment, not a complete `koru.json`. `url` must be `https` and cannot be `app.koru.invalid`; `webDir` stays required. `allowNavigation` lists up to 32 hosts that open inside the app (`*.example.com` matches subdomains only). `bridge` lists up to 32 exact `https` origins, each also loaded by the app, whose pages receive the koru API. With any `server` field, other links open in the system app. `server` adds `android.permission.INTERNET`. This is not yet validated on a device. Details, use cases and security notes are in [Remote content and hybrid apps]({{base}}docs/en/remote-content/).
 
 ## Assets, routes and cache
 

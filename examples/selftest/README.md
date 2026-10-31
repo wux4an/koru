@@ -56,3 +56,18 @@ implementations and custom plugins answer `METHOD_NOT_FOUND`.
 Under `koru dev` in Chromium 153 all checks pass except the two that are
 skipped by design. The APK builds, passes `koru verify` in CI and ships with every release. It has **not**
 run on an Android device yet: that is what this app is for.
+
+## Navigation and remote bridge
+
+This app sets `server.allowNavigation` to `koru.js.org` and `server.bridge` to
+`https://koru.js.org`, and its page has three links to try (not yet run on a
+device):
+
+- **Remote page**, `https://koru.js.org/selftest/remote/`: opens inside the app,
+  checks that the koru bridge reaches that origin and writes one line to the
+  log: `koru logs | grep KORU_SELFTEST_REMOTE`.
+- **External link**: a site outside `allowNavigation`; it should open in the
+  system browser, not in the app.
+- **`mailto:` link**: should open the system mail app.
+
+See [Remote content and hybrid apps](https://koru.js.org/docs/en/remote-content/).
