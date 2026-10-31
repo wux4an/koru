@@ -13,6 +13,7 @@ on:
       - "runtime/native/README.md"
       - "examples/**"
       - "packages/javascript/core.*"
+      - "cmd/koru/main.go"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -29,9 +30,14 @@ jobs:
     permissions:
       contents: read
       pages: read
+    outputs:
+      site_url: ${{ steps.site.outputs.url }}
     steps:
       - name: Check out source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # The sitemap's lastmod comes from each source file's last commit.
+          fetch-depth: 0
       - name: Set up Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
@@ -39,6 +45,22 @@ jobs:
       - name: Configure Pages
         id: pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - name: Resolve site URL
+        id: site
+        env:
+          CONFIGURED: ${{ vars.SITE_URL }}
+          PAGES_URL: ${{ steps.pages.outputs.base_url }}
+        run: |
+          # vars.SITE_URL wins, so removing the custom domain cannot silently
+          # publish canonicals for github.io. Pages reports http until HTTPS is enforced.
+          if [ -n "$CONFIGURED" ]; then
+            url="$CONFIGURED"
+            echo "Using SITE_URL=$url (repository variable SITE_URL)"
+          else
+            url="https://${PAGES_URL#*://}"
+            echo "Using SITE_URL=$url (derived from configure-pages: $PAGES_URL)"
+          fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
       - name: Install website dependencies
         working-directory: website
         run: bun install --frozen-lockfile
@@ -50,10 +72,12 @@ jobs:
       - name: Build static documentation
         working-directory: website
         env:
-          SITE_URL: ${{ steps.pages.outputs.base_url }}
-        run: |
-          # Pages reports http for a custom domain until HTTPS enforcement is enabled.
-          SITE_URL="https://${SITE_URL#*://}" bun run build
+          SITE_URL: ${{ steps.site.outputs.url }}
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+          BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
+          YANDEX_VERIFICATION: ${{ vars.YANDEX_VERIFICATION }}
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: bun run build
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
@@ -71,3 +95,32 @@ jobs:
       - name: Deploy documentation
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+  notify:
+    # Tell IndexNow engines (Bing, Yandex, Naver, Seznam) about the new pages.
+    # Google does not support IndexNow. A failure never fails the deployment.
+    needs: [build, deploy]
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    permissions:
+      contents: read
+    env:
+      INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+      SITE_URL: ${{ needs.build.outputs.site_url }}
+    steps:
+      - name: Submit sitemap URLs to IndexNow
+        if: env.INDEXNOW_KEY != ''
+        continue-on-error: true
+        run: |
+          [[ "$INDEXNOW_KEY" =~ ^[a-zA-Z0-9-]{8,128}$ ]] || { echo "INDEXNOW_KEY has an invalid format"; exit 1; }
+          site="${SITE_URL%/}/"
+          host="${site#*://}"; host="${host%%/*}"
+          curl -fsS "${site}sitemap.xml" | grep -o '<loc>[^<]*</loc>' | sed -e 's/<loc>//' -e 's/<\/loc>//' > urls.txt
+          jq -n --arg host "$host" --arg key "$INDEXNOW_KEY" --arg loc "${site}${INDEXNOW_KEY}.txt" \
+            --rawfile urls urls.txt \
+            '{host: $host, key: $key, keyLocation: $loc, urlList: ($urls | split("\n") | map(select(length > 0)))}' > payload.json
+          echo "Submitting $(wc -l < urls.txt) URLs for $host"
+          status=$(curl -sS -o response.txt -w '%{http_code}' -X POST https://api.indexnow.org/indexnow \
+            -H 'Content-Type: application/json; charset=utf-8' --data @payload.json)
+          echo "IndexNow responded HTTP $status"
+          cat response.txt
+          [ "$status" = 200 ] || [ "$status" = 202 ]
