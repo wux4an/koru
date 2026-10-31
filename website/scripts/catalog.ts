@@ -207,8 +207,8 @@ export const pages = [
     source: "docs/plugins.md",
     titles: ["JavaScript API", "API JavaScript"],
     descriptions: [
-      "Read device information, store data, share text and show notifications from JavaScript.",
-      "Consulta el dispositivo, guarda datos, comparte texto y muestra notificaciones desde JavaScript.",
+      "Read device information, store data, share text, schedule notifications, open links, keep the screen on and use the clipboard from JavaScript.",
+      "Consulta el dispositivo, guarda datos, comparte texto y programa notificaciones, abre enlaces, mantén la pantalla y usa el portapapeles desde JavaScript.",
     ],
   },
   {

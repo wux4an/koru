@@ -589,13 +589,13 @@ try {
     },
   );
   await check(
-    "all 13 API accordions explain methods and work with keyboard in both locales",
+    "all 17 API accordions explain methods and work with keyboard in both locales",
     async () => {
       for (const lang of locales) {
         await page.goto(origin + `/${lang}/plugins/`);
         await ready(page);
         const accordions = page.locator(".api-detail");
-        assert.equal(await accordions.count(), 13);
+        assert.equal(await accordions.count(), 17);
         const first = accordions.first();
         await first.locator("summary").focus();
         await page.keyboard.press("Enter");

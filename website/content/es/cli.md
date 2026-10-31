@@ -221,12 +221,12 @@ Bumped version 1.1.0 -> 2.0.0, versionCode 4 -> 5
 
 ```sh
 koru plugin list
-koru plugin add vibration notifications
+koru plugin add vibration notifications alarms
 koru plugin remove share --project ./my-app
 koru config
 ```
 
-`plugin list` muestra los seis plugins integrados, si cada uno está activo y el permiso de Android que añade. Esta es la lista de un proyecto creado con `basic`:
+`plugin list` muestra los diez plugins integrados, si cada uno está activo y el permiso de Android que añade. Esta es la lista de un proyecto creado con `basic`:
 
 ```text
   on   device         -
@@ -235,6 +235,10 @@ koru config
   on   app            -
   on   share          -
   off  notifications  android.permission.POST_NOTIFICATIONS
+  off  alarms         android.permission.POST_NOTIFICATIONS, android.permission.RECEIVE_BOOT_COMPLETED
+  off  browser        -
+  off  screen         -
+  off  clipboard      -
 ```
 
 `plugin add <id>...` y `plugin remove <id>...` editan `plugins` en `koru.json` e imprimen `Enabled …` o `Disabled …`. `list` recibe el proyecto como argumento; `add` y `remove` lo reciben con `--project` (por defecto `.`). Un ID desconocido es un error que enumera los válidos. Los plugins DEX personalizados siguen yendo en `pluginManifests`; consulta [JavaScript y plugins]({{base}}docs/es/plugins/).

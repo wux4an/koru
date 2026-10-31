@@ -2,13 +2,13 @@
 
 A koru app that tests koru. When it opens it runs every check that needs no
 human: the JavaScript bridge and its error codes, each integrated plugin
-(`app`, `device`, `storage`, `vibration`, `share`, `notifications`), the custom
+(`app`, `device`, `storage`, `vibration`, `share`, `notifications`, `alarms`, `browser`, `screen`, `clipboard`), the custom
 `toast` plugin from [`../toast`](../toast) and WebView features (assets over
 the app origin, workers, IndexedDB, WebAssembly, `crypto.subtle`, CSS). The
 screen lists every result with its time and error code.
 
-A second section has the checks that need you: sharing, the notification
-permission prompt, a long vibration and a long toast.
+The new plugins are checked automatically: `alarms` schedule/list/cancel, rejection of unsafe schemes in `browser.open`, `screen.keepAwake` on/off and a `clipboard` round trip. A second section has the checks that need you: sharing, the notification
+permission prompt, a long vibration and a long toast, plus the buttons "Alarm in 1 minute", "Open in browser" and "Keep screen awake". These have not been run on an Android device.
 
 ## Download it
 

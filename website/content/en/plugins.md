@@ -1,16 +1,16 @@
 # JavaScript API
 
-Use Android features from your app’s JavaScript: read device information, store data, share text or show notifications. Calls return promises. Inside the APK they run natively on Android; in a browser and under [`koru dev`]({{base}}docs/en/develop/) the same calls use web implementations, so you can develop without a device.
+Use Android features from your app’s JavaScript: read device information, store data, share text or show notifications, schedule alarms, open links or use the clipboard. Calls return promises. Inside the APK they run natively on Android; in a browser and under [`koru dev`]({{base}}docs/en/develop/) the same calls use web implementations, so you can develop without a device.
 
 ## Before you call an API
 
 `koru init` enables `device`, `storage` and `app`; the `basic` template also enables `vibration` and `share`. To use another plugin, add its ID and rebuild:
 
 ```json
-"plugins": ["device", "storage", "app", "vibration", "share", "notifications"]
+"plugins": ["device", "storage", "app", "vibration", "share", "notifications", "alarms", "browser", "screen", "clipboard"]
 ```
 
-This is one field to put in your existing `koru.json`, not a complete file. Enabling `vibration` adds `android.permission.VIBRATE`; `notifications` adds `android.permission.POST_NOTIFICATIONS`. In a packaged HTML page, import the generated module:
+This is one field to put in your existing `koru.json`, not a complete file. Enabling `vibration` adds `android.permission.VIBRATE`; `notifications` adds `android.permission.POST_NOTIFICATIONS`; `alarms` adds `POST_NOTIFICATIONS` and `RECEIVE_BOOT_COMPLETED`. `browser`, `screen` and `clipboard` need no permissions. In a packaged HTML page, import the generated module:
 
 ```html
 <script type="module">
@@ -19,7 +19,7 @@ This is one field to put in your existing `koru.json`, not a complete file. Enab
 </script>
 ```
 
-Add an element with `id="model"` to that page. Koru also injects `/__koru/core.js`, which exposes `window.Koru`. The module exports `device`, `app`, `storage`, `vibration`, `share`, `notifications`, `invoke`, `platform` and `isNative`. With a bundler such as Vite, import a copy written by [`koru js`]({{base}}docs/en/cli/) instead (`./koru/core.mjs`); it behaves the same. All methods return a Promise. Wrap calls in `try/catch` to show a useful error:
+Add an element with `id="model"` to that page. Koru also injects `/__koru/core.js`, which exposes `window.Koru`. The module exports `device`, `app`, `storage`, `vibration`, `share`, `notifications`, `alarms`, `browser`, `screen`, `clipboard`, `invoke`, `platform` and `isNative`. With a bundler such as Vite, import a copy written by [`koru js`]({{base}}docs/en/cli/) instead (`./koru/core.mjs`); it behaves the same. All methods return a Promise. Wrap calls in `try/catch` to show a useful error:
 
 ```js
 try {
@@ -84,6 +84,10 @@ On a remote page loaded through `server.bridge`, the app adds ` KoruApp/1` to th
 | Vibration        | [`vibrate()`](#api-vibration)                                                                                                                                                  | No                          |
 | Share            | [`text()`](#api-share)                                                                                                                                                         | No                          |
 | Notifications    | [`permission()`](#api-notification-permission), [`requestPermission()`](#api-notification-request), [`show()`](#api-notification-show), [`cancel()`](#api-notification-cancel) | No                          |
+| Alarms           | [`schedule()`](#api-alarms), `cancel()`, `list()`                                                                                                                              | No                          |
+| Browser          | [`open()`](#api-browser)                                                                                                                                                       | No                          |
+| Screen           | [`keepAwake()`](#api-screen)                                                                                                                                                   | No                          |
+| Clipboard        | [`writeText()`, `readText()`](#api-clipboard)                                                                                                                                  | No                          |
 | Low-level bridge | [`invoke()`](#api-invoke)                                                                                                                                                      | Available to packaged pages |
 
 Each method below opens independently. The examples assume imports from `/__koru/core.mjs` and run only inside the APK.
@@ -288,6 +292,87 @@ A non-integer ID rejects with `INVALID_REQUEST`. A native Android failure may re
 
 </details>
 
+## Scheduled alarms
+
+Enable `alarms` (and, for Android 13+, `notifications`) in `koru.json` and rebuild. Koru adds `android.permission.POST_NOTIFICATIONS` and `android.permission.RECEIVE_BOOT_COMPLETED`. These plugins have been tested in Chromium under `koru dev` (web versions) and their bytecode passes the `koru build` verifier; they have not been tested on an Android device.
+
+<details class="api-detail" id="api-alarms"><summary><code>alarms.schedule({ id, title, body, at })</code><span>Show a notification later</span></summary>
+
+**Signature:** `alarms.schedule({ id, title, body, at }, options?) → Promise<{}>`; `alarms.cancel(id) → Promise<{}>`; `alarms.list() → Promise<string[]>`, the IDs still pending. `at` is a `Date` or milliseconds since the epoch. Scheduling an `id` that already exists replaces the earlier alarm.
+
+```js
+import { alarms, notifications } from "/__koru/core.mjs";
+await notifications.requestPermission(); // needed on Android 13+
+await alarms.schedule({
+  id: "tea",
+  title: "Tea",
+  body: "Your tea is ready.",
+  at: Date.now() + 60_000,
+});
+console.log(await alarms.list()); // ["tea"]
+await alarms.cancel("tea");
+```
+
+On Android koru uses `AlarmManager.setAndAllowWhileIdle`. The alarm is inexact: it can arrive a few minutes late, especially at rest or in Doze. Exact alarms are not used because they require a permission the user grants in Settings. Alarms are stored and rescheduled after the phone restarts or the app is updated (`BOOT_COMPLETED`, `MY_PACKAGE_REPLACED`); those that came due while the phone was off are shown at boot. Tapping the notification opens the app. To be displayed on Android 13+ the notification permission must be granted: enable `notifications` too and call `notifications.requestPermission()`.
+
+In a browser and under `koru dev`, alarms fire only while the page is open (`setTimeout` plus `Notification` if permission was granted). A missing `title`, `body` or `at` rejects with `INVALID_REQUEST`.
+
+</details>
+
+## Open links in other apps
+
+Enable `browser`. No permissions.
+
+<details class="api-detail" id="api-browser"><summary><code>browser.open(url)</code><span>Open a link in another app</span></summary>
+
+**Signature:** `browser.open(url: string, options?) → Promise<{}>`. It opens the link in another app: a browser, mail, the dialer and so on.
+
+```js
+import { browser } from "/__koru/core.mjs";
+await browser.open("https://koru.js.org");
+await browser.open("mailto:hello@example.com");
+```
+
+Allowed schemes: `https`, `http`, `mailto`, `tel`, `sms`, `geo` and `market`. Any other scheme rejects with `INVALID_REQUEST`. If no app can open the link it rejects with `NATIVE_ERROR`. In a browser it uses `window.open`. With `server` in `koru.json`, external links already open this way on their own; see [Remote content]({{base}}docs/en/remote-content/).
+
+</details>
+
+## Keep the screen on
+
+Enable `screen`. No permissions.
+
+<details class="api-detail" id="api-screen"><summary><code>screen.keepAwake(enabled = true)</code><span>Stop the screen from turning off</span></summary>
+
+**Signature:** `screen.keepAwake(enabled = true, options?) → Promise<{}>`. It keeps the screen on while the app is visible (`FLAG_KEEP_SCREEN_ON`); `keepAwake(false)` lets it turn off again.
+
+```js
+import { screen } from "/__koru/core.mjs";
+await screen.keepAwake(); // e.g. while showing a recipe
+await screen.keepAwake(false);
+```
+
+In a browser it uses the Screen Wake Lock API when it exists; otherwise it rejects with `UNAVAILABLE`.
+
+</details>
+
+## Clipboard
+
+Enable `clipboard`. No permissions.
+
+<details class="api-detail" id="api-clipboard"><summary><code>clipboard.writeText(text)</code><span>Copy and paste text</span></summary>
+
+**Signature:** `clipboard.writeText(text: string, options?) → Promise<{}>`; `clipboard.readText(options?) → Promise<string | null>`, which is `null` when the clipboard is empty.
+
+```js
+import { clipboard } from "/__koru/core.mjs";
+await clipboard.writeText("hello");
+const text = await clipboard.readText(); // "hello", or null if empty
+```
+
+From Android 10 only the app in the foreground can read the clipboard. In a browser it uses `navigator.clipboard`, which may ask for permission or reject with `UNAVAILABLE`.
+
+</details>
+
 ## Low-level bridge and errors
 
 <details class="api-detail" id="api-invoke"><summary><code>invoke(method, params?, options?)</code><span>Call a native handler directly</span></summary>
@@ -307,7 +392,7 @@ console.log(info.model, raw.value); // raw.value is string or null
 
 </details>
 
-Errors reject with an `Error` whose `code` and `message` can be displayed or logged. `INVALID_REQUEST` means invalid method/arguments; `METHOD_NOT_FOUND` means the method or plugin is unavailable; `STORAGE_ERROR` means a storage commit failed; `PERMISSION_DENIED` means a required notification permission or setting is off; `NATIVE_ERROR` means Android threw an error; `UNAVAILABLE` means the browser has no equivalent (web implementations only). `BUSY`, `TIMEOUT`, `CANCELLED`, `CHANNEL_ERROR`, `CHANNEL_REPLACED`, `INVALID_RESPONSE` and `PAGE_CLOSED` describe the bridge lifecycle. A timeout or cancellation does not prove an already dispatched native action was rolled back.
+Errors reject with an `Error` whose `code` and `message` can be displayed or logged. `INVALID_REQUEST` means invalid method/arguments; `METHOD_NOT_FOUND` means the method or plugin is unavailable; `STORAGE_ERROR` means a storage commit failed; `PERMISSION_DENIED` means a required notification permission or setting is off; `NATIVE_ERROR` means Android threw an error (for example, `browser.open` found no app for the link); `UNAVAILABLE` means the browser has no equivalent (web implementations only). `BUSY`, `TIMEOUT`, `CANCELLED`, `CHANNEL_ERROR`, `CHANNEL_REPLACED`, `INVALID_RESPONSE` and `PAGE_CLOSED` describe the bridge lifecycle. A timeout or cancellation does not prove an already dispatched native action was rolled back.
 
 ## Extend your app
 

@@ -1,16 +1,16 @@
 # API JavaScript
 
-Usa funciones de Android desde el JavaScript de tu app: consulta el dispositivo, guarda datos, comparte texto o muestra notificaciones. Las llamadas devuelven promesas. Dentro del APK se ejecutan de forma nativa en Android; en un navegador y con [`koru dev`]({{base}}docs/es/develop/) las mismas llamadas usan implementaciones web, así que puedes desarrollar sin un dispositivo.
+Usa funciones de Android desde el JavaScript de tu app: consulta el dispositivo, guarda datos, comparte texto o muestra notificaciones, programa alarmas, abre enlaces o usa el portapapeles. Las llamadas devuelven promesas. Dentro del APK se ejecutan de forma nativa en Android; en un navegador y con [`koru dev`]({{base}}docs/es/develop/) las mismas llamadas usan implementaciones web, así que puedes desarrollar sin un dispositivo.
 
 ## Antes de llamar la API
 
 `koru init` activa `device`, `storage` y `app`; la plantilla `basic` activa además `vibration` y `share`. Para usar otro plugin, añade su ID y reconstruye:
 
 ```json
-"plugins": ["device", "storage", "app", "vibration", "share", "notifications"]
+"plugins": ["device", "storage", "app", "vibration", "share", "notifications", "alarms", "browser", "screen", "clipboard"]
 ```
 
-Es un campo para añadir a tu `koru.json`, no un archivo completo. Activar `vibration` añade `android.permission.VIBRATE`; `notifications` añade `android.permission.POST_NOTIFICATIONS`. En el HTML empaquetado importa el módulo generado:
+Es un campo para añadir a tu `koru.json`, no un archivo completo. Activar `vibration` añade `android.permission.VIBRATE`; `notifications` añade `android.permission.POST_NOTIFICATIONS`; `alarms` añade `POST_NOTIFICATIONS` y `RECEIVE_BOOT_COMPLETED`. `browser`, `screen` y `clipboard` no necesitan permisos. En el HTML empaquetado importa el módulo generado:
 
 ```html
 <script type="module">
@@ -19,7 +19,7 @@ Es un campo para añadir a tu `koru.json`, no un archivo completo. Activar `vibr
 </script>
 ```
 
-Añade a la página un elemento con `id="model"`. Koru también inyecta `/__koru/core.js`, que expone `window.Koru`. El módulo exporta `device`, `app`, `storage`, `vibration`, `share`, `notifications`, `invoke`, `platform` e `isNative`. Con un bundler como Vite, importa en su lugar la copia que escribe [`koru js`]({{base}}docs/es/cli/) (`./koru/core.mjs`); se comporta igual. Todos los métodos devuelven una promesa. Maneja los errores para mostrar algo útil:
+Añade a la página un elemento con `id="model"`. Koru también inyecta `/__koru/core.js`, que expone `window.Koru`. El módulo exporta `device`, `app`, `storage`, `vibration`, `share`, `notifications`, `alarms`, `browser`, `screen`, `clipboard`, `invoke`, `platform` e `isNative`. Con un bundler como Vite, importa en su lugar la copia que escribe [`koru js`]({{base}}docs/es/cli/) (`./koru/core.mjs`); se comporta igual. Todos los métodos devuelven una promesa. Maneja los errores para mostrar algo útil:
 
 ```js
 try {
@@ -84,6 +84,10 @@ En una página remota cargada mediante `server.bridge`, la app añade ` KoruApp/
 | Vibración      | [`vibrate()`](#api-vibration)                                                                                                                                                  | No                            |
 | Compartir      | [`text()`](#api-share)                                                                                                                                                         | No                            |
 | Notificaciones | [`permission()`](#api-notification-permission), [`requestPermission()`](#api-notification-request), [`show()`](#api-notification-show), [`cancel()`](#api-notification-cancel) | No                            |
+| Alarmas        | [`schedule()`](#api-alarms), `cancel()`, `list()`                                                                                                                              | No                            |
+| Navegador      | [`open()`](#api-browser)                                                                                                                                                       | No                            |
+| Pantalla       | [`keepAwake()`](#api-screen)                                                                                                                                                   | No                            |
+| Portapapeles   | [`writeText()`, `readText()`](#api-clipboard)                                                                                                                                  | No                            |
 | Puente directo | [`invoke()`](#api-invoke)                                                                                                                                                      | Disponible en páginas del APK |
 
 Cada acordeón se abre por separado. Los ejemplos presuponen importaciones desde `/__koru/core.mjs` y funcionan dentro del APK.
@@ -285,6 +289,87 @@ await notifications.cancel(7);
 ```
 
 Un ID que no sea entero rechaza con `INVALID_REQUEST`. Un fallo nativo Android puede rechazar con `NATIVE_ERROR`.
+
+</details>
+
+## Alarmas programadas
+
+Activa `alarms` (y, para Android 13+, `notifications`) en `koru.json` y reconstruye. Koru añade `android.permission.POST_NOTIFICATIONS` y `android.permission.RECEIVE_BOOT_COMPLETED`. Estos plugins se probaron en Chromium con `koru dev` (versiones web) y su bytecode pasa el verificador de `koru build`; no se han probado en un dispositivo Android.
+
+<details class="api-detail" id="api-alarms"><summary><code>alarms.schedule({ id, title, body, at })</code><span>Muestra una notificación más tarde</span></summary>
+
+**Firma:** `alarms.schedule({ id, title, body, at }, options?) → Promise<{}>`; `alarms.cancel(id) → Promise<{}>`; `alarms.list() → Promise<string[]>`, los IDs aún pendientes. `at` es un `Date` o milisegundos desde epoch. Programar un `id` que ya existe reemplaza la alarma anterior.
+
+```js
+import { alarms, notifications } from "/__koru/core.mjs";
+await notifications.requestPermission(); // necesario en Android 13+
+await alarms.schedule({
+  id: "te",
+  title: "Té",
+  body: "Tu té está listo.",
+  at: Date.now() + 60_000,
+});
+console.log(await alarms.list()); // ["te"]
+await alarms.cancel("te");
+```
+
+En Android koru usa `AlarmManager.setAndAllowWhileIdle`. La alarma es inexacta: puede llegar unos minutos tarde, sobre todo en reposo o en Doze. No se usan alarmas exactas porque requieren un permiso que el usuario concede en Ajustes. Las alarmas se guardan y se reprograman tras reiniciar el móvil o actualizar la app (`BOOT_COMPLETED`, `MY_PACKAGE_REPLACED`); las que vencieron mientras estaba apagado se muestran al arrancar. Al tocar la notificación se abre la app. Para mostrarse en Android 13+ hace falta el permiso de notificaciones: activa también `notifications` y llama a `notifications.requestPermission()`.
+
+En un navegador y con `koru dev`, las alarmas solo se disparan mientras la página está abierta (`setTimeout` más `Notification` si hay permiso). Si falta `title`, `body` o `at`, rechaza con `INVALID_REQUEST`.
+
+</details>
+
+## Abrir enlaces en otras apps
+
+Activa `browser`. Sin permisos.
+
+<details class="api-detail" id="api-browser"><summary><code>browser.open(url)</code><span>Abre un enlace en otra app</span></summary>
+
+**Firma:** `browser.open(url: string, options?) → Promise<{}>`. Abre el enlace en otra app: un navegador, el correo, el teléfono, etc.
+
+```js
+import { browser } from "/__koru/core.mjs";
+await browser.open("https://koru.js.org");
+await browser.open("mailto:hola@example.com");
+```
+
+Esquemas permitidos: `https`, `http`, `mailto`, `tel`, `sms`, `geo` y `market`. Cualquier otro rechaza con `INVALID_REQUEST`. Si ninguna app puede abrir el enlace, rechaza con `NATIVE_ERROR`. En un navegador usa `window.open`. Con `server` en `koru.json`, los enlaces externos ya se abren así solos; consulta [Contenido remoto]({{base}}docs/es/remote-content/).
+
+</details>
+
+## Mantener la pantalla encendida
+
+Activa `screen`. Sin permisos.
+
+<details class="api-detail" id="api-screen"><summary><code>screen.keepAwake(enabled = true)</code><span>Evita que la pantalla se apague</span></summary>
+
+**Firma:** `screen.keepAwake(enabled = true, options?) → Promise<{}>`. Mantiene la pantalla encendida mientras la app está visible (`FLAG_KEEP_SCREEN_ON`); `keepAwake(false)` la deja apagarse de nuevo.
+
+```js
+import { screen } from "/__koru/core.mjs";
+await screen.keepAwake(); // p. ej. mientras muestras una receta
+await screen.keepAwake(false);
+```
+
+En un navegador usa la Screen Wake Lock API si existe; si no, rechaza con `UNAVAILABLE`.
+
+</details>
+
+## Portapapeles
+
+Activa `clipboard`. Sin permisos.
+
+<details class="api-detail" id="api-clipboard"><summary><code>clipboard.writeText(text)</code><span>Copia y pega texto</span></summary>
+
+**Firma:** `clipboard.writeText(text: string, options?) → Promise<{}>`; `clipboard.readText(options?) → Promise<string | null>`, que es `null` si el portapapeles está vacío.
+
+```js
+import { clipboard } from "/__koru/core.mjs";
+await clipboard.writeText("hola");
+const text = await clipboard.readText(); // "hola", o null si está vacío
+```
+
+Desde Android 10 solo la app en primer plano puede leer el portapapeles. En un navegador usa `navigator.clipboard`, que puede pedir permiso o rechazar con `UNAVAILABLE`.
 
 </details>
 

@@ -24,7 +24,7 @@ Notification permission resolves asynchronously: the exact request ID and port a
 
 DEX plugin ABI v1 requires a public static method receiving Activity/JSONObject and returning JSONObject. Manifests cannot replace Android, Java or runtime classes. Plugins are trusted developer code sharing the application's UID and permissions, not a sandbox for hostile native code.
 
-JNI is optional. The six built-in plugins use DEX/framework and require no C. The freestanding x86_64 example has no libc/JVM dependencies and has loaded in ART. It demonstrates global references, local-reference cleanup, exceptions and attach/detach scopes. Bridge UI operations run on main.
+JNI is optional. The built-in plugins use DEX/framework and require no C. The freestanding x86_64 example has no libc/JVM dependencies and has loaded in ART. It demonstrates global references, local-reference cleanup, exceptions and attach/detach scopes. Bridge UI operations run on main.
 
 ## Runtime cache
 

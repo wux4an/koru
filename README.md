@@ -77,7 +77,7 @@ Koru packages static files. Apps that render on a server need a static export or
 
 ## Use Android features
 
-The generated app includes a JavaScript module for device information, persistent storage, app information, vibration, sharing and local notifications:
+The generated app includes a JavaScript module for device information, persistent storage, app information, vibration, sharing, local and scheduled notifications (`alarms`), opening links in other apps (`browser`), keeping the screen on (`screen`) and the clipboard:
 
 ```js
 import { device, storage, platform } from "/__koru/core.mjs";
@@ -102,7 +102,7 @@ A release build disables debugging and uses your existing signing identity. Inst
 
 Koru is in development. APK installation and execution have been tested on an **Android 11 (API 30), x86_64 emulator**, including local web content, offline use and the standard plugins. The configurable SDK range is 26–36; this does not establish compatibility with every device or API level.
 
-Distribution currently uses APKs for direct installation. AAB output for Google Play and scheduled notifications are not available. Linux is the validated operational host; Windows and macOS have compile checks. See the [recorded Android results](docs/results/full/README.md) for the tested scope. `koru run`, `koru devices` and `koru logs` are tested against an in-process implementation of the adb server protocol; they are not yet recorded on physical hardware, and the real logcat format is not validated. The framework templates and the `orientation`, `allowBackup`, `keyboard` and `deepLinks` fields of `koru.json` (with `koru deeplinks` for `assetlinks.json`) have not been run on Android; deep links open the app on its first page and do not pass the URL to JavaScript yet.
+Distribution currently uses APKs for direct installation. AAB output for Google Play is not available. The `alarms`, `browser`, `screen` and `clipboard` plugins are tested in Chromium and their bytecode is verified, but they have not run on an Android device; alarms are inexact. Linux is the validated operational host; Windows and macOS have compile checks. See the [recorded Android results](docs/results/full/README.md) for the tested scope. `koru run`, `koru devices` and `koru logs` are tested against an in-process implementation of the adb server protocol; they are not yet recorded on physical hardware, and the real logcat format is not validated. The framework templates and the `orientation`, `allowBackup`, `keyboard` and `deepLinks` fields of `koru.json` (with `koru deeplinks` for `assetlinks.json`) have not been run on Android; deep links open the app on its first page and do not pass the URL to JavaScript yet.
 
 ## Learn more
 
