@@ -179,7 +179,7 @@ describe("deployment configuration and broken input", () => {
       "utf8",
     );
     const icon = await readFile(resolve(root, domainOutput, "favicon.ico"));
-    // The domain root is a real page; only JavaScript forwards by language.
+    // The domain root is a real page and never redirects by language.
     expect(index).not.toContain("http-equiv");
     expect(index).toContain('href="/en/"');
     expect(index).toContain('href="/es/"');
@@ -521,7 +521,8 @@ describe("SEO lint on the production build", () => {
     expect(root_.html).not.toContain("http-equiv");
     for (const href of ["/en/", "/es/", "/docs/en/", "/docs/es/"])
       expect(root_.html).toContain(`<a class="button" href="${href}"`);
-    expect(root_.html).toContain("location.replace");
+    expect(root_.html).not.toContain("location.replace");
+    expect(root_.html).not.toContain("location.href");
   });
   test("verification tags, IndexNow key and robots follow the environment", async () => {
     const env = process.env;

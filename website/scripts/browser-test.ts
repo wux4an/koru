@@ -932,7 +932,7 @@ try {
     },
   );
   await check(
-    "domain root lists both languages without JavaScript, forwards by language with it, and the 404 page is accessible",
+    "domain root lists both languages, never redirects by browser language, highlights the matching one, and the 404 page is accessible",
     async () => {
       const plain = await browser.newContext({ javaScriptEnabled: false });
       const reader = await plain.newPage();
@@ -951,7 +951,14 @@ try {
         const context = await browser.newContext({ locale });
         const visitor = await context.newPage();
         await visitor.goto(origin + "/");
-        await visitor.waitForURL(`**/${lang}/`);
+        await visitor.waitForTimeout(300);
+        assert.equal(new URL(visitor.url()).pathname, "/");
+        assert(
+          await visitor
+            .locator(`main a.button-primary[hreflang="${lang}"]`)
+            .isVisible(),
+          `Root does not highlight ${lang}`,
+        );
         await context.close();
       }
       await page.goto(origin + "/no-such-page/");

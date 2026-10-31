@@ -114,7 +114,9 @@ jobs:
           [[ "$INDEXNOW_KEY" =~ ^[a-zA-Z0-9-]{8,128}$ ]] || { echo "INDEXNOW_KEY has an invalid format"; exit 1; }
           site="${SITE_URL%/}/"
           host="${site#*://}"; host="${host%%/*}"
-          curl -fsS "${site}sitemap.xml" | grep -o '<loc>[^<]*</loc>' | sed -e 's/<loc>//' -e 's/<\/loc>//' > urls.txt
+          # Retry while the new deployment propagates; IndexNow accepts at most 10000 URLs per request.
+          curl -fsS --retry 5 --retry-delay 10 --retry-all-errors "${site}sitemap.xml" -o sitemap.xml
+          grep -o '<loc>[^<]*</loc>' sitemap.xml | sed -e 's/<loc>//' -e 's/<\/loc>//' | head -n 10000 > urls.txt
           jq -n --arg host "$host" --arg key "$INDEXNOW_KEY" --arg loc "${site}${INDEXNOW_KEY}.txt" \
             --rawfile urls urls.txt \
             '{host: $host, key: $key, keyLocation: $loc, urlList: ($urls | split("\n") | map(select(length > 0)))}' > payload.json

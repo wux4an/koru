@@ -299,7 +299,9 @@ function simpleHeader(base: string) {
   return `<header class="site-header landing-header"><a class="brand" href="${base}" aria-label="koru"><i class="ph-duotone ph-spiral" aria-hidden="true"></i><span>koru</span></a></header>`;
 }
 // The domain root: an indexable x-default page that offers both languages.
-// Only JavaScript forwards readers to their language; without it the links work.
+// It never redirects by language (Google advises against automatic locale
+// redirects and crawlers fetch with en-US): JavaScript only highlights the link
+// that matches the browser language, and every visitor gets the same content.
 function rootPage(config: ReturnType<typeof siteConfig>) {
   const base = config.base;
   const title = "koru: Android apps with HTML, CSS and JS";
@@ -330,7 +332,7 @@ ${socialMeta({ config, lang: "en", title, description, url: rootURL, type: "webs
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
 ${pageStyles(base)}
 <script type="application/ld+json">${structured}</script>
-<script>(function(){var l=(navigator.language||"").toLowerCase().indexOf("es")===0?"es":"en";location.replace("${base}"+l+"/")})()</script>
+<script>document.addEventListener("DOMContentLoaded",function(){var l=(navigator.language||"").toLowerCase().indexOf("es")===0?"es":"en";var a=document.querySelector('.landing-actions a[hreflang="'+l+'"]');if(a)a.classList.add("button-primary")})</script>
 </head><body class="landing landing-root">
 ${simpleHeader(base)}
 <main id="main" tabindex="-1"><section class="landing-hero">
