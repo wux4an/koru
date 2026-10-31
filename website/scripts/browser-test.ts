@@ -5,6 +5,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { build, root } from "./build";
 import { pages, locales, route } from "./catalog";
+import { versionTag } from "./version";
 
 const chrome = process.env.CHROME_PATH || Bun.which("google-chrome-stable");
 if (!chrome)
@@ -44,7 +45,13 @@ page.on("requestfailed", (request) => {
   if (request.failure()?.errorText !== "net::ERR_ABORTED")
     report.errors.push(`${request.url()}: ${request.failure()?.errorText}`);
 });
+// The only external call allowed is the latest-release lookup, intercepted below.
+const releaseAPI = "https://api.github.com/repos/wux4an/koru/releases/latest";
+await context.route(releaseAPI, (route) =>
+  route.fulfill({ status: 503, body: "{}" }),
+);
 page.on("request", (request) => {
+  if (request.url() === releaseAPI) return;
   assert.equal(
     new URL(request.url()).origin,
     origin,
@@ -454,9 +461,13 @@ try {
       });
       const nestedPage = await nestedContext.newPage();
       nestedPage.on("pageerror", (error) => report.errors.push(error.message));
-      nestedPage.on("request", (request) =>
-        assert.equal(new URL(request.url()).origin, nestedOrigin),
+      await nestedPage.route(releaseAPI, (route) =>
+        route.fulfill({ status: 503, body: "{}" }),
       );
+      nestedPage.on("request", (request) => {
+        if (request.url() !== releaseAPI)
+          assert.equal(new URL(request.url()).origin, nestedOrigin);
+      });
       try {
         for (let attempt = 0; attempt < 60; attempt++) {
           try {
@@ -710,6 +721,99 @@ try {
       }
     },
   );
+  for (const [name, url, lang] of [
+    ["landing", "/en/", "en"],
+    ["landing", "/es/", "es"],
+    ["docs", "/docs/en/", "en"],
+    ["docs", "/docs/es/", "es"],
+  ] as const) {
+    const built = versionTag();
+    const shown = (p: Page) =>
+      p.locator("[data-koru-version]").first().innerText();
+    await check(
+      `${name} ${lang} shows the build version and updates it from the latest release`,
+      async () => {
+        const visitor = await browser.newContext();
+        let calls = 0;
+        await visitor.route(releaseAPI, (route) => {
+          calls++;
+          return route.fulfill({
+            status: 200,
+            contentType: "application/json",
+            body: JSON.stringify({ tag_name: "v9.8.7" }),
+          });
+        });
+        const reader = await visitor.newPage();
+        try {
+          await reader.goto(origin + url);
+          await reader.locator("[data-koru-version]").first().waitFor();
+          await reader.waitForFunction(
+            () =>
+              document.querySelector("[data-koru-version]")?.textContent ===
+              "v9.8.7",
+          );
+          assert.match(
+            (await reader
+              .locator("[data-koru-version]")
+              .first()
+              .getAttribute("href"))!,
+            /\/releases\/tag\/v9\.8\.7$/,
+          );
+          const stored = await reader.evaluate(() =>
+            localStorage.getItem("koru-latest-release"),
+          );
+          assert.equal(JSON.parse(stored!).tag, "v9.8.7");
+          // A second visit inside the hour reads the cache instead of the API.
+          await reader.reload();
+          await reader.waitForFunction(
+            () =>
+              document.querySelector("[data-koru-version]")?.textContent ===
+              "v9.8.7",
+          );
+          assert.equal(calls, 1);
+        } finally {
+          await visitor.close();
+        }
+      },
+    );
+    await check(
+      `${name} ${lang} keeps the build version when the release lookup fails`,
+      async () => {
+        for (const failure of ["status", "garbage", "abort"] as const) {
+          const visitor = await browser.newContext();
+          await visitor.route(releaseAPI, (route) =>
+            failure === "status"
+              ? route.fulfill({ status: 403, body: "{}" })
+              : failure === "garbage"
+                ? route.fulfill({
+                    status: 200,
+                    contentType: "application/json",
+                    body: JSON.stringify({ tag_name: "<img src=x>" }),
+                  })
+                : route.abort(),
+          );
+          const reader = await visitor.newPage();
+          const errors: string[] = [];
+          reader.on("pageerror", (error) => errors.push(error.message));
+          try {
+            await reader.goto(origin + url);
+            await reader.locator("[data-koru-version]").first().waitFor();
+            await reader.waitForLoadState("networkidle");
+            assert.equal(await shown(reader), built, failure);
+            assert.deepEqual(errors, [], failure);
+            assert.equal(
+              await reader.evaluate(() =>
+                localStorage.getItem("koru-latest-release"),
+              ),
+              null,
+            );
+          } finally {
+            await visitor.close();
+          }
+        }
+      },
+    );
+  }
   await check(
     "dark overview and references pass accessibility and responsive checks in both locales",
     async () => {

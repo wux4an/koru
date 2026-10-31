@@ -1,7 +1,7 @@
 // SEO helpers shared by the documentation, landing and root pages.
-import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { text, type Locale } from "./catalog";
+import { koruVersion } from "./version";
 
 export type SiteConfig = { url: string; base: string; production: boolean };
 
@@ -21,13 +21,7 @@ export const jsonLD = (value: unknown) =>
 export const absolute = (config: SiteConfig, path: string) =>
   new URL(path, config.url).href;
 
-/** The koru release, read from the CLI so the landing never invents one. */
-export function koruVersion() {
-  const source = readFileSync(resolve(repo, "cmd/koru/main.go"), "utf8");
-  const match = source.match(/^const version = "([^"]+)"/m);
-  if (!match) throw new Error("cmd/koru/main.go has no `const version`.");
-  return match[1];
-}
+export { koruVersion };
 
 const dates = new Map<string, string | undefined>();
 /**

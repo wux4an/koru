@@ -26,12 +26,23 @@
 
 ## Get started
 
-You need **Go 1.23 or later** to install koru. After that, the `koru` binary is all you need.
+Install the latest release on Linux or macOS (it verifies the SHA-256 checksum and installs to `~/.local/bin`):
 
 ```sh
-git clone https://github.com/wux4an/koru.git
-cd koru && make install          # installs to ~/.local/bin
+curl -fsSL https://koru.js.org/install.sh | sh
+```
 
+On Windows, use PowerShell, which installs to `%LOCALAPPDATA%\Programs\koru`:
+
+```powershell
+irm https://koru.js.org/install.ps1 | iex
+```
+
+Set `KORU_VERSION=v0.0.1` to pin a version and `KORU_INSTALL_DIR` to change the folder. You can also download an archive and its `.sha256` from the [latest release](https://github.com/wux4an/koru/releases/latest), check it with `sha256sum -c koru_0.0.1_linux_amd64.tar.gz.sha256` and `gh attestation verify koru_0.0.1_linux_amd64.tar.gz --repo wux4an/koru`, or build from source (Go 1.23 or later): `git clone https://github.com/wux4an/koru.git && cd koru && make install`.
+
+After that, the `koru` binary is all you need.
+
+```sh
 koru create my-app               # pick a name and a template
 cd my-app
 koru dev                         # preview in your browser with live reload

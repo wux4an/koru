@@ -102,3 +102,11 @@ siguen sin comprobarse. En `koru dev` no hay versión web de los plugins propios
 
 - Sitio de documentación: `llms.txt`, `es/llms.txt` y `llms-full.txt` generados en el build desde `website/scripts/catalog.ts`, con enlaces absolutos validados y `<link rel="alternate">` en landings y páginas (probado con `bun test` y `test:browser`; sin cambios en el compilador ni en Android).
 - Sitio de documentación: SEO de indexación (og:image 1200x630 por idioma, sitemap con `lastmod` desde git y `xhtml:link` hreflang, raíz `/` indexable como x-default, redirecciones legacy sin `noindex`, JSON-LD `@graph`, verificación e IndexNow opcionales) probado con `bun test` y `test:browser`; sin cambios en el compilador ni en Android.
+
+## Releases — v0.0.1 (octubre de 2026)
+
+- `scripts/release.sh` compila builds reproducibles (`CGO_ENABLED=0`, `-trimpath`, versión y commit por `-ldflags`) para linux, darwin y windows en amd64 y arm64, con `.sha256` por archivo y `SHA256SUMS`. Comprobado en local: dos builds del mismo commit dan el mismo binario.
+- `.github/workflows/release.yml` (tag `vX.Y.Z`): CI completo, archivos, attestations de procedencia, notas desde `CHANGELOG.md` e instalación de prueba en Linux x86_64/arm64, macOS y Windows. `ci.yml` corre en `main` y PR.
+- Instaladores `scripts/install.sh` (POSIX, verifica SHA-256; probado con `scripts/test-install.sh` y `dash`) e `install.ps1` (solo probado en el workflow de Windows), servidos en `koru.js.org/install.sh` y `/install.ps1`.
+- La web muestra la versión de `main.go` y la actualiza en el navegador con la última release de la API de GitHub (caché de 1 h).
+- Proceso documentado en `docs/releasing.md`. Sin cambios en el compilador ni en el runtime Android.

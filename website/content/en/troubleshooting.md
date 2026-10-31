@@ -4,7 +4,7 @@ Start with `koru doctor` in your project directory. It validates the configurati
 
 ## `koru` or Go is not found
 
-If `go version` returns “command not found”, install Go 1.23 or later. You only need Go to build the koru executable. If `koru` is not found after `make install`, add `~/.local/bin` to your `PATH`.
+If `koru` is not found after installing it, add the install folder (`~/.local/bin` by default) to your `PATH`. If `go version` returns “command not found”, install Go 1.23 or later; you only need Go to build koru from source.
 
 ## `doctor` or `build` rejects the project
 

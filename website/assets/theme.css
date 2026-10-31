@@ -972,3 +972,12 @@ summary:focus-visible,
     margin-bottom: -15px;
   }
 }
+.version-link {
+  color: inherit;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+}
+.version-link:hover,
+.version-link:focus-visible {
+  text-decoration: underline;
+}

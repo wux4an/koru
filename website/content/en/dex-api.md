@@ -1,6 +1,6 @@
 # DEX 035 API
 
-This API is experimental (`0.2.0-dev`) and will stabilize before v1. Every error propagates explicitly; missing references are not silently resolved.
+This API is experimental and will stabilize before v1. Every error propagates explicitly; missing references are not silently resolved.
 
 ```go
 import "koru.dev/koru/pkg/dex"

@@ -579,3 +579,46 @@ describe("SEO lint on the production build", () => {
     expect(plain).not.toContain("site-verification");
   });
 });
+
+describe("installers and version", () => {
+  test("the build serves the installers untouched", async () => {
+    for (const name of ["install.sh", "install.ps1"]) {
+      const served = await readFile(resolve(root, output, name));
+      const source = await readFile(resolve(root, "..", "scripts", name));
+      expect(served.equals(source)).toBe(true);
+    }
+  });
+  test("koruVersion accepts var and const declarations", async () => {
+    const { koruVersion } = await import("../scripts/version");
+    expect(koruVersion()).toMatch(/^\d+\.\d+\.\d+/);
+  });
+  test("landing and docs mark the build version for the browser to refresh", async () => {
+    const { koruVersion } = await import("../scripts/version");
+    const version = `v${koruVersion()}`;
+    for (const path of [
+      "en/index.html",
+      "es/index.html",
+      "docs/en/index.html",
+    ]) {
+      const html = await readFile(resolve(root, output, path), "utf8");
+      expect(html).toContain(
+        `data-koru-version href="https://github.com/wux4an/koru/releases/tag/${version}">${version}</a>`,
+      );
+      expect(html).toMatch(/assets\/version\.js\?v=/);
+      expect(html).not.toContain("0.2.0-dev");
+    }
+  });
+  test("the quick start installs with the release installer", async () => {
+    for (const lang of locales) {
+      const html = await readFile(
+        resolve(root, output, lang, "index.html"),
+        "utf8",
+      );
+      expect(html).toContain("curl -fsSL https://koru.js.org/install.sh | sh");
+      expect(html).not.toContain("make install");
+    }
+    const llms = await readFile(resolve(root, output, "llms-full.txt"), "utf8");
+    expect(llms).toContain("irm https://koru.js.org/install.ps1 | iex");
+    expect(llms).not.toContain("0.2.0-dev` and");
+  });
+});

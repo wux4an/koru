@@ -1,6 +1,7 @@
 import { readFile, writeFile, mkdir, access } from "node:fs/promises";
 import { resolve } from "node:path";
 import { locales, pages, route, text, type Locale } from "./catalog";
+import { versionTag } from "./version";
 
 type Config = { url: string; base: string; production: boolean };
 
@@ -19,7 +20,7 @@ const copy = {
       "Android only. koru does not build iOS apps or Play Store AABs; it produces APKs for direct installation.",
       "Runtime: the WebView loads your files from an intercepted HTTPS origin and talks to Android through a MessagePort. There is no JavaScriptInterface.",
       "Templates: basic, vite, react, vue, svelte, vanilla-ts. Plugins you can enable in koru.json: device, app, storage, vibration, share, notifications.",
-      "Experimental (0.2.0-dev): recorded execution covers only Android 11 (API 30) on an x86_64 emulator. Framework templates, deep links and the run, devices and logs commands on real hardware are not validated on a device. Do not call an APK working until it has been installed and run on Android.",
+      `Experimental (${versionTag()}): recorded execution covers only Android 11 (API 30) on an x86_64 emulator. Framework templates, deep links and the run, devices and logs commands on real hardware are not validated on a device. Do not call an APK working until it has been installed and run on Android.`,
     ],
     when: "Read this when",
     other: "Documentación en español: ",
@@ -38,7 +39,7 @@ const copy = {
       "Solo Android. koru no genera apps iOS ni AAB para Play Store; produce APK para instalación directa.",
       "Runtime: el WebView carga tus archivos desde un origen HTTPS interceptado y se comunica con Android mediante MessagePort. No hay JavaScriptInterface.",
       "Plantillas: basic, vite, react, vue, svelte, vanilla-ts. Plugins que se activan en koru.json: device, app, storage, vibration, share, notifications.",
-      "Experimental (0.2.0-dev): la ejecución registrada solo cubre Android 11 (API 30) en un emulador x86_64. Las plantillas de frameworks, los deep links y los comandos run, devices y logs en hardware real no están validados en un dispositivo. No des un APK por funcional hasta instalarlo y ejecutarlo en Android.",
+      `Experimental (${versionTag()}): la ejecución registrada solo cubre Android 11 (API 30) en un emulador x86_64. Las plantillas de frameworks, los deep links y los comandos run, devices y logs en hardware real no están validados en un dispositivo. No des un APK por funcional hasta instalarlo y ejecutarlo en Android.`,
     ],
     when: "Lee esto si",
     other: "English documentation: ",

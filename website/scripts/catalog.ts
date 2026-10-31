@@ -1,3 +1,4 @@
+import { releaseURL, versionTag } from "./version";
 export const locales = ["en", "es"] as const;
 export type Locale = (typeof locales)[number];
 export const text = {
@@ -20,7 +21,9 @@ export const text = {
     copyError: "Press Ctrl+C to copy",
     groups: ["Get started", "Build your app", "Reference", "Inside koru"],
     footer: "Made for the web. Built for Android.",
-    note: "Experimental · 0.2.0-dev",
+    note: "Experimental",
+    version: versionTag(),
+    releaseURL: releaseURL(),
     home: "Home",
     socialAlt:
       "koru: your web app, on Android. HTML, CSS, JS to a signed Android APK.",
@@ -49,7 +52,9 @@ export const text = {
       "Por dentro de koru",
     ],
     footer: "Hecho para la web. Construido para Android.",
-    note: "Experimental · 0.2.0-dev",
+    note: "Experimental",
+    version: versionTag(),
+    releaseURL: releaseURL(),
     home: "Inicio",
     socialAlt:
       "koru: tu app web, en Android. De HTML, CSS y JS a un APK de Android firmado.",

@@ -14,6 +14,8 @@ on:
       - "examples/**"
       - "packages/javascript/core.*"
       - "cmd/koru/main.go"
+      - "scripts/install.sh"
+      - "scripts/install.ps1"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 

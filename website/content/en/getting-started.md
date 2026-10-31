@@ -1,8 +1,49 @@
 # Create your first app
 
-In about five minutes you will create an app from a template, preview it in your browser with live reload and open it on an Android phone or emulator. You need **Go 1.23 or later** to install koru. To run the app on Android you also need a phone with USB debugging, or an emulator.
+In about five minutes you will create an app from a template, preview it in your browser with live reload and open it on an Android phone or emulator. To run the app on Android you also need a phone with USB debugging, or an emulator.
 
 ## 1. Install koru
+
+On Linux and macOS, run the installer. It downloads the latest release, verifies its SHA-256 checksum and installs `koru` to `~/.local/bin`:
+
+```sh
+curl -fsSL https://koru.js.org/install.sh | sh
+koru version
+```
+
+On Windows, use PowerShell. It installs to `%LOCALAPPDATA%\Programs\koru`:
+
+```powershell
+irm https://koru.js.org/install.ps1 | iex
+koru version
+```
+
+Set `KORU_VERSION=v0.0.1` to pin a release, and `KORU_INSTALL_DIR` to choose another folder (the default is `$HOME/.local/bin`):
+
+```sh
+curl -fsSL https://koru.js.org/install.sh | KORU_VERSION=v0.0.1 KORU_INSTALL_DIR="$HOME/bin" sh
+```
+
+If `koru version` says “command not found”, add the install folder to your `PATH` (for example `export PATH="$HOME/.local/bin:$PATH"` in your shell profile).
+
+### Download manually
+
+Every [release](https://github.com/wux4an/koru/releases/latest) has one archive per platform: `koru_<version>_<os>_<arch>.tar.gz` for Linux and macOS, and `koru_<version>_windows_<arch>.zip` for Windows, with `amd64` and `arm64` builds. Each comes with a `.sha256` file, and `SHA256SUMS` lists them all. Verify the checksum before you extract:
+
+```sh
+sha256sum -c koru_0.0.1_linux_amd64.tar.gz.sha256
+tar -xzf koru_0.0.1_linux_amd64.tar.gz
+```
+
+On macOS, use `shasum -a 256 -c` instead of `sha256sum -c`. Releases are also signed with GitHub attestations, which prove the files were built from this repository:
+
+```sh
+gh attestation verify koru_0.0.1_linux_amd64.tar.gz --repo wux4an/koru
+```
+
+### Build from source
+
+You need **Go 1.23 or later**:
 
 ```sh
 git clone https://github.com/wux4an/koru.git
@@ -11,7 +52,7 @@ make install
 koru version
 ```
 
-`make install` builds a self-contained binary and copies it to `~/.local/bin`. If `koru version` says “command not found”, add that folder to your `PATH` (for example `export PATH="$HOME/.local/bin:$PATH"` in your shell profile). Without `make`, run `CGO_ENABLED=0 go build -trimpath -o ~/.local/bin/koru ./cmd/koru`.
+`make install` builds a self-contained binary and copies it to `~/.local/bin`. Without `make`, run `CGO_ENABLED=0 go build -trimpath -o ~/.local/bin/koru ./cmd/koru`.
 
 The binary is all you need from now on: it builds APKs without Go, Java, Gradle, the Android SDK or an Internet connection.
 

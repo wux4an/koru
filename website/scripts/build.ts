@@ -271,9 +271,10 @@ ${socialMeta({ config, lang, title: title + " · koru", description, url: canoni
     .join(
       "",
     )}</div></div><a class="source-link" href="${route(config.base, lang, "sources")}"><i class="ph-duotone ph-code-block" aria-hidden="true"></i><span>${t.source}</span></a></header>
-<div id="app"><aside class="sidebar" aria-label="${t.docs}"><div class="sidebar-nav">${sidebarHTML}</div></aside><main class="content"><article class="markdown-section" id="main" tabindex="-1">${content}<footer class="doc-footer">${t.footer}<span>${t.note}</span></footer></article></main></div>
+<div id="app"><aside class="sidebar" aria-label="${t.docs}"><div class="sidebar-nav">${sidebarHTML}</div></aside><main class="content"><article class="markdown-section" id="main" tabindex="-1">${content}<footer class="doc-footer">${t.footer}<span>${t.note} · <a class="version-link" data-koru-version href="${t.releaseURL}">${t.version}</a></span></footer></article></main></div>
 <noscript><style>.sidebar{padding-top:28px}.sidebar-toggle,.theme-control{display:none}@media(max-width:767px){.sidebar{position:static!important;width:auto;height:auto!important;transform:none!important}.content{margin-left:0}.sidebar-nav{display:none}.sidebar::before{content:'${lang === "en" ? "JavaScript is off. Document links and language switching still work." : "JavaScript está desactivado. Los enlaces y el cambio de idioma siguen funcionando."}';font-size:14px}.site-header{position:sticky}.content{padding-top:15px!important}}</style></noscript>
 <script src="${config.base}assets/site.js"></script>
+<script src="${config.base}assets/version.js"></script>
 <script src="${config.base}assets/vendor/docsify.min.js"></script>
 <script src="${config.base}assets/vendor/search.min.js"></script>
 <script src="${config.base}assets/vendor/copy.min.js"></script>
@@ -589,6 +590,15 @@ export async function build(
     resolve(repo, "internal/config/koru.schema.json"),
     resolve(dist, "schema/koru.schema.json"),
   );
+  // The installers are published untouched: users pipe these exact files to a shell.
+  for (const name of ["install.sh", "install.ps1"]) {
+    const source = resolve(repo, "scripts", name);
+    if (!(await Bun.file(source).exists()))
+      throw new Error(
+        `scripts/${name} is missing; the site must serve it at /${name}.`,
+      );
+    await cp(source, resolve(dist, name));
+  }
   await writeFile(
     resolve(dist, "README.md"),
     await readFile(resolve(dist, "docs/en/README.md")),
@@ -666,6 +676,7 @@ export async function build(
     "theme.css",
     "landing.css",
     "landing.js",
+    "version.js",
   ])
     versions[name] = createHash("sha256")
       .update(await readFile(resolve(assets, name)))
@@ -675,7 +686,7 @@ export async function build(
     if (!file.endsWith(".html") || file.includes("/original/")) continue;
     const html = await readFile(file, "utf8");
     const versioned = html.replace(
-      /(assets\/(site\.js|theme\.js|theme\.css|landing\.css|landing\.js))"/g,
+      /(assets\/(site\.js|theme\.js|theme\.css|landing\.css|landing\.js|version\.js))"/g,
       (_, path, name) => `${path}?v=${versions[name]}"`,
     );
     if (versioned !== html) await writeFile(file, versioned);

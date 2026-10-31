@@ -155,7 +155,12 @@
       footer.className = "doc-footer";
       footer.append(document.createTextNode(t.footer));
       const version = document.createElement("span");
-      version.textContent = t.note;
+      const link = document.createElement("a");
+      link.className = "version-link";
+      link.href = t.releaseURL;
+      link.textContent = t.version;
+      link.dataset.koruVersion = "";
+      version.append(document.createTextNode(`${t.note} · `), link);
       footer.append(version);
       main.append(footer);
     }

@@ -1,0 +1,127 @@
+name: Release
+
+# Push a tag like v0.0.1 to publish a release. The tag must match the version
+# in cmd/koru/main.go; see docs/releasing.md.
+on:
+  push:
+    tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to (re)build, such as v0.0.1
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.event.inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    uses: ./.github/workflows/ci.yml
+
+  build:
+    name: Build and publish
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the release
+      id-token: write # sign the provenance attestation
+      attestations: write
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.TAG }}
+          fetch-depth: 0
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+          cache: false # a release never reuses a build cache
+      - name: Build archives
+        run: scripts/release.sh "$TAG" release
+      - name: Copy the installers
+        run: cp scripts/install.sh scripts/install.ps1 release/
+      - name: Test the installer against the archives
+        run: scripts/test-install.sh release
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: |
+            release/*.tar.gz
+            release/*.zip
+            release/SHA256SUMS
+      - name: Release notes
+        run: |
+          version="${TAG#v}"
+          # The CHANGELOG section for this version, up to the next "## ".
+          awk -v v="$version" '
+            $0 ~ "^## \\[?" v "\\]?" { found = 1; next }
+            found && /^## / { exit }
+            found { print }
+          ' CHANGELOG.md > notes.md
+          [ -s notes.md ] || { echo "CHANGELOG.md has no section for $version"; exit 1; }
+          cat >> notes.md <<NOTES
+
+          ## Install
+
+          \`\`\`sh
+          curl -fsSL https://koru.js.org/install.sh | sh
+          \`\`\`
+
+          On Windows (PowerShell): \`irm https://koru.js.org/install.ps1 | iex\`
+
+          ## Verify a download
+
+          \`\`\`sh
+          sha256sum -c koru_${version}_linux_amd64.tar.gz.sha256
+          gh attestation verify koru_${version}_linux_amd64.tar.gz --repo ${GITHUB_REPOSITORY}
+          \`\`\`
+          NOTES
+          cat notes.md
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Only tags like v1.0.0-rc.1 are prereleases: /releases/latest, which
+          # the installers and the website read, skips prereleases.
+          prerelease=""
+          case "$TAG" in *-*) prerelease="--prerelease" ;; esac
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" release/* --clobber
+            gh release edit "$TAG" --notes-file notes.md
+          else
+            gh release create "$TAG" release/* --title "koru $TAG" --notes-file notes.md --verify-tag $prerelease
+          fi
+
+  install:
+    name: Install on ${{ matrix.os }}
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.TAG }}
+      - name: Install with install.sh
+        if: runner.os != 'Windows'
+        run: |
+          KORU_VERSION="$TAG" sh scripts/install.sh --dir "$RUNNER_TEMP/koru"
+          "$RUNNER_TEMP/koru/koru" version | grep -F "koru ${TAG#v}"
+      - name: Install with install.ps1
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $env:KORU_VERSION = $env:TAG
+          $env:KORU_INSTALL_DIR = Join-Path $env:RUNNER_TEMP 'koru'
+          ./scripts/install.ps1
+          $out = & (Join-Path $env:KORU_INSTALL_DIR 'koru.exe') version
+          if ($out -notmatch [regex]::Escape("koru $($env:TAG.Substring(1))")) { throw "unexpected version: $out" }

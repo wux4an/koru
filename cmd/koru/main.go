@@ -17,7 +17,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const version = "0.2.0-dev"
+// version and commit are set at release time with
+// -ldflags "-X main.version=0.0.1 -X main.commit=<sha>"; see scripts/release.sh.
+var (
+	version = "0.0.1"
+	commit  = ""
+)
+
 const maxInputSize = 64 << 20
 
 func main() {
@@ -71,7 +77,11 @@ func newVersionCommand() *cobra.Command {
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			out := cmd.OutOrStdout()
 			p := presentationFor(out)
-			_, err := fmt.Fprintf(out, "%s (%s/%s)\n", p.paint(fmt.Sprintf("koru %s", version), "iris"), runtime.GOOS, runtime.GOARCH)
+			build := runtime.GOOS + "/" + runtime.GOARCH
+			if commit != "" {
+				build = commit + ", " + build
+			}
+			_, err := fmt.Fprintf(out, "%s (%s)\n", p.paint(fmt.Sprintf("koru %s", version), "iris"), build)
 			return err
 		},
 	}

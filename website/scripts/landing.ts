@@ -1,6 +1,7 @@
 // The product landing page: one standalone HTML document per locale.
 import { route, type Locale } from "./catalog";
 import { llmsRoute } from "./llms";
+import { releaseURL, versionTag } from "./version";
 import { jsonLD, landingGraph, socialMeta, verificationMeta } from "./seo";
 
 const escape = (value: string) =>
@@ -133,9 +134,9 @@ document.querySelector("#share").onclick = () =>
       "koru is experimental. Execution is recorded on an Android 11 (API 30) x86_64 emulator; AAB output for Google Play and iOS are not available. Test on the devices you support.",
     statusLink: "Tested compatibility",
     ctaTitle: "Build your first app now",
-    ctaLead: "Install koru with Go 1.23+, then create a project.",
-    install: `git clone https://github.com/wux4an/koru.git
-cd koru && make install`,
+    ctaLead:
+      "Install koru with one command (Linux and macOS; Windows has a PowerShell installer), then create a project.",
+    install: `curl -fsSL https://koru.js.org/install.sh | sh`,
     footer: "Made for the web. Built for Android.",
     donate: "Support koru",
     language: "Español",
@@ -269,9 +270,9 @@ document.querySelector("#share").onclick = () =>
       "koru es experimental. La ejecución está registrada en un emulador Android 11 (API 30) x86_64; no genera AAB para Google Play ni apps iOS. Prueba en los dispositivos que quieras soportar.",
     statusLink: "Compatibilidad probada",
     ctaTitle: "Crea tu primera app ahora",
-    ctaLead: "Instala koru con Go 1.23 o posterior y crea un proyecto.",
-    install: `git clone https://github.com/wux4an/koru.git
-cd koru && make install`,
+    ctaLead:
+      "Instala koru con un solo comando (Linux y macOS; Windows tiene un instalador de PowerShell) y crea un proyecto.",
+    install: `curl -fsSL https://koru.js.org/install.sh | sh`,
     footer: "Hecho para la web. Construido para Android.",
     donate: "Apoya a koru",
     language: "English",
@@ -350,7 +351,7 @@ ${socialMeta({ config, lang, title: t.title, description: t.description, url: ca
 <main id="main" tabindex="-1">
 <section class="landing-hero">
 <div class="landing-hero-copy">
-<p class="eyebrow">${escape(t.eyebrow)}</p>
+<p class="eyebrow">${escape(t.eyebrow)} · <a class="version-link" data-koru-version href="${releaseURL()}">${versionTag()}</a></p>
 <h1>${escape(t.h1)}</h1>
 <p class="landing-lead">${escape(t.lead)}</p>
 <div class="landing-actions"><a class="button button-primary" href="${doc("getting-started")}">${escape(t.primary)} ${icon("arrow-right")}</a><a class="button" href="${doc("comparison")}">${escape(t.secondary)}</a></div>
@@ -403,5 +404,6 @@ koru create my-app</code></pre>
 </main>
 <footer class="landing-footer"><span>${escape(t.footer)}</span><nav aria-label="${t.footerNav}">${t.nav.map(([label, slug]) => `<a href="${doc(slug)}">${escape(label)}</a>`).join("")}<a href="${llmsRoute(base, lang)}">llms.txt</a><a href="https://ko-fi.com/R5R81YESSI" rel="noopener">${icon("coffee")} ${escape(t.donate)}</a></nav></footer>
 <script src="${base}assets/landing.js" defer></script>
+<script src="${base}assets/version.js" defer></script>
 </body></html>`;
 }
