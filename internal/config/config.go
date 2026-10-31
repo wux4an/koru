@@ -52,7 +52,22 @@ type Config struct {
 	// Server turns the app into a browser for remote pages, alone or mixed
 	// with the local web app. Without it the app only shows its own files.
 	Server *Server `json:"server,omitempty"`
+	// WebFeatures turns on web APIs that a WebView blocks until the app
+	// handles them: "files" (<input type=file>), "geolocation"
+	// (navigator.geolocation), "camera" and "microphone" (getUserMedia).
+	WebFeatures []string `json:"webFeatures,omitempty"`
 }
+
+// webFeaturePermissions lists the Android permissions each web feature needs.
+var webFeaturePermissions = map[string][]string{
+	"files":       nil,
+	"geolocation": {"android.permission.ACCESS_COARSE_LOCATION", "android.permission.ACCESS_FINE_LOCATION"},
+	"camera":      {"android.permission.CAMERA"},
+	"microphone":  {"android.permission.RECORD_AUDIO", "android.permission.MODIFY_AUDIO_SETTINGS"},
+}
+
+// HasWebFeature reports whether a web feature is turned on.
+func (c Config) HasWebFeature(name string) bool { return slices.Contains(c.WebFeatures, name) }
 
 // Server configures remote content. URL replaces the local index.html as the
 // start page. AllowNavigation lists the hosts that open inside the app; every
@@ -292,6 +307,14 @@ func (c Config) Validate() error {
 			return e
 		}
 	}
+	for i, f := range c.WebFeatures {
+		if _, ok := webFeaturePermissions[f]; !ok {
+			return fmt.Errorf("unknown webFeatures entry %q: use files, geolocation, camera or microphone", f)
+		}
+		if slices.Contains(c.WebFeatures[:i], f) {
+			return fmt.Errorf("duplicate webFeatures entry %q", f)
+		}
+	}
 	seen := map[string]bool{}
 	for _, p := range c.Permissions {
 		if !permissionPattern.MatchString(p) || seen[p] {
@@ -360,6 +383,11 @@ func (c Config) EffectivePermissions() []string {
 	}
 	if c.Server != nil {
 		add("android.permission.INTERNET")
+	}
+	for _, f := range c.WebFeatures {
+		for _, p := range webFeaturePermissions[f] {
+			add(p)
+		}
 	}
 	if c.HasPlugin("vibration") {
 		add("android.permission.VIBRATE")

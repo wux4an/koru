@@ -331,6 +331,20 @@ func Method(owner string, m model.Method) error {
 					_, err = use(2, integer, zero)
 				}
 			}
+		case "aget":
+			if _, err = use(1, ref, zero); err == nil {
+				if _, err = use(2, integer, zero); err == nil {
+					err = def(0, slot{kind: integer})
+				}
+			}
+		case "array-length":
+			if _, err = use(1, ref, zero); err == nil {
+				err = def(0, slot{kind: integer})
+			}
+		case "add-int/lit8":
+			if _, err = use(1, integer, zero); err == nil {
+				err = def(0, slot{kind: integer})
+			}
 		case "int-to-long":
 			var r int
 			if _, err = use(1, integer, zero); err == nil {

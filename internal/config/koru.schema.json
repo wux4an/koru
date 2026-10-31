@@ -186,6 +186,12 @@
         }
       }
     },
+    "webFeatures": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "enum": ["files", "geolocation", "camera", "microphone"] },
+      "description": "Web APIs the app lets pages use: files (<input type=file>), geolocation (navigator.geolocation), camera and microphone (getUserMedia). Adds the Android permissions each needs; geolocation, camera and microphone ask the user and only work on the app origin and server.bridge origins."
+    },
     "nativeLibraries": {
       "type": "object",
       "description": "Prebuilt JNI libraries per ABI, for example {\"arm64-v8a\": [\"libs/libfoo.so\"]}.",

@@ -157,6 +157,9 @@ func Runtime(c config.Config, assets []Asset, custom ...plugins.Descriptor) dex.
 	if c.Server != nil {
 		applyServer(c, &p)
 	}
+	if usesChrome(c) {
+		applyWebFeatures(c, &p)
+	}
 	for _, plugin := range custom {
 		p.Classes = append(p.Classes, plugin.Classes...)
 	}

@@ -35,6 +35,16 @@
           <button type="button" data-manual="toast">Long toast</button>
         </div>
         <p class="status" id="manual-status" role="status"></p>
+        <h3>Web features</h3>
+        <div class="row">
+          <label class="file">Pick files <input type="file" id="files" multiple /></label>
+          <button type="button" data-web="location">Get location</button>
+          <button type="button" data-web="camera">Camera photo</button>
+          <button type="button" data-web="microphone">Microphone</button>
+        </div>
+        <p class="status" id="web-status" role="status"></p>
+        <video id="preview" playsinline muted hidden></video>
+        <canvas id="photo" hidden></canvas>
         <h3>Navigation</h3>
         <ul class="links">
           <li><a href="https://koru.js.org/selftest/remote/">Remote page with the koru API</a> — opens in the app and runs its own checks</li>

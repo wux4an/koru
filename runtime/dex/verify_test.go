@@ -50,7 +50,16 @@ func runtimeVariants() map[string]config.Config {
 	hybrid.Server = &config.Server{AllowNavigation: []string{"example.com", "*.example.org"}}
 	bridged := all
 	bridged.Server = &config.Server{URL: "https://example.com/", AllowNavigation: []string{"*.example.org"}, Bridge: []string{"https://example.com", "https://app.example.org"}}
-	return map[string]config.Config{"default": config.Default(), "all plugins": all, "network": network, "no plugins": none,
+	files := all
+	files.WebFeatures = []string{"files"}
+	web := bridged
+	web.WebFeatures = []string{"files", "geolocation", "camera", "microphone"}
+	camera := config.Default()
+	camera.WebFeatures = []string{"camera"}
+	geo := config.Default()
+	geo.Plugins = []string{"notifications"}
+	geo.WebFeatures = []string{"geolocation", "microphone"}
+	return map[string]config.Config{"files": files, "all web features": web, "camera only": camera, "geolocation and notifications": geo, "default": config.Default(), "all plugins": all, "network": network, "no plugins": none,
 		"server url": remote, "hybrid": hybrid, "bridge": bridged}
 }
 

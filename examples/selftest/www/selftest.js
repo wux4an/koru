@@ -176,6 +176,17 @@ group("Navigation (server)", () => {
   });
 });
 
+group("Web features (webFeatures)", () => {
+  test("file input is available", () => assert(typeof HTMLInputElement !== "undefined" && "files" in document.createElement("input"), "no file input"));
+  test("navigator.geolocation exists", () => assert(navigator.geolocation, "no navigator.geolocation"));
+  test("getUserMedia exists", () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      if (!window.isSecureContext) skip("getUserMedia needs a secure context");
+      throw new Error("no navigator.mediaDevices.getUserMedia");
+    }
+  });
+});
+
 group("WebView", () => {
   test("secure context", () => {
     if (native) assert(window.isSecureContext, "the APK origin is not a secure context");
@@ -350,6 +361,54 @@ document.querySelectorAll("[data-manual]").forEach((button) =>
       out.textContent = `${button.textContent}: done.`;
     } catch (error) {
       out.textContent = `${button.textContent}: ${error.code ?? "ERROR"} ${error.message}`;
+    }
+  }),
+);
+
+const webStatus = (text) => ($("#web-status").textContent = text);
+$("#files").addEventListener("change", (event) => {
+  const files = [...event.target.files];
+  webStatus(files.length ? `Picked ${files.length}: ${files.map((f) => `${f.name} (${f.size} B)`).join(", ")}` : "No file picked.");
+});
+const web = {
+  location: () =>
+    new Promise((resolve, reject) =>
+      navigator.geolocation.getCurrentPosition(
+        (p) => resolve(`Location ${p.coords.latitude.toFixed(4)}, ${p.coords.longitude.toFixed(4)} (±${Math.round(p.coords.accuracy)} m)`),
+        (e) => reject(new Error(`${e.code}: ${e.message}`)),
+        { timeout: 20000 },
+      ),
+    ),
+  camera: async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    const video = $("#preview");
+    video.srcObject = stream;
+    video.hidden = false;
+    await video.play();
+    await new Promise((r) => setTimeout(r, 800));
+    const canvas = $("#photo");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext("2d").drawImage(video, 0, 0);
+    canvas.hidden = false;
+    stream.getTracks().forEach((t) => t.stop());
+    video.hidden = true;
+    return `Photo ${canvas.width}×${canvas.height}`;
+  },
+  microphone: async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const label = stream.getAudioTracks()[0]?.label || "audio track";
+    stream.getTracks().forEach((t) => t.stop());
+    return `Microphone works: ${label}`;
+  },
+};
+document.querySelectorAll("[data-web]").forEach((button) =>
+  button.addEventListener("click", async () => {
+    webStatus(`${button.textContent}…`);
+    try {
+      webStatus(await web[button.dataset.web]());
+    } catch (error) {
+      webStatus(`${button.textContent}: ${error.name ?? ""} ${error.message}`);
     }
   }),
 );

@@ -303,6 +303,21 @@ func Assemble(c model.Code, descriptor string, access uint32, r Resolver) (Resul
 				op = 0x4d
 			}
 			emit(op|rr[0]<<8, rr[1]|rr[2]<<8)
+		case "aget":
+			if !need(3, 255) {
+				return fail("array access requires three 8-bit registers")
+			}
+			emit(0x44|rr[0]<<8, rr[1]|rr[2]<<8)
+		case "array-length":
+			if !need(2, 15) {
+				return fail("array-length requires two 4-bit registers")
+			}
+			emit(0x21 | rr[0]<<8 | rr[1]<<12)
+		case "add-int/lit8":
+			if !need(2, 255) || i.Literal < -128 || i.Literal > 127 {
+				return fail("add-int/lit8 requires two 8-bit registers and a literal from -128 to 127")
+			}
+			emit(0xd8|rr[0]<<8, rr[1]|uint16(uint8(int8(i.Literal)))<<8)
 		case "int-to-long":
 			if !need(2, 15) || rr[0]+1 >= out.Registers {
 				return fail("invalid int-to-long registers")

@@ -28,5 +28,11 @@
     "bridge": [
       "https://koru.js.org"
     ]
-  }
+  },
+  "webFeatures": [
+    "files",
+    "geolocation",
+    "camera",
+    "microphone"
+  ]
 }
