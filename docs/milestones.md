@@ -99,3 +99,5 @@ construye y verifica un APK y comprueba la clase y el método en `classes.dex`.
 **No se ha ejecutado en Android** (sin dispositivo): ART, el toast visible y el hilo
 de ejecución (se asume el hilo de interfaz por `setWebMessageCallback` sin `Handler`)
 siguen sin comprobarse. En `koru dev` no hay versión web de los plugins propios.
+
+- Sitio de documentación: `llms.txt`, `es/llms.txt` y `llms-full.txt` generados en el build desde `website/scripts/catalog.ts`, con enlaces absolutos validados y `<link rel="alternate">` en landings y páginas (probado con `bun test` y `test:browser`; sin cambios en el compilador ni en Android).

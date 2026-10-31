@@ -1,5 +1,6 @@
 // The product landing page: one standalone HTML document per locale.
 import { route, type Locale } from "./catalog";
+import { llmsRoute } from "./llms";
 
 const escape = (value: string) =>
   value.replace(
@@ -327,6 +328,7 @@ export function landing(
 <title>${escape(t.title)}</title><meta name="description" content="${escape(t.description)}">
 <meta name="theme-color" content="#F7F9FD"><meta name="robots" content="${config.production ? "index,follow" : "noindex,follow"}">
 <link rel="canonical" href="${canonical}">
+<link rel="alternate" type="text/plain" href="${new URL(llmsRoute(base, lang), config.url).href}" title="llms.txt">
 <link rel="alternate" hreflang="en" href="${new URL(landingRoute(base, "en"), config.url).href}">
 <link rel="alternate" hreflang="es" href="${new URL(landingRoute(base, "es"), config.url).href}">
 <link rel="alternate" hreflang="x-default" href="${new URL(landingRoute(base, "en"), config.url).href}">
@@ -408,7 +410,7 @@ koru create my-app</code></pre>
 <div class="landing-actions"><a class="button button-primary" href="${doc("getting-started")}">${escape(t.primary)} ${icon("arrow-right")}</a></div>
 </section>
 </main>
-<footer class="landing-footer"><span>${escape(t.footer)}</span><nav aria-label="${t.footerNav}">${t.nav.map(([label, slug]) => `<a href="${doc(slug)}">${escape(label)}</a>`).join("")}<a href="https://ko-fi.com/R5R81YESSI" rel="noopener">${icon("coffee")} ${escape(t.donate)}</a></nav></footer>
+<footer class="landing-footer"><span>${escape(t.footer)}</span><nav aria-label="${t.footerNav}">${t.nav.map(([label, slug]) => `<a href="${doc(slug)}">${escape(label)}</a>`).join("")}<a href="${llmsRoute(base, lang)}">llms.txt</a><a href="https://ko-fi.com/R5R81YESSI" rel="noopener">${icon("coffee")} ${escape(t.donate)}</a></nav></footer>
 <script src="${base}assets/landing.js"></script>
 </body></html>`;
 }

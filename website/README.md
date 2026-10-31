@@ -27,6 +27,10 @@ Without `SITE_URL`, the build uses localhost and marks preview pages `noindex`. 
 
 The landing pages (`scripts/landing.ts`) live at `/en/` and `/es/`, the domain root redirects to one by browser language, and the documentation lives under `/docs/en/` and `/docs/es/` (old `/<lang>/<page>/` URLs redirect there); its copy lives in that file rather than in Markdown. Language switching in the documentation preserves the current document. The build also publishes `internal/config/koru.schema.json` at `/schema/koru.schema.json` for editors. Other languages can be added to `scripts/catalog.ts`, with matching content and UI translations. Missing content fails the build rather than silently using another language.
 
+## llms.txt
+
+The build generates `llms.txt` (English index), `es/llms.txt` and `llms-full.txt` (every English page concatenated as plain Markdown) from `scripts/catalog.ts` via `scripts/llms.ts`; none is written by hand. Links are absolute URLs to each page's `README.md`, and the build fails if one does not exist. Landing and documentation pages advertise it with `<link rel="alternate" type="text/plain" title="llms.txt">`, and the landing footer links to it.
+
 Text records in `original/` have noindex HTML viewers, with download links preserving their original bytes. Example HTML/SVG sources are stored as `.txt` downloads so they cannot execute as another app on the documentation origin. This works on GitHub Pages, which cannot set custom response headers. `robots.txt` excludes the raw archive; its records remain accessible to readers.
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for the Pages workflow and the live `koru.js.org` domain. Rebuild after changing the Pages custom domain so generated routes and canonical URLs use the new base path.

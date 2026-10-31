@@ -238,3 +238,78 @@ describe("deployment configuration and broken input", () => {
     ).toThrow("Unresolved documentation link");
   });
 });
+
+describe("llms.txt for language models", () => {
+  const read = (path: string) => readFile(resolve(root, output, path), "utf8");
+  const exists = async (url: string) => {
+    expect(url.startsWith(canonical)).toBe(true);
+    const path = url.slice(canonical.length);
+    await readFile(
+      resolve(root, output, path.endsWith("/") ? path + "index.html" : path),
+    );
+  };
+  test("follows the llmstxt.org shape with an H1 first line and a summary", async () => {
+    for (const file of ["llms.txt", "es/llms.txt"]) {
+      const body = await read(file);
+      expect(body.split("\n")[0]).toBe("# koru");
+      expect(body).toMatch(/^> .+/m);
+      expect(body).toContain("```sh\nkoru create");
+      expect(body).toContain("\n## Optional\n");
+      expect(body).toContain("## ");
+    }
+  });
+  test("every URL is absolute and points at a file in the build", async () => {
+    for (const file of ["llms.txt", "es/llms.txt", "llms-full.txt"]) {
+      const urls = [...(await read(file)).matchAll(/\]\(([^)\s]+)\)/g)].map(
+        (m) => m[1],
+      );
+      expect(urls.length).toBeGreaterThan(10);
+      for (const url of urls) {
+        if (file === "llms-full.txt") {
+          expect(url.startsWith("/handbook/")).toBe(false);
+          if (!url.startsWith(canonical)) continue;
+        } else expect(url).toMatch(/^https:\/\//);
+        if (url.startsWith(canonical)) await exists(url.split(/[?#]/)[0]);
+      }
+    }
+  });
+  test("both indexes list every catalog page except the archive", async () => {
+    for (const [file, lang] of [
+      ["llms.txt", "en"],
+      ["es/llms.txt", "es"],
+    ] as const) {
+      const body = await read(file);
+      for (const page of pages) {
+        const url = `${canonical}${route("/", lang, page.slug).slice(1)}README.md`;
+        expect(body.includes(`(${url})`)).toBe(page.slug !== "sources");
+      }
+    }
+  });
+  test("llms-full.txt carries the page text and Optional lists internals", async () => {
+    const full = await read("llms-full.txt");
+    const guide = await read("docs/en/getting-started/README.md");
+    expect(full).toContain("Install koru");
+    expect(full).toContain(
+      guide
+        .split("\n")
+        .find((l) => l.startsWith("## 1."))!
+        .replace(/^## /, "### "),
+    );
+    expect(full).not.toContain('<div class="hero">');
+    const optional = (await read("llms.txt")).split("\n## Optional\n")[1];
+    expect(optional).toContain("/docs/en/architecture-dex/README.md");
+    expect(optional).toContain("/docs/en/milestones/README.md");
+    expect(optional).not.toContain("/docs/en/cli/README.md");
+  });
+  test("pages and landings advertise llms.txt", async () => {
+    expect(await read("en/index.html")).toContain(
+      `rel="alternate" type="text/plain" href="${canonical}llms.txt" title="llms.txt"`,
+    );
+    expect(await read("es/index.html")).toContain(
+      `href="${canonical}es/llms.txt"`,
+    );
+    expect(await read("docs/es/cli/index.html")).toContain(
+      `href="${canonical}es/llms.txt"`,
+    );
+  });
+});

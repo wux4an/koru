@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { Marked } from "marked";
 import { locales, pages, route, text, type Locale } from "./catalog";
 import { landing, landingRoute } from "./landing";
+import { llmsRoute, writeLlms } from "./llms";
 
 export const root = resolve(import.meta.dir, "..");
 const repo = resolve(root, "..");
@@ -235,6 +236,7 @@ function template(
 <title>${escape(title)} · koru</title><meta name="description" content="${escape(description)}">
 <meta name="theme-color" content="#F7F9FD"><meta name="robots" content="${config.production ? "index,follow" : "noindex,follow"}">
 <link rel="canonical" href="${canonical}">${alternates}
+<link rel="alternate" type="text/plain" href="${new URL(llmsRoute(config.base, lang), config.url).href}" title="llms.txt">
 <link rel="alternate" hreflang="x-default" href="${new URL(route(config.base, "en", slug), config.url).href}">
 <meta property="og:type" content="article"><meta property="og:site_name" content="koru"><meta property="og:title" content="${escape(title)} · koru"><meta property="og:description" content="${escape(description)}"><meta property="og:url" content="${canonical}"><meta property="og:locale" content="${lang === "en" ? "en_US" : "es_ES"}">
 <meta name="twitter:card" content="summary"><meta name="twitter:title" content="${escape(title)} · koru"><meta name="twitter:description" content="${escape(description)}">
@@ -557,6 +559,7 @@ export async function build(
       ? `# Subpath hosts must merge these directives into the domain-root /robots.txt.\nUser-agent: *\nAllow: /\nDisallow: ${config.base}original/\nSitemap: ${new URL("sitemap.xml", config.url).href}\n`
       : "User-agent: *\nDisallow: /\n",
   );
+  await writeLlms(dist, config);
   await writeFile(
     resolve(dist, "site.json"),
     JSON.stringify(
