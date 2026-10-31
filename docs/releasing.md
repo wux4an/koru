@@ -46,8 +46,10 @@ Windows, así que no hay runners de esos sistemas.
    Los binarios de macOS y Windows y `install.ps1` no se ejecutan en CI: solo
    se compilan y se comprueba su sintaxis.
 
-Para rehacer una release existente: *Actions → Release → Run workflow* con el
-tag. Sustituye los archivos y las notas.
+También se puede publicar sin subir el tag: *Actions → Release → Run workflow*
+en `main` con el tag (`v0.0.1`). Si el tag no existe, el workflow lo crea en ese
+commit cuando han pasado todas las comprobaciones. Si ya existe, rehace la
+release con ese tag y sustituye los archivos y las notas.
 
 ## Builds reproducibles
 

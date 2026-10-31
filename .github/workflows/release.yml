@@ -1,14 +1,16 @@
 name: Release
 
-# Push a tag like v0.0.1 to publish a release. The tag must match the version
-# in cmd/koru/main.go; see docs/releasing.md.
+# Push a tag like v0.0.1 to publish a release, or run it by hand with a tag:
+# if the tag does not exist yet it is created on the chosen branch once the
+# checks pass. The tag must match the version in cmd/koru/main.go; see
+# docs/releasing.md.
 on:
   push:
     tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing tag to (re)build, such as v0.0.1
+        description: Tag to publish or rebuild, such as v0.0.1 (created on the chosen branch if missing)
         required: true
 
 permissions:
@@ -32,8 +34,18 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ env.TAG }}
           fetch-depth: 0
+      - name: Check out the tag, or prepare it
+        id: tag
+        run: |
+          [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]] || { echo "'$TAG' is not a tag like v0.0.1"; exit 1; }
+          if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
+            git checkout -q "$TAG"
+          else
+            [ "$GITHUB_EVENT_NAME" = workflow_dispatch ] || { echo "Tag $TAG not found"; exit 1; }
+            echo "Tag $TAG will be created on $GITHUB_REF_NAME ($GITHUB_SHA) after the checks pass"
+            echo "create=true" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version-file: go.mod
@@ -49,6 +61,12 @@ jobs:
         env:
           RELEASE_DIR: release
         run: scripts/ci.sh
+      - name: Create the tag
+        if: steps.tag.outputs.create == 'true'
+        run: |
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            tag -a "$TAG" -m "koru $TAG"
+          git push origin "refs/tags/$TAG"
       - name: Add the installers
         run: cp scripts/install.sh scripts/install.ps1 release/
       - name: Attest build provenance
