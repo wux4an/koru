@@ -33,6 +33,8 @@
   };
   document.addEventListener("DOMContentLoaded", () => {
     const control = document.querySelector(".theme-control");
+    // The domain root and 404 page follow the system theme without a menu.
+    if (!control) return;
     const button = control.querySelector("[data-theme-button]");
     const menu = control.querySelector("[data-theme-menu]");
     const items = [...menu.querySelectorAll("[data-theme-choice]")];

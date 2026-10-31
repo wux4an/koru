@@ -47,17 +47,47 @@
         link.setAttribute("aria-current", "true");
       else link.removeAttribute("aria-current");
     });
-    const structured = JSON.parse(
-      document.getElementById("structured-data").textContent,
-    );
-    Object.assign(structured, {
-      headline: page.titles[index],
-      description: page.descriptions[index],
-      inLanguage: lang,
-      url,
-    });
-    document.getElementById("structured-data").textContent =
-      JSON.stringify(structured);
+    const modified = page.modified?.[lang];
+    const image = new URL(`${site.base}assets/og-${lang}.png`, site.siteURL)
+      .href;
+    for (const [selector, value] of [
+      ['meta[property="og:image"]', image],
+      ['meta[name="twitter:image"]', image],
+      ['meta[property="og:image:alt"]', t.socialAlt],
+      ['meta[name="twitter:image:alt"]', t.socialAlt],
+      ['meta[property="article:modified_time"]', modified],
+    ]) {
+      const meta = document.querySelector(selector);
+      if (meta && value) meta.content = value;
+    }
+    const structuredNode = document.getElementById("structured-data");
+    const structured = JSON.parse(structuredNode.textContent);
+    for (const node of structured["@graph"]) {
+      if (node["@type"] === "TechArticle")
+        Object.assign(node, {
+          headline: page.titles[index],
+          description: page.descriptions[index],
+          inLanguage: lang,
+          url,
+          mainEntityOfPage: url,
+          image,
+          ...(modified ? { dateModified: modified } : {}),
+        });
+      if (node["@type"] === "BreadcrumbList") {
+        const crumbs = [
+          [t.home, new URL(`${site.base}${lang}/`, site.siteURL).href],
+          [t.docs, new URL(path(lang, "overview"), site.siteURL).href],
+          ...(slug === "overview" ? [] : [[page.titles[index], url]]),
+        ];
+        node.itemListElement = crumbs.map(([name, item], i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name,
+          item,
+        }));
+      }
+    }
+    structuredNode.textContent = JSON.stringify(structured);
     const main = document.getElementById("main");
     main.setAttribute("tabindex", "-1");
     if (!main.querySelector(".page-toc")) {

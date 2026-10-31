@@ -1,6 +1,7 @@
 // The product landing page: one standalone HTML document per locale.
 import { route, type Locale } from "./catalog";
 import { llmsRoute } from "./llms";
+import { jsonLD, landingGraph, socialMeta, verificationMeta } from "./seo";
 
 const escape = (value: string) =>
   value.replace(
@@ -17,7 +18,7 @@ const copy = {
   en: {
     title: "koru · Web apps on Android, built with one Go binary",
     description:
-      "Create, preview and ship Android apps with HTML, CSS and JavaScript. Templates, live reload, one-command install and a typed JavaScript API, without Java, Gradle or the Android SDK.",
+      "Build, preview and ship Android apps with HTML, CSS and JavaScript. Templates, live reload and a typed JS API, with no Java, Gradle or Android SDK.",
     skip: "Skip to content",
     nav: [
       ["Docs", "overview"],
@@ -148,7 +149,7 @@ cd koru && make install`,
   es: {
     title: "koru · Apps web en Android con un solo binario de Go",
     description:
-      "Crea, previsualiza y publica apps Android con HTML, CSS y JavaScript. Plantillas, recarga en vivo, instalación con un comando y una API JavaScript tipada, sin Java, Gradle ni el SDK de Android.",
+      "Crea, previsualiza y publica apps Android con HTML, CSS y JavaScript. Plantillas, recarga en vivo y API JS tipada, sin Java, Gradle ni SDK de Android.",
     skip: "Saltar al contenido",
     nav: [
       ["Documentación", "overview"],
@@ -310,18 +311,9 @@ export function landing(
   const doc = (slug: string) => route(base, lang, slug);
   const canonical = new URL(landingRoute(base, lang), config.url).href;
   const commands = t.terminal.map(([c]) => c).join("\n");
-  const structured = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: "koru",
-    applicationCategory: "DeveloperApplication",
-    operatingSystem: "Linux, macOS, Windows",
-    description: t.description,
-    inLanguage: lang,
-    url: canonical,
-    license: "https://opensource.org/licenses/MIT",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  }).replaceAll("<", "\\u003c");
+  const structured = jsonLD(
+    landingGraph({ config, lang, description: t.description, url: canonical }),
+  );
   return `<!doctype html>
 <html lang="${lang}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -331,9 +323,8 @@ export function landing(
 <link rel="alternate" type="text/plain" href="${new URL(llmsRoute(base, lang), config.url).href}" title="llms.txt">
 <link rel="alternate" hreflang="en" href="${new URL(landingRoute(base, "en"), config.url).href}">
 <link rel="alternate" hreflang="es" href="${new URL(landingRoute(base, "es"), config.url).href}">
-<link rel="alternate" hreflang="x-default" href="${new URL(landingRoute(base, "en"), config.url).href}">
-<meta property="og:type" content="website"><meta property="og:site_name" content="koru"><meta property="og:title" content="${escape(t.title)}"><meta property="og:description" content="${escape(t.description)}"><meta property="og:url" content="${canonical}"><meta property="og:locale" content="${lang === "en" ? "en_US" : "es_ES"}">
-<meta name="twitter:card" content="summary"><meta name="twitter:title" content="${escape(t.title)}"><meta name="twitter:description" content="${escape(t.description)}">
+<link rel="alternate" hreflang="x-default" href="${new URL(base, config.url).href}">
+${socialMeta({ config, lang, title: t.title, description: t.description, url: canonical, type: "website" })}${verificationMeta(process.env)}
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" as="font" type="font/woff2" href="${base}assets/fonts/nunito-latin-wght-normal.woff2" crossorigin>
 <script src="${base}assets/theme.js"></script>
@@ -411,6 +402,6 @@ koru create my-app</code></pre>
 </section>
 </main>
 <footer class="landing-footer"><span>${escape(t.footer)}</span><nav aria-label="${t.footerNav}">${t.nav.map(([label, slug]) => `<a href="${doc(slug)}">${escape(label)}</a>`).join("")}<a href="${llmsRoute(base, lang)}">llms.txt</a><a href="https://ko-fi.com/R5R81YESSI" rel="noopener">${icon("coffee")} ${escape(t.donate)}</a></nav></footer>
-<script src="${base}assets/landing.js"></script>
+<script src="${base}assets/landing.js" defer></script>
 </body></html>`;
 }

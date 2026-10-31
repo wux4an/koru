@@ -473,3 +473,14 @@ body.landing {
     display: none;
   }
 }
+
+/* Domain root and 404: a single column with the landing look. */
+.landing-root .landing-hero {
+  grid-template-columns: minmax(0, 46rem);
+}
+.landing-root .landing-lead {
+  margin-top: 0;
+}
+.landing-root .landing-actions {
+  margin-top: 12px;
+}

@@ -21,6 +21,9 @@ export const text = {
     groups: ["Get started", "Build your app", "Reference", "Inside koru"],
     footer: "Made for the web. Built for Android.",
     note: "Experimental · 0.2.0-dev",
+    home: "Home",
+    socialAlt:
+      "koru: your web app, on Android. HTML, CSS, JS to a signed Android APK.",
   },
   es: {
     docs: "Documentación",
@@ -47,6 +50,9 @@ export const text = {
     ],
     footer: "Hecho para la web. Construido para Android.",
     note: "Experimental · 0.2.0-dev",
+    home: "Inicio",
+    socialAlt:
+      "koru: tu app web, en Android. De HTML, CSS y JS a un APK de Android firmado.",
   },
 };
 export const pages = [

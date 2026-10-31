@@ -5,6 +5,17 @@ import { Marked } from "marked";
 import { locales, pages, route, text, type Locale } from "./catalog";
 import { landing, landingRoute } from "./landing";
 import { llmsRoute, writeLlms } from "./llms";
+import {
+  docsGraph,
+  indexNowKey,
+  jsonLD,
+  lastModified,
+  siteNodes,
+  sitemapXML,
+  socialMeta,
+  verificationMeta,
+  type SitemapEntry,
+} from "./seo";
 
 export const root = resolve(import.meta.dir, "..");
 const repo = resolve(root, "..");
@@ -193,6 +204,7 @@ function template(
   description: string,
   config: ReturnType<typeof siteConfig>,
   manifest: unknown,
+  modified?: string,
 ) {
   const t = text[lang];
   const canonical = new URL(route(config.base, lang, slug), config.url).href;
@@ -217,19 +229,19 @@ function template(
     pages: manifest,
     text,
   }).replaceAll("<", "\\u003c");
-  const structured = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    headline: title,
-    description,
-    inLanguage: lang,
-    url: canonical,
-    isPartOf: {
-      "@type": "WebSite",
-      name: "koru documentation",
-      url: config.url,
-    },
-  }).replaceAll("<", "\\u003c");
+  const structured = jsonLD(
+    docsGraph({
+      config,
+      lang,
+      slug,
+      title,
+      description,
+      url: canonical,
+      modified,
+      docsURL: new URL(route(config.base, lang, "overview"), config.url).href,
+      homeURL: new URL(landingRoute(config.base, lang), config.url).href,
+    }),
+  );
   return `<!doctype html>
 <html lang="${lang}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -238,8 +250,7 @@ function template(
 <link rel="canonical" href="${canonical}">${alternates}
 <link rel="alternate" type="text/plain" href="${new URL(llmsRoute(config.base, lang), config.url).href}" title="llms.txt">
 <link rel="alternate" hreflang="x-default" href="${new URL(route(config.base, "en", slug), config.url).href}">
-<meta property="og:type" content="article"><meta property="og:site_name" content="koru"><meta property="og:title" content="${escape(title)} · koru"><meta property="og:description" content="${escape(description)}"><meta property="og:url" content="${canonical}"><meta property="og:locale" content="${lang === "en" ? "en_US" : "es_ES"}">
-<meta name="twitter:card" content="summary"><meta name="twitter:title" content="${escape(title)} · koru"><meta name="twitter:description" content="${escape(description)}">
+${socialMeta({ config, lang, title: title + " · koru", description, url: canonical, type: "article", modified })}
 <link rel="icon" href="${config.base}assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" as="font" type="font/woff2" href="${config.base}assets/fonts/nunito-latin-wght-normal.woff2" crossorigin>
 <script src="${config.base}assets/theme.js"></script>
@@ -269,6 +280,88 @@ function template(
 <script src="${config.base}assets/vendor/prism-go.min.js"></script>
 <script src="${config.base}assets/vendor/prism-json.min.js"></script>
 <script src="${config.base}assets/vendor/prism-bash.min.js"></script>
+</body></html>`;
+}
+const viewport =
+  '<meta name="viewport" content="width=device-width, initial-scale=1">';
+// Earlier URLs: canonical to the new page plus a refresh and a script, both
+// followed by search engines. No noindex, so signals consolidate.
+function redirectPage(
+  lang: Locale,
+  target: string,
+  config: ReturnType<typeof siteConfig>,
+) {
+  return `<!doctype html><html lang="${lang}"><head><meta charset="utf-8">${viewport}<title>koru</title><link rel="canonical" href="${new URL(target, config.url).href}"><meta http-equiv="refresh" content="0;url=${target}"><script>location.replace(${JSON.stringify(target)})</script></head><body><a href="${target}">${target}</a></body></html>`;
+}
+const pageStyles = (base: string) =>
+  `<script src="${base}assets/theme.js"></script><link rel="stylesheet" href="${base}assets/vendor/phosphor/style.css"><link rel="stylesheet" href="${base}assets/theme.css"><link rel="stylesheet" href="${base}assets/landing.css">`;
+function simpleHeader(base: string) {
+  return `<header class="site-header landing-header"><a class="brand" href="${base}" aria-label="koru"><i class="ph-duotone ph-spiral" aria-hidden="true"></i><span>koru</span></a></header>`;
+}
+// The domain root: an indexable x-default page that offers both languages.
+// Only JavaScript forwards readers to their language; without it the links work.
+function rootPage(config: ReturnType<typeof siteConfig>) {
+  const base = config.base;
+  const title = "koru: Android apps with HTML, CSS and JS";
+  const description =
+    "koru turns HTML, CSS and JavaScript into signed Android APKs with one Go binary. Docs in English and Español.";
+  const rootURL = new URL(base, config.url).href;
+  const alternates = [
+    ...locales.map(
+      (lang) =>
+        `<link rel="alternate" hreflang="${lang}" href="${new URL(landingRoute(base, lang), config.url).href}">`,
+    ),
+    `<link rel="alternate" hreflang="x-default" href="${rootURL}">`,
+  ].join("\n");
+  const structured = jsonLD({
+    "@context": "https://schema.org",
+    "@graph": siteNodes(config),
+  });
+  const link = (href: string, label: string, lang: Locale) =>
+    `<a class="button" href="${href}" lang="${lang}" hreflang="${lang}">${label}</a>`;
+  return `<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">${viewport}
+<title>${escape(title)}</title><meta name="description" content="${escape(description)}">
+<meta name="theme-color" content="#F7F9FD"><meta name="robots" content="${config.production ? "index,follow" : "noindex,follow"}">
+<link rel="canonical" href="${rootURL}">
+${alternates}
+${socialMeta({ config, lang: "en", title, description, url: rootURL, type: "website" })}${verificationMeta(process.env)}
+<link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
+${pageStyles(base)}
+<script type="application/ld+json">${structured}</script>
+<script>(function(){var l=(navigator.language||"").toLowerCase().indexOf("es")===0?"es":"en";location.replace("${base}"+l+"/")})()</script>
+</head><body class="landing landing-root">
+${simpleHeader(base)}
+<main id="main" tabindex="-1"><section class="landing-hero">
+<div class="landing-hero-copy">
+<p class="eyebrow">Experimental · open source · MIT</p>
+<h1>koru: your web app, on Android</h1>
+<p class="landing-lead">Create, preview and ship Android apps with HTML, CSS and JavaScript. One Go binary: no Java, no Gradle, no Android SDK.</p>
+<p class="landing-lead" lang="es">Crea, previsualiza y publica apps Android con HTML, CSS y JavaScript. Un solo binario de Go: sin Java, sin Gradle, sin SDK de Android.</p>
+<div class="landing-actions">${link(landingRoute(base, "en"), "English", "en")}${link(landingRoute(base, "es"), "Español", "es")}</div>
+<div class="landing-actions">${link(route(base, "en", "overview"), "Documentation", "en")}${link(route(base, "es", "overview"), "Documentación", "es")}</div>
+</div></section></main>
+</body></html>`;
+}
+function notFoundPage(config: ReturnType<typeof siteConfig>) {
+  const base = config.base;
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8">${viewport}
+<title>Page not found · koru</title><meta name="robots" content="noindex">
+<meta name="theme-color" content="#F7F9FD">
+<link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
+${pageStyles(base)}
+</head><body class="landing landing-root">
+${simpleHeader(base)}
+<main id="main"><section class="landing-hero"><div class="landing-hero-copy">
+<h1>Page not found</h1>
+<p class="landing-lead">That page does not exist. Try the documentation or the home page.</p>
+<h2 lang="es" class="landing-lead">Página no encontrada</h2>
+<p class="landing-lead" lang="es">Esa página no existe. Prueba la documentación o la página de inicio.</p>
+<div class="landing-actions"><a class="button button-primary" href="${route(base, "en", "overview")}">English documentation</a><a class="button button-primary" href="${route(base, "es", "overview")}" lang="es">Documentación en español</a></div>
+<div class="landing-actions"><a class="button" href="${landingRoute(base, "en")}">English home</a><a class="button" href="${landingRoute(base, "es")}" lang="es">Inicio en español</a></div>
+</div></section></main>
 </body></html>`;
 }
 export async function build(
@@ -369,10 +462,33 @@ export async function build(
       resolve(root, "node_modules", pkg, file),
       resolve(assets, "licenses", pkg.replaceAll("/", "-") + ".txt"),
     );
+  // Last commit date per page and language, from the files that produce it.
+  const modified: Record<string, Record<string, string | undefined>> = {};
+  const sources: Record<string, Record<string, string[]>> = {};
+  for (const page of pages) {
+    modified[page.slug] = {};
+    sources[page.slug] = {};
+    for (const lang of locales) {
+      const local = `website/content/${lang}/${page.slug}.md`;
+      const files = [
+        ...((await Bun.file(resolve(repo, local)).exists()) ? [local] : []),
+        ...("source" in page && page.source ? [page.source] : []),
+      ];
+      // The archive index is generated from the build itself.
+      if (!files.length || page.slug === "sources")
+        files.push("website/scripts/build.ts");
+      sources[page.slug][lang] = files;
+      modified[page.slug][lang] = lastModified(files);
+    }
+  }
   const manifest = Object.fromEntries(
     pages.map((page) => [
       page.slug,
-      { titles: page.titles, descriptions: page.descriptions },
+      {
+        titles: page.titles,
+        descriptions: page.descriptions,
+        modified: modified[page.slug],
+      },
     ]),
   );
   for (const lang of locales) {
@@ -476,6 +592,7 @@ export async function build(
           page.descriptions[index],
           config,
           manifest,
+          modified[page.slug][lang],
         ),
       );
     }
@@ -486,24 +603,19 @@ export async function build(
     // Earlier releases served the docs at /<lang>/<slug>/; keep those links working.
     for (const page of pages) {
       if (page.slug === "overview") continue;
-      const target = route(config.base, lang, page.slug);
       await mkdir(resolve(dist, lang, page.slug), { recursive: true });
       await writeFile(
         resolve(dist, lang, page.slug, "index.html"),
-        `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="robots" content="noindex"><link rel="canonical" href="${new URL(target, config.url).href}"><meta http-equiv="refresh" content="0;url=${target}"><title>koru</title></head><body><a href="${target}">${target}</a></body></html>`,
+        redirectPage(lang, route(config.base, lang, page.slug), config),
       );
     }
   }
   await mkdir(resolve(dist, "es/inicio"), { recursive: true });
   await writeFile(
     resolve(dist, "es/inicio/index.html"),
-    `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=${config.base}es/"><title>koru</title></head><body><a href="${config.base}es/">koru</a></body></html>`,
+    redirectPage("es", landingRoute(config.base, "es"), config),
   );
-  // The domain root sends readers to their language's landing page.
-  await writeFile(
-    resolve(dist, "index.html"),
-    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>koru</title><link rel="canonical" href="${new URL(landingRoute(config.base, "en"), config.url).href}"><script>location.replace((navigator.language || "").toLowerCase().startsWith("es") ? "${config.base}es/" : "${config.base}en/")</script><meta http-equiv="refresh" content="1;url=${config.base}en/"></head><body><p><a href="${config.base}en/">English</a> · <a href="${config.base}es/">Español</a></p></body></html>`,
-  );
+  await writeFile(resolve(dist, "index.html"), rootPage(config));
   await mkdir(resolve(dist, "schema"), { recursive: true });
   await cp(
     resolve(repo, "internal/config/koru.schema.json"),
@@ -514,13 +626,7 @@ export async function build(
     await readFile(resolve(dist, "docs/en/README.md")),
   );
   await writeFile(resolve(dist, "_sidebar.md"), sidebar(config.base, "en"));
-  const notFound =
-    '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>Page not found · koru</title></head><body><h1>Page not found / Página no encontrada</h1><p><a href="' +
-    route(config.base, "en", "overview") +
-    '">English documentation</a> · <a href="' +
-    route(config.base, "es", "overview") +
-    '">Documentación en español</a></p></body></html>';
-  await writeFile(resolve(dist, "404.html"), notFound);
+  await writeFile(resolve(dist, "404.html"), notFoundPage(config));
   await writeFile(
     resolve(dist, "docs/_404.md"),
     "# Page not found / Página no encontrada\n\n[English](" +
@@ -537,28 +643,50 @@ export async function build(
       route(config.base, "es", "overview") +
       ")",
   );
-  const sitemap = [
-    ...locales.map(
-      (lang) =>
-        `<url><loc>${escape(new URL(landingRoute(config.base, lang), config.url).href)}</loc></url>`,
-    ),
+  const rootURL = new URL(config.base, config.url).href;
+  const landingURL = (lang: Locale) =>
+    new URL(landingRoute(config.base, lang), config.url).href;
+  const docURL = (lang: Locale, slug: string) =>
+    new URL(route(config.base, lang, slug), config.url).href;
+  const landingAlternates = (): [string, string][] => [
+    ...locales.map((lang) => [lang, landingURL(lang)] as [string, string]),
+    ["x-default", rootURL],
+  ];
+  const landingModified = lastModified(["website/scripts/landing.ts"]);
+  const entries: SitemapEntry[] = [
+    {
+      loc: rootURL,
+      lastmod: lastModified(["website/scripts/build.ts"]),
+      alternates: landingAlternates(),
+    },
+    ...locales.map((lang) => ({
+      loc: landingURL(lang),
+      lastmod: landingModified,
+      alternates: landingAlternates(),
+    })),
     ...locales.flatMap((lang) =>
-      pages.map(
-        (page) =>
-          `<url><loc>${escape(new URL(route(config.base, lang, page.slug), config.url).href)}</loc></url>`,
-      ),
+      pages.map((page) => ({
+        loc: docURL(lang, page.slug),
+        lastmod: modified[page.slug][lang],
+        alternates: [
+          ...locales.map(
+            (other) => [other, docURL(other, page.slug)] as [string, string],
+          ),
+          ["x-default", docURL("en", page.slug)] as [string, string],
+        ],
+      })),
     ),
-  ].join("\n");
-  await writeFile(
-    resolve(dist, "sitemap.xml"),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemap}\n</urlset>\n`,
-  );
+  ];
+  await writeFile(resolve(dist, "sitemap.xml"), sitemapXML(entries));
+  // Original records are crawlable so their noindex viewers can be read.
   await writeFile(
     resolve(dist, "robots.txt"),
     config.production
-      ? `# Subpath hosts must merge these directives into the domain-root /robots.txt.\nUser-agent: *\nAllow: /\nDisallow: ${config.base}original/\nSitemap: ${new URL("sitemap.xml", config.url).href}\n`
+      ? `# Subpath hosts must merge these directives into the domain-root /robots.txt.\nUser-agent: *\nAllow: /\nSitemap: ${new URL("sitemap.xml", config.url).href}\n`
       : "User-agent: *\nDisallow: /\n",
   );
+  const indexNow = indexNowKey(process.env);
+  if (indexNow) await writeFile(resolve(dist, indexNow + ".txt"), indexNow);
   await writeLlms(dist, config);
   await writeFile(
     resolve(dist, "site.json"),

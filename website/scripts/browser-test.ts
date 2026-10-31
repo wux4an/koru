@@ -168,7 +168,15 @@ try {
       const jsonld = JSON.parse(
         (await page.locator("#structured-data").textContent()) || "{}",
       );
-      assert.equal(jsonld.headline, "Configuration");
+      const graph = jsonld["@graph"];
+      const article = graph.find(
+        (node: { "@type": string }) => node["@type"] === "TechArticle",
+      );
+      assert.equal(article.headline, "Configuration");
+      const crumbs = graph.find(
+        (node: { "@type": string }) => node["@type"] === "BreadcrumbList",
+      );
+      assert.equal(crumbs.itemListElement.at(-1).name, "Configuration");
       await page.goBack();
       await page.waitForURL("**/en/plugins/");
       await page.waitForFunction(
@@ -921,6 +929,41 @@ try {
           path,
         );
       }
+    },
+  );
+  await check(
+    "domain root lists both languages without JavaScript, forwards by language with it, and the 404 page is accessible",
+    async () => {
+      const plain = await browser.newContext({ javaScriptEnabled: false });
+      const reader = await plain.newPage();
+      await reader.goto(origin + "/");
+      assert.equal(await reader.locator("h1").count(), 1);
+      for (const href of ["/en/", "/es/", "/docs/en/", "/docs/es/"])
+        assert(
+          await reader.locator(`main a[href="${href}"]`).isVisible(),
+          `Root lacks a visible link to ${href}`,
+        );
+      await plain.close();
+      for (const [locale, lang] of [
+        ["es-ES", "es"],
+        ["en-US", "en"],
+      ] as const) {
+        const context = await browser.newContext({ locale });
+        const visitor = await context.newPage();
+        await visitor.goto(origin + "/");
+        await visitor.waitForURL(`**/${lang}/`);
+        await context.close();
+      }
+      await page.goto(origin + "/no-such-page/");
+      assert.equal(await page.locator("h1").count(), 1);
+      const result = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+        .analyze();
+      assert.equal(
+        result.violations.length,
+        0,
+        JSON.stringify(result.violations.map((v) => v.id)),
+      );
     },
   );
   assert.deepEqual(report.errors, [], "Browser errors");
