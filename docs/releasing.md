@@ -24,8 +24,13 @@ Las versiones se publican desde GitHub Actions al subir un tag `vX.Y.Z`
 
 ## Qué hace el workflow
 
-1. Ejecuta el CI completo (`ci.yml`): gofmt, vet, tests con `-race`, build en
-   Linux, macOS y Windows, módulo JS, shellcheck y prueba del instalador.
+Todo corre en una sola máquina Linux: Go compila de forma cruzada macOS y
+Windows, así que no hay runners de esos sistemas.
+
+1. Ejecuta `scripts/ci.sh`, lo mismo que `ci.yml` y que puedes lanzar en local:
+   gofmt, `go vet` para linux, darwin y windows, compilación de los tests para
+   darwin y windows, tests con `-race`, módulo JS, shellcheck, sintaxis de
+   `install.ps1` (si hay `pwsh`), un APK de prueba y el test del instalador.
 2. `scripts/release.sh` compila con `CGO_ENABLED=0 -trimpath` para
    linux, darwin y windows en amd64 y arm64, e inyecta versión y commit con
    `-ldflags`. Falla si el tag no coincide con `cmd/koru/main.go`.
@@ -37,8 +42,9 @@ Las versiones se publican desde GitHub Actions al subir un tag `vX.Y.Z`
 5. Crea la release con las notas de la sección de `CHANGELOG.md` (falla si no
    existe). Los tags con sufijo (`v1.0.0-rc.1`) salen como prerelease; el resto
    como última versión, que es la que leen los instaladores y la web.
-6. Instala la versión publicada con `install.sh` en Linux x86_64 y arm64 y en
-   macOS, y con `install.ps1` en Windows, y comprueba `koru version`.
+6. Instala la versión publicada con `install.sh` y comprueba `koru version`.
+   Los binarios de macOS y Windows y `install.ps1` no se ejecutan en CI: solo
+   se compilan y se comprueba su sintaxis.
 
 Para rehacer una release existente: *Actions → Release → Run workflow* con el
 tag. Sustituye los archivos y las notas.

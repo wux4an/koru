@@ -19,12 +19,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  test:
-    uses: ./.github/workflows/ci.yml
-
-  build:
-    name: Build and publish
-    needs: test
+  release:
+    # One Linux machine builds every platform: Go cross-compiles them.
+    name: Test, build and publish
     runs-on: ubuntu-latest
     permissions:
       contents: write # create the release
@@ -41,12 +38,19 @@ jobs:
         with:
           go-version-file: go.mod
           cache: false # a release never reuses a build cache
-      - name: Build archives
-        run: scripts/release.sh "$TAG" release
-      - name: Copy the installers
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+      - name: Tag matches cmd/koru/main.go
+        run: |
+          version=$(sed -n 's/^\tversion = "\(.*\)"$/\1/p' cmd/koru/main.go)
+          [ "$TAG" = "v$version" ] || { echo "Tag $TAG but cmd/koru/main.go declares $version"; exit 1; }
+      - name: Tests, archives and installer test
+        env:
+          RELEASE_DIR: release
+        run: scripts/ci.sh
+      - name: Add the installers
         run: cp scripts/install.sh scripts/install.ps1 release/
-      - name: Test the installer against the archives
-        run: scripts/test-install.sh release
       - name: Attest build provenance
         uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
         with:
@@ -97,31 +101,7 @@ jobs:
             gh release create "$TAG" release/* --title "koru $TAG" --notes-file notes.md --verify-tag $prerelease
           fi
 
-  install:
-    name: Install on ${{ matrix.os }}
-    needs: build
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    env:
-      TAG: ${{ github.event.inputs.tag || github.ref_name }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          ref: ${{ env.TAG }}
-      - name: Install with install.sh
-        if: runner.os != 'Windows'
+      - name: Install the published release
         run: |
           KORU_VERSION="$TAG" sh scripts/install.sh --dir "$RUNNER_TEMP/koru"
           "$RUNNER_TEMP/koru/koru" version | grep -F "koru ${TAG#v}"
-      - name: Install with install.ps1
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          $env:KORU_VERSION = $env:TAG
-          $env:KORU_INSTALL_DIR = Join-Path $env:RUNNER_TEMP 'koru'
-          ./scripts/install.ps1
-          $out = & (Join-Path $env:KORU_INSTALL_DIR 'koru.exe') version
-          if ($out -notmatch [regex]::Escape("koru $($env:TAG.Substring(1))")) { throw "unexpected version: $out" }

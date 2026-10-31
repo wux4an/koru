@@ -106,7 +106,7 @@ siguen sin comprobarse. En `koru dev` no hay versión web de los plugins propios
 ## Releases — v0.0.1 (octubre de 2026)
 
 - `scripts/release.sh` compila builds reproducibles (`CGO_ENABLED=0`, `-trimpath`, versión y commit por `-ldflags`) para linux, darwin y windows en amd64 y arm64, con `.sha256` por archivo y `SHA256SUMS`. Comprobado en local: dos builds del mismo commit dan el mismo binario.
-- `.github/workflows/release.yml` (tag `vX.Y.Z`): CI completo, archivos, attestations de procedencia, notas desde `CHANGELOG.md` e instalación de prueba en Linux x86_64/arm64, macOS y Windows. `ci.yml` corre en `main` y PR.
-- Instaladores `scripts/install.sh` (POSIX, verifica SHA-256; probado con `scripts/test-install.sh` y `dash`) e `install.ps1` (solo probado en el workflow de Windows), servidos en `koru.js.org/install.sh` y `/install.ps1`.
+- `.github/workflows/release.yml` (tag `vX.Y.Z`): CI completo, archivos, attestations de procedencia, notas desde `CHANGELOG.md` e instalación de prueba de la release publicada, todo en una sola máquina Linux con compilación cruzada (`scripts/ci.sh`, también para `ci.yml` en `main` y PR).
+- Instaladores `scripts/install.sh` (POSIX, verifica SHA-256; probado con `scripts/test-install.sh` y `dash`) e `install.ps1` (sin ejecutar: solo se comprueba su sintaxis con `pwsh`), servidos en `koru.js.org/install.sh` y `/install.ps1`.
 - La web muestra la versión de `main.go` y la actualiza en el navegador con la última release de la API de GitHub (caché de 1 h).
 - Proceso documentado en `docs/releasing.md`. Sin cambios en el compilador ni en el runtime Android.
