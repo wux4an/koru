@@ -1,18 +1,18 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Build signed Android apps from HTML, CSS and JavaScript, without Java or Gradle",
   "homepage": "https://koru.js.org",
   "license": "MIT",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/wux4an/koru/releases/download/v0.0.1/koru_0.0.1_windows_amd64.zip",
-      "hash": "4096fde15f1b36bc3cf36fa384da5572dd604776704f65ffd50be629b192c59b",
-      "extract_dir": "koru_0.0.1_windows_amd64"
+      "url": "https://github.com/wux4an/koru/releases/download/v0.0.2/koru_0.0.2_windows_amd64.zip",
+      "hash": "4384f36e0e1194856b9dd966d0f4699dff6b4b0c36ccbc18fb562117cbae73b5",
+      "extract_dir": "koru_0.0.2_windows_amd64"
     },
     "arm64": {
-      "url": "https://github.com/wux4an/koru/releases/download/v0.0.1/koru_0.0.1_windows_arm64.zip",
-      "hash": "5609c879645e50c77734930ff12cac9bc70c9354fb3b3ae3e337048cb341e479",
-      "extract_dir": "koru_0.0.1_windows_arm64"
+      "url": "https://github.com/wux4an/koru/releases/download/v0.0.2/koru_0.0.2_windows_arm64.zip",
+      "hash": "8586882380d9258fdad81b5f8b875e22ee4f4bdd945c90cf5354c0c233e88845",
+      "extract_dir": "koru_0.0.2_windows_arm64"
     }
   },
   "bin": "koru.exe",
