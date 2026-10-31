@@ -69,6 +69,14 @@ koru="$work/koru_${version}_linux_$("$GO" env GOARCH)/koru"
 (cd "$work" && "$koru" create smoke-app --template basic --name Smoke --app-id com.example.smoke </dev/null >/dev/null &&
   "$koru" build smoke-app --output smoke.apk && "$koru" verify smoke.apk)
 
+step "Self-test app (examples/selftest) builds and verifies"
+cp -R examples/selftest examples/toast "$work/"
+rm -rf "$work/selftest/.koru"
+mkdir -p "$work/selftest/.koru"
+"$koru" keygen --output "$work/selftest/.koru/signing.pem" >/dev/null
+(cd "$work/selftest" && "$koru" build --output selftest.apk >/dev/null && "$koru" verify selftest.apk >/dev/null)
+echo "ok - selftest.apk"
+
 step "Homebrew formula and Scoop manifest"
 pm="$work/pm"
 mkdir -p "$pm/scripts"

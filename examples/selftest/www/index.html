@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <title>koru self-test</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="badge" id="platform">Starting…</p>
+        <h1>koru self-test</h1>
+        <p class="lead">Every automatic check of the bridge, the plugins and the WebView runs when the app opens.</p>
+        <div class="summary" id="summary" role="status" aria-live="polite">Running…</div>
+        <div class="row">
+          <button id="rerun" type="button" disabled>Run again</button>
+          <button id="copy" type="button" disabled>Copy report</button>
+        </div>
+      </header>
+
+      <section aria-labelledby="results-title">
+        <h2 id="results-title">Automatic checks</h2>
+        <div id="results"></div>
+      </section>
+
+      <section class="card" aria-labelledby="manual-title">
+        <h2 id="manual-title">Interactive checks</h2>
+        <p>These need you: they open system UI, ask for a permission or are felt rather than measured.</p>
+        <div class="row">
+          <button type="button" data-manual="share">Share text</button>
+          <button type="button" data-manual="notify">Show a notification</button>
+          <button type="button" data-manual="vibrate">Vibrate 400 ms</button>
+          <button type="button" data-manual="toast">Long toast</button>
+        </div>
+        <p class="status" id="manual-status" role="status"></p>
+      </section>
+    </main>
+    <script type="module" src="/selftest.js"></script>
+  </body>
+</html>

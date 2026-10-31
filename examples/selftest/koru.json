@@ -1,0 +1,14 @@
+{
+  "$schema": "https://koru.js.org/schema/koru.schema.json",
+  "appId": "dev.koru.selftest",
+  "name": "koru self-test",
+  "version": "1.0.0",
+  "versionCode": 1,
+  "webDir": "www",
+  "minSdk": 26,
+  "targetSdk": 36,
+  "permissions": [],
+  "plugins": ["device", "storage", "app", "vibration", "share", "notifications", "toast"],
+  "pluginManifests": ["../toast/plugin.json"],
+  "signingKey": ".koru/signing.pem"
+}

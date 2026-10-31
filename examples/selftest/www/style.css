@@ -1,0 +1,146 @@
+:root {
+  --bg: #f7f7fb;
+  --fg: #16161d;
+  --muted: #5b5b6b;
+  --card: #ffffff;
+  --line: #e2e2ea;
+  --pass: #137a3a;
+  --fail: #b3261e;
+  --skip: #8a6d00;
+  --accent: #5b4ce6;
+  font: 16px/1.5 system-ui, sans-serif;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111117;
+    --fg: #ececf3;
+    --muted: #a6a6b8;
+    --card: #1b1b24;
+    --line: #2c2c3a;
+    --pass: #5fd38a;
+    --fail: #ff8a80;
+    --skip: #e6c34d;
+    --accent: #a69cff;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+}
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+}
+h1 {
+  margin: 4px 0;
+  font-size: 1.6rem;
+}
+h2 {
+  font-size: 1.05rem;
+  margin: 24px 0 8px;
+}
+.lead,
+.status,
+.card p {
+  color: var(--muted);
+}
+.badge {
+  display: inline-block;
+  margin: 0;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-size: 0.85rem;
+}
+.summary {
+  margin: 12px 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-weight: 600;
+}
+.summary.pass {
+  border-color: var(--pass);
+  color: var(--pass);
+}
+.summary.fail {
+  border-color: var(--fail);
+  color: var(--fail);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+button {
+  font: inherit;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+}
+button:disabled {
+  opacity: 0.5;
+}
+.group {
+  margin: 0 0 12px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.group h3 {
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  border-bottom: 1px solid var(--line);
+}
+.test {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr auto;
+  gap: 8px;
+  padding: 8px 14px;
+  border-top: 1px solid var(--line);
+  font-size: 0.92rem;
+}
+.test:first-of-type {
+  border-top: 0;
+}
+.verdict {
+  font-weight: 700;
+}
+.test.pass .verdict {
+  color: var(--pass);
+}
+.test.fail .verdict {
+  color: var(--fail);
+}
+.test.skip .verdict {
+  color: var(--skip);
+}
+.detail {
+  grid-column: 2 / 4;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+  font-size: 0.85rem;
+}
+.time {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.card {
+  padding: 4px 14px 14px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  margin-top: 24px;
+}

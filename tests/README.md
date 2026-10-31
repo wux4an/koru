@@ -74,6 +74,16 @@ controla aplicaciones ajenas ni envía el contenido del chooser a un destinatari
 Resultados y matriz comprobada: docs/results/full/README.md. La ejecución en API
 30 no prueba el diálogo de permisos de notificaciones introducido en API 33.
 
+## App de autodiagnóstico
+
+`examples/selftest` es una app koru que, al abrirse, ejecuta 37 comprobaciones
+automáticas del puente, de cada plugin integrado, del plugin propio `toast` y
+del WebView, y deja botones para lo interactivo (compartir, permiso de
+notificaciones). Instrucciones en `examples/selftest/README.md`. En Android se
+lee el resultado con `koru logs | grep KORU_SELFTEST` o evaluando
+`window.__KORU_SELFTEST__` por CDP. `scripts/ci.sh` comprueba que el APK se
+construye y pasa `koru verify`; no se ha ejecutado aún en un dispositivo.
+
 ## Formato antes de commit
 
 ```sh
