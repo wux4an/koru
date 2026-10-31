@@ -7,6 +7,7 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"math/big"
+	"os"
 	"testing"
 	"time"
 )
@@ -111,5 +112,25 @@ func TestMultiChunkDigest(t *testing.T) {
 	s[1<<20] ^= 1
 	if _, e = VerifyV2(s); e == nil {
 		t.Fatal("multi-chunk content tampering")
+	}
+}
+
+func TestIdentityPermissionCheckPerPlatform(t *testing.T) {
+	for _, tc := range []struct {
+		mode os.FileMode
+		goos string
+		open bool
+	}{
+		{0600, "linux", false},
+		{0644, "linux", true},
+		{0640, "darwin", true},
+		{0400, "darwin", false},
+		// Windows reports 0666 (or 0444 when read-only) whatever the ACLs say.
+		{0666, "windows", false},
+		{0444, "windows", false},
+	} {
+		if got := tooOpen(tc.mode, tc.goos); got != tc.open {
+			t.Errorf("tooOpen(%v, %s) = %v, want %v", tc.mode, tc.goos, got, tc.open)
+		}
 	}
 }

@@ -9,6 +9,7 @@ import (
 	"errors"
 	"math/big"
 	"os"
+	"runtime"
 	"time"
 )
 
@@ -58,14 +59,25 @@ func CreateIdentity(path string) (Identity, error) {
 	ok = true
 	return Identity{key, cert}, nil
 }
+
+// tooOpen reports whether group or others can access the key. Windows has no
+// Unix permission bits (Go reports 0666, or 0444 when read-only); access there
+// is governed by ACLs, which keep files in the user's profile private.
+func tooOpen(mode os.FileMode, goos string) bool {
+	return goos != "windows" && mode.Perm()&0077 != 0
+}
+
 func LoadIdentity(path string) (Identity, error) {
 	var id Identity
 	info, e := os.Lstat(path)
 	if e != nil {
 		return id, e
 	}
-	if !info.Mode().IsRegular() || info.Mode().Perm()&0077 != 0 {
-		return id, errors.New("signing identity must be a regular file with mode 0600")
+	if !info.Mode().IsRegular() {
+		return id, errors.New("signing identity must be a regular file")
+	}
+	if tooOpen(info.Mode(), runtime.GOOS) {
+		return id, errors.New("signing identity must be readable only by its owner (chmod 600)")
 	}
 	b, e := os.ReadFile(path)
 	if e != nil {
