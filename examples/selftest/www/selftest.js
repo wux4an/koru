@@ -2,7 +2,7 @@
 // Results are shown on screen, logged as one `KORU_SELFTEST {...}` line (read
 // it with `koru logs`) and exposed as `window.__KORU_SELFTEST__`, a promise of
 // the report, for automation over the WebView DevTools protocol.
-import { app, device, invoke, isNative, notifications, platform, share, storage, vibration } from "/__koru/core.mjs";
+import { alarms, app, browser, clipboard, device, invoke, isNative, notifications, platform, screen, share, storage, vibration } from "/__koru/core.mjs";
 
 const native = isNative();
 const expected = { appId: "dev.koru.selftest", name: "koru self-test", version: "1.0.0", versionCode: 1 };
@@ -156,6 +156,42 @@ group("notifications", () => {
     await notifications.cancel(4242);
   });
   test("cancel of an unknown id resolves", () => notifications.cancel(987654));
+});
+
+group("alarms", () => {
+  test("schedule, list and cancel", async () => {
+    const id = 990001;
+    await alarms.schedule({ id, title: "koru self-test", body: "This alarm should have been cancelled", at: new Date(Date.now() + 3600000) });
+    assert((await alarms.list()).includes(id), "scheduled alarm missing from list");
+    await alarms.cancel(id);
+    assert(!(await alarms.list()).includes(id), "cancelled alarm still listed");
+  });
+  test("rejects an alarm without a time", () => rejects(invoke("alarms.schedule", { id: 1, title: "t", body: "b" }), "INVALID_REQUEST"));
+});
+
+group("browser, screen and clipboard", () => {
+  test("browser.open rejects unsafe schemes", async () => {
+    for (const url of ["javascript:alert(1)", "intent://x", "file:///etc/hosts"]) await rejects(browser.open(url), "INVALID_REQUEST");
+  });
+  test("screen.keepAwake on and off", async () => {
+    try {
+      await screen.keepAwake(true);
+      await screen.keepAwake(false);
+    } catch (error) {
+      if (!native) skip(`browser: ${error.code ?? error.name} ${error.message}`);
+      throw error;
+    }
+  });
+  test("clipboard round-trip", async () => {
+    const text = `koru self-test ${Date.now()}`;
+    try {
+      await clipboard.writeText(text);
+      equal(await clipboard.readText(), text, "clipboard");
+    } catch (error) {
+      if (!native) skip(`browser: ${error.code ?? error.name} ${error.message}`);
+      throw error;
+    }
+  });
 });
 
 group("Custom plugin (toast)", () => {
@@ -330,6 +366,7 @@ async function runAll() {
 }
 
 let lastReport;
+let awake = false;
 $("#rerun").addEventListener("click", () => (window.__KORU_SELFTEST__ = runAll()));
 $("#copy").addEventListener("click", async () => {
   const text = JSON.stringify(lastReport, null, 2);
@@ -351,6 +388,17 @@ const manual = {
   },
   vibrate: () => vibration.vibrate(400),
   toast: () => invoke("toast.show", { text: "The custom toast plugin works.", long: true }),
+  alarm: async () => {
+    const { status } = await notifications.requestPermission();
+    if (status !== "granted") throw Object.assign(new Error("Permission denied"), { code: "PERMISSION_DENIED" });
+    await alarms.schedule({ id: 8, title: "koru self-test", body: "Scheduled one minute ago.", at: Date.now() + 60000 });
+  },
+  browser: () => browser.open("https://koru.js.org/"),
+  awake: async () => {
+    awake = !awake;
+    await screen.keepAwake(awake);
+    $("[data-manual=awake]").textContent = awake ? "Let the screen sleep" : "Keep screen awake";
+  },
 };
 document.querySelectorAll("[data-manual]").forEach((button) =>
   button.addEventListener("click", async () => {

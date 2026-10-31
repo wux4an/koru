@@ -16,7 +16,7 @@ import (
 )
 
 // builtinPluginOrder lists the integrated plugins in the order koru documents them.
-var builtinPluginOrder = []string{"device", "storage", "vibration", "app", "share", "notifications"}
+var builtinPluginOrder = []string{"device", "storage", "vibration", "app", "share", "notifications", "alarms", "browser", "screen", "clipboard"}
 
 var semverPattern = regexp.MustCompile(`^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$`)
 

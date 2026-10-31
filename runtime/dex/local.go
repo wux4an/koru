@@ -160,6 +160,9 @@ func Runtime(c config.Config, assets []Asset, custom ...plugins.Descriptor) dex.
 	if usesChrome(c) {
 		applyWebFeatures(c, &p)
 	}
+	if c.HasPlugin("alarms") {
+		p.Classes = append(p.Classes, receiverClasses()...)
+	}
 	for _, plugin := range custom {
 		p.Classes = append(p.Classes, plugin.Classes...)
 	}

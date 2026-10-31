@@ -30,7 +30,7 @@ var permissionPattern = regexp.MustCompile(`^android\.permission\.[A-Z][A-Z0-9_]
 
 func Builtin(id string) bool {
 	switch id {
-	case "device", "app", "storage", "vibration", "share", "notifications":
+	case "device", "app", "storage", "vibration", "share", "notifications", "alarms", "browser", "screen", "clipboard":
 		return true
 	}
 	return false

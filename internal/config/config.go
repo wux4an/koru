@@ -255,7 +255,7 @@ func (c Config) HTTPSHosts() []string {
 var appPattern = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)+$`)
 var permissionPattern = regexp.MustCompile(`^android\.permission\.[A-Z][A-Z0-9_]*$`)
 var pluginPattern = regexp.MustCompile(`^[a-z][a-z0-9_]{0,31}$`)
-var supported = map[string]bool{"device": true, "storage": true, "vibration": true, "app": true, "share": true, "notifications": true}
+var supported = map[string]bool{"device": true, "storage": true, "vibration": true, "app": true, "share": true, "notifications": true, "alarms": true, "browser": true, "screen": true, "clipboard": true}
 
 func Default() Config {
 	return Config{AppID: "com.example.koru", Name: "Koru", Version: "1.0.0", VersionCode: 1, WebDir: "www", MinSDK: 26, TargetSDK: 36, Permissions: []string{}, Plugins: []string{"device", "storage", "app"}, SigningKey: ".koru/signing.pem"}
@@ -325,7 +325,7 @@ func (c Config) Validate() error {
 	seen = map[string]bool{}
 	for _, p := range c.Plugins {
 		if (!supported[p] && len(c.PluginManifests) == 0) || seen[p] || !pluginPattern.MatchString(p) {
-			return fmt.Errorf("unsupported or duplicate plugin %q (built-in plugins: app, device, notifications, share, storage, vibration)", p)
+			return fmt.Errorf("unsupported or duplicate plugin %q (built-in plugins: alarms, app, browser, clipboard, device, notifications, screen, share, storage, vibration)", p)
 		}
 		seen[p] = true
 	}
@@ -392,8 +392,11 @@ func (c Config) EffectivePermissions() []string {
 	if c.HasPlugin("vibration") {
 		add("android.permission.VIBRATE")
 	}
-	if c.HasPlugin("notifications") {
+	if c.HasPlugin("notifications") || c.HasPlugin("alarms") {
 		add("android.permission.POST_NOTIFICATIONS")
+	}
+	if c.HasPlugin("alarms") {
+		add("android.permission.RECEIVE_BOOT_COMPLETED")
 	}
 	return out
 }

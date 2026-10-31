@@ -202,3 +202,25 @@ func TestInvalidFeatureInputs(t *testing.T) {
 		t.Error("corrupt string indexes accepted")
 	}
 }
+
+func TestReceivers(t *testing.T) {
+	m := baseManifest()
+	m.Receivers = []Receiver{{Name: "com.koru.runtime.AlarmReceiver"}, {Name: "com.koru.runtime.BootReceiver", Exported: true, Actions: []string{"android.intent.action.BOOT_COMPLETED", "android.intent.action.MY_PACKAGE_REPLACED"}}}
+	b, err := Build(m)
+	if err != nil {
+		t.Fatal(err)
+	}
+	els, err := Parse(b)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := render(els)
+	for _, want := range []string{
+		"receiver android:name=\"com.koru.runtime.AlarmReceiver\" android:exported=false\n",
+		"receiver android:name=\"com.koru.runtime.BootReceiver\" android:exported=true\nintent-filter\naction android:name=\"android.intent.action.BOOT_COMPLETED\"\naction android:name=\"android.intent.action.MY_PACKAGE_REPLACED\"\n",
+	} {
+		if !strings.Contains(got, want) {
+			t.Errorf("manifest lacks %q in:\n%s", want, got)
+		}
+	}
+}

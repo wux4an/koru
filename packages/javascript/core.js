@@ -117,6 +117,8 @@
     return { status: N && N.permission === "granted" ? "granted" : "denied" };
   }
   const shown = new Map();
+  const alarms = new Map();
+  let wakeLock = null;
   const web = {
     "device.info": () => {
       const nav = window.navigator || {};
@@ -196,6 +198,79 @@
       shown.get(id) && shown.get(id).close();
       shown.set(id, new window.Notification(params.title, { body: params.body }));
       return {};
+    },
+    // Web alarms only fire while the page stays open; the APK uses AlarmManager.
+    "alarms.schedule": (params) => {
+      const id = integer(params.id, 1, 0, 2147483647);
+      if (
+        typeof params.title !== "string" ||
+        typeof params.body !== "string" ||
+        typeof params.at !== "number" ||
+        !Number.isFinite(params.at)
+      )
+        throw fail("INVALID_REQUEST", "Alarm needs title, body and at");
+      clearTimeout(alarms.get(id));
+      alarms.set(
+        id,
+        setTimeout(
+          () => {
+            alarms.delete(id);
+            if (webPermission().status === "granted")
+              new window.Notification(params.title, { body: params.body });
+          },
+          Math.max(0, Math.min(params.at - Date.now(), 2147483647)),
+        ),
+      );
+      return {};
+    },
+    "alarms.cancel": (params) => {
+      const id = integer(params.id, 1, 0, 2147483647);
+      clearTimeout(alarms.get(id));
+      alarms.delete(id);
+      return {};
+    },
+    "alarms.list": () => ({ ids: [...alarms.keys()] }),
+    "browser.open": (params) => {
+      let url;
+      try {
+        url = new window.URL(params.url);
+      } catch (ignored) {
+        throw fail("INVALID_REQUEST", "Invalid URL");
+      }
+      if (!/^(https?|mailto|tel|sms|geo|market):$/.test(url.protocol))
+        throw fail("INVALID_REQUEST", "Unsupported URL scheme");
+      window.open(url.href, "_blank", "noopener");
+      return {};
+    },
+    "screen.keepAwake": async (params) => {
+      if (typeof params.enabled !== "boolean")
+        throw fail("INVALID_REQUEST", "enabled must be a boolean");
+      const nav = window.navigator || {};
+      if (!params.enabled) {
+        if (wakeLock) await wakeLock.release();
+        wakeLock = null;
+        return {};
+      }
+      if (!nav.wakeLock || typeof nav.wakeLock.request !== "function")
+        throw fail("UNAVAILABLE", "This browser cannot keep the screen awake");
+      if (!wakeLock) wakeLock = await nav.wakeLock.request("screen");
+      return {};
+    },
+    "clipboard.writeText": async (params) => {
+      if (typeof params.text !== "string")
+        throw fail("INVALID_REQUEST", "Clipboard text must be a string");
+      const clip = (window.navigator || {}).clipboard;
+      if (!clip || typeof clip.writeText !== "function")
+        throw fail("UNAVAILABLE", "This browser cannot write the clipboard");
+      await clip.writeText(params.text);
+      return {};
+    },
+    "clipboard.readText": async () => {
+      const clip = (window.navigator || {}).clipboard;
+      if (!clip || typeof clip.readText !== "function")
+        throw fail("UNAVAILABLE", "This browser cannot read the clipboard");
+      const value = await clip.readText();
+      return value ? { value } : {};
     },
     "notifications.cancel": (params) => {
       const id = integer(params.id, 1, 0, 2147483647);

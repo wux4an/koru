@@ -61,6 +61,13 @@ func paramInt(b *dex.CodeBuilder, key string, def int32, dst dex.Register) {
 	branch(b, "goto", done)
 	b.Label(dflt).Const(dst, def).Label(done)
 }
+
+// route is one plugin method handled inline by the dispatcher.
+type route struct {
+	plugin, method string
+	emit           func(*dex.CodeBuilder)
+}
+
 func dispatcher(c config.Config, custom []plugins.Descriptor) dex.Class {
 	cl := dex.Class{Descriptor: dispatcherClass, Super: "Ljava/lang/Object;", Access: dex.Public, Methods: []dex.Method{successMethod(), errorMethod()}}
 	b := dex.NewCode(13).ConstString(1, "").Label("start")
@@ -85,10 +92,7 @@ func dispatcher(c config.Config, custom []plugins.Descriptor) dex.Class {
 	call(b, "invoke-virtual", jsonObject, "optJSONObject", "(Ljava/lang/String;)"+jsonObject, 0, 5)
 	object(b, 3)
 	branch(b, "if-eqz", "invalid", 3)
-	routes := []struct {
-		plugin, method string
-		emit           func(*dex.CodeBuilder)
-	}{
+	routes := []route{
 		{"device", "device.info", deviceInfo}, {"app", "app.info", func(b *dex.CodeBuilder) {
 			emptyResult(b)
 			text(b, 8, "appId", c.AppID)
@@ -102,6 +106,8 @@ func dispatcher(c config.Config, custom []plugins.Descriptor) dex.Class {
 		{"vibration", "vibration.vibrate", vibrate}, {"share", "share.text", shareText},
 		{"notifications", "notifications.show", func(b *dex.CodeBuilder) { notify(b, "show") }}, {"notifications", "notifications.cancel", func(b *dex.CodeBuilder) { notify(b, "cancel") }}, {"notifications", "notifications.permission", func(b *dex.CodeBuilder) { notificationPermission(b, false) }}, {"notifications", "notifications.requestPermission", func(b *dex.CodeBuilder) { notificationPermission(b, true) }},
 	}
+	routes = append(routes, alarmRoutes()...)
+	routes = append(routes, extraRoutes()...)
 	for i, r := range routes {
 		if !c.HasPlugin(r.plugin) {
 			continue

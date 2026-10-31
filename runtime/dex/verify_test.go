@@ -59,7 +59,11 @@ func runtimeVariants() map[string]config.Config {
 	geo := config.Default()
 	geo.Plugins = []string{"notifications"}
 	geo.WebFeatures = []string{"geolocation", "microphone"}
-	return map[string]config.Config{"files": files, "all web features": web, "camera only": camera, "geolocation and notifications": geo, "default": config.Default(), "all plugins": all, "network": network, "no plugins": none,
+	everything := web
+	everything.Plugins = append(append([]string(nil), all.Plugins...), "alarms", "browser", "screen", "clipboard")
+	alarms := config.Default()
+	alarms.Plugins = []string{"alarms"}
+	return map[string]config.Config{"everything": everything, "alarms only": alarms, "files": files, "all web features": web, "camera only": camera, "geolocation and notifications": geo, "default": config.Default(), "all plugins": all, "network": network, "no plugins": none,
 		"server url": remote, "hybrid": hybrid, "bridge": bridged}
 }
 

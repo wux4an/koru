@@ -82,9 +82,13 @@
         "anyOf": [
           {
             "enum": [
+              "alarms",
               "app",
+              "browser",
+              "clipboard",
               "device",
               "notifications",
+              "screen",
               "share",
               "storage",
               "vibration"
@@ -93,7 +97,7 @@
           { "description": "Custom plugin id declared in pluginManifests." }
         ]
       },
-      "description": "Enabled JavaScript APIs. Built-in: app, device, notifications, share, storage, vibration."
+      "description": "Enabled JavaScript APIs. Built-in: alarms, app, browser, clipboard, device, notifications, screen, share, storage, vibration."
     },
     "signingKey": {
       "type": "string",

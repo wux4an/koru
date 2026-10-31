@@ -53,7 +53,10 @@ export interface NotificationOptions {
   body: string;
 }
 
-/** "android" inside the APK; "web" in a browser or under `koru dev`. */
+/**
+ * "android" inside the APK, including remote pages of an app with
+ * server.bridge; "web" in a browser or under `koru dev`.
+ */
 export declare const platform: "android" | "web";
 export declare function isNative(): boolean;
 
@@ -93,6 +96,43 @@ export declare const notifications: {
   cancel(id: number, options?: CallOptions): Promise<Empty>;
   permission(options?: CallOptions): Promise<PermissionStatus>;
   requestPermission(options?: CallOptions): Promise<PermissionStatus>;
+};
+
+export interface AlarmOptions {
+  /** Identifies the alarm; scheduling the same id again replaces it. */
+  id: number;
+  title: string;
+  body: string;
+  /** When to show the notification: a Date or milliseconds since the epoch. */
+  at: Date | number;
+}
+
+/**
+ * Notifications shown at a later time, also after a reboot. Android may
+ * deliver them a few minutes late. In a browser they only fire while the
+ * page is open.
+ */
+export declare const alarms: {
+  schedule(alarm: AlarmOptions, options?: CallOptions): Promise<Empty>;
+  cancel(id: number, options?: CallOptions): Promise<Empty>;
+  /** Ids of the alarms that have not fired yet. */
+  list(options?: CallOptions): Promise<number[]>;
+};
+
+export declare const browser: {
+  /** Open an https, http, mailto, tel, sms, geo or market link in another app. */
+  open(url: string | URL, options?: CallOptions): Promise<Empty>;
+};
+
+export declare const screen: {
+  /** Keep the screen on while the app is visible (true) or let it sleep. */
+  keepAwake(enabled?: boolean, options?: CallOptions): Promise<Empty>;
+};
+
+export declare const clipboard: {
+  writeText(text: string, options?: CallOptions): Promise<Empty>;
+  /** The clipboard as text, or null when it is empty. */
+  readText(options?: CallOptions): Promise<string | null>;
 };
 
 declare global {

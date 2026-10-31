@@ -236,3 +236,27 @@ test("remote page without the marker never takes a channel", async () => {
   port1.close();
   port2.close();
 });
+test("web versions of alarms, browser, screen and clipboard", async () => {
+  const opened = [];
+  let clip = "";
+  const { ctx } = setup("http://localhost:8100", {
+    open: (url) => opened.push(url),
+    URL,
+    navigator: {
+      clipboard: { writeText: async (t) => (clip = t), readText: async () => clip },
+    },
+    Notification: { permission: "denied" },
+  });
+  await ctx.Koru.invoke("alarms.schedule", { id: 3, title: "t", body: "b", at: Date.now() + 60000 });
+  assert.deepEqual([...(await ctx.Koru.invoke("alarms.list")).ids], [3]);
+  await ctx.Koru.invoke("alarms.cancel", { id: 3 });
+  assert.deepEqual([...(await ctx.Koru.invoke("alarms.list")).ids], []);
+  await assert.rejects(ctx.Koru.invoke("alarms.schedule", { id: 1, title: "t", body: "b" }), (e) => e.code === "INVALID_REQUEST");
+  await ctx.Koru.invoke("browser.open", { url: "https://example.com/x" });
+  assert.deepEqual(opened, ["https://example.com/x"]);
+  await assert.rejects(ctx.Koru.invoke("browser.open", { url: "javascript:alert(1)" }), (e) => e.code === "INVALID_REQUEST");
+  await ctx.Koru.invoke("clipboard.writeText", { text: "hola" });
+  assert.equal((await ctx.Koru.invoke("clipboard.readText")).value, "hola");
+  await assert.rejects(ctx.Koru.invoke("screen.keepAwake", { enabled: true }), (e) => e.code === "UNAVAILABLE");
+  await assert.rejects(ctx.Koru.invoke("screen.keepAwake", { enabled: "yes" }), (e) => e.code === "INVALID_REQUEST");
+});

@@ -38,3 +38,29 @@ export const notifications = Object.freeze({
       Object.assign({ timeout: 120000 }, options),
     ),
 });
+export const alarms = Object.freeze({
+  schedule: ({ id, title, body, at }, options) =>
+    invoke(
+      "alarms.schedule",
+      { id, title, body, at: at instanceof Date ? at.getTime() : at },
+      options,
+    ),
+  cancel: (id, options) => invoke("alarms.cancel", { id }, options),
+  list: (options) =>
+    invoke("alarms.list", {}, options).then((result) => [...result.ids]),
+});
+export const browser = Object.freeze({
+  open: (url, options) => invoke("browser.open", { url: String(url) }, options),
+});
+export const screen = Object.freeze({
+  keepAwake: (enabled = true, options) =>
+    invoke("screen.keepAwake", { enabled }, options),
+});
+export const clipboard = Object.freeze({
+  writeText: (text, options) =>
+    invoke("clipboard.writeText", { text }, options),
+  readText: (options) =>
+    invoke("clipboard.readText", {}, options).then((result) =>
+      result.value === undefined ? null : result.value,
+    ),
+});

@@ -28,6 +28,16 @@ type Manifest struct {
 	// paths declared in the same filter. The URL is not yet delivered to
 	// JavaScript: the link opens the app on its initial page.
 	DeepLinks []DeepLink
+	// Receivers are BroadcastReceivers, each with the actions it listens to.
+	Receivers []Receiver
+}
+
+// Receiver is a <receiver> element. A receiver that is not exported only
+// gets broadcasts from this app, such as its own PendingIntents.
+type Receiver struct {
+	Name     string
+	Exported bool
+	Actions  []string
 }
 
 // DeepLink is one URL pattern handled by the Activity.
@@ -120,6 +130,17 @@ func Build(m Manifest) ([]byte, error) {
 		activity.children = append(activity.children, filter)
 	}
 	application.children = append(application.children, activity)
+	for _, r := range m.Receivers {
+		receiver := node{name: "receiver", attrs: []attribute{str("name", r.Name), boolean("exported", r.Exported)}}
+		if len(r.Actions) > 0 {
+			filter := node{name: "intent-filter"}
+			for _, a := range r.Actions {
+				filter.children = append(filter.children, node{name: "action", attrs: []attribute{str("name", a)}})
+			}
+			receiver.children = append(receiver.children, filter)
+		}
+		application.children = append(application.children, receiver)
+	}
 	root.children = append(root.children, application)
 	used := map[string]bool{}
 	var scan func(node)

@@ -123,6 +123,11 @@ func Assemble(c model.Code, descriptor string, access uint32, r Resolver) (Resul
 			} else {
 				emit(op+2, rr[0], rr[1])
 			}
+		case "move-result-wide":
+			if !need(1, 254) || rr[0]+1 >= out.Registers {
+				return fail("move-result-wide requires an 8-bit register pair")
+			}
+			emit(0xb | rr[0]<<8)
 		case "move-exception", "move-result", "move-result-object", "return", "return-object":
 			if !need(1, 255) {
 				return fail("requires one 8-bit register")

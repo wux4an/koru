@@ -46,7 +46,7 @@ func (f *File) verifyCode(method Method) error {
 			if a != 0 {
 				return fmt.Errorf("reserved move/16 bits")
 			}
-		case op == 0xa || op == 0xc || op == 0xd || op == 0xf || op == 0x11 || op == 0xe || op == 0x12 || op == 0x81 || op == 0x21:
+		case op == 0xa || op == 0xb || op == 0xc || op == 0xd || op == 0xf || op == 0x11 || op == 0xe || op == 0x12 || op == 0x81 || op == 0x21:
 			d.width = 1
 		case op == 0x13 || op == 0x1a || op == 0x1c || op == 0x1f || op == 0x22 || op == 0x38 || op == 0x39 || op == 0x33 || op == 0x34 || op == 0x35 || op == 0x20 || op == 0x23 || op == 0x46 || op == 0x4d || op == 0x44 || op == 0xd8:
 			d.width = 2
@@ -161,6 +161,8 @@ func (f *File) verifyCode(method Method) error {
 			regs = []uint16{a, u[pc+1] & 255, u[pc+1] >> 8}
 		case op == 0x21:
 			regs = []uint16{a & 15, a >> 4}
+		case op == 0xb:
+			regs = []uint16{a, a + 1}
 		case op == 0xd8:
 			regs = []uint16{a, u[pc+1] & 255}
 		case op >= 0x52 && op <= 0x6d:

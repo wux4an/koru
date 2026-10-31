@@ -111,7 +111,7 @@ func Build(project string, opt Options) ([]byte, error) {
 	for _, l := range c.DeepLinks {
 		links = append(links, axml.DeepLink{Scheme: l.Scheme, Host: l.Host, PathPrefix: l.PathPrefix})
 	}
-	manifest, e := axml.Build(axml.Manifest{Package: c.AppID, Name: c.Name, Version: c.Version, VersionCode: c.VersionCode, MinSDK: c.MinSDK, TargetSDK: c.TargetSDK, Activity: "com.koru.runtime.MainActivity", Permissions: permissions, Debuggable: !opt.Release, Icon: arsc.IconID, Orientation: c.Orientation, AllowBackup: c.AllowBackup, Keyboard: c.Keyboard, DeepLinks: links})
+	manifest, e := axml.Build(axml.Manifest{Package: c.AppID, Name: c.Name, Version: c.Version, VersionCode: c.VersionCode, MinSDK: c.MinSDK, TargetSDK: c.TargetSDK, Activity: "com.koru.runtime.MainActivity", Permissions: permissions, Debuggable: !opt.Release, Icon: arsc.IconID, Orientation: c.Orientation, AllowBackup: c.AllowBackup, Keyboard: c.Keyboard, DeepLinks: links, Receivers: receivers(c)})
 	if e != nil {
 		return nil, e
 	}
@@ -248,5 +248,17 @@ func assetMIME(path string) string {
 		return "text/plain"
 	default:
 		return "application/octet-stream"
+	}
+}
+
+// receivers lists the BroadcastReceivers the runtime generates for c.
+func receivers(c config.Config) []axml.Receiver {
+	if !c.HasPlugin("alarms") {
+		return nil
+	}
+	name := func(d string) string { return strings.ReplaceAll(strings.Trim(d, "L;"), "/", ".") }
+	return []axml.Receiver{
+		{Name: name(runtimedex.AlarmReceiverClass)},
+		{Name: name(runtimedex.BootReceiverClass), Exported: true, Actions: runtimedex.BootActions},
 	}
 }

@@ -39,6 +39,7 @@ func TestOpcodeGoldenWords(t *testing.T) {
 		{"iput", []model.Register{1, 2}, 0, []uint16{0x2159, 2}, "()V"},
 		{"sget", []model.Register{1}, 0, []uint16{0x0160, 2}, "()V"},
 		{"sput", []model.Register{1}, 0, []uint16{0x0167, 2}, "()V"},
+		{"move-result-wide", []model.Register{1}, 0, []uint16{0x010b}, "()V"},
 		{"aget", []model.Register{1, 2, 0}, 0, []uint16{0x0144, 0x0002}, "()V"},
 		{"array-length", []model.Register{1, 2}, 0, []uint16{0x2121}, "()V"},
 		{"add-int/lit8", []model.Register{1, 2}, -1, []uint16{0x01d8, 0xff02}, "()V"},

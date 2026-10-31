@@ -15,6 +15,10 @@
     "vibration",
     "share",
     "notifications",
+    "alarms",
+    "browser",
+    "screen",
+    "clipboard",
     "toast"
   ],
   "pluginManifests": [

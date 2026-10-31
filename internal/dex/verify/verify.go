@@ -297,6 +297,17 @@ func Method(owner string, m model.Method) error {
 			} else {
 				err = def(0, slot{kind: integer})
 			}
+		case "move-result-wide":
+			if s.result != 'J' {
+				return fail(i, "move-result-wide does not follow an invoke that returns a long or double (previous result: %c)", s.result)
+			}
+			var r int
+			if r, err = reg(0); err == nil {
+				if r+1 >= total {
+					return fail(i, "move-result-wide needs a register pair")
+				}
+				s.regs[r], s.regs[r+1] = slot{kind: wideLo}, slot{kind: wideHi}
+			}
 		case "move-exception":
 			err = def(0, slot{kind: ref})
 		case "const", "const/4", "const/16":
