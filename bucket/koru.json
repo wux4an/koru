@@ -1,0 +1,35 @@
+{
+  "version": "0.0.1",
+  "description": "Build signed Android apps from HTML, CSS and JavaScript, without Java or Gradle",
+  "homepage": "https://koru.js.org",
+  "license": "MIT",
+  "architecture": {
+    "64bit": {
+      "url": "https://github.com/wux4an/koru/releases/download/v0.0.1/koru_0.0.1_windows_amd64.zip",
+      "hash": "4096fde15f1b36bc3cf36fa384da5572dd604776704f65ffd50be629b192c59b",
+      "extract_dir": "koru_0.0.1_windows_amd64"
+    },
+    "arm64": {
+      "url": "https://github.com/wux4an/koru/releases/download/v0.0.1/koru_0.0.1_windows_arm64.zip",
+      "hash": "5609c879645e50c77734930ff12cac9bc70c9354fb3b3ae3e337048cb341e479",
+      "extract_dir": "koru_0.0.1_windows_arm64"
+    }
+  },
+  "bin": "koru.exe",
+  "checkver": "github",
+  "autoupdate": {
+    "architecture": {
+      "64bit": {
+        "url": "https://github.com/wux4an/koru/releases/download/v$version/koru_$version_windows_amd64.zip",
+        "extract_dir": "koru_$version_windows_amd64"
+      },
+      "arm64": {
+        "url": "https://github.com/wux4an/koru/releases/download/v$version/koru_$version_windows_arm64.zip",
+        "extract_dir": "koru_$version_windows_arm64"
+      }
+    },
+    "hash": {
+      "url": "$url.sha256"
+    }
+  }
+}

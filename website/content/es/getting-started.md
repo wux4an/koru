@@ -26,6 +26,24 @@ curl -fsSL https://koru.js.org/install.sh | KORU_VERSION=v0.0.1 KORU_INSTALL_DIR
 
 Si `koru version` responde «command not found», añade la carpeta de instalación a tu `PATH` (por ejemplo, `export PATH="$HOME/.local/bin:$PATH"` en el perfil de tu shell).
 
+### Homebrew y Scoop
+
+Con [Homebrew](https://brew.sh) en macOS o Linux. Este mismo repositorio es el tap, por eso se indica su URL:
+
+```sh
+brew tap wux4an/koru https://github.com/wux4an/koru
+brew install koru
+```
+
+Con [Scoop](https://scoop.sh) en Windows:
+
+```powershell
+scoop bucket add koru https://github.com/wux4an/koru
+scoop install koru
+```
+
+Actualiza con `brew upgrade koru` o `scoop update koru`. Cada release actualiza los dos paquetes.
+
 ### Descarga manual
 
 Cada [release](https://github.com/wux4an/koru/releases/latest) incluye un archivo por plataforma: `koru_<versión>_<os>_<arch>.tar.gz` para Linux y macOS, y `koru_<versión>_windows_<arch>.zip` para Windows, con builds `amd64` y `arm64`. Cada uno trae su archivo `.sha256`, y `SHA256SUMS` los lista todos. Verifica la suma antes de extraer:
@@ -40,6 +58,8 @@ En macOS, usa `shasum -a 256 -c` en lugar de `sha256sum -c`. Los releases tambi�
 ```sh
 gh attestation verify koru_0.0.1_linux_amd64.tar.gz --repo wux4an/koru
 ```
+
+Los binarios no están firmados con un certificado de Apple ni de Microsoft. Si descargas un archivo con el navegador, macOS puede bloquear `koru`: ejecuta una vez `xattr -d com.apple.quarantine koru`. Windows puede mostrar SmartScreen: elige **Más información → Ejecutar de todas formas**. Los instaladores, Homebrew, Scoop y `go install` no tienen este problema.
 
 ### Compilar desde el código fuente
 

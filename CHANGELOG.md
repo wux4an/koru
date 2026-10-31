@@ -7,6 +7,25 @@ break the CLI, `koru.json` or the JavaScript API.
 
 ## [Unreleased]
 
+## [0.0.2] - 2026-10-31
+
+### Added
+
+- Homebrew and Scoop packages, served from this repository:
+  `brew tap wux4an/koru https://github.com/wux4an/koru && brew install koru`
+  and `scoop bucket add koru https://github.com/wux4an/koru && scoop install koru`.
+  Every release updates them.
+
+### Changed
+
+- The Go module is now `github.com/wux4an/koru`, so
+  `go install github.com/wux4an/koru/cmd/koru@latest` works.
+
+### Fixed
+
+- `koru build` on Windows no longer rejects the signing identity because of
+  Unix file permissions, which Windows does not have.
+
 ## [0.0.1] - 2026-10-31
 
 First public release. Experimental: APK installation and execution are
@@ -36,5 +55,6 @@ recorded only on Android 11 (API 30) on an x86_64 emulator.
   checksums and build provenance attestations, and installers for
   `curl … | sh` and PowerShell.
 
-[Unreleased]: https://github.com/wux4an/koru/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/wux4an/koru/compare/v0.0.2...HEAD
+[0.0.2]: https://github.com/wux4an/koru/releases/tag/v0.0.2
 [0.0.1]: https://github.com/wux4an/koru/releases/tag/v0.0.1

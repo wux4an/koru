@@ -69,5 +69,15 @@ koru="$work/koru_${version}_linux_$("$GO" env GOARCH)/koru"
 (cd "$work" && "$koru" create smoke-app --template basic --name Smoke --app-id com.example.smoke </dev/null >/dev/null &&
   "$koru" build smoke-app --output smoke.apk && "$koru" verify smoke.apk)
 
+step "Homebrew formula and Scoop manifest"
+pm="$work/pm"
+mkdir -p "$pm/scripts"
+cp scripts/package-managers.sh "$pm/scripts/"
+"$pm/scripts/package-managers.sh" "v$version" "$release/SHA256SUMS" >/dev/null
+ruby -c "$pm/Formula/koru.rb" >/dev/null
+python3 -m json.tool "$pm/bucket/koru.json" >/dev/null
+grep -q "\"version\": \"$version\"" "$pm/bucket/koru.json"
+echo "ok - Formula/koru.rb and bucket/koru.json generate and parse"
+
 step "Installer against the archives"
 scripts/test-install.sh "$release"

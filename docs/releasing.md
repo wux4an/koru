@@ -43,6 +43,11 @@ Windows, así que no hay runners de esos sistemas.
    existe). Los tags con sufijo (`v1.0.0-rc.1`) salen como prerelease; el resto
    como última versión, que es la que leen los instaladores y la web.
 6. Instala la versión publicada con `install.sh` y comprueba `koru version`.
+7. Regenera `Formula/koru.rb` (Homebrew) y `bucket/koru.json` (Scoop) con
+   `scripts/package-managers.sh`, hace commit en `main` como
+   `github-actions[bot]` e instala la fórmula con Homebrew en la misma máquina.
+   Este repositorio es a la vez el tap y el bucket, sin repos aparte. Los
+   prereleases no actualizan los paquetes.
    Los binarios de macOS y Windows y `install.ps1` no se ejecutan en CI: solo
    se compilan y se comprueba su sintaxis.
 

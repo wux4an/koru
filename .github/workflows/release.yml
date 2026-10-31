@@ -123,3 +123,23 @@ jobs:
         run: |
           KORU_VERSION="$TAG" sh scripts/install.sh --dir "$RUNNER_TEMP/koru"
           "$RUNNER_TEMP/koru/koru" version | grep -F "koru ${TAG#v}"
+      - name: Update the Homebrew formula and the Scoop manifest on main
+        # This repository is also the Homebrew tap and the Scoop bucket.
+        if: ${{ !contains(env.TAG, '-') }}
+        run: |
+          git fetch -q origin main
+          git checkout -q -B main origin/main
+          scripts/package-managers.sh "$TAG" release/SHA256SUMS
+          git add Formula/koru.rb bucket/koru.json
+          if git diff --cached --quiet; then echo "Already up to date"; exit 0; fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "release: Homebrew y Scoop para koru $TAG"
+          git push origin main
+      - name: Install with Homebrew
+        if: ${{ !contains(env.TAG, '-') }}
+        run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          brew tap wux4an/koru "https://github.com/$GITHUB_REPOSITORY"
+          brew install wux4an/koru/koru
+          koru version | grep -F "koru ${TAG#v}"
+          brew test wux4an/koru/koru

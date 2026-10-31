@@ -38,6 +38,13 @@ On Windows, use PowerShell, which installs to `%LOCALAPPDATA%\Programs\koru`:
 irm https://koru.js.org/install.ps1 | iex
 ```
 
+With Homebrew (macOS, Linux) or Scoop (Windows), using this repository as tap and bucket:
+
+```sh
+brew tap wux4an/koru https://github.com/wux4an/koru && brew install koru
+scoop bucket add koru https://github.com/wux4an/koru; scoop install koru
+```
+
 Set `KORU_VERSION=v0.0.1` to pin a version and `KORU_INSTALL_DIR` to change the folder. You can also download an archive and its `.sha256` from the [latest release](https://github.com/wux4an/koru/releases/latest), check it with `sha256sum -c koru_0.0.1_linux_amd64.tar.gz.sha256` and `gh attestation verify koru_0.0.1_linux_amd64.tar.gz --repo wux4an/koru`, or build from source with Go 1.23 or later: `go install github.com/wux4an/koru/cmd/koru@latest`.
 
 After that, the `koru` binary is all you need.

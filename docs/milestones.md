@@ -110,3 +110,4 @@ siguen sin comprobarse. En `koru dev` no hay versión web de los plugins propios
 - Instaladores `scripts/install.sh` (POSIX, verifica SHA-256; probado con `scripts/test-install.sh` y `dash`) e `install.ps1` (sin ejecutar: solo se comprueba su sintaxis con `pwsh`), servidos en `koru.js.org/install.sh` y `/install.ps1`.
 - La web muestra la versión de `main.go` y la actualiza en el navegador con la última release de la API de GitHub (caché de 1 h).
 - Proceso documentado en `docs/releasing.md`. Sin cambios en el compilador ni en el runtime Android.
+- v0.0.2: módulo `github.com/wux4an/koru` (`go install …@latest`), fórmula de Homebrew en `Formula/` y manifiesto de Scoop en `bucket/`, generados en cada release por `scripts/package-managers.sh`. La fórmula se instala con Homebrew en el workflow; el manifiesto de Scoop solo se valida como JSON, no se instala en Windows.
