@@ -26,6 +26,10 @@ Los plugins personalizados se ejecutan con los permisos de tu app. Incluye solo 
 
 Si usas `server.bridge`, los orígenes HTTPS listados reciben el mismo acceso nativo que tu app, con los mismos plugins y el storage compartido. Cualquier XSS o compromiso de uno de esos sitios puede llamar a la API. Lista solo orígenes que controles, exige HTTPS y envía una Content-Security-Policy; las páginas remotas no reciben la CSP que koru pone a los archivos locales. Las páginas fuera de `bridge` no reciben canal nativo. Consulta [Contenido remoto y apps híbridas]({{base}}docs/es/remote-content/).
 
+## Funciones web y orígenes de confianza
+
+La ubicación, la cámara y el micrófono activados con `webFeatures` se conceden solo al origen de la app y a los orígenes de `server.bridge`; las demás páginas se rechazan. Lista solo orígenes de confianza. Consulta [Archivos, ubicación, cámara y micrófono]({{base}}docs/es/web-features/).
+
 ## Comprueba el APK que compartes
 
 ```sh

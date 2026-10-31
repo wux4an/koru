@@ -39,7 +39,7 @@ Capacitor y Expo son herramientas maduras y muy usadas. koru hace mucho menos, a
 - Apps para iOS.
 - Android App Bundles (AAB) para Google Play. koru genera APKs para instalación directa y tiendas que acepten APKs.
 - Pasar la URL de un deep link a tu JavaScript. El enlace abre la app en su primera página, y ni el flujo de enlaces verificados ni nada de esto se ha ejecutado en Android.
-- Notificaciones programadas, cámara, geolocalización, selectores de archivos y otros plugins fuera de los seis integrados.
+- Notificaciones programadas y otros plugins fuera de los seis integrados. Cámara, geolocalización, micrófono y selectores de archivos no son plugins: con la opción `webFeatures` tus páginas usan las APIs web, probadas en Chromium pero aún no en un dispositivo Android; consulta [Archivos, ubicación, cámara y micrófono]({{base}}docs/es/web-features/).
 - Recarga en vivo dentro del APK instalado. Usa `koru dev` en un navegador y luego `koru run`. koru puede cargar una página HTTPS publicada con `server.url`, pero eso no es recarga en vivo de tus archivos locales; consulta [Contenido remoto]({{base}}docs/es/remote-content/).
 - Ejecución verificada más allá de la [matriz registrada]({{base}}docs/es/android-results/).
 

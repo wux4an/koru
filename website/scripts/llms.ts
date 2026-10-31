@@ -94,6 +94,10 @@ const when: Record<string, [string, string]> = {
     "loading your website in the app, choosing which links open inside it or exposing the koru API to your own origins.",
     "cargas tu sitio en la app, eliges qué enlaces se abren dentro o expones la API de koru a tus orígenes.",
   ],
+  "web-features": [
+    "your pages need the file picker, location, camera or microphone.",
+    "tus páginas necesitan el selector de archivos, la ubicación, la cámara o el micrófono.",
+  ],
   distribution: [
     "building a release APK, bumping versions or updating an installed app.",
     "generas un APK release, subes la versión o actualizas una app instalada.",

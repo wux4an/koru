@@ -57,6 +57,14 @@ Under `koru dev` in Chromium 153 all checks pass except the two that are
 skipped by design. The APK builds, passes `koru verify` in CI and ships with every release. It has **not**
 run on an Android device yet: that is what this app is for.
 
+## Web features
+
+The app enables `webFeatures` (`files`, `geolocation`, `camera`, `microphone`).
+Its **Web features** section has the buttons Pick files, Get location, Camera
+photo and Microphone, plus automatic checks that the APIs exist. Tested in
+Chromium with `koru dev`; not yet on an Android device. See
+[Files, location, camera and microphone](https://koru.js.org/docs/en/web-features/).
+
 ## Navigation and remote bridge
 
 This app sets `server.allowNavigation` to `koru.js.org` and `server.bridge` to

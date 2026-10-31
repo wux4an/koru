@@ -37,28 +37,29 @@ koru: koru.json: invalid appId "myapp": use reverse-domain form such as com.exam
 
 ## Fields
 
-| Field             | Meaning and validation                                                                                                           |
-| ----------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `$schema`         | Optional editor hint; ignored by koru.                                                                                           |
-| `appId`           | Dotted application identifier, at most 127 bytes. Each segment begins with a letter and contains letters, digits or underscores. |
-| `name`            | Nonblank application label, at most 256 bytes.                                                                                   |
-| `version`         | Nonempty version label, at most 128 bytes.                                                                                       |
-| `versionCode`     | Integer from 1 to 2,100,000,000. Increase it for updates.                                                                        |
-| `webDir`          | Required folder of static web assets containing `index.html`.                                                                    |
-| `minSdk`          | Minimum Android API; at least 26.                                                                                                |
-| `targetSdk`       | Target API; `minSdk ≤ targetSdk ≤ 36`. This is a configuration range, not the executed test matrix.                              |
-| `permissions`     | Unique names such as `android.permission.INTERNET`. Use full Android permission identifiers.                                     |
-| `plugins`         | Unique enabled plugin IDs. Defaults: `device`, `storage`, `app`. Other built-ins: `vibration`, `share`, `notifications`.         |
-| `signingKey`      | Required existing PEM private key and certificate.                                                                               |
-| `icon`            | Optional PNG icon path.                                                                                                          |
-| `spa`             | Optional boolean; routes without an extension fall back to `index.html`.                                                         |
-| `pluginManifests` | Optional paths to custom DEX plugin manifests. Enable their IDs in `plugins`.                                                    |
-| `nativeLibraries` | Optional map from Android ABI to lists of precompiled ELF shared libraries.                                                      |
-| `orientation`     | Optional: `portrait`, `landscape` or `sensor`. Omit it to keep Android’s default.                                                |
-| `allowBackup`     | Optional boolean, default `false`. `true` opts the app into Android’s automatic backup.                                          |
-| `keyboard`        | Optional: `resize` (default; the page shrinks) or `pan` (the page slides up) when the on-screen keyboard opens.                  |
-| `deepLinks`       | Optional list of links that open the app. At most 32, no duplicates. See [Deep links](#deep-links) below.                        |
-| `server`          | Optional remote content: `url`, `allowNavigation` and `bridge`. See [Remote content](#remote-content) below.                     |
+| Field             | Meaning and validation                                                                                                                      |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `$schema`         | Optional editor hint; ignored by koru.                                                                                                      |
+| `appId`           | Dotted application identifier, at most 127 bytes. Each segment begins with a letter and contains letters, digits or underscores.            |
+| `name`            | Nonblank application label, at most 256 bytes.                                                                                              |
+| `version`         | Nonempty version label, at most 128 bytes.                                                                                                  |
+| `versionCode`     | Integer from 1 to 2,100,000,000. Increase it for updates.                                                                                   |
+| `webDir`          | Required folder of static web assets containing `index.html`.                                                                               |
+| `minSdk`          | Minimum Android API; at least 26.                                                                                                           |
+| `targetSdk`       | Target API; `minSdk ≤ targetSdk ≤ 36`. This is a configuration range, not the executed test matrix.                                         |
+| `permissions`     | Unique names such as `android.permission.INTERNET`. Use full Android permission identifiers.                                                |
+| `plugins`         | Unique enabled plugin IDs. Defaults: `device`, `storage`, `app`. Other built-ins: `vibration`, `share`, `notifications`.                    |
+| `signingKey`      | Required existing PEM private key and certificate.                                                                                          |
+| `icon`            | Optional PNG icon path.                                                                                                                     |
+| `spa`             | Optional boolean; routes without an extension fall back to `index.html`.                                                                    |
+| `pluginManifests` | Optional paths to custom DEX plugin manifests. Enable their IDs in `plugins`.                                                               |
+| `nativeLibraries` | Optional map from Android ABI to lists of precompiled ELF shared libraries.                                                                 |
+| `orientation`     | Optional: `portrait`, `landscape` or `sensor`. Omit it to keep Android’s default.                                                           |
+| `allowBackup`     | Optional boolean, default `false`. `true` opts the app into Android’s automatic backup.                                                     |
+| `keyboard`        | Optional: `resize` (default; the page shrinks) or `pan` (the page slides up) when the on-screen keyboard opens.                             |
+| `deepLinks`       | Optional list of links that open the app. At most 32, no duplicates. See [Deep links](#deep-links) below.                                   |
+| `server`          | Optional remote content: `url`, `allowNavigation` and `bridge`. See [Remote content](#remote-content) below.                                |
+| `webFeatures`     | Optional list: `files`, `geolocation`, `camera`, `microphone`. See [Files, location, camera and microphone]({{base}}docs/en/web-features/). |
 
 The defaults are written by `init`, so edit the generated file rather than guessing missing values. A custom plugin ID must appear in `plugins` and have a corresponding manifest in `pluginManifests`. The six built-in IDs and their methods are in [JavaScript and plugins]({{base}}docs/en/plugins/).
 
@@ -157,6 +158,16 @@ Local content works without `INTERNET`. Add that permission explicitly if your a
 This is a field fragment, not a complete `koru.json`. Keep remote access in your own JavaScript fetch calls and account for CORS on the remote server. The app origin is a reserved local HTTPS origin, not a host you need to register in DNS.
 
 Enabling `vibration` adds `android.permission.VIBRATE`. Enabling `notifications` adds `android.permission.POST_NOTIFICATIONS`. The notification permission dialog for API 33+ has not been covered by the API 30 execution matrix.
+
+## Web features
+
+The optional `webFeatures` list enables web APIs in the WebView:
+
+```json
+"webFeatures": ["files", "geolocation", "camera", "microphone"]
+```
+
+Use any subset, without duplicates. `geolocation` adds `ACCESS_COARSE_LOCATION` and `ACCESS_FINE_LOCATION`, `camera` adds `CAMERA`, `microphone` adds `RECORD_AUDIO` and `MODIFY_AUDIO_SETTINGS`, and `files` adds no permissions. Not yet tested on a device. See [Files, location, camera and microphone]({{base}}docs/en/web-features/).
 
 ## Remote content
 

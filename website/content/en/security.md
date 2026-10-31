@@ -26,6 +26,10 @@ Custom plugins run with your app’s permissions. Include only trusted plugins a
 
 If you use `server.bridge`, the listed HTTPS origins get the same native access as your app, through the same plugins and shared storage. Any XSS or compromise of one of those sites can call the API. List only origins you control, require HTTPS and send a Content-Security-Policy; remote pages do not receive the CSP koru sets on local files. Pages outside `bridge` get no native channel. See [Remote content and hybrid apps]({{base}}docs/en/remote-content/).
 
+## Web features and trusted origins
+
+Location, camera and microphone enabled with `webFeatures` are granted only to the app origin and to the origins in `server.bridge`; other pages are rejected. List only origins you trust. See [Files, location, camera and microphone]({{base}}docs/en/web-features/).
+
 ## Check the APK you share
 
 ```sh

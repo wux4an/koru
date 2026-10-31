@@ -138,6 +138,19 @@ export const pages = [
     ],
   },
   {
+    slug: "web-features",
+    group: 1,
+    icon: "camera",
+    titles: [
+      "Files, location, camera and microphone",
+      "Archivos, ubicación, cámara y micrófono",
+    ],
+    descriptions: [
+      "Enable the file picker, geolocation, camera and microphone with the webFeatures option, and learn which pages get access.",
+      "Activa el selector de archivos, la geolocalización, la cámara y el micrófono con la opción webFeatures y consulta qué páginas tienen acceso.",
+    ],
+  },
+  {
     slug: "distribution",
     group: 1,
     icon: "export",
