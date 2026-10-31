@@ -27,3 +27,13 @@ jobs:
         with:
           node-version: 22
       - run: scripts/ci.sh
+        env:
+          SELFTEST_APK: out/selftest.apk
+          SELFTEST_SIGNING_KEY: ${{ secrets.SELFTEST_SIGNING_KEY }}
+      - name: Upload the self-test APK
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: selftest-apk
+          path: out/selftest.apk
+          if-no-files-found: error
+          retention-days: 30

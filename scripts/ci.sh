@@ -4,6 +4,10 @@
 #
 #   scripts/ci.sh                    # release archives go to a temporary folder
 #   RELEASE_DIR=release scripts/ci.sh
+#
+# SELFTEST_APK=path keeps the self-test APK there. SELFTEST_SIGNING_KEY (a PEM
+# signing identity) signs it with a stable key, so new builds install over old
+# ones; without it a new key is created for this build.
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -73,8 +77,18 @@ step "Self-test app (examples/selftest) builds and verifies"
 cp -R examples/selftest examples/toast "$work/"
 rm -rf "$work/selftest/.koru"
 mkdir -p "$work/selftest/.koru"
-"$koru" keygen --output "$work/selftest/.koru/signing.pem" >/dev/null
-(cd "$work/selftest" && "$koru" build --output selftest.apk >/dev/null && "$koru" verify selftest.apk >/dev/null)
+if [ -n "${SELFTEST_SIGNING_KEY:-}" ]; then
+  (umask 077 && printf '%s\n' "$SELFTEST_SIGNING_KEY" >"$work/selftest/.koru/signing.pem")
+  echo "Signing with SELFTEST_SIGNING_KEY"
+else
+  "$koru" keygen --output "$work/selftest/.koru/signing.pem" >/dev/null
+  echo "Signing with a new key for this build (set SELFTEST_SIGNING_KEY for a stable one)"
+fi
+(cd "$work/selftest" && "$koru" build --output selftest.apk && "$koru" verify selftest.apk >/dev/null)
+if [ -n "${SELFTEST_APK:-}" ]; then
+  mkdir -p "$(dirname "$SELFTEST_APK")"
+  cp "$work/selftest/selftest.apk" "$SELFTEST_APK"
+fi
 echo "ok - selftest.apk"
 
 step "Homebrew formula and Scoop manifest"

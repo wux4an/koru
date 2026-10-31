@@ -7,6 +7,17 @@ break the CLI, `koru.json` or the JavaScript API.
 
 ## [Unreleased]
 
+## [0.0.3] - 2026-10-31
+
+### Added
+
+- `examples/selftest`, a koru app that runs every automatic check of the
+  bridge, the integrated plugins, a custom plugin and the WebView when it
+  opens, and reports the result on screen, in `koru logs`
+  (`KORU_SELFTEST …`) and as `window.__KORU_SELFTEST__`.
+- Every release publishes it as `selftest.apk`, and CI keeps the APK of each
+  build as an artifact.
+
 ## [0.0.2] - 2026-10-31
 
 ### Added
@@ -55,6 +66,7 @@ recorded only on Android 11 (API 30) on an x86_64 emulator.
   checksums and build provenance attestations, and installers for
   `curl … | sh` and PowerShell.
 
-[Unreleased]: https://github.com/wux4an/koru/compare/v0.0.2...HEAD
+[Unreleased]: https://github.com/wux4an/koru/compare/v0.0.3...HEAD
+[0.0.3]: https://github.com/wux4an/koru/releases/tag/v0.0.3
 [0.0.2]: https://github.com/wux4an/koru/releases/tag/v0.0.2
 [0.0.1]: https://github.com/wux4an/koru/releases/tag/v0.0.1

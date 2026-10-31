@@ -82,7 +82,9 @@ del WebView, y deja botones para lo interactivo (compartir, permiso de
 notificaciones). Instrucciones en `examples/selftest/README.md`. En Android se
 lee el resultado con `koru logs | grep KORU_SELFTEST` o evaluando
 `window.__KORU_SELFTEST__` por CDP. `scripts/ci.sh` comprueba que el APK se
-construye y pasa `koru verify`; no se ha ejecutado aún en un dispositivo.
+construye y pasa `koru verify`; cada release lo publica como `selftest.apk` y
+cada ejecución del CI lo guarda como artefacto. No se ha ejecutado aún en un
+dispositivo.
 
 ## Formato antes de commit
 

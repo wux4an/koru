@@ -60,6 +60,8 @@ jobs:
       - name: Tests, archives and installer test
         env:
           RELEASE_DIR: release
+          SELFTEST_APK: selftest/selftest.apk
+          SELFTEST_SIGNING_KEY: ${{ secrets.SELFTEST_SIGNING_KEY }}
         run: scripts/ci.sh
       - name: Create the tag
         if: steps.tag.outputs.create == 'true'
@@ -67,16 +69,24 @@ jobs:
           git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
             tag -a "$TAG" -m "koru $TAG"
           git push origin "refs/tags/$TAG"
-      - name: Add the installers
-        run: cp scripts/install.sh scripts/install.ps1 release/
+      - name: Add the installers and the self-test APK
+        run: |
+          cp scripts/install.sh scripts/install.ps1 selftest/selftest.apk release/
+          cd release
+          sha256sum selftest.apk > selftest.apk.sha256
+          cat selftest.apk.sha256 >> SHA256SUMS
+          sha256sum -c SHA256SUMS
       - name: Attest build provenance
         uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
         with:
           subject-path: |
             release/*.tar.gz
             release/*.zip
+            release/selftest.apk
             release/SHA256SUMS
       - name: Release notes
+        env:
+          SELFTEST_SIGNING_KEY: ${{ secrets.SELFTEST_SIGNING_KEY }}
         run: |
           version="${TAG#v}"
           # The CHANGELOG section for this version, up to the next "## ".
@@ -102,7 +112,14 @@ jobs:
           sha256sum -c koru_${version}_linux_amd64.tar.gz.sha256
           gh attestation verify koru_${version}_linux_amd64.tar.gz --repo ${GITHUB_REPOSITORY}
           \`\`\`
+
+          ## Self-test app
+
+          \`selftest.apk\` is [examples/selftest](https://github.com/${GITHUB_REPOSITORY}/tree/${TAG}/examples/selftest) built with this release: install it on a phone or emulator and it runs every automatic check of the bridge, the plugins and the WebView when it opens. It is a debug build, so the WebView can be inspected with DevTools. Send the "Copy report" JSON with any failure.
           NOTES
+          if [ -z "$SELFTEST_SIGNING_KEY" ]; then
+            printf '\nEach release signs selftest.apk with a new key: uninstall the previous self-test app before installing this one.\n' >> notes.md
+          fi
           cat notes.md
       - name: Publish the release
         env:

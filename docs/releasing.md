@@ -37,13 +37,15 @@ Windows, así que no hay runners de esos sistemas.
 3. Publica por cada plataforma `koru_X.Y.Z_<os>_<arch>.tar.gz` (`.zip` en
    Windows) con su `.sha256`, un `SHA256SUMS` con todos, e `install.sh` /
    `install.ps1`.
-4. Firma la procedencia con `actions/attest-build-provenance` (Sigstore). Se
+4. Añade `selftest.apk` (la app de `examples/selftest` construida con esa
+   versión) con su `.sha256`, y lo incluye en `SHA256SUMS`.
+5. Firma la procedencia con `actions/attest-build-provenance` (Sigstore). Se
    verifica con `gh attestation verify <archivo> --repo wux4an/koru`.
-5. Crea la release con las notas de la sección de `CHANGELOG.md` (falla si no
+6. Crea la release con las notas de la sección de `CHANGELOG.md` (falla si no
    existe). Los tags con sufijo (`v1.0.0-rc.1`) salen como prerelease; el resto
    como última versión, que es la que leen los instaladores y la web.
-6. Instala la versión publicada con `install.sh` y comprueba `koru version`.
-7. Regenera `Formula/koru.rb` (Homebrew) y `bucket/koru.json` (Scoop) con
+7. Instala la versión publicada con `install.sh` y comprueba `koru version`.
+8. Regenera `Formula/koru.rb` (Homebrew) y `bucket/koru.json` (Scoop) con
    `scripts/package-managers.sh`, hace commit en `main` como
    `github-actions[bot]` e instala la fórmula con Homebrew en la misma máquina.
    Este repositorio es a la vez el tap y el bucket, sin repos aparte. Los
@@ -75,3 +77,11 @@ workflow y compara `SHA256SUMS`.
 
 El sitio publica ambos en `https://koru.js.org/install.sh` y
 `https://koru.js.org/install.ps1` al desplegarse.
+
+## Firma de selftest.apk
+
+Si existe el secret `SELFTEST_SIGNING_KEY` (una identidad PEM creada con
+`koru keygen --output selftest.pem`), CI y releases firman `selftest.apk` siempre
+con esa clave, y cada versión se instala encima de la anterior. Sin el secret,
+cada build crea una clave nueva y hay que desinstalar la app de pruebas antes de
+instalar otra; las notas de la release lo avisan.

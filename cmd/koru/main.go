@@ -20,7 +20,7 @@ import (
 // version and commit are set at release time with
 // -ldflags "-X main.version=0.0.1 -X main.commit=<sha>"; see scripts/release.sh.
 var (
-	version = "0.0.2"
+	version = "0.0.3"
 	commit  = ""
 )
 

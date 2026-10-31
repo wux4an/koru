@@ -112,3 +112,4 @@ siguen sin comprobarse. En `koru dev` no hay versión web de los plugins propios
 - Proceso documentado en `docs/releasing.md`. Sin cambios en el compilador ni en el runtime Android.
 - v0.0.2: módulo `github.com/wux4an/koru` (`go install …@latest`), fórmula de Homebrew en `Formula/` y manifiesto de Scoop en `bucket/`, generados en cada release por `scripts/package-managers.sh`. La fórmula se instala con Homebrew en el workflow; el manifiesto de Scoop solo se valida como JSON, no se instala en Windows.
 - App de autodiagnóstico `examples/selftest`: 37 comprobaciones automáticas al abrirse (puente, plugins, plugin propio y WebView) más comprobaciones interactivas. Pasa en `koru dev` con Chromium (35 pass, 2 skip esperados); el APK se construye y verifica en CI. Pendiente: ejecutarla en Android.
+- v0.0.3: `selftest.apk` publicado en cada release y como artefacto del CI (firma estable si existe el secret `SELFTEST_SIGNING_KEY`).

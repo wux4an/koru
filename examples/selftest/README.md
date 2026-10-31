@@ -10,7 +10,15 @@ screen lists every result with its time and error code.
 A second section has the checks that need you: sharing, the notification
 permission prompt, a long vibration and a long toast.
 
-## Run it
+## Download it
+
+Every [release](https://github.com/wux4an/koru/releases/latest) has
+`selftest.apk`, built from this folder with that release, and every CI run
+keeps it as the `selftest-apk` artifact. Install it with
+`adb install -r selftest.apk` or by opening the file on the phone. It is a
+debug build, so the WebView can be inspected with DevTools.
+
+## Build and run it
 
 ```sh
 cd examples/selftest
@@ -46,5 +54,5 @@ implementations and custom plugins answer `METHOD_NOT_FOUND`.
 ## Status
 
 Under `koru dev` in Chromium 153 all checks pass except the two that are
-skipped by design. The APK builds and passes `koru verify` in CI. It has **not**
+skipped by design. The APK builds, passes `koru verify` in CI and ships with every release. It has **not**
 run on an Android device yet: that is what this app is for.
