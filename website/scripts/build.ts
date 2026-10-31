@@ -565,6 +565,28 @@ export async function build(
       2,
     ),
   );
+  // Version our own assets so browsers never pair new pages with cached scripts.
+  const versions: Record<string, string> = {};
+  for (const name of [
+    "site.js",
+    "theme.js",
+    "theme.css",
+    "landing.css",
+    "landing.js",
+  ])
+    versions[name] = createHash("sha256")
+      .update(await readFile(resolve(assets, name)))
+      .digest("hex")
+      .slice(0, 10);
+  for (const file of await listFiles(dist)) {
+    if (!file.endsWith(".html") || file.includes("/original/")) continue;
+    const html = await readFile(file, "utf8");
+    const versioned = html.replace(
+      /(assets\/(site\.js|theme\.js|theme\.css|landing\.css|landing\.js))"/g,
+      (_, path, name) => `${path}?v=${versions[name]}"`,
+    );
+    if (versioned !== html) await writeFile(file, versioned);
+  }
   console.log(
     `Built ${pages.length * locales.length} localized pages and ${originals.length} original files in website/${relative(root, dist)}. ${config.production ? "Production SEO enabled." : "Local preview is noindex; set SITE_URL for production SEO."}`,
   );
