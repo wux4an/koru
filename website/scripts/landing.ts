@@ -323,7 +323,7 @@ export function landing(
 <link rel="alternate" type="text/plain" href="${new URL(llmsRoute(base, lang), config.url).href}" title="llms.txt">
 <link rel="alternate" hreflang="en" href="${new URL(landingRoute(base, "en"), config.url).href}">
 <link rel="alternate" hreflang="es" href="${new URL(landingRoute(base, "es"), config.url).href}">
-<link rel="alternate" hreflang="x-default" href="${new URL(base, config.url).href}">
+<link rel="alternate" hreflang="x-default" href="${new URL(landingRoute(base, "en"), config.url).href}">
 ${socialMeta({ config, lang, title: t.title, description: t.description, url: canonical, type: "website" })}${verificationMeta(process.env)}
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" as="font" type="font/woff2" href="${base}assets/fonts/nunito-latin-wght-normal.woff2" crossorigin>

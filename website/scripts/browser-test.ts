@@ -932,33 +932,25 @@ try {
     },
   );
   await check(
-    "domain root lists both languages, never redirects by browser language, highlights the matching one, and the 404 page is accessible",
+    "domain root redirects to /en/ (with fallback links without JavaScript) and the 404 page is accessible",
     async () => {
       const plain = await browser.newContext({ javaScriptEnabled: false });
       const reader = await plain.newPage();
-      await reader.goto(origin + "/");
-      assert.equal(await reader.locator("h1").count(), 1);
-      for (const href of ["/en/", "/es/", "/docs/en/", "/docs/es/"])
-        assert(
-          await reader.locator(`main a[href="${href}"]`).isVisible(),
-          `Root lacks a visible link to ${href}`,
-        );
+      await reader.goto(origin + "/", { waitUntil: "commit" });
+      await reader.waitForURL(`${origin}/en/`);
       await plain.close();
-      for (const [locale, lang] of [
-        ["es-ES", "es"],
-        ["en-US", "en"],
-      ] as const) {
+      const raw = await fetch(origin + "/").then((r) => r.text());
+      for (const href of ["/en/", "/es/"])
+        assert(
+          raw.includes(`<a href="${href}"`),
+          `Root lacks a link to ${href}`,
+        );
+      for (const locale of ["es-ES", "en-US"]) {
         const context = await browser.newContext({ locale });
         const visitor = await context.newPage();
         await visitor.goto(origin + "/");
-        await visitor.waitForTimeout(300);
-        assert.equal(new URL(visitor.url()).pathname, "/");
-        assert(
-          await visitor
-            .locator(`main a.button-primary[hreflang="${lang}"]`)
-            .isVisible(),
-          `Root does not highlight ${lang}`,
-        );
+        await visitor.waitForURL(`${origin}/en/`);
+        assert.equal(new URL(visitor.url()).pathname, "/en/");
         await context.close();
       }
       await page.goto(origin + "/no-such-page/");

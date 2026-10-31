@@ -76,7 +76,7 @@ The checkout uses `fetch-depth: 0` so the sitemap's `lastmod` reflects real comm
 
 Manual steps that cannot be automated:
 
-1. **Google Search Console**: add a "URL prefix" property for `https://koru.js.org/` (js.org does not let you create DNS TXT records). Choose the HTML tag method, copy the `content` value into `GOOGLE_SITE_VERIFICATION`, rerun the workflow, then verify. Under Sitemaps submit `sitemap.xml`; use URL inspection to request indexing of `/`, `/en/` and `/es/`. Check the Pages and International reports over the following weeks.
+1. **Google Search Console**: add a "URL prefix" property for `https://koru.js.org/` (js.org does not let you create DNS TXT records). Choose the HTML tag method, copy the `content` value into `GOOGLE_SITE_VERIFICATION`, rerun the workflow, then verify. Under Sitemaps submit `sitemap.xml`; use URL inspection to request indexing of `/en/` and `/es/` (`/` only redirects to `/en/`; the verification meta tags are emitted on the landings). Check the Pages and International reports over the following weeks.
 2. **Bing Webmaster Tools**: import the site from Search Console, or verify with the meta tag (`BING_SITE_VERIFICATION`). Submit `sitemap.xml`. This also covers DuckDuckGo.
 3. **IndexNow**: generate a key (for example `openssl rand -hex 16`), store it as the `INDEXNOW_KEY` secret and rerun the workflow. The `notify` job submits the sitemap after each deployment to Bing, Yandex, Naver and Seznam; a failure only warns.
 4. **Yandex Webmaster** (optional): verify with `YANDEX_VERIFICATION` and submit the sitemap.

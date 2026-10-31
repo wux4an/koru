@@ -298,53 +298,18 @@ const pageStyles = (base: string) =>
 function simpleHeader(base: string) {
   return `<header class="site-header landing-header"><a class="brand" href="${base}" aria-label="koru"><i class="ph-duotone ph-spiral" aria-hidden="true"></i><span>koru</span></a></header>`;
 }
-// The domain root: an indexable x-default page that offers both languages.
-// It never redirects by language (Google advises against automatic locale
-// redirects and crawlers fetch with en-US): JavaScript only highlights the link
-// that matches the browser language, and every visitor gets the same content.
+// The domain root redirects to the English landing page, which is the
+// canonical x-default. The links keep it usable without JavaScript.
 function rootPage(config: ReturnType<typeof siteConfig>) {
-  const base = config.base;
-  const title = "koru: Android apps with HTML, CSS and JS";
-  const description =
-    "koru turns HTML, CSS and JavaScript into signed Android APKs with one Go binary. Docs in English and Español.";
-  const rootURL = new URL(base, config.url).href;
-  const alternates = [
-    ...locales.map(
-      (lang) =>
-        `<link rel="alternate" hreflang="${lang}" href="${new URL(landingRoute(base, lang), config.url).href}">`,
-    ),
-    `<link rel="alternate" hreflang="x-default" href="${rootURL}">`,
-  ].join("\n");
-  const structured = jsonLD({
-    "@context": "https://schema.org",
-    "@graph": siteNodes(config),
-  });
-  const link = (href: string, label: string, lang: Locale) =>
-    `<a class="button" href="${href}" lang="${lang}" hreflang="${lang}">${label}</a>`;
+  const target = landingRoute(config.base, "en");
+  const targetURL = new URL(target, config.url).href;
   return `<!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8">${viewport}
-<title>${escape(title)}</title><meta name="description" content="${escape(description)}">
-<meta name="theme-color" content="#F7F9FD"><meta name="robots" content="${config.production ? "index,follow" : "noindex,follow"}">
-<link rel="canonical" href="${rootURL}">
-${alternates}
-${socialMeta({ config, lang: "en", title, description, url: rootURL, type: "website" })}${verificationMeta(process.env)}
-<link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
-${pageStyles(base)}
-<script type="application/ld+json">${structured}</script>
-<script>document.addEventListener("DOMContentLoaded",function(){var l=(navigator.language||"").toLowerCase().indexOf("es")===0?"es":"en";var a=document.querySelector('.landing-actions a[hreflang="'+l+'"]');if(a)a.classList.add("button-primary")})</script>
-</head><body class="landing landing-root">
-${simpleHeader(base)}
-<main id="main" tabindex="-1"><section class="landing-hero">
-<div class="landing-hero-copy">
-<p class="eyebrow">Experimental · open source · MIT</p>
-<h1>koru: your web app, on Android</h1>
-<p class="landing-lead">Create, preview and ship Android apps with HTML, CSS and JavaScript. One Go binary: no Java, no Gradle, no Android SDK.</p>
-<p class="landing-lead" lang="es">Crea, previsualiza y publica apps Android con HTML, CSS y JavaScript. Un solo binario de Go: sin Java, sin Gradle, sin SDK de Android.</p>
-<div class="landing-actions">${link(landingRoute(base, "en"), "English", "en")}${link(landingRoute(base, "es"), "Español", "es")}</div>
-<div class="landing-actions">${link(route(base, "en", "overview"), "Documentation", "en")}${link(route(base, "es", "overview"), "Documentación", "es")}</div>
-</div></section></main>
-</body></html>`;
+<html lang="en"><head><meta charset="utf-8">${viewport}
+<title>koru</title>
+<link rel="canonical" href="${targetURL}">
+<meta http-equiv="refresh" content="0;url=${target}">
+<script>location.replace(${JSON.stringify(target)})</script>
+</head><body><p><a href="${target}">koru</a> · <a href="${landingRoute(config.base, "es")}" lang="es">Español</a></p></body></html>`;
 }
 function notFoundPage(config: ReturnType<typeof siteConfig>) {
   const base = config.base;
@@ -645,22 +610,16 @@ export async function build(
       route(config.base, "es", "overview") +
       ")",
   );
-  const rootURL = new URL(config.base, config.url).href;
   const landingURL = (lang: Locale) =>
     new URL(landingRoute(config.base, lang), config.url).href;
   const docURL = (lang: Locale, slug: string) =>
     new URL(route(config.base, lang, slug), config.url).href;
   const landingAlternates = (): [string, string][] => [
     ...locales.map((lang) => [lang, landingURL(lang)] as [string, string]),
-    ["x-default", rootURL],
+    ["x-default", landingURL("en")],
   ];
   const landingModified = lastModified(["website/scripts/landing.ts"]);
   const entries: SitemapEntry[] = [
-    {
-      loc: rootURL,
-      lastmod: lastModified(["website/scripts/build.ts"]),
-      alternates: landingAlternates(),
-    },
     ...locales.map((lang) => ({
       loc: landingURL(lang),
       lastmod: landingModified,

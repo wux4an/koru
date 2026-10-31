@@ -83,7 +83,7 @@ describe("localized, crawlable documentation", () => {
       "utf8",
     );
     expect(sitemap.match(/<loc>/g)?.length).toBe(
-      pages.length * locales.length + locales.length + 1,
+      pages.length * locales.length + locales.length,
     );
     expect(sitemap).toContain(`<loc>${canonical}en/</loc>`);
     expect(sitemap).toContain(`<loc>${canonical}es/</loc>`);
@@ -92,6 +92,8 @@ describe("localized, crawlable documentation", () => {
         expect(sitemap).toContain(
           new URL(route("/handbook/", lang, page.slug), canonical).href,
         );
+    // The root only redirects to /en/, so it is not listed.
+    expect(sitemap).not.toContain(`<loc>${canonical}</loc>`);
     expect(sitemap).not.toContain("/original/");
     // Viewers carry noindex, so crawlers must be allowed to read it.
     const robots = await readFile(resolve(root, output, "robots.txt"), "utf8");
@@ -179,8 +181,9 @@ describe("deployment configuration and broken input", () => {
       "utf8",
     );
     const icon = await readFile(resolve(root, domainOutput, "favicon.ico"));
-    // The domain root is a real page and never redirects by language.
-    expect(index).not.toContain("http-equiv");
+    // The domain root redirects to the English landing page.
+    expect(index).toContain('content="0;url=/en/"');
+    expect(index).toContain('rel="canonical" href="https://koru.js.org/en/"');
     expect(index).toContain('href="/en/"');
     expect(index).toContain('href="/es/"');
     const landingEN = await readFile(
@@ -191,6 +194,9 @@ describe("deployment configuration and broken input", () => {
       'rel="canonical" href="https://koru.js.org/en/"',
     );
     expect(landingEN).toContain('hreflang="es" href="https://koru.js.org/es/"');
+    expect(landingEN).toContain(
+      'hreflang="x-default" href="https://koru.js.org/en/"',
+    );
     expect(landingEN.match(/<h1\b/g)?.length).toBe(1);
     expect(landingEN).toContain('href="/docs/en/getting-started/"');
     const spanish = await readFile(
@@ -374,7 +380,7 @@ describe("SEO lint on the production build", () => {
       titles.add(title);
       descriptions.add(description);
     }
-    expect(titles.size).toBe(pages.length * locales.length + 3);
+    expect(titles.size).toBe(pages.length * locales.length + locales.length);
   });
   test("indexable pages have one h1 and a self-referential canonical", () => {
     for (const page of indexable()) {
@@ -399,8 +405,8 @@ describe("SEO lint on the production build", () => {
         const target = pagesByURL.get(href);
         expect(target, `${page.url} -> ${href}`).toBeDefined();
         expect(target!.robots).not.toContain("noindex");
-        // The root is a language selector, not a translation of either page.
-        if (lang === "x-default" || page.url === site) continue;
+        // x-default points at the English page, which lists itself back as en.
+        if (lang === "x-default") continue;
         // The target must list this page back under its own language.
         const back = [
           ...target!.html.matchAll(
@@ -412,14 +418,9 @@ describe("SEO lint on the production build", () => {
         );
       }
     }
-    expect(
-      pagesByURL
-        .get(site)!
-        .html.includes('hreflang="x-default" href="https://koru.js.org/"'),
-    ).toBe(true);
     for (const lang of locales)
       expect(pagesByURL.get(`${site}${lang}/`)!.html).toContain(
-        'hreflang="x-default" href="https://koru.js.org/"',
+        'hreflang="x-default" href="https://koru.js.org/en/"',
       );
   });
   test("every indexable page has an absolute, existing og:image and twitter card", async () => {
@@ -496,11 +497,11 @@ describe("SEO lint on the production build", () => {
       expect(entry.match(/<xhtml:link /g)?.length, loc).toBe(3);
     }
     for (const page of legacy)
-      expect(sitemap).not.toContain(`<loc>${page.url}`);
+      expect(sitemap).not.toContain(`<loc>${page.url}</loc>`);
     expect(sitemap).not.toContain("<loc>https://koru.js.org/original/");
   });
   test("legacy URLs redirect to their canonical page and are not noindex", () => {
-    expect(legacy.length).toBe((pages.length - 1) * locales.length + 1);
+    expect(legacy.length).toBe((pages.length - 1) * locales.length + 2);
     for (const page of legacy) {
       expect(page.robots, page.url).toBe("");
       const target = page.canonical!;
@@ -515,14 +516,18 @@ describe("SEO lint on the production build", () => {
     }
     expect(legacy.map((page) => page.url)).toContain(`${site}es/inicio/`);
   });
-  test("the root is an indexable x-default page with visible language links", () => {
-    const root_ = pagesByURL.get(site)!;
-    expect(root_.robots).toBe("index,follow");
-    expect(root_.html).not.toContain("http-equiv");
-    for (const href of ["/en/", "/es/", "/docs/en/", "/docs/es/"])
-      expect(root_.html).toContain(`<a class="button" href="${href}"`);
-    expect(root_.html).not.toContain("location.replace");
-    expect(root_.html).not.toContain("location.href");
+  test("the root redirects to /en/, is not indexed as a page and keeps fallback links", () => {
+    const rootPage = legacy.find((page) => page.url === site)!;
+    expect(rootPage).toBeDefined();
+    expect(rootPage.canonical).toBe(`${site}en/`);
+    expect(rootPage.html).toContain(
+      'http-equiv="refresh" content="0;url=/en/"',
+    );
+    expect(rootPage.html).toContain('location.replace("/en/")');
+    expect(rootPage.html).toContain('<a href="/en/">');
+    expect(rootPage.html).toContain('<a href="/es/"');
+    expect(rootPage.robots).toBe("");
+    expect(pagesByURL.has(site)).toBe(false);
   });
   test("verification tags, IndexNow key and robots follow the environment", async () => {
     const env = process.env;
@@ -539,7 +544,7 @@ describe("SEO lint on the production build", () => {
       env.INDEXNOW_KEY = "abcdef1234567890";
       await build({ siteURL: site, outDir: "test-results/seo-verified" });
       const dist = resolve(root, "test-results/seo-verified");
-      for (const file of ["index.html", "en/index.html", "es/index.html"]) {
+      for (const file of ["en/index.html", "es/index.html"]) {
         const html = await readFile(resolve(dist, file), "utf8");
         expect(html).toContain(
           'name="google-site-verification" content="g-token"',
@@ -570,7 +575,7 @@ describe("SEO lint on the production build", () => {
         if (value === undefined) delete env[key];
         else env[key] = value;
     }
-    const plain = await readFile(resolve(root, out, "index.html"), "utf8");
+    const plain = await readFile(resolve(root, out, "en/index.html"), "utf8");
     expect(plain).not.toContain("site-verification");
   });
 });
