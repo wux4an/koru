@@ -299,14 +299,15 @@ function simpleHeader(base: string) {
   return `<header class="site-header landing-header"><a class="brand" href="${base}" aria-label="koru"><i class="ph-duotone ph-spiral" aria-hidden="true"></i><span>koru</span></a></header>`;
 }
 // The domain root redirects to the English landing page, which is the
-// canonical x-default. The links keep it usable without JavaScript.
+// canonical x-default. The links keep it usable without JavaScript, and the
+// verification tags let Search Console verify the https://koru.js.org/ prefix.
 function rootPage(config: ReturnType<typeof siteConfig>) {
   const target = landingRoute(config.base, "en");
   const targetURL = new URL(target, config.url).href;
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8">${viewport}
 <title>koru</title>
-<link rel="canonical" href="${targetURL}">
+<link rel="canonical" href="${targetURL}">${verificationMeta(process.env)}
 <meta http-equiv="refresh" content="0;url=${target}">
 <script>location.replace(${JSON.stringify(target)})</script>
 </head><body><p><a href="${target}">koru</a> · <a href="${landingRoute(config.base, "es")}" lang="es">Español</a></p></body></html>`;
