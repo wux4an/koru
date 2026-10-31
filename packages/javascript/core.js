@@ -5,13 +5,25 @@
   "use strict";
   if (typeof window === "undefined" || window.Koru) return;
   const origin = "https://app.koru.invalid";
-  const native = location.origin === origin;
+  const local = location.origin === origin;
+  // A remote page inside a koru app with server.bridge: the app marks its user
+  // agent and, when the page finishes loading, sends either the native channel
+  // (bridge origins) or "koru-none" (any other page).
+  const embedded =
+    !local &&
+    window === window.top &&
+    / KoruApp\/1(?:\s|$)/.test(String((window.navigator || {}).userAgent || ""));
+  let native = local;
   const pending = new Map();
   let channel = null,
     nextId = 0;
-  let readyResolve;
+  let readyResolve,
+    settled = false;
   const ready = new Promise((resolve) => {
-    readyResolve = resolve;
+    readyResolve = () => {
+      settled = true;
+      resolve();
+    };
   });
   function fail(code, message) {
     const error = new Error(message);
@@ -28,7 +40,18 @@
   }
   window.addEventListener("message", (event) => {
     if (
-      location.origin !== origin ||
+      embedded &&
+      !channel &&
+      event.isTrusted &&
+      event.source === null &&
+      event.data === "koru-none" &&
+      event.ports.length === 0
+    ) {
+      readyResolve();
+      return;
+    }
+    if (
+      !(local || embedded) ||
       window !== window.top ||
       !event.isTrusted ||
       event.source !== null ||
@@ -41,6 +64,7 @@
       rejectAll("CHANNEL_REPLACED", "Native channel replaced");
     }
     channel = event.ports[0];
+    native = true;
     channel.onmessage = (event) => {
       if (typeof event.data !== "string" || event.data.length > 131072) return;
       let reply;
@@ -68,7 +92,7 @@
     channel.start();
     readyResolve();
   });
-  if (!native) readyResolve();
+  if (!local && !embedded) readyResolve();
   const storageKey = /^[A-Za-z0-9_.:-]{1,128}$/;
   function webStore() {
     try {
@@ -198,7 +222,7 @@
   }
   const Koru = Object.freeze({
     ready,
-    platform: native ? "android" : "web",
+    platform: local || embedded ? "android" : "web",
     invoke(method, params = {}, options = {}) {
       if (
         typeof method !== "string" ||
@@ -229,7 +253,12 @@
       }
       if (payload.length > 65535)
         return Promise.reject(fail("INVALID_REQUEST", "Request too large"));
-      if (!native) return webInvoke(method, params);
+      if (!native) {
+        // An embedded page learns whether it has the bridge when it loads.
+        if (embedded && !settled)
+          return ready.then(() => Koru.invoke(method, params, options));
+        return webInvoke(method, params);
+      }
       return new Promise((resolve, reject) => {
         const cancel = () => {
           const entry = pending.get(id);

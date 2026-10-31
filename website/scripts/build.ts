@@ -599,6 +599,19 @@ export async function build(
       );
     await cp(source, resolve(dist, name));
   }
+  // The self-test app opens this page to check navigation and the remote
+  // bridge on a device; it ships the core.js of this commit.
+  const remote = resolve(dist, "selftest/remote");
+  await mkdir(remote, { recursive: true });
+  for (const name of ["index.html", "remote.js"])
+    await cp(
+      resolve(repo, "examples/selftest/remote", name),
+      resolve(remote, name),
+    );
+  await cp(
+    resolve(repo, "packages/javascript/core.js"),
+    resolve(remote, "core.js"),
+  );
   await writeFile(
     resolve(dist, "README.md"),
     await readFile(resolve(dist, "docs/en/README.md")),

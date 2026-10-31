@@ -8,7 +8,25 @@
   "minSdk": 26,
   "targetSdk": 36,
   "permissions": [],
-  "plugins": ["device", "storage", "app", "vibration", "share", "notifications", "toast"],
-  "pluginManifests": ["../toast/plugin.json"],
-  "signingKey": ".koru/signing.pem"
+  "plugins": [
+    "device",
+    "storage",
+    "app",
+    "vibration",
+    "share",
+    "notifications",
+    "toast"
+  ],
+  "pluginManifests": [
+    "../toast/plugin.json"
+  ],
+  "signingKey": ".koru/signing.pem",
+  "server": {
+    "allowNavigation": [
+      "koru.js.org"
+    ],
+    "bridge": [
+      "https://koru.js.org"
+    ]
+  }
 }

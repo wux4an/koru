@@ -194,3 +194,45 @@ test("android origin reports the android platform", () => {
   const { ctx } = setup();
   assert.equal(ctx.Koru.platform, "android");
 });
+test("remote page in a bridged app waits for the native channel", async () => {
+  const ua = "Mozilla/5.0 (Linux; Android 14) Chrome/130 Mobile KoruApp/1";
+  const { ctx, listeners } = setup("https://example.com", { navigator: { userAgent: ua } });
+  assert.equal(ctx.Koru.platform, "android");
+  let settled = false;
+  ctx.Koru.ready.then(() => (settled = true));
+  const call = ctx.Koru.invoke("device.info", {}, { timeout: 1000 });
+  await new Promise((r) => setTimeout(r, 10));
+  assert.equal(settled, false, "ready waits for the app's message");
+  const { port1, port2 } = new MessageChannel();
+  port2.on("message", (raw) => {
+    const request = JSON.parse(raw);
+    port2.postMessage(JSON.stringify({ id: request.id, result: { model: "Pixel", sdk: 34 } }));
+  });
+  listeners.message({ isTrusted: true, source: null, data: "koru-ready", ports: [port1] });
+  assert.equal((await call).sdk, 34);
+  port1.close();
+  port2.close();
+});
+test("remote page told koru-none uses web implementations", async () => {
+  const ua = "Mozilla/5.0 Chrome/130 KoruApp/1";
+  const { ctx, listeners } = setup("https://other.example", {
+    navigator: { userAgent: ua, vendor: "Test" },
+  });
+  const call = ctx.Koru.invoke("device.info");
+  // A forged message from the page itself is ignored.
+  listeners.message({ isTrusted: false, source: null, data: "koru-none", ports: [] });
+  listeners.message({ isTrusted: true, source: {}, data: "koru-none", ports: [] });
+  listeners.message({ isTrusted: true, source: null, data: "koru-none", ports: [] });
+  await ctx.Koru.ready;
+  assert.equal((await call).sdk, 0);
+  assert.equal(ctx.Koru.platform, "android");
+});
+test("remote page without the marker never takes a channel", async () => {
+  const { ctx, listeners } = setup("https://example.com", { navigator: { userAgent: "Chrome/130" } });
+  const { port1, port2 } = new MessageChannel();
+  listeners.message({ isTrusted: true, source: null, data: "koru-ready", ports: [port1] });
+  assert.equal(ctx.Koru.platform, "web");
+  assert.equal((await ctx.Koru.invoke("device.info")).sdk, 0);
+  port1.close();
+  port2.close();
+});

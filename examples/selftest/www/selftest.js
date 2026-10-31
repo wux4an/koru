@@ -169,6 +169,13 @@ group("Custom plugin (toast)", () => {
   });
 });
 
+group("Navigation (server)", () => {
+  test("user agent carries the bridge marker", () => {
+    if (!native) skip("the marker is added by the APK");
+    assert(/ KoruApp\/1(?:\s|$)/.test(navigator.userAgent), "no KoruApp/1 in the user agent");
+  });
+});
+
 group("WebView", () => {
   test("secure context", () => {
     if (native) assert(window.isSecureContext, "the APK origin is not a secure context");

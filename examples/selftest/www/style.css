@@ -144,3 +144,13 @@ button:disabled {
   border: 1px solid var(--line);
   margin-top: 24px;
 }
+.links {
+  padding-left: 18px;
+  color: var(--muted);
+}
+.links li {
+  margin: 6px 0;
+}
+.links a {
+  color: var(--accent);
+}

@@ -158,6 +158,34 @@
         }
       }
     },
+    "server": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "description": "Remote content: open a website as the app, or mix remote pages with webDir. Adds the INTERNET permission.",
+      "properties": {
+        "url": {
+          "type": "string",
+          "pattern": "^https://",
+          "maxLength": 2048,
+          "description": "Start page instead of webDir/index.html, for example https://example.com/app."
+        },
+        "allowNavigation": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 32,
+          "description": "Hosts that open inside the app, such as example.com or *.example.com (subdomains only). The url host is included. Any other link opens in the system browser or app.",
+          "items": { "type": "string", "maxLength": 253, "pattern": "^(\\*\\.)?[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$" }
+        },
+        "bridge": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 32,
+          "description": "Exact https origins whose pages get the koru JavaScript API, such as https://example.com. Each must load in the app (url or allowNavigation). Those pages load core.js themselves (koru js).",
+          "items": { "type": "string", "pattern": "^https://[^/?#*]+/?$" }
+        }
+      }
+    },
     "nativeLibraries": {
       "type": "object",
       "description": "Prebuilt JNI libraries per ABI, for example {\"arm64-v8a\": [\"libs/libfoo.so\"]}.",

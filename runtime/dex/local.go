@@ -142,7 +142,7 @@ func Runtime(c config.Config, assets []Asset, custom ...plugins.Descriptor) dex.
 					call(extra, "invoke-virtual", "Landroid/webkit/ServiceWorkerWebSettings;", name, "(Z)V", 2, 1)
 				}
 				block := int32(1)
-				if c.HasPermission("android.permission.INTERNET") {
+				if c.NetworkAccess() {
 					block = 0
 				}
 				extra.Const(1, block)
@@ -154,6 +154,9 @@ func Runtime(c config.Config, assets []Asset, custom ...plugins.Descriptor) dex.
 		}
 	}
 	p.Classes = append(p.Classes, localClient(c, assets), portCallback(), dispatcher(c, custom), serviceWorkerClient())
+	if c.Server != nil {
+		applyServer(c, &p)
+	}
 	for _, plugin := range custom {
 		p.Classes = append(p.Classes, plugin.Classes...)
 	}
@@ -209,7 +212,7 @@ func localClient(c config.Config, assets []Asset) dex.Class {
 	call(b, "invoke-static", client, "allowed", "("+uri+")Z", 0)
 	scalar(b, 1)
 	branch(b, "if-nez", "local", 1)
-	if c.HasPermission("android.permission.INTERNET") {
+	if c.NetworkAccess() {
 		b.Const(0, 0)
 		retObject(b, 0)
 	} else {

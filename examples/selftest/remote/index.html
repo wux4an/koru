@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="noindex" />
+    <title>koru self-test · remote page</title>
+    <style>
+      body { margin: 0; font: 16px/1.5 system-ui, sans-serif; }
+      main { max-width: 640px; margin: 0 auto; padding: 16px; }
+      li { margin: 6px 0; }
+      .pass { color: #137a3a; } .fail { color: #b3261e; }
+      @media (prefers-color-scheme: dark) { .pass { color: #5fd38a; } .fail { color: #ff8a80; } }
+      code { overflow-wrap: anywhere; }
+    </style>
+    <script src="./core.js"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Remote page</h1>
+      <p>This page is served by <code>https://koru.js.org</code>. Inside the koru self-test app it opens in the app (<code>server.allowNavigation</code>) and gets the koru API (<code>server.bridge</code>).</p>
+      <p id="summary" role="status">Running…</p>
+      <ul id="results"></ul>
+      <p><a href="https://app.koru.invalid/">Back to the self-test app</a></p>
+    </main>
+    <script type="module" src="./remote.js"></script>
+  </body>
+</html>

@@ -133,3 +133,59 @@ func TestLoadAcceptsSchemaAndExplainsErrors(t *testing.T) {
 		t.Fatalf("unknown field error = %v", e)
 	}
 }
+
+func TestServerValidation(t *testing.T) {
+	ok := []Server{
+		{URL: "https://example.com"},
+		{URL: "https://example.com/app?x=1"},
+		{AllowNavigation: []string{"example.com", "*.example.org"}},
+		{URL: "https://example.com/", Bridge: []string{"https://example.com"}},
+		{AllowNavigation: []string{"*.example.org"}, Bridge: []string{"https://app.example.org/"}},
+	}
+	for _, s := range ok {
+		c := Default()
+		c.Server = &s
+		if e := c.Validate(); e != nil {
+			t.Errorf("%+v: %v", s, e)
+		}
+	}
+	bad := map[string]Server{
+		"empty":                {},
+		"http url":             {URL: "http://example.com"},
+		"relative url":         {URL: "/app"},
+		"userinfo":             {URL: "https://user@example.com"},
+		"app origin":           {URL: "https://app.koru.invalid/"},
+		"host with scheme":     {AllowNavigation: []string{"https://example.com"}},
+		"bare tld":             {AllowNavigation: []string{"com"}},
+		"duplicate host":       {AllowNavigation: []string{"example.com", "example.com"}},
+		"bridge never loads":   {AllowNavigation: []string{"example.com"}, Bridge: []string{"https://other.com"}},
+		"bridge wildcard":      {AllowNavigation: []string{"*.example.com"}, Bridge: []string{"https://*.example.com"}},
+		"bridge with path":     {URL: "https://example.com", Bridge: []string{"https://example.com/app"}},
+		"bridge http":          {URL: "https://example.com", Bridge: []string{"http://example.com"}},
+		"bridge apex of *.org": {AllowNavigation: []string{"*.example.org"}, Bridge: []string{"https://example.org"}},
+	}
+	for name, s := range bad {
+		c := Default()
+		c.Server = &s
+		if e := c.Validate(); e == nil {
+			t.Errorf("%s: accepted %+v", name, s)
+		}
+	}
+	c := Default()
+	c.Server = &Server{URL: "https://example.com"}
+	if !slices.Contains(c.EffectivePermissions(), "android.permission.INTERNET") || !c.NetworkAccess() {
+		t.Fatal("server must imply INTERNET")
+	}
+	if Default().NetworkAccess() {
+		t.Fatal("default config has network access")
+	}
+}
+
+func TestHostAllowed(t *testing.T) {
+	hosts := []string{"example.com", "*.example.org"}
+	for host, want := range map[string]bool{"example.com": true, "a.example.com": false, "app.example.org": true, "example.org": false, "badexample.org": false, "x.y.example.org": true} {
+		if got := HostAllowed(hosts, host); got != want {
+			t.Errorf("%s: %v", host, got)
+		}
+	}
+}
