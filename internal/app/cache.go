@@ -5,7 +5,9 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/wux4an/koru/internal/config"
+	"github.com/wux4an/koru/internal/dex/verify"
 	"github.com/wux4an/koru/pkg/dex"
 	"github.com/wux4an/koru/plugins"
 	runtimedex "github.com/wux4an/koru/runtime/dex"
@@ -96,6 +98,11 @@ func runtimeDEX(project string, c config.Config, assets []runtimedex.Asset, cust
 			inject := []dex.Instruction{{Op: "const/4", Regs: []dex.Register{2}, Literal: debug}, {Op: "invoke-static", Regs: []dex.Register{2}, Method: &dex.MethodRef{Owner: "Landroid/webkit/WebView;", Name: "setWebContentsDebuggingEnabled", Descriptor: "(Z)V"}}}
 			m.Code.Instructions = append(m.Code.Instructions[:1], append(inject, m.Code.Instructions[1:]...)...)
 		}
+	}
+	// ART rejects a class with an ill-typed method when it loads, which closes
+	// the app on launch; refuse to build such an APK, custom plugins included.
+	if e := verify.Program(program); e != nil {
+		return nil, fmt.Errorf("runtime bytecode does not verify: %w", e)
 	}
 	data, e := dex.Build(program)
 	if e != nil {
